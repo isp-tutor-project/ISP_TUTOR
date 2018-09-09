@@ -1,0 +1,4 @@
+1:18.644 	Desktop
+1:26.440    PixelC
+1:37.096	Samsung
+

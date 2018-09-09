@@ -1,0 +1,2396 @@
+{
+	"type":"graph",
+	"history":"volatile",
+	"name":"TED Final",
+	"version":"0.1.0",
+	"namespace":"TED Final",
+
+
+	"CNodes":
+	{	
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CNodes  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CNodes  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+
+
+
+		"COMMENT":" ************ NOTE: PreEnter / PreExit constraints execute within the <CWOZRoot.Tutor.SnavPanel> context ********************** ",
+		"COMMENT":" ************ We cannot access Static members from within DEval ********************** ",
+
+
+					
+					
+		"_nav":{"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Navigation Components preload node - used to force nav scene creation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%***",
+				"type":"module",
+				"name":"base",
+				"edges":
+						[
+						]
+				},
+			
+		"root":{"COMMENT":"Standard Start Screen",
+				"type":"module", 
+				"name":"start",
+				"edges":
+						[													
+							{"constraint":"DMO_ALL","edge":"TED_INTRO"},
+							{"constraint":"DMO_INT","edge":"LESSON_INTRO"},
+							{"constraint":"DMO_SUM","edge":"LESSON_SUMMARY"},
+														
+							{"constraint":"DMO_PRE","edge":"RMP_PRE_Q1.0"},
+							
+							{"constraint":"DMO_SBS"  ,"edge":"SBS_R1_Q1.0"},
+							{"constraint":"DMO_SBSQ" ,"edge":"SBS_R0_Q1.0Q"},
+							
+							{"constraint":"DMO_EIA","edge":"EI_A1.0"},
+							{"constraint":"DMO_EIB","edge":"EI_B1.0"},
+							{"constraint":"DMO_EIC","edge":"EI_C1.0"},
+							
+							{"constraint":"DMO_PST","edge":"RMP_PST_Q1.0"}							
+						]
+				},
+
+
+		"TED_INTRO":{"COMMENT":"TED Introduction",
+				 "type":"module", 
+				 "name":"TED_INTRO",
+				 "preenter":"",
+				 "preexit" :"",					
+				 "edges":
+						[
+							{"constraint":"","edge":"LESSON_INTRO"}
+						]
+				},
+									
+				
+		"LESSON_INTRO":{"COMMENT":"Ramps Introduction",
+				 "type":"module", 
+				 "name":"LESSON_INTRO",
+				 "preenter":"",
+				 "preexit" :"",					
+				 "edges":
+						[
+							{"constraint":"","edge":"RMP_PRE_Q1.0"}
+						]
+				},
+					
+		"RMP_PRE_Q1.0":{"COMMENT":"Ramps Pretest Q1.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PRE_Q1.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PRE_Q1.1"}
+							]
+					},
+					
+		"RMP_PRE_Q1.1":{ "COMMENT":"Ramps Pretest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q1.1",
+					"edges":
+							[
+								{"constraint":"RMPPRE_B_F","edge":"RMP_PRE_Q1.5"},
+								{"constraint":"","edge":"RMP_PRE_Q1.2"}
+							]
+					},
+					
+		"RMP_PRE_Q1.2":{ "COMMENT":"Ramps Pretest - DesignC Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q1.2",
+					"edges":
+							[
+								{"constraint":"RMPPRE_C_DA","edge":"RMP_PRE_Q1.3.0"},
+								{"constraint":"RMPPRE_C_DB","edge":"RMP_PRE_Q1.3.1"},
+								{"constraint":"RMPPRE_C_DC","edge":"RMP_PRE_Q1.3.2"},
+								{"constraint":"RMPPRE_C_F","edge":"RMP_PRE_Q1.5"},
+								{"constraint":"","edge":"RMP_PRE_Q2.0"}
+							]
+					},
+					
+		"RMP_PRE_Q1.3.0":{ "COMMENT":"Ramps Pretest - DesignDA Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q1.3.0",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q1.4"},
+								{"constraint":"","edge":"RMP_PRE_Q2.0"}
+							]
+					},
+		"RMP_PRE_Q1.3.1":{ "COMMENT":"Ramps Pretest - DesignDB Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q1.3.1",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q1.4"},
+								{"constraint":"","edge":"RMP_PRE_Q2.0"}
+							]
+					},
+		"RMP_PRE_Q1.3.2":{ "COMMENT":"Ramps Pretest - DesignDC Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q1.3.2",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q1.4"},
+								{"constraint":"","edge":"RMP_PRE_Q2.0"}
+							]
+					},
+		"RMP_PRE_Q1.4":{ "COMMENT":"Ramps Pretest - DesignE Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q1.4",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PRE_Q2.0"}
+							]
+					},
+		"RMP_PRE_Q1.5":{ "COMMENT":"Ramps Pretest - DesignF Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q1.5",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PRE_Q2.0"}
+							]
+					},
+
+
+		"RMP_PRE_Q2.0":{"COMMENT":"Ramps Pretest Q2.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PRE_Q2.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PRE_Q2.1"}
+							]
+					},
+					
+		"RMP_PRE_Q2.1":{ "COMMENT":"Ramps Pretest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q2.1",
+					"edges":
+							[
+								{"constraint":"RMPPRE_B_F","edge":"RMP_PRE_Q2.5"},
+								{"constraint":"","edge":"RMP_PRE_Q2.2"}
+							]
+					},
+					
+		"RMP_PRE_Q2.2":{ "COMMENT":"Ramps Pretest - DesignC Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q2.2",
+					"edges":
+							[
+								{"constraint":"RMPPRE_C_DA","edge":"RMP_PRE_Q2.3.0"},
+								{"constraint":"RMPPRE_C_DB","edge":"RMP_PRE_Q2.3.1"},
+								{"constraint":"RMPPRE_C_DC","edge":"RMP_PRE_Q2.3.2"},
+								{"constraint":"RMPPRE_C_F","edge":"RMP_PRE_Q2.5"},
+								{"constraint":"","edge":"RMP_PRE_Q3.0"}
+							]
+					},
+		"RMP_PRE_Q2.3.0":{ "COMMENT":"Ramps Pretest - DesignDA Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q2.3.0",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q2.4"},
+								{"constraint":"","edge":"RMP_PRE_Q3.0"}
+							]
+					},
+		"RMP_PRE_Q2.3.1":{ "COMMENT":"Ramps Pretest - DesignDB Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q2.3.1",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q2.4"},
+								{"constraint":"","edge":"RMP_PRE_Q3.0"}
+							]
+					},
+		"RMP_PRE_Q2.3.2":{ "COMMENT":"Ramps Pretest - DesignDC Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q2.3.2",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q2.4"},
+								{"constraint":"","edge":"RMP_PRE_Q3.0"}
+							]
+					},
+		"RMP_PRE_Q2.4":{ "COMMENT":"Ramps Pretest - DesignE Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q2.4",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PRE_Q3.0"}
+							]
+					},
+		"RMP_PRE_Q2.5":{ "COMMENT":"Ramps Pretest - DesignF Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q2.5",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PRE_Q3.0"}
+							]
+					},
+
+
+		"RMP_PRE_Q3.0":{"COMMENT":"Ramps Pretest Q3.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PRE_Q3.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PRE_Q3.1"}
+							]
+					},
+					
+		"RMP_PRE_Q3.1":{ "COMMENT":"Ramps Pretest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q3.1",
+					"edges":
+							[
+								{"constraint":"RMPPRE_B_F","edge":"RMP_PRE_Q3.5"},
+								{"constraint":"","edge":"RMP_PRE_Q3.2"}
+							]
+					},
+					
+		"RMP_PRE_Q3.2":{ "COMMENT":"Ramps Pretest - DesignC Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q3.2",
+					"edges":
+							[
+								{"constraint":"RMPPRE_C_DA","edge":"RMP_PRE_Q3.3.0"},
+								{"constraint":"RMPPRE_C_DB","edge":"RMP_PRE_Q3.3.1"},
+								{"constraint":"RMPPRE_C_DC","edge":"RMP_PRE_Q3.3.2"},
+								{"constraint":"RMPPRE_C_F","edge":"RMP_PRE_Q3.5"},
+								{"constraint":"","edge":"RMP_PRE_Q4.0"}
+							]
+					},
+										
+		"RMP_PRE_Q3.3.0":{ "COMMENT":"Ramps Pretest - DesignDA Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q3.3.0",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q3.4"},
+								{"constraint":"","edge":"RMP_PRE_Q4.0"}
+							]
+					},
+		"RMP_PRE_Q3.3.1":{ "COMMENT":"Ramps Pretest - DesignDB Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q3.3.1",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q3.4"},
+								{"constraint":"","edge":"RMP_PRE_Q4.0"}
+							]
+					},
+		"RMP_PRE_Q3.3.2":{ "COMMENT":"Ramps Pretest - DesignDC Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q3.3.2",
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q3.4"},
+								{"constraint":"","edge":"RMP_PRE_Q4.0"}
+							]
+					},
+		"RMP_PRE_Q3.4":{ "COMMENT":"Ramps Pretest - DesignE Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q3.4",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PRE_Q4.0"}
+							]
+					},
+		"RMP_PRE_Q3.5":{ "COMMENT":"Ramps Pretest - DesignF Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q3.5",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PRE_Q4.0"}
+							]
+					},
+
+
+		"RMP_PRE_Q4.0":{"COMMENT":"Ramps Pretest Q4.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PRE_Q4.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PRE_Q4.1"}
+							]
+					},
+					
+		"RMP_PRE_Q4.1":{ "COMMENT":"Ramps Pretest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q4.1",
+					"edges":
+							[
+								{"constraint":"RMPPRE_B_F","edge":"RMP_PRE_Q4.5"},
+								{"constraint":"","edge":"RMP_PRE_Q4.2"}
+							]
+					},
+					
+		"RMP_PRE_Q4.2":{ "COMMENT":"Ramps Pretest - DesignC Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q4.2",
+					"preenter":"",
+					"preexit" :"{sceneObj.updateKT(); }",					
+					"edges":
+							[
+								{"constraint":"RMPPRE_C_DA","edge":"RMP_PRE_Q4.3.0"},
+								{"constraint":"RMPPRE_C_DB","edge":"RMP_PRE_Q4.3.1"},
+								{"constraint":"RMPPRE_C_DC","edge":"RMP_PRE_Q4.3.2"},
+								{"constraint":"RMPPRE_C_F","edge":"RMP_PRE_Q4.5"},
+								
+								{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},								
+								{"constraint":"LOWABILITY_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+																
+								{"constraint":"","edge":"EI_A1.0"}
+							]
+					},
+		"RMP_PRE_Q4.3.0":{ "COMMENT":"Ramps Pretest - DesignDA Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q4.3.0",
+					  "preenter":"",
+					  "preexit" :"{sceneObj.updateKT(); }",					
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q4.4"},
+								
+								{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},								
+								{"constraint":"LOWABILITY_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+																
+								{"constraint":"","edge":"EI_A1.0"}
+							]
+					},
+		"RMP_PRE_Q4.3.1":{ "COMMENT":"Ramps Pretest - DesignDB Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q4.3.1",
+					  "preenter":"",
+					  "preexit" :"{sceneObj.updateKT(); }",					
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q4.4"},
+								
+								{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},								
+								{"constraint":"LOWABILITY_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+																
+								{"constraint":"","edge":"EI_A1.0"}
+							]
+					},
+		"RMP_PRE_Q4.3.2":{ "COMMENT":"Ramps Pretest - DesignDC Scene",
+					  "type":"module", 
+					  "name":"RMP_PRE_Q4.3.2",
+					  "preenter":"",
+					  "preexit" :"{sceneObj.updateKT(); }",					
+					  "edges":
+							[
+								{"constraint":"RMPPRE_Dn_E","edge":"RMP_PRE_Q4.4"},
+								
+								{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},								
+								{"constraint":"LOWABILITY_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+																
+								{"constraint":"","edge":"EI_A1.0"}
+							]
+					},
+					
+		"RMP_PRE_Q4.4":{ "COMMENT":"Ramps Pretest - DesignE Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q4.4",
+					"preenter":"",
+					"preexit" :"{sceneObj.updateKT(); }",					
+					"edges":
+							[
+								
+								{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},								
+								{"constraint":"LOWABILITY_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+																
+								{"constraint":"","edge":"EI_A1.0"}
+							]
+					},
+					
+		"RMP_PRE_Q4.5":{ "COMMENT":"Ramps Pretest - DesignF Scene",
+					"type":"module", 
+					"name":"RMP_PRE_Q4.5",
+					"preenter":"",
+					"preexit" :"{sceneObj.updateKT(); }",					
+					"edges":
+							[
+								
+								{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},								
+								{"constraint":"LOWABILITY_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+																
+								{"constraint":"","edge":"EI_A1.0"}
+							]
+					},
+					
+					
+
+										
+		"SBS_R0_Q1.0Q":{"COMMENT":"********************* Procedural (Quick) Step By Step instruction *********************************",
+					 	"COMMENT":"Note: We assert features to select question # to use from module",						
+					 	"COMMENT":"Note: resetSceneDataXML - restores sceneConfig (tables etc.) for all scenes to initial state",						
+						"type":"module", 
+						"name":"SBS_R0.0Q",
+						"preenter":"{ assertFeature('FTR_SBS_Q4Q');  assertGlobal('lastSBS','Q4Q'); resetSceneDataXML(); assertFeature('R012_SEEN'); assertGlobal('MAXVAL_CSBS_R2',3); }",
+						"preexit" :"{ retractFeature('FTR_SBS_Q4Q'); }",					
+						"edges":
+								[
+									{"constraint":"HIGH_R1_PMAXORPASS_AND_EIANOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_PMAXORPASS","edge":"SBS_R1_Q1.0"},								
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R0_Q1.1Q", "pid":"R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q2.0Q"},
+									{"constraint":"HIGHABILITY_EIA_NOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_FAIL","edge":"SBS_R0_Q2.0Q"},
+									{"constraint":"","edge":"SBS_R1_Q1.0"}
+								]
+					},					
+
+		"SBS_R0_Q1.1Q":{
+						"COMMENT":"R1 Non-contrastive demo",
+						"type":"module", 
+						"name":"SBS_R0.1Q",
+						"preenter":"{assertFeature('FTR_SBS_Q4Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q4Q'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R0_Q1.2Q"}
+								]
+					},
+					
+		"SBS_R0_Q1.2Q":{
+						"COMMENT":"R1 Non-contrastive question",
+						"type":"module", 
+						"name":"SBS_R0.2Q",
+						"preenter":"{assertFeature('FTR_SBS_Q4Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q4Q'); }",					
+						"edges":
+								[
+									{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R0_Q2.0Q"}
+								]
+					},
+
+					
+		"SBS_R0_Q2.0Q":{"COMMENT":"********************* Procedural (Quick) Step By Step instruction *********************************",
+						"type":"module", 
+						"name":"SBS_R0.0Q",
+						"preenter":"{ assertFeature('FTR_SBS_Q2Q');  assertGlobal('lastSBS','Q2Q'); resetSceneDataXML(); }",
+						"preexit" :"{ retractFeature('FTR_SBS_Q2Q'); }",					
+						"edges":
+								[
+									{"constraint":"HIGH_R1_PMAXORPASS_AND_EIANOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_PMAXORPASS","edge":"SBS_R1_Q3.0"},								
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R0_Q2.1Q", "pid":"R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q3.0Q"},
+									{"constraint":"HIGHABILITY_EIA_NOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_FAIL","edge":"SBS_R0_Q3.0Q"},
+									{"constraint":"","edge":"SBS_R1_Q3.0"}							
+								]
+					},
+					
+		"SBS_R0_Q2.1Q":{
+						"COMMENT":"R1 Non-contrastive demo",
+						"type":"module", 
+						"name":"SBS_R0.1Q",
+						"preenter":"{assertFeature('FTR_SBS_Q2Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q2Q'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R0_Q2.2Q"}
+								]
+					},
+					
+		"SBS_R0_Q2.2Q":{
+						"COMMENT":"R1 Non-contrastive question",
+						"type":"module", 
+						"name":"SBS_R0.2Q",
+						"preenter":"{assertFeature('FTR_SBS_Q2Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q2Q'); }",					
+						"edges":
+								[
+									{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R0_Q3.0Q"}
+								]
+					},
+
+
+		"SBS_R0_Q3.0Q":{"COMMENT":"********************* Procedural (Quick) Step By Step instruction *********************************",
+						"type":"module", 
+						"name":"SBS_R0.0Q",
+						"preenter":"{ assertFeature('FTR_SBS_Q1Q');  assertGlobal('lastSBS','Q1Q'); resetSceneDataXML(); }",
+						"preexit" :"{ retractFeature('FTR_SBS_Q1Q')}",					
+						"edges":
+								[
+									{"constraint":"HIGH_R1_PMAXORPASS_AND_EIANOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_PMAXORPASS","edge":"SBS_R1_Q2.0"},								
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R0_Q3.1Q", "pid":"R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q4.0Q"},
+									{"constraint":"HIGHABILITY_EIA_NOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_FAIL","edge":"SBS_R0_Q4.0Q"},
+									{"constraint":"","edge":"SBS_R1_Q2.0"}							
+								]
+					},					
+					
+		"SBS_R0_Q3.1Q":{
+						"COMMENT":"R1 Non-contrastive demo",
+						"type":"module", 
+						"name":"SBS_R0.1Q",
+						"preenter":"{assertFeature('FTR_SBS_Q1Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1Q'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R0_Q3.2Q"}
+								]
+					},
+					
+		"SBS_R0_Q3.2Q":{
+						"COMMENT":"R1 Non-contrastive question",
+						"type":"module", 
+						"name":"SBS_R0.2Q",
+						"preenter":"{assertFeature('FTR_SBS_Q1Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1Q'); }",					
+						"edges":
+								[
+									{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R0_Q4.0Q"}
+								]
+					},
+
+
+		"SBS_R0_Q4.0Q":{"COMMENT":"********************* Procedural (Quick) Step By Step instruction *********************************",
+						"type":"module", 
+						"name":"SBS_R0.0Q",
+						"preenter":"{ assertFeature('FTR_SBS_Q3Q');  assertGlobal('lastSBS','Q3Q'); resetSceneDataXML(); }",
+						"preexit" :"{ retractFeature('FTR_SBS_Q3Q'); }",					
+						"edges":
+								[
+									{"constraint":"HIGH_R1_PMAXORPASS_AND_EIANOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_PMAXORPASS","edge":"SBS_R1_Q4.0"},								
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R0_Q4.1Q", "pid":"R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"SKILL_R01_FAIL","edge":"SBS_R0_Q1.0Q"},
+									{"constraint":"HIGHABILITY_EIA_NOTDONE","edge":"EI_A1.0"},								
+									{"constraint":"SKILL_R2_FAIL","edge":"SBS_R0_Q1.0Q"},
+									{"constraint":"","edge":"SBS_R1_Q4.0"}							
+								]
+					},
+					
+		"SBS_R0_Q4.1Q":{
+						"COMMENT":"R1 Non-contrastive demo",
+						"type":"module", 
+						"name":"SBS_R0.1Q",
+						"preenter":"{assertFeature('FTR_SBS_Q3Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q3Q'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R0_Q4.2Q"}
+								]
+					},
+					
+		"SBS_R0_Q4.2Q":{
+						"COMMENT":"R1 Non-contrastive question",
+						"type":"module", 
+						"name":"SBS_R0.2Q",
+						"preenter":"{assertFeature('FTR_SBS_Q3Q'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q3Q'); }",					
+						"edges":
+								[
+									{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R0_Q1.0Q"}
+								]
+					},
+					
+					
+		"SBS_R1_Q1.0":{ "COMMENT":"*********************  Conceptual Step By Step instruction - question 1 *********************************",
+						"COMMENT":"Note: We assert features to select question # to use from module",						
+						"type":"module", 
+						"name":"SBS_R1.0",
+						"preenter":"{assertFeature('FTR_SBS_Q1');  assertGlobal('lastSBS','Q1'); assertFeature('R012_SEEN'); resetSceneDataXML(); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1')}",					
+						"edges":
+								[
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R1_Q1.1", "pid":"CONC_R1FAIL", "$P":"1|.1", "cycle":"1" },								
+									{"constraint":"","edge":"SBS_R2_Q1.0"}							
+								]
+					},					
+					
+		"SBS_R2_Q1.0":{	"COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+					 	"COMMENT":"Step By Step instruction Rule 2 - question 1 !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.0",
+						"preenter":"{assertFeature('FTR_SBS_Q1'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1');  sceneObj.updateKT(); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R2_NOTMAX_FAIL","edge":"SBS_R1_Q2.0"},									
+									{"constraint":"LOWABILITY_EIB_NOTDONE","edge":"EI_B1.0"},
+									{"constraint":"","edge":"RMP_PST_Q1.0"}								
+								]
+					},					
+
+		"COMMENT":"Pruned out Spring 2014",										
+		"SBS_R2_Q1.1":{ "COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",						
+						"COMMENT":"Step By Step instruction Rule 2 - Erroneous Example !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.1",
+						"preenter":"{assertFeature('FTR_SBS_Q1'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q2.0"}								
+								]
+				},					
+							
+		"SBS_R1_Q1.1":{ "COMMENT":"Step By Step instruction Rule 1 - question 1B",
+						"COMMENT":"R1 Non-contrastive demo",
+						"type":"module", 
+						"name":"SBS_R1.1",
+						"preenter":"{assertFeature('FTR_SBS_Q1'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q1.2"}
+								]
+					},
+					
+		"SBS_R1_Q1.2":{ "COMMENT":"Step By Step instruction Rule 1 - question 1C",
+						"COMMENT":"R1 Non-contrastive question",
+						"type":"module", 
+						"name":"SBS_R1.2",
+						"preenter":"{assertFeature('FTR_SBS_Q1'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q1'); }",					
+						"edges":
+								[
+									{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R1_Q2.0"}
+								]
+					},
+
+										
+		"SBS_R1_Q2.0":{ "COMMENT":"*********************  Conceptual Step By Step instruction - question 2 *********************************",
+						"type":"module", 
+						"name":"SBS_R1.0",
+						"preenter":"{assertFeature('FTR_SBS_Q2');  assertGlobal('lastSBS','Q2'); assertFeature('R012_SEEN'); resetSceneDataXML(); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q2'); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R1_Q2.1", "pid":"CONC_R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"","edge":"SBS_R2_Q2.0"}							
+								]
+					},
+					
+		"SBS_R2_Q2.0":{	"COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+						"COMMENT":"Step By Step instruction Rule 2 - question 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.0",
+						"preenter":"{assertFeature('FTR_SBS_Q2'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q2');  sceneObj.updateKT(); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R2_NOTMAX_FAIL","edge":"SBS_R1_Q3.0"},									
+									{"constraint":"LOWABILITY_EIB_NOTDONE","edge":"EI_B1.0"},
+									{"constraint":"","edge":"RMP_PST_Q1.0"}								
+								]
+					},					
+										
+										
+		"COMMENT":"Pruned out Spring 2014",										
+		"SBS_R2_Q2.1":{ "COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+						"COMMENT":"Step By Step instruction Rule 2 - Erroneous Example !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.1",
+						"preenter":"{assertFeature('FTR_SBS_Q2'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q2'); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R2_FAIL","edge":"SBS_R1_Q3.0"},
+									{"constraint":"EIA_NOTDONE","edge":"EI_A1.0"},
+									{"constraint":"EIC_NOTDONE","edge":"EI_C1.0"},
+									{"constraint":"","edge":"RMP_PST_Q1.0"}								
+								]
+					},					
+										
+										
+		"SBS_R1_Q2.1":{ "COMMENT":"Step By Step instruction Rule 1 - question 2B",
+						"COMMENT":"R1 Non-contrastive demo",
+					"type":"module", 
+					"name":"SBS_R1.1",
+					"preenter":"{assertFeature('FTR_SBS_Q2'); }",
+					"preexit" :"{retractFeature('FTR_SBS_Q2'); }",					
+					"edges":
+							[
+								{"constraint":"","edge":"SBS_R1_Q2.2"}
+							]
+					},
+					
+		"SBS_R1_Q2.2":{ "COMMENT":"Step By Step instruction Rule 1 - question 2C",
+						"COMMENT":"R1 Non-contrastive question",
+					"type":"module", 
+					"name":"SBS_R1.2",
+					"preenter":"{assertFeature('FTR_SBS_Q2'); }",
+					"preexit" :"{retractFeature('FTR_SBS_Q2'); }",					
+					"edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R1_Q3.0"}
+							]
+					},
+
+		"SBS_R1_Q3.0":{ "COMMENT":"*********************  Conceptual Step By Step instruction - question 3 *********************************",
+						"type":"module", 
+						"name":"SBS_R1.0",
+						"preenter":"{assertFeature('FTR_SBS_Q3');  assertGlobal('lastSBS','Q3'); assertFeature('R012_SEEN'); resetSceneDataXML(); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q3'); }",														
+						"edges":
+								[
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R1_Q3.1", "pid":"CONC_R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"","edge":"SBS_R2_Q3.0"}							
+								]
+					},
+					
+		"SBS_R2_Q3.0":{ "COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+					 	"COMMENT":"Step By Step instruction Rule 2 - question 3 !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.0",
+						"preenter":"{assertFeature('FTR_SBS_Q3'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q3');  sceneObj.updateKT(); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R2_NOTMAX_FAIL","edge":"SBS_R1_Q4.0"},									
+									{"constraint":"LOWABILITY_EIB_NOTDONE","edge":"EI_B1.0"},
+									{"constraint":"","edge":"RMP_PST_Q1.0"}								
+								]
+					},					
+
+										
+		"COMMENT":"Pruned out Spring 2014",										
+		"SBS_R2_Q3.1":{ "COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+						"COMMENT":"Step By Step instruction Rule 2 - Erroneous Example !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.1",
+						"preenter":"{assertFeature('FTR_SBS_Q3'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q3'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q4.0"}								
+								]
+					},					
+
+										
+		"SBS_R1_Q3.1":{ "COMMENT":"Step By Step instruction Rule 1 - question 3B",
+					"type":"module", 
+					"name":"SBS_R1.1",
+					"preenter":"{assertFeature('FTR_SBS_Q3'); }",
+					"preexit" :"{retractFeature('FTR_SBS_Q3'); }",					
+					"edges":
+							[
+								{"constraint":"","edge":"SBS_R1_Q3.2"}
+							]
+					},
+					
+		"SBS_R1_Q3.2":{ "COMMENT":"Step By Step instruction Rule 1 - question 3C",
+					"type":"module", 
+					"name":"SBS_R1.2",
+					"preenter":"{assertFeature('FTR_SBS_Q3'); }",
+					"preexit" :"{retractFeature('FTR_SBS_Q3'); }",					
+					"edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R1_Q4.0"}
+							]
+					},
+
+
+		"SBS_R1_Q4.0":{ "COMMENT":"*********************  Conceptual Step By Step instruction - question 4 *********************************",
+						"type":"module", 
+						"name":"SBS_R1.0",
+						"preenter":"{assertFeature('FTR_SBS_Q4');  assertGlobal('lastSBS','Q4'); assertFeature('R012_SEEN'); resetSceneDataXML(); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q4'); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R1_ERROR","edge":"SBS_R1_Q4.1", "pid":"CONC_R1FAIL", "$P":"1|.1", "cycle":"1" },
+									{"constraint":"","edge":"SBS_R2_Q4.0"}
+								]
+					},
+					
+		"SBS_R2_Q4.0":{	"COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+					 	"COMMENT":"Step By Step instruction Rule 2 - question 4 !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.0",
+						"preenter":"{assertFeature('FTR_SBS_Q4'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q4');  sceneObj.updateKT(); }",					
+						"edges":
+								[
+									{"constraint":"SKILL_R2_NOTMAX_FAIL","edge":"SBS_R1_Q1.0"},									
+									{"constraint":"LOWABILITY_EIB_NOTDONE","edge":"EI_B1.0"},
+									{"constraint":"","edge":"RMP_PST_Q1.0"}								
+								]
+					},					
+										
+		"COMMENT":"Pruned out Spring 2014",										
+		"SBS_R2_Q4.1":{ "COMMENT":"$$$$$  RULE 2  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+						"COMMENT":"Step By Step instruction Rule 2 - Erroneous Example !!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+						"type":"module", 
+						"name":"SBS_R2.1",
+						"preenter":"{assertFeature('FTR_SBS_Q4'); }",
+						"preexit" :"{retractFeature('FTR_SBS_Q4'); }",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q1.0"}								
+								]
+					},					
+										
+		"SBS_R1_Q4.1":{ "COMMENT":"Step By Step instruction Rule 1 - question 4B",
+					"type":"module", 
+					"name":"SBS_R1.1",
+					"preenter":"{assertFeature('FTR_SBS_Q4'); }",
+					"preexit" :"{retractFeature('FTR_SBS_Q4'); }",					
+					"edges":
+							[
+								{"constraint":"","edge":"SBS_R1_Q4.2"}
+							]
+					},
+					
+		"SBS_R1_Q4.2":{ "COMMENT":"Step By Step instruction Rule 1 - question 4C",
+					"type":"module", 
+					"name":"SBS_R1.2",
+					"preenter":"{assertFeature('FTR_SBS_Q4'); }",
+					"preexit" :"{retractFeature('FTR_SBS_Q4'); }",					
+					"edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"SBS_R1_Q1.0"}
+							]
+					},
+					
+		"SBSR1SUMMARY":{ "COMMENT":"Step By Step instruction Rule 1 - Summary",
+		 				 "COMMENT":"Currently Unused - **********************",
+						"type":"module", 
+						"name":"SBS_R1_SUMMARY",
+						"edges":
+								[
+								]
+					},
+					
+
+					
+		"EI_A1.0":{ "COMMENT":"Explicit Instruction - Experiment A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+					"COMMENT":"Explicit Instruction - Experiment A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+					"type":"module", 
+					"name":"EI_A1.0",
+					"preenter":"{ resetSceneDataXML(); assertFeature('EIA_SEEN'); }",
+					"preexit" :"{sceneObj.updateKT(); }",					
+					"edges":
+							[
+								{"constraint":"","edge":"EI_B1.0"}
+							]
+					},
+					
+		"EI_B1.0":{ "COMMENT":"Explicit Instruction - Experiment B !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+					"type":"module", 
+					"name":"EI_B1.0",
+					"preenter":"{ resetSceneDataXML(); assertFeature('EIB_SEEN'); }",
+					"preexit" :"{sceneObj.updateKT(); }",					
+					"edges":
+							[
+								{"constraint":"","edge":"EI_B1.1"}
+							]
+					},
+					
+		"EI_B1.1":{ "COMMENT":"Explicit Instruction - Experiment B !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+					"type":"module", 
+					"name":"EI_B1.1",
+					"preenter":"{ resetSceneDataXML(); }",
+					"preexit" :"",					
+					"edges":
+							[								
+								{"constraint":"","edge":"EI_C1.0"}
+							]
+					},
+					
+		"EI_C1.0":{ "COMMENT":"Explicit Instruction - Experiment C !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+					"type":"module", 
+					"name":"EI_C1.0",
+					"preenter":"{ resetSceneDataXML(); assertFeature('EIC_SEEN')}",
+					"preexit" :"{sceneObj.updateKT(); }",					
+					"edges":
+							[
+								{"constraint":"","edge":"EI_C1.1"}
+							]
+					},
+					
+		"EI_C1.1":{ "COMMENT":"Explicit Instruction - Experiment C !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+					"type":"module", 
+					"name":"EI_C1.1",
+					"preenter":"{ assertGlobal('MAXVAL_CSBS_R2',1); resetSceneDataXML(); }",
+					"preexit" :"",					
+					"edges":
+							[
+								{"constraint":"FF_FAIL","edge":"SXSTN_EIC_SBS"},
+								{"constraint":"","edge":"RMP_PST_Q1.0"}
+							]
+					},
+					
+
+		"SXSTN_EIC_SBS":{ "COMMENT":"*********************  Transition from EIC to SBS - Question N *********************************",
+						"COMMENT":"TED thinks you need to review the steps required to...",						
+						"type":"module", 
+						"name":"SXSTN_EIC_SBS",
+						"preenter":"",
+						"preexit" :"",					
+						"edges":
+								[
+									{"constraint":"LASTSBS_Q1B","edge":"SBS_R1_Q1.0"},
+									{"constraint":"LASTSBS_Q2B","edge":"SBS_R1_Q2.0"},
+									{"constraint":"LASTSBS_Q3B","edge":"SBS_R1_Q3.0"},
+									{"constraint":"",			"edge":"SBS_R1_Q4.0"}
+								]
+					},					
+
+					
+		"RMP_PST_Q1.0":{"COMMENT":"Ramps Posttest Q1.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+						"COMMENT":"Ramps Posttest Q1.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PST_Q1.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PST_Q1.1"}
+							]
+					},
+					
+		"RMP_PST_Q1.1":{ "COMMENT":"Ramps Posttest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PST_Q1.1",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PST_Q2.0"}
+							]
+					},
+					
+		"RMP_PST_Q2.0":{"COMMENT":"Ramps Posttest Q2.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PST_Q2.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PST_Q2.1"}
+							]
+					},
+					
+		"RMP_PST_Q2.1":{ "COMMENT":"Ramps Posttest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PST_Q2.1",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PST_Q3.0"}
+							]
+					},
+
+		"RMP_PST_Q3.0":{"COMMENT":"Ramps Posttest Q3.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PST_Q3.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PST_Q3.1"}
+							]
+					},
+					
+		"RMP_PST_Q3.1":{ "COMMENT":"Ramps Posttest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PST_Q3.1",
+					"edges":
+							[
+								{"constraint":"","edge":"RMP_PST_Q4.0"}
+							]
+					},
+					
+		"RMP_PST_Q4.0":{"COMMENT":"Ramps Posttest Q4.0 - DesignA Scene Seq %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+				   "type":"module", 
+				   "name":"RMP_PST_Q4.0",
+				   "edges":
+							[
+								{"constraint":"QUESTIONCOMPLETE","edge":"RMP_PST_Q4.1"}
+							]
+					},
+					
+		"RMP_PST_Q4.1":{ "COMMENT":"Ramps Posttest - DesignB Scene",
+					"type":"module", 
+					"name":"RMP_PST_Q4.1",
+					"edges":
+							[
+								{"constraint":"","edge":"LESSON_SUMMARY"}
+							]
+					},
+					
+		"LESSON_SUMMARY":{"COMMENT":"Lesson Summary",
+				 "type":"module", 
+				 "name":"LESSON_SUMMARY",
+				 "edges":
+						[
+							{"constraint":"","edge":"END_CLOAK"}
+						]
+					},											
+					
+		"END_CLOAK":{ "COMMENT":"End Cloak - Allows LogManager to gracefully shutdown the session",
+					"type":"module", 
+					"name":"END_CLOAK",
+					"edges":
+							[
+							]
+					}					
+	},		
+		
+	"nodeachive":
+	{
+			"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  nodeachive  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+			"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  nodeachive  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+
+
+			"STACAT1_3":{"COMMENT":"&&&&&&&&&&&&&&&&&&&&&&&&  STACAT single shot module group &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",
+						"type":"modulegroup", 
+						"name":"stacat-modgrp",
+						"preenter":"{ resetSceneDataXML(); }",
+						"preexit" :"",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q4.0"}
+								]
+						},														
+
+			"STACOM1_3":{"COMMENT":"&&&&&&&&&&&&&&&&&&&&&&&&  STACOM single shot module group &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",
+						"type":"modulegroup", 
+						"name":"stacom-modgrp",
+						"preenter":"{ resetSceneDataXML(); }",
+						"preexit" :"",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q1.0"}
+								]
+						},
+	
+			"SOLCAT1_3":{"COMMENT":"&&&&&&&&&&&&&&&&&&&&&&&&  SOLCAT single shot module group &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",
+						"type":"modulegroup", 
+						"name":"solcat-modgrp",
+						"preenter":"{ resetSceneDataXML(); }",
+						"preexit" :"",					
+						"edges":
+								[
+									{"constraint":"","edge":"SBS_R1_Q4.0"}
+								]
+						},
+
+			"SOLCOM1_3":{"COMMENT":"&&&&&&&&&&&&&&&&&&&&&&&&  SOLCOM single shot module group &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",
+						"type":"modulegroup", 
+						"name":"solcom-modgrp",
+						"preenter":"{ resetSceneDataXML(); }",
+						"preexit" :"",					
+						"edges":
+								[
+									{"constraint":"SKILL_R2_FAIL","edge":"SBS_R1_Q3.0"},
+									{"constraint":"EIA_NOTDONE","edge":"EI_A1.0"},
+									{"constraint":"EIC_NOTDONE","edge":"EI_C1.0"},
+									{"constraint":"","edge":"RMP_PST_Q1.0"}								
+								]
+						},
+					
+			 
+			"SBS_INTRO":{
+							"COMMENT":"SBS Question 1 - R0/1 Step By Step instruction",
+							"type":"module", 
+							"name":"SBS_Intro",
+							"edges":
+									[
+										{"constraint":"","edge":"STACOM1_3"}
+									]
+						},
+						
+			"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  nodeachive  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+			"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  nodeachive  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"											
+	},	
+		
+		
+	"CModules":
+	{		
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CModules  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CModules  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+	
+		"base":
+		{
+			"instanceNode":"",
+			"reuse":true,			
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SnavPanel", "classname":"CNavPanelNewB", "features":"null", "enqueue":"false", "create":"true", "visible":"true", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"StitleBar", "classname":"CTitleBar"    , "features":"null", "enqueue":"false", "create":"true", "visible":"true", "persist":"false", "ischeckpnt":"true", "object":"null"},		
+				{"title":"", "page":"", "name":"Sscene0"  , "classname":"CScene0"      , "features":"null", "enqueue":"true" , "create":"true", "visible":"true", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},	
+			
+		"start":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"Start of Tutor", "page":"", "name":"SstartSplash"   , "classname":"CStartScene", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},
+
+		"TED_INTRO":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[				
+				{"title":"TED", "page":"Introduction", "name":"STEDIntro",  "classname":"scenes.CWOZTEDIntro",    "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"LESSON_INTRO_ALT":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[				
+				{"title":"Ramps", "page":"Introduction", "name":"SRampsIntro1", "classname":"scenes.CWOZPromptTemplate", "features":"FTR_RAMPSINTRO", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},				
+				{"title":"Ramps", "page":"Introduction", "name":"SRampsIntro2", "classname":"scenes.CWOZPromptTemplate", "features":"FTR_RAMPSINTRO", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},				
+				{"title":"Ramps", "page":"Introduction", "name":"SrampDemo1",   "classname":"CCARampDemo",               "features":"FTR_RAMPSINTRO", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+
+		"LESSON_INTRO":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[				
+				{"title":"Ramps", "page":"Introduction", "name":"SRampsIntro1", "classname":"CWOZPromptPanel", "features":"FTR_RAMPSINTRO", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},				
+				{"title":"Ramps", "page":"Introduction", "name":"SrampScene0",  "classname":"scenes.CWOZRampScene0",    "features":"FTR_RAMPSINTRO", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"Ramps", "page":"Introduction", "name":"SrampScene1",  "classname":"scenes.CWOZRampScene1",    "features":"FTR_RAMPSINTRO", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+
+		"LESSON_SUMMARY":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[				
+				{"title":"Experimental Design", "page":"Lesson Summary", "name":"SpostSummaryA",  "classname":"CWOZPromptPanel",     "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"Experimental Design", "page":"Lesson Summary", "name":"SpostSummaryB",  "classname":"CWOZPromptPanel2",    "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Pre Test Question 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"Ramps", "page":"Introduction", "name":"SPreTestIntroB", "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				
+				{"title":"", "page":"" 				   , "name":"SbannerQ1" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Question 1" 	   , "name":"SdesignA1" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 2", "name":"SdesignB1" , "classname":"scenes.CWOZDesignB" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 3", "name":"SdesignC1" , "classname":"scenes.CWOZDesignC" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.3.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 4", "name":"SdesignDA1", "classname":"scenes.CWOZDesignDA"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.3.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 4", "name":"SdesignDB1", "classname":"scenes.CWOZDesignDB"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.3.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 4", "name":"SdesignDC1", "classname":"scenes.CWOZDesignDC"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.4":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 5", "name":"SdesignE1" , "classname":"scenes.CWOZDesignE" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q1.5":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 3", "name":"SdesignF1" , "classname":"scenes.CWOZDesignF" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+
+		"RMP_PRE_Q2.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Pre Test Question 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"" 				   , "name":"SbannerQ2" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Question 2" 	   , "name":"SdesignA2" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 2", "name":"SdesignB2" , "classname":"scenes.CWOZDesignB" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 3", "name":"SdesignC2" , "classname":"scenes.CWOZDesignC" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.3.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 4", "name":"SdesignDA2", "classname":"scenes.CWOZDesignDA"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.3.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 4", "name":"SdesignDB2", "classname":"scenes.CWOZDesignDB"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.3.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 4", "name":"SdesignDC2", "classname":"scenes.CWOZDesignDC"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.4":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 5", "name":"SdesignE2" , "classname":"scenes.CWOZDesignE" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q2.5":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 3", "name":"SdesignF2" , "classname":"scenes.CWOZDesignF" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+
+		"RMP_PRE_Q3.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Pre Test Question 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"" 				   , "name":"SbannerQ3" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Question 3" 	   , "name":"SdesignA3" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 2", "name":"SdesignB3" , "classname":"scenes.CWOZDesignB" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 3", "name":"SdesignC3" , "classname":"scenes.CWOZDesignC" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.3.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 4", "name":"SdesignDA3", "classname":"scenes.CWOZDesignDA"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.3.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 4", "name":"SdesignDB3", "classname":"scenes.CWOZDesignDB"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.3.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 4", "name":"SdesignDC3", "classname":"scenes.CWOZDesignDC"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.4":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 5", "name":"SdesignE3" , "classname":"scenes.CWOZDesignE" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q3.5":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 3", "name":"SdesignF3" , "classname":"scenes.CWOZDesignF" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+
+		"RMP_PRE_Q4.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Pre Test Question 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"" 				   , "name":"SbannerQ4" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Question 4" 	   , "name":"SdesignA4" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 2", "name":"SdesignB4" , "classname":"scenes.CWOZDesignB" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 3", "name":"SdesignC4" , "classname":"scenes.CWOZDesignC" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.3.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 4", "name":"SdesignDA4", "classname":"scenes.CWOZDesignDA"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.3.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 4", "name":"SdesignDB4", "classname":"scenes.CWOZDesignDB"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.3.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 4", "name":"SdesignDC4", "classname":"scenes.CWOZDesignDC"		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.4":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 5", "name":"SdesignE4" , "classname":"scenes.CWOZDesignE" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PRE_Q4.5":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 3", "name":"SdesignF4" , "classname":"scenes.CWOZDesignF" 		 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_Q1.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps- Post Test Question 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps- Post Test Question 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps- Post Test Question 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"Ramps", "page":"Introduction", "name":"SpostDesignA", "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				
+				{"title":"", "page":"" 				   , "name":"SbannerQ1b" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Question 1" 	   , "name":"SdesignA1b" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_Q1.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 1 Part 2", "name":"SdesignBA1b" , "classname":"scenes.CWOZDesignBA" 	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_Q2.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Post Test Question 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"" 				   , "name":"SbannerQ2b" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Question 2" 	   , "name":"SdesignA2b" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_Q2.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 2 Part 2", "name":"SdesignBA2b" , "classname":"scenes.CWOZDesignBA" 	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+
+		"RMP_PST_Q3.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Post Test Question 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"" 				   , "name":"SbannerQ3b" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Question 3" 	   , "name":"SdesignA3b" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_Q3.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 3 Part 2", "name":"SdesignBA3b" , "classname":"scenes.CWOZDesignBA" 	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+
+		"RMP_PST_Q4.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Post Test Question 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"" 				   , "name":"SbannerQ4b" , "classname":"scenes.CWOZPromptTemplate", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Question 4" 	   , "name":"SdesignA4b" , "classname":"scenes.CWOZDesignA"  	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_Q4.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"Question 4 Part 2", "name":"SdesignBA4b" , "classname":"scenes.CWOZDesignBA" 	 , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"RMP_PST_ASSESSMENT":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Post Test ASSESSMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ramps-Post Test ASSESSMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"Design Ramp Experiments", "page":"", "name":"SDesignPSTA" , "classname":"scenes.CWOZDesignAssessB" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}										
+			]
+		},		
+
+
+
+		"SBS_Intro":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Step By Step R01 Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Step By Step R01 Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Step By Step R01 Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"", "name":"SSbSIntro", "classname":"scenes.CWOZSbSIntro", "features":"FTR_SBYS0:FTR_SBYS1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},
+			
+		"Rule0_SBS_A":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% (UNUSED) Step By Step R0 Q1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"", "name":"SSbSRule0_1" , "classname":"scenes.CWOZSbSScene1", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_1A", "classname":"scenes.CWOZSbSScene2", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},
+			
+		"Rule0_SBS_B":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% (UNUSED) Step By Step R0 Q2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"", "name":"SSbSRule0_2" , "classname":"scenes.CWOZSbSScene1", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_2A", "classname":"scenes.CWOZSbSScene2", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},
+			
+		"Rule0_SBS_C":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% (UNUSED) Step By Step R0 Q3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"", "name":"SSbSRule0_3" , "classname":"scenes.CWOZSbSScene1", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_3A", "classname":"scenes.CWOZSbSScene2", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},
+			
+		"Rule0_SBS_D":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% (UNUSED) Step By Step R0 Q4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[			
+				{"title":"", "page":"", "name":"SSbSRule0_4" , "classname":"scenes.CWOZSbSScene1", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_4A", "classname":"scenes.CWOZSbSScene2", "features":"FTR_SBYS0", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}		
+			]
+		},
+
+
+			
+		"SBS_R0.0Q":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Procedural (Quick) Step By Step R0 Instruction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SXSTN_PRE_SBS", "classname":"scenes.CWOZSbSIntro" , "features":"FTR_SBS_Q4Q", "pid":"XN_PRE_SBS", "$P":"1|0", "cycle":"1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"", "name":"SSbSRule0_1AQ", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q1Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_2AQ", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q2Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_3AQ", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q3Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule0_4AQ", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q4Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+
+		"SBS_R0.1Q":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%% Procedural (Quick) Step By Step R0 Ramp Demo Section %%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule1_1B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q1Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_2B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q2Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_3B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q3Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_4B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q4Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+		"SBS_R0.2Q":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%% Procedural (Quick) Step By Step R0 Ramp Demo Followup Question %%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule1_1C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q1Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_2C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q2Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_3C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q3Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_4C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q4Q", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+
+			
+		"SBS_R1.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conceptual Step By Step R01 Q1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule1_1A", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_2A", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_3A", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_4A", "classname":"CSbSScene3A" , "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+		"SBS_R2.0":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conceptual Step By Step R2  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule2_1.0A", "classname":"CWOZSbSScene4A" , "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"", "name":"SSbSRule2_2.0A", "classname":"CWOZSbSScene4A" , "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"", "name":"SSbSRule2_3.0A", "classname":"CWOZSbSScene4A" , "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"", "name":"SSbSRule2_4.0A", "classname":"CWOZSbSScene4A" , "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+						
+		"SBS_R2.1":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conceptual Step By Step R2  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule2_1.1A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_1.2A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_1.3A", "classname":"scenes.CWOZSbSScene4B", "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_1.4A", "classname":"scenes.CWOZSbSScene5" , "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"", "name":"SSbSRule2_2.1A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_2.2A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_2.3A", "classname":"scenes.CWOZSbSScene4B", "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_2.4A", "classname":"scenes.CWOZSbSScene5" , "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"", "name":"SSbSRule2_3.1A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_3.2A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_3.3A", "classname":"scenes.CWOZSbSScene4B", "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_3.4A", "classname":"scenes.CWOZSbSScene5" , "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"", "name":"SSbSRule2_4.1A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_4.2A", "classname":"scenes.CWOZSbSScene6" , "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_4.3A", "classname":"scenes.CWOZSbSScene4B", "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule2_4.4A", "classname":"scenes.CWOZSbSScene5" , "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}				
+			]
+		},
+						
+		"SBS_R1.1":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%% Conceptual Step By Step R01 Ramp Demo Section %%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule1_1B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_2B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_3B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_4B", "classname":"scenes.CWOZSbSScene3B", "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+		"SBS_R1.2":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSRule1_1C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_2C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q2", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_3C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q3", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"", "name":"SSbSRule1_4C", "classname":"scenes.CWOZSbSScene3C", "features":"FTR_SBS_Q4", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+		"SBS_R1_SUMMARY":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Conceptual Step By Step R01 SUMMARY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SSbSSummary" , "classname":"scenes.CWOZSbSSummary", "features":"FTR_SBYS1", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}					
+			]
+		},
+
+
+		"SXSTN_EIC_SBS":
+		{
+			"COMMENT":"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Transition from EIC to COnceptual Step By Step Review %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SXSTN_EIC_SBS", "classname":"scenes.CWOZSbSIntro" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},
+			
+			
+		"EI_A1.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"Example A", "name":"SevaluateA"			, "classname":"scenes.CWOZEvaluateA"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+			
+				{"title":"", "page":""		   , "name":"SbannerE1"				, "classname":"scenes.CWOZPromptTemplate"		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Example A", "name":"SevaluateD1"			, "classname":"scenes.CWOZEvaluateD1"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example A", "name":"SevaluateE1"			, "classname":"scenes.CWOZEvaluateE1"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example A", "name":"SevaluateG1"			, "classname":"scenes.CWOZEvaluateG1"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example A", "name":"SevaluateF1"			, "classname":"scenes.CWOZEvaluateF1"	 		, "features":"!FTR_CMB"	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example A", "name":"SevaluateF1CB"			, "classname":"scenes.CWOZEvaluateF1CB"	 		, "features":"FTR_CMB" 	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example A", "name":"SevaluateEIm1"			, "classname":"scenes.CWOZEvaluateEIm1"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"Example A", "name":"SevaluateGIm1"			, "classname":"scenes.CWOZEvaluateGIm1"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example A", "name":"SevaluateFIm1"			, "classname":"scenes.CWOZEvaluateFIm1"	 		, "features":"!FTR_CMB"	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example A", "name":"SevaluateFIm1CB"		, "classname":"scenes.CWOZEvaluateFIm1CB"		, "features":"FTR_CMB" 	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"Example A", "name":"SftrFocus1"			, "classname":"CCAFtrFocus"				 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example A", "name":"SftrFocusExpl1A"		, "classname":"CCAFtrFocusExpl1A"		 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example A", "name":"ScorrectionSelfEx1"	, "classname":"CCACorrectionSelfEx1"	 		, "features":"!FTR_CMB"	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example A", "name":"ScorrectionSelfEx1CB"	, "classname":"CCACorrectionSelfEx1CB"			, "features":"FTR_CMB" 	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example A", "name":"ScorrectionExpl1"		, "classname":"CCACorrectionExpl1"		 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+			
+		"EI_B1.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SXSTN_SBS_EIB"					, "classname":"scenes.CWOZSbSIntro"	 			, "features":"!EIA_SEEN", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+			
+				{"title":"", "page":""			, "name":"SbannerE2"	 		, "classname":"scenes.CWOZPromptTemplate"		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Example B" , "name":"SevaluateD2"	 		, "classname":"scenes.CWOZEvaluateD2"			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example B" , "name":"SevaluateE2"	 		, "classname":"scenes.CWOZEvaluateE2"			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B" , "name":"SevaluateG2"	 		, "classname":"scenes.CWOZEvaluateG2"			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B" , "name":"SevaluateF2"	 		, "classname":"scenes.CWOZEvaluateF2"			, "features":"!FTR_CMB"	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example B" , "name":"SevaluateF2CB" 		, "classname":"scenes.CWOZEvaluateF2CB"			, "features":"FTR_CMB" 	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B" , "name":"SevaluateEIm2" 		, "classname":"scenes.CWOZEvaluateEIm2"			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+
+				{"title":"", "page":"Example B" , "name":"SevaluateGIm2"    	, "classname":"scenes.CWOZEvaluateGIm2"			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B" , "name":"SevaluateFIm2"    	, "classname":"scenes.CWOZEvaluateFIm2"			, "features":"!FTR_CMB" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example B" , "name":"SevaluateFIm2CB"  	, "classname":"scenes.CWOZEvaluateFIm2CB"		, "features":"FTR_CMB"  , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B", "name":"SftrFocus2"			, "classname":"CCAFtrFocus"				 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example B", "name":"SftrFocusExpl2A"		, "classname":"CCAFtrFocusExpl1A"		 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example B", "name":"SftrFocusExpl2B"		, "classname":"CCAFtrFocusExpl1B"				, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}				
+			]
+		},		
+			
+		"EI_B1.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[				
+				{"title":"", "page":"Example B", "name":"ScorrectionQuestion2"	, "classname":"CCACorrection2"		 			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B", "name":"ScorrectionSelfEx2"	, "classname":"CCACorrectionSelfEx2" 			, "features":"!FTR_CMB" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example B", "name":"ScorrectionSelfEx2CB"	, "classname":"CCACorrectionSelfEx2CB"		 	, "features":"FTR_CMB"  , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example B", "name":"ScorrectionExpl2"		, "classname":"CCACorrectionExpl1"	 			, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+			
+		"EI_C1.0":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":""		   , "name":"SbannerE3"		 		, "classname":"scenes.CWOZPromptTemplate"		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SevaluateD3"	 		, "classname":"scenes.CWOZEvaluateD3"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SevaluateE3"	 		, "classname":"scenes.CWOZEvaluateE3"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"SevaluateG3"	 		, "classname":"scenes.CWOZEvaluateG3"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"SevaluateF3"	 		, "classname":"scenes.CWOZEvaluateF3"	 		, "features":"!FTR_CMB"	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SevaluateF3CB"	 		, "classname":"scenes.CWOZEvaluateF3CB"	 		, "features":"FTR_CMB" 	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SevaluateEIm3"  		, "classname":"scenes.CWOZEvaluateEIm3"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"SevaluateGIm3" 		, "classname":"scenes.CWOZEvaluateGIm3"	 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"SevaluateFIm3"  		, "classname":"scenes.CWOZEvaluateFIm3"	 		, "features":"!FTR_CMB"	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SevaluateFIm3CB"  		, "classname":"scenes.CWOZEvaluateFIm3CB"		, "features":"FTR_CMB" 	, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"SftrFocus3"			, "classname":"CCAFtrFocus"				 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SftrFocusExpl3A"		, "classname":"CCAFtrFocusExpl1A"		 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"SftrFocusExpl3B"		, "classname":"CCAFtrFocusExpl1B"		 		, "features":""			, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"EI_C1.1":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"Example C", "name":"ScorrectionQuestion3"	, "classname":"CCACorrection2"		 			 , "features":""		, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"ScorrectionSelfEx3"	, "classname":"CCACorrectionSelfEx2" 			 , "features":"!FTR_CMB", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				{"title":"", "page":"Example C", "name":"ScorrectionSelfEx3CB"	, "classname":"CCACorrectionSelfEx2CB"		 	 , "features":"FTR_CMB" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"},
+				
+				{"title":"", "page":"Example C", "name":"ScorrectionExpl3"		, "classname":"CCACorrectionExpl1"	 			 , "features":""		, "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"false", "object":"null"}
+			]
+		},		
+
+		"SOLCAT_A":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SsolnCatIntroA" , "classname":"scenes.CCRIntroPrompt", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneA1", "classname":"scenes.CCRSolnScene1" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneA2", "classname":"scenes.CCRSolnScene2" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneA3", "classname":"scenes.CCRSolnScene3" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneA4", "classname":"scenes.CCRSolnScene4" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"SOLCAT_B":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SsolnCatIntroB" , "classname":"scenes.CCRIntroPrompt", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneB1", "classname":"scenes.CCRSolnScene1" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneB2", "classname":"scenes.CCRSolnScene2" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneB3", "classname":"scenes.CCRSolnScene3" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneB4", "classname":"scenes.CCRSolnScene4" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"SOLCAT_C":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[
+				{"title":"", "page":"", "name":"SsolnCatIntroC" , "classname":"scenes.CCRIntroPrompt", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneC1", "classname":"scenes.CCRSolnScene1" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneC2", "classname":"scenes.CCRSolnScene2" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneC3", "classname":"scenes.CCRSolnScene3" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnCatSceneC4", "classname":"scenes.CCRSolnScene4" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"SOLCOM_A":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SsolnComIntroA"  , "classname":"scenes.CCRIntroPrompt", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneA1" , "classname":"scenes.CCRSolnScene1" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneA3" , "classname":"scenes.CCRSolnScene3" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneA5" , "classname":"scenes.CCRSolnScene5" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneA6" , "classname":"scenes.CCRSolnScene6" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"SOLCOM_B":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SsolnComIntroB"  , "classname":"scenes.CCRIntroPrompt", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneB1" , "classname":"scenes.CCRSolnScene1" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneB3" , "classname":"scenes.CCRSolnScene3" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneB5" , "classname":"scenes.CCRSolnScene5" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneB6" , "classname":"scenes.CCRSolnScene6" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"SOLCOM_C":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SsolnComIntroC"  , "classname":"scenes.CCRIntroPrompt", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneC1" , "classname":"scenes.CCRSolnScene1" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneC3" , "classname":"scenes.CCRSolnScene3" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneC5" , "classname":"scenes.CCRSolnScene5" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SsolnComSceneC6" , "classname":"scenes.CCRSolnScene6" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"STACAT_A":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SstateCatIntroA" , "classname":"scenes.CCRStateIntroPrompt", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneA1", "classname":"scenes.CCRStatementScene1" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneA2", "classname":"scenes.CCRStatementScene2" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneA3", "classname":"scenes.CCRStatementScene3" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneA4", "classname":"scenes.CCRStatementScene4" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"STACAT_B":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SstateCatIntroB" , "classname":"scenes.CCRStateIntroPrompt", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneB1", "classname":"scenes.CCRStatementScene1" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneB2", "classname":"scenes.CCRStatementScene2" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneB3", "classname":"scenes.CCRStatementScene3" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneB4", "classname":"scenes.CCRStatementScene4" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"STACAT_C":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SstateCatIntroC" , "classname":"scenes.CCRStateIntroPrompt", "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneC1", "classname":"scenes.CCRStatementScene1" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneC2", "classname":"scenes.CCRStatementScene2" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneC3", "classname":"scenes.CCRStatementScene3" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateCatSceneC4", "classname":"scenes.CCRStatementScene4" , "features":"", "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"STACOM_A":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SstateComIntroA"  , "classname":"scenes.CCRStateIntroPrompt", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneA1" , "classname":"scenes.CCRStatementScene1" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneA3" , "classname":"scenes.CCRStatementScene3" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneA5" , "classname":"scenes.CCRStatementScene5" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneA6" , "classname":"scenes.CCRStatementScene6" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"STACOM_B":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SstateComIntroB"  , "classname":"scenes.CCRStateIntroPrompt", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneB1" , "classname":"scenes.CCRStatementScene1" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneB3" , "classname":"scenes.CCRStatementScene3" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneB5" , "classname":"scenes.CCRStatementScene5" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneB6" , "classname":"scenes.CCRStatementScene6" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		},		
+		
+		"STACOM_C":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[								
+				{"title":"", "page":"", "name":"SstateComIntroC"  , "classname":"scenes.CCRStateIntroPrompt", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneC1" , "classname":"scenes.CCRStatementScene1" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneC3" , "classname":"scenes.CCRStatementScene3" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneC5" , "classname":"scenes.CCRStatementScene5" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"},
+				{"title":"", "page":"", "name":"SstateComSceneC6" , "classname":"scenes.CCRStatementScene6" , "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}										
+			]
+		},		
+		
+		"END_CLOAK":
+		{
+			"instanceNode":"",
+			"reuse":true,
+			"scenes":		
+			[	
+				{"title":"", "page":"", "name":"SendCloak"  , "classname":"CEndCloak", "features":"" , "enqueue":"true", "create":"false", "persist":"false", "ischeckpnt":"true", "object":"null"}
+			]
+		}		
+		
+	},
+
+	"CModuleGroups":
+	{
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CModuleGroups  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CModuleGroups  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+	
+		"solcom-modgrp":
+		{
+			"instanceNode":"",
+			"type":"seqtype",
+			"start":"0",
+			"show":"1",
+			"reuse":true,
+			"onempty":"na",
+			
+			"modules":
+			[
+				{"instanceNode":"", "name":"SOLCOM_A"},
+				{"instanceNode":"", "name":"SOLCOM_B"},
+				{"instanceNode":"", "name":"SOLCOM_C"}
+			]
+		},	
+		"solcat-modgrp":
+		{
+			"instanceNode":"",
+			"type":"seqtype",
+			"start":"0",
+			"show":"1",
+			"reuse":true,
+			"onempty":"na",
+			
+			"modules":
+			[
+				{"instanceNode":"", "name":"SOLCAT_A"},
+				{"instanceNode":"", "name":"SOLCAT_B"},
+				{"instanceNode":"", "name":"SOLCAT_C"}
+			]
+		},	
+		"stacom-modgrp":
+		{
+			"instanceNode":"",
+			"type":"seqtype",
+			"start":"0",
+			"show":"1",
+			"reuse":true,
+			"onempty":"na",
+			
+			"modules":
+			[
+				{"instanceNode":"", "name":"STACOM_A"},
+				{"instanceNode":"", "name":"STACOM_B"},
+				{"instanceNode":"", "name":"STACOM_C"}
+			]
+		},	
+		"stacat-modgrp":
+		{
+			"instanceNode":"",
+			"type":"seqtype",
+			"start":"0",
+			"show":"1",
+			"reuse":true,
+			"onempty":"na",
+			
+			"modules":
+			[
+				{"instanceNode":"", "name":"STACAT_A"},
+				{"instanceNode":"", "name":"STACAT_B"},
+				{"instanceNode":"", "name":"STACAT_C"}
+			]
+		}	
+	},
+
+
+	"CActions":
+	{
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CActions  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CActions  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+	
+		"act0":{"cmd":"assertFeature",
+			    "parms":
+					[
+						"FTR_RIGHT"
+					]},
+					
+		"act1":{"cmd":"retractFeature",
+				"parms":
+					[
+						"FTR_RIGHT"
+					]}
+	},
+	
+	"CConstraints":
+	{
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CConstraints  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CConstraints  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+			
+		"FTR_PRETEST":{"cmd":"test", "code":"FTR_PRETEST"},
+		"FTR_POSTTEST":{"cmd":"test","code":"FTR_POSTTEST"},
+		"FTR_TYPEA":{"cmd":"test",   "code":"FTR_TYPEA"},
+		"FTR_TYPEB":{"cmd":"test",   "code":"FTR_TYPEB"},
+		"FTR_SBYS2":{"cmd":"test",   "code":"FTR_SBYS2"},
+		"DMO_ALL"  :{"cmd":"test",   "code":"DMO_ALL"},
+		"DMO_INT"  :{"cmd":"test",   "code":"DMO_INT"},		
+		"DMO_SUM"  :{"cmd":"test",   "code":"DMO_SUM"},
+		"DMO_PRE"  :{"cmd":"test",   "code":"DMO_PRE"},
+		"DMO_PST"  :{"cmd":"test",   "code":"DMO_PST"},
+		"DMO_SBS"  :{"cmd":"test",   "code":"DMO_SBS"},
+		"DMO_SBSQ" :{"cmd":"test",   "code":"DMO_SBSQ"},
+		"DMO_R01"  :{"cmd":"test",   "code":"DMO_R01"},
+		
+		"R012_SEEN"     :{"cmd":"test",   "code":"R012_SEEN"},
+		"NOT_R012_SEEN" :{"cmd":"test",   "code":"!R012_SEEN"},
+
+		"LOW_NO_R012" :{"cmd":"test",   "code":"FTR_LOWABILITY,!R012_SEEN"},
+		
+		"LOWABILITY" :{"cmd":"test",   "code":"FTR_LOWABILITY"},
+
+		"HIGHABILITY_EIA_NOTDONE" :{"cmd":"test",   "code":"!FTR_LOWABILITY,!EIA_SEEN"},
+		"LOWABILITY_EIA_NOTDONE"  :{"cmd":"test",   "code":"FTR_LOWABILITY,!EIA_SEEN"},
+
+		"LOWABILITY_EIB_NOTDONE"  :{"cmd":"test",   "code":"FTR_LOWABILITY,!EIB_SEEN"},
+		"LOWABILITY_EIB_DONE"     :{"cmd":"test",   "code":"FTR_LOWABILITY,EIB_SEEN"},
+		
+		"EIA_NOTDONE"  :{"cmd":"test",   "code":"!EIA_SEEN"},
+		"EIC_NOTDONE"  :{"cmd":"test",   "code":"!EIC_SEEN"},
+		
+		"DMO_CMBA"  :{"cmd":"test",   "code":"DMO_CMBA"},
+		"DMO_CMBB"  :{"cmd":"test",   "code":"DMO_CMBB"},
+		"DMO_CMBC"  :{"cmd":"test",   "code":"DMO_CMBC"},
+		
+		"DMO_EIA"  :{"cmd":"test",   "code":"DMO_EIA"},
+		"DMO_EIB"  :{"cmd":"test",   "code":"DMO_EIB"},
+		"DMO_EIC"  :{"cmd":"test",   "code":"DMO_EIC"},
+		
+		"DMO_STACAT" :{"cmd":"test",   "code":"DMO_STACAT"},
+		"DMO_STACOM" :{"cmd":"test",   "code":"DMO_STACOM"},
+		"DMO_SOLCAT" :{"cmd":"test",   "code":"DMO_SOLCAT"},
+		"DMO_SOLCOM" :{"cmd":"test",   "code":"DMO_SOLCOM"},		
+
+		"R2_FAIL_Q1":{"cmd":"exec","code":"return ((gTutor.ktSkills['rule2'].queryBelief() < 0.95) && queryGlobal('lastSBS') == 'Q4');"},
+		"R2_FAIL_Q2":{"cmd":"exec","code":"return ((gTutor.ktSkills['rule2'].queryBelief() < 0.95) && queryGlobal('lastSBS') == 'Q1');"},
+		"R2_FAIL_Q3":{"cmd":"exec","code":"return ((gTutor.ktSkills['rule2'].queryBelief() < 0.95) && queryGlobal('lastSBS') == 'Q2');"},
+		"R2_FAIL_Q4":{"cmd":"exec","code":"return ((gTutor.ktSkills['rule2'].queryBelief() < 0.95) && queryGlobal('lastSBS') == 'Q3');"},
+
+		"FF_FAIL":{"cmd":"exec","code":"return (queryGlobal('ftrfocuscorrect') == 'false');"},
+
+		"LASTSBS_Q1B":{"cmd":"exec","code":"return (queryGlobal('lastSBS') == 'Q4');"},
+		"LASTSBS_Q2B":{"cmd":"exec","code":"return (queryGlobal('lastSBS') == 'Q1');"},
+		"LASTSBS_Q3B":{"cmd":"exec","code":"return (queryGlobal('lastSBS') == 'Q2');"},
+		"LASTSBS_Q4B":{"cmd":"exec","code":"return (queryGlobal('lastSBS') == 'Q3');"},
+
+		"QUESTIONCOMPLETE":{"cmd":"exec","code":"return questionComplete();"},
+
+		"RMPPRE_B_F":{"cmd":"exec","code":"return ((SD1input1 != null) && (SD1input1.selPhraseID == 'NONE'));"},
+
+		"RMPPRE_C_DA":{"cmd":"exec","code":"return ((SD1input1.selPhraseID == 'PHRASE3') || (SD1input1.selPhraseID == 'PHRASE4') || (SD1input1.selPhraseID == 'PHRASE6'));"},
+		"RMPPRE_C_DB":{"cmd":"exec","code":"return ((SD1input1.selPhraseID == 'PHRASE5') || (SD1input1.selPhraseID == 'PHRASE7') || (SD1input1.selPhraseID == 'PHRASE9') || (SD1input1.selPhraseID == 'PHRASE10'));"},
+		"RMPPRE_C_DC":{"cmd":"exec","code":"return ((SD1input1.selPhraseID == 'PHRASE1'));"},
+		"RMPPRE_C_F" :{"cmd":"exec","code":"return ((SD1input1.selPhraseID == 'PHRASE11'));"},
+
+		"RMPPRE_Dn_E" :{"cmd":"exec","code":"return (fEngineer && SCheck4.getChecked());"},
+
+		"SKILL_R1_ERROR" :{"cmd":"exec","code":"{return ((rule_attempts[1] > 1) && !ruleAssess1 && (rule_attempts[2] == 0)); }"},
+
+		"SKILL_R0_FAIL" :{"cmd":"exec","code":"{return (gTutor.ktSkills['rule0'].queryBelief() < 0.93);}"},
+		"SKILL_R1_FAIL" :{"cmd":"exec","code":"{return (gTutor.ktSkills['rule1'].queryBelief() < 0.96);}"},
+		"SKILL_R2_FAIL" :{"cmd":"exec","code":"{return (gTutor.ktSkills['rule2'].queryBelief() < 0.96); }"},
+
+		"SKILL_R2_NOTMAX_FAIL":{"cmd":"exec", "code":"{ if(incrGlobal('MAX_CSBS_R2') >= queryGlobal('MAXVAL_CSBS_R2')) { assertFeature('MAX_CSBS_R2'); return false; } else { if(gTutor.ktSkills['rule2'].queryBelief() < 0.96) return true; else { assertFeature('CSBS_R2_LRN'); return false; } } }"},
+				
+		"SKILL_R2_PMAXORPASS" :{"cmd":"exec","code":"{return (gTutor.testFeatureSet('MAX_PSBS_R2') || gTutor.ktSkills['rule2'].queryBelief() >= 0.95); }"},
+				
+		"HIGH_R1_PMAXORPASS_AND_EIANOTDONE" :{"cmd":"exec","code":"{return (gTutor.testFeatureSet('!EIA_SEEN,!FTR_LOWABILITY') && (gTutor.testFeatureSet('MAX_PSBS_R1') || gTutor.ktSkills['rule1'].queryBelief() >= 0.96)); }"},
+		
+		"EIA_NOTDONE"  :{"cmd":"test",   "code":"!EIA_SEEN"},		
+				
+		"SKILL_R01_FAIL":{"cmd":"exec","code":"{return ((gTutor.ktSkills['rule0'].queryBelief() < 0.93) || (gTutor.ktSkills['rule1'].queryBelief() < 0.96));}"},
+		
+		"LOWABILITY_R2_FAIL" :{"cmd":"exec","code":"{return (gTutor.testFeatureSet('FTR_LOWABILITY') && gTutor.ktSkills['rule2'].queryBelief() < 0.95); }"},		
+		
+		"STACATREM":{"cmd":"exec","code":"return ((gTutor.ktSkills['rule0'].queryBelief() < 0.93) || (gTutor.ktSkills['rule1'].queryBelief() < 0.96));"},
+		
+		"q2A_NOCHECKED":{"cmd":"exec","code":"printf('q2check2' + gTutor['Sq2p1_A'].q2Check2.getChecked());\n return gTutor['Sq2p1_A'].q2Check2.getChecked();"},
+		"q4A_NOCHECKED":{"cmd":"exec","code":"return gTutor['Sq4p1_A'].q4Check2.getChecked();"},
+		"q6A_NOCHECKED":{"cmd":"exec","code":"return gTutor['Sq6p1_A'].q6Check2.getChecked();"},
+		
+		"q2B_NOCHECKED":{"cmd":"exec","code":"return gTutor['Sq2p1_B'].q2Check2.getChecked();"},
+		"q4B_NOCHECKED":{"cmd":"exec","code":"return gTutor['Sq4p1_B'].q4Check2.getChecked();"},
+		"q6B_NOCHECKED":{"cmd":"exec","code":"return gTutor['Sq6p1_B'].q6Check2.getChecked();"}
+	},
+
+	"CSubGraphs":
+	{
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CSubGraphs  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CSubGraphs  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			
+	},
+	
+	
+	"CExternals":
+	{
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CExternals  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CExternals  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+			
+		"subgraph1":{"name":"subgraph1.json", "path":"../"},
+		"subgraph2":{"name":"subgraph2.json", "path":"../"}
+	},
+	
+	
+	"CSkills":
+	{
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CSkills  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+		"COMMENT":"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  CSkills  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+	
+		"rule0":
+		{
+			"description":"Identify Target variable",
+			"pL": 0.125,
+			"pT": 0.046667,
+			"pG": 0.1,
+			"pS": 0.1
+		},
+		"rule1":
+		{
+			"description":"Vary target variable",
+			"pL": 0.250,
+			"pT": 0.041667,
+			"pG": 0.1,
+			"pS": 0.1
+		},
+		"rule2":
+		{
+			"description":"Control non-target variables",
+			"pL": 0.05,
+			"pT": 0.06,
+			"pG": 0.1,
+			"pS": 0.1
+		},
+		"rule_vvfar":
+		{
+			"description":"Vary Variable for any reason",
+			"pL": 0.5,
+			"pT": 0.213333,
+			"pG": 0.1,
+			"pS": 0.1
+		},
+		"rule_tov":
+		{
+			"description":"Test one variable at a time",
+			"pL": 0.03,
+			"pT": 0.046667,
+			"pG": 0.1,
+			"pS": 0.1
+		},
+		"rule_cvslog":
+		{
+			"description":"Full CS Logic - R-0,1,2",
+			"pL": 0.03,
+			"pT": 0.03,
+			"pG": 0.1,
+			"pS": 0.1
+		}
+	}
+		
+		
+}
+
+
+
