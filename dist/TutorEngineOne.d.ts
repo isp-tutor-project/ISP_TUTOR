@@ -907,7 +907,7 @@ declare module "thermite/TSceneBase" {
         dumpSceneObjs(TutScene: any): void;
         handleEvent(target: string): void;
         onSelect(target: string): void;
-        onClick(target: string): void;
+        onAction(target: string, evt: string): void;
         sceneReplay(evt: Event): void;
         trackPlay(): void;
         rewindScene(): void;
@@ -1057,6 +1057,7 @@ declare module "scenegraph/CSceneTrack" {
         protected tutorDoc: IEFTutorDoc;
         private _parent;
         private _name;
+        private _enqueue;
         private hostScene;
         private sceneName;
         private hostModule;
@@ -1103,6 +1104,7 @@ declare module "scenegraph/CSceneTrack" {
         private RX_DELIMITERS;
         constructor(_tutorDoc: IEFTutorDoc, factory: any, parent: CSceneGraph);
         resolve(): CSceneTrack;
+        readonly isHistoric: boolean;
         resolveSegmentKey(selector: string, templateRef: any): string;
         registerTrack(): void;
         onTrackLoaded(event: any): void;
@@ -1365,9 +1367,25 @@ declare module "core/CEFNavigator" {
         protected doEnterScene(evt: Event): void;
     }
 }
+declare module "thermite/TSelector" {
+    import { TObject } from "thermite/TObject";
+    export class TSelector {
+        private selectors;
+        private regex;
+        private targets;
+        constructor(host: TObject, selectorStr: string);
+        private testSelector(currRegEx, element);
+        private resolveSelectors(host, regex);
+        hide(): void;
+        show(): void;
+        enable(): void;
+        disable(): void;
+    }
+}
 declare module "thermite/TObject" {
     import { TRoot } from "thermite/TRoot";
     import { TSceneBase } from "thermite/TSceneBase";
+    import { TSelector } from "thermite/TSelector";
     import { TTutorContainer } from "thermite/TTutorContainer";
     import { CEFNavigator } from "core/CEFNavigator";
     import { CEFTimeLine } from "core/CEFTimeLine";
@@ -1440,6 +1458,8 @@ declare module "thermite/TObject" {
         readonly ontologyPath: string;
         addHTMLControls(): void;
         hidden: boolean;
+        hide(): void;
+        show(): void;
         features: string;
         setANDFeature(newFTR: string): void;
         setORFeature(newFTR: string): void;
@@ -1510,6 +1530,7 @@ declare module "thermite/TObject" {
         private setXMLProperty(tarObj, tarXML);
         private runXMLFunction(tarObj, tarXML);
         parseOBJ(tarObj: DisplayObject, factoryOBJ: any, factoryType: string): void;
+        $(selector: string): TSelector;
         deSerializeObj(objData: any): void;
     }
 }
@@ -2472,7 +2493,7 @@ declare module "thermite/TButton" {
         resetState(): void;
         gotoState(sState: string): void;
         muteButton(bMute: boolean): void;
-        enableButton(bFlag: boolean): void;
+        enable(bFlag: boolean): void;
         doMouseClicked(evt: TMouseEvent): void;
         protected doClickAction(evt: TMouseEvent): void;
         doMouseOver(evt: TMouseEvent): void;
@@ -2480,8 +2501,7 @@ declare module "thermite/TButton" {
         doMouseDown(evt: TMouseEvent): void;
         doMouseUp(evt: TMouseEvent): void;
         showButton(fShow: boolean): void;
-        loadXML(stringSrc: any): void;
-        saveXML(): string;
+        deSerializeObj(objData: any): void;
     }
 }
 declare module "controls/CEFLabelButton" {
@@ -3116,6 +3136,18 @@ declare module "thermite/TNavPanel" {
         disConnectNavButton(type: string, butComp: string): void;
         showHideNavButton(type: string, show: boolean): void;
         setNavigationTarget(behavior: string): void;
+    }
+}
+declare module "thermite/TText" {
+    import { TObject } from "thermite/TObject";
+    import { CEFEvent } from "events/CEFEvent";
+    export class TText extends TObject {
+        constructor();
+        TTextInitialize(): void;
+        initialize(): void;
+        private init3();
+        Destructor(): void;
+        onAddedToStage(evt: CEFEvent): void;
     }
 }
 declare module "thermite/TTitleBar" {

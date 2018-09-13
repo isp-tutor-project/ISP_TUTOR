@@ -2421,8 +2421,8 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                 onSelect(target) {
                     this.$onSelect(target);
                 }
-                onClick(target) {
-                    this.$onClick(target);
+                onAction(target, evt) {
+                    this.$onAction(target, evt);
                 }
                 sceneReplay(evt) {
                     if (this.traceMode)
@@ -3032,6 +3032,10 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                         this._name = factory.actionname;
                         this._actionname = factory.actionname;
                     }
+                    if (factory.enqueue === false) {
+                        console.log("rtest");
+                    }
+                    this._enqueue = typeof factory.enqueue == "undefined" ? true : factory.enqueue;
                     this._autostep = factory.autostep || false;
                     this._stepdelay = factory.stepdelay || 0.0;
                     this._odds = factory.odds;
@@ -3058,6 +3062,9 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                             break;
                     }
                     return sceneTrack;
+                }
+                get isHistoric() {
+                    return this._enqueue;
                 }
                 resolveSegmentKey(selector, templateRef) {
                     let ontologyRef = templateRef[selector] || templateRef["*"];
@@ -3500,6 +3507,8 @@ System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "sce
                     do {
                         historyNode = this._history.back();
                         if (historyNode != null) {
+                            if (!historyNode.track.isHistoric)
+                                continue;
                             features = historyNode.track.features;
                             if (features != "") {
                                 if (!this.tutorDoc.testFeatureSet(features)) {
@@ -3817,7 +3826,16 @@ System.register("thermite/TRoot", ["util/CUtil"], function (exports_32, context_
                         this.initObjfromHtmlData(objData);
                     }
                     if (objData.datasource) {
-                        this.initFromDataSource(objData.datasource);
+                        if (Array.isArray(objData.datasource)) {
+                            for (let i1 = 0; i1 < objData.datasource.length; i1++) {
+                                if (this.tutorDoc.testFeatureSet(objData.datasource[i1].features)) {
+                                    this.initFromDataSource(objData.datasource[i1].src);
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                            this.initFromDataSource(objData.datasource);
                     }
                 }
             };
@@ -4566,10 +4584,101 @@ System.register("core/CEFNavigator", ["core/CEFTransitions", "events/CEFEvent", 
         }
     };
 });
-System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "events/CEFEvent", "util/CONST", "util/CUtil"], function (exports_38, context_38) {
+System.register("thermite/TSelector", [], function (exports_38, context_38) {
     "use strict";
     var __moduleName = context_38 && context_38.id;
-    var TRoot_4, TObjectDyno_1, CEFEvent_8, CONST_7, CUtil_19, Tween, ColorMatrixFilter, BlurFilter, Ease, TObject;
+    var TSelector;
+    return {
+        setters: [],
+        execute: function () {
+            TSelector = class TSelector {
+                constructor(host, selectorStr) {
+                    this.selectors = selectorStr.split("|");
+                    this.regex = [];
+                    this.targets = [];
+                    for (let i1 = 0; i1 < this.selectors.length; i1++) {
+                        let selectorGrp = this.selectors[i1].split(",");
+                        if (selectorGrp.length > 1) {
+                            let regexGrp = [];
+                            for (let i1 = 0; i1 < selectorGrp.length; i1++) {
+                                regexGrp.push(new RegExp(selectorGrp[i1]));
+                            }
+                            this.regex.push(regexGrp);
+                        }
+                        else {
+                            this.regex.push(new RegExp(this.selectors[i1]));
+                        }
+                    }
+                    this.resolveSelectors(host, this.regex);
+                }
+                testSelector(currRegEx, element) {
+                    return currRegEx.test(element);
+                }
+                resolveSelectors(host, regex) {
+                    let currRegEx = regex[0];
+                    if (Array.isArray(currRegEx)) {
+                        currRegEx.forEach(innerRegEx => {
+                            for (let element in host) {
+                                if (innerRegEx.test(element)) {
+                                    if (regex.length > 1) {
+                                        this.resolveSelectors(host[element], regex.slice(1));
+                                    }
+                                    else {
+                                        this.targets.push(host[element]);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                        for (let element in host) {
+                            if (currRegEx.test(element)) {
+                                if (regex.length > 1) {
+                                    this.resolveSelectors(host[element], regex.slice(1));
+                                }
+                                else {
+                                    this.targets.push(host[element]);
+                                }
+                            }
+                        }
+                }
+                hide() {
+                    this.targets.forEach(component => {
+                        if (component.hide instanceof Function) {
+                            component.hide();
+                        }
+                    });
+                }
+                show() {
+                    this.targets.forEach(component => {
+                        if (component.show instanceof Function) {
+                            component.show();
+                        }
+                    });
+                }
+                enable() {
+                    this.targets.forEach(component => {
+                        if (component.enable instanceof Function) {
+                            component.enable(true);
+                        }
+                    });
+                }
+                disable() {
+                    this.targets.forEach(component => {
+                        if (component.enable instanceof Function) {
+                            component.enable(false);
+                        }
+                    });
+                }
+            };
+            exports_38("TSelector", TSelector);
+        }
+    };
+});
+System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "thermite/TSelector", "events/CEFEvent", "util/CONST", "util/CUtil"], function (exports_39, context_39) {
+    "use strict";
+    var __moduleName = context_39 && context_39.id;
+    var TRoot_4, TObjectDyno_1, TSelector_1, CEFEvent_8, CONST_7, CUtil_19, Tween, ColorMatrixFilter, BlurFilter, Ease, TObject;
     return {
         setters: [
             function (TRoot_4_1) {
@@ -4577,6 +4686,9 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
             },
             function (TObjectDyno_1_1) {
                 TObjectDyno_1 = TObjectDyno_1_1;
+            },
+            function (TSelector_1_1) {
+                TSelector_1 = TSelector_1_1;
             },
             function (CEFEvent_8_1) {
                 CEFEvent_8 = CEFEvent_8_1;
@@ -4654,6 +4766,12 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
                 }
                 get hidden() {
                     return this._hidden;
+                }
+                hide() {
+                    this.hidden = true;
+                }
+                show() {
+                    this.hidden = false;
                 }
                 set features(newFTR) {
                     this._features = newFTR;
@@ -5322,6 +5440,9 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
                         }
                     }
                 }
+                $(selector) {
+                    return new TSelector_1.TSelector(this, selector);
+                }
                 deSerializeObj(objData) {
                     super.deSerializeObj(objData);
                     this.xname = objData.xname || this.xname;
@@ -5335,13 +5456,13 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
                     }
                 }
             };
-            exports_38("TObject", TObject);
+            exports_39("TObject", TObject);
         }
     };
 });
-System.register("mongo/MObject", [], function (exports_39, context_39) {
+System.register("mongo/MObject", [], function (exports_40, context_40) {
     "use strict";
-    var __moduleName = context_39 && context_39.id;
+    var __moduleName = context_40 && context_40.id;
     var MObject;
     return {
         setters: [],
@@ -5351,13 +5472,13 @@ System.register("mongo/MObject", [], function (exports_39, context_39) {
                     super();
                 }
             };
-            exports_39("MObject", MObject);
+            exports_40("MObject", MObject);
         }
     };
 });
-System.register("mongo/CObject", ["mongo/MObject"], function (exports_40, context_40) {
+System.register("mongo/CObject", ["mongo/MObject"], function (exports_41, context_41) {
     "use strict";
-    var __moduleName = context_40 && context_40.id;
+    var __moduleName = context_41 && context_41.id;
     var MObject_1, CObject;
     return {
         setters: [
@@ -5397,13 +5518,13 @@ System.register("mongo/CObject", ["mongo/MObject"], function (exports_40, contex
                     dataObj[objPath.shift()] = value;
                 }
             };
-            exports_40("CObject", CObject);
+            exports_41("CObject", CObject);
         }
     };
 });
-System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"], function (exports_41, context_41) {
+System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"], function (exports_42, context_42) {
     "use strict";
-    var __moduleName = context_41 && context_41.id;
+    var __moduleName = context_42 && context_42.id;
     var CUtil_20, MObject_2, CObject_1, CMongo;
     return {
         setters: [
@@ -5624,13 +5745,13 @@ System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"]
                     dataObj[objPath.shift()] = value;
                 }
             };
-            exports_41("CMongo", CMongo);
+            exports_42("CMongo", CMongo);
         }
     };
 });
-System.register("events/CDataEvent", ["util/CUtil"], function (exports_42, context_42) {
+System.register("events/CDataEvent", ["util/CUtil"], function (exports_43, context_43) {
     "use strict";
-    var __moduleName = context_42 && context_42.id;
+    var __moduleName = context_43 && context_43.id;
     var CUtil_21, Event, CDataEvent;
     return {
         setters: [
@@ -5653,13 +5774,13 @@ System.register("events/CDataEvent", ["util/CUtil"], function (exports_42, conte
             };
             CDataEvent.DATA = "data";
             CDataEvent.UPLOAD_COMPLETE_DATA = "uploadCompleteData";
-            exports_42("CDataEvent", CDataEvent);
+            exports_43("CDataEvent", CDataEvent);
         }
     };
 });
-System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_43, context_43) {
+System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_44, context_44) {
     "use strict";
-    var __moduleName = context_43 && context_43.id;
+    var __moduleName = context_44 && context_44.id;
     var CUtil_22, Event, CIOErrorEvent;
     return {
         setters: [
@@ -5683,13 +5804,13 @@ System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_43, co
             CIOErrorEvent.STANDARD_ERROR_IO_ERROR = "standardErrorIoError";
             CIOErrorEvent.STANDARD_INPUT_IO_ERROR = "standardInputIoError";
             CIOErrorEvent.STANDARD_OUTPUT_IO_ERROR = "standardOutputIoError";
-            exports_43("CIOErrorEvent", CIOErrorEvent);
+            exports_44("CIOErrorEvent", CIOErrorEvent);
         }
     };
 });
-System.register("events/CTextEvent", ["util/CUtil"], function (exports_44, context_44) {
+System.register("events/CTextEvent", ["util/CUtil"], function (exports_45, context_45) {
     "use strict";
-    var __moduleName = context_44 && context_44.id;
+    var __moduleName = context_45 && context_45.id;
     var CUtil_23, Event, CTextEvent;
     return {
         setters: [
@@ -5711,13 +5832,13 @@ System.register("events/CTextEvent", ["util/CUtil"], function (exports_44, conte
             };
             CTextEvent.COMPLETE = "dnscomplete";
             CTextEvent.FAILED = "dnsfailed";
-            exports_44("CTextEvent", CTextEvent);
+            exports_45("CTextEvent", CTextEvent);
         }
     };
 });
-System.register("events/CErrorEvent", ["events/CTextEvent", "util/CUtil"], function (exports_45, context_45) {
+System.register("events/CErrorEvent", ["events/CTextEvent", "util/CUtil"], function (exports_46, context_46) {
     "use strict";
-    var __moduleName = context_45 && context_45.id;
+    var __moduleName = context_46 && context_46.id;
     var CTextEvent_1, CUtil_24, CErrorEvent;
     return {
         setters: [
@@ -5740,13 +5861,13 @@ System.register("events/CErrorEvent", ["events/CTextEvent", "util/CUtil"], funct
                 }
             };
             CErrorEvent.ERROR = "error";
-            exports_45("CErrorEvent", CErrorEvent);
+            exports_46("CErrorEvent", CErrorEvent);
         }
     };
 });
-System.register("events/CSecurityErrorEvent", ["events/CErrorEvent", "util/CUtil"], function (exports_46, context_46) {
+System.register("events/CSecurityErrorEvent", ["events/CErrorEvent", "util/CUtil"], function (exports_47, context_47) {
     "use strict";
-    var __moduleName = context_46 && context_46.id;
+    var __moduleName = context_47 && context_47.id;
     var CErrorEvent_1, CUtil_25, CSecurityErrorEvent;
     return {
         setters: [
@@ -5768,13 +5889,13 @@ System.register("events/CSecurityErrorEvent", ["events/CErrorEvent", "util/CUtil
                 }
             };
             CSecurityErrorEvent.SECURITY_ERROR = "securityError";
-            exports_46("CSecurityErrorEvent", CSecurityErrorEvent);
+            exports_47("CSecurityErrorEvent", CSecurityErrorEvent);
         }
     };
 });
-System.register("network/CSocket", ["util/CUtil"], function (exports_47, context_47) {
+System.register("network/CSocket", ["util/CUtil"], function (exports_48, context_48) {
     "use strict";
-    var __moduleName = context_47 && context_47.id;
+    var __moduleName = context_48 && context_48.id;
     var CUtil_26, CSocket;
     return {
         setters: [
@@ -5885,13 +6006,13 @@ System.register("network/CSocket", ["util/CUtil"], function (exports_47, context
             CSocket.xmlSQLERROR = "sqlerror";
             CSocket.xmlInvalidUsername = "INVALID_USERNAME";
             CSocket.xmlInvalidPassword = "INVALID_PASSWORD";
-            exports_47("CSocket", CSocket);
+            exports_48("CSocket", CSocket);
         }
     };
 });
-System.register("events/CLogEvent", ["util/CUtil"], function (exports_48, context_48) {
+System.register("events/CLogEvent", ["util/CUtil"], function (exports_49, context_49) {
     "use strict";
-    var __moduleName = context_48 && context_48.id;
+    var __moduleName = context_49 && context_49.id;
     var CUtil_27, Event, CLogEvent;
     return {
         setters: [
@@ -5957,13 +6078,13 @@ System.register("events/CLogEvent", ["util/CUtil"], function (exports_48, contex
             CLogEvent.QUERY_SUCCESS = "Query Success";
             CLogEvent.QUERY_FAILED = "Query failed";
             CLogEvent.PACKET_DATA = "Packet Data";
-            exports_48("CLogEvent", CLogEvent);
+            exports_49("CLogEvent", CLogEvent);
         }
     };
 });
-System.register("events/CProgressEvent", ["util/CUtil"], function (exports_49, context_49) {
+System.register("events/CProgressEvent", ["util/CUtil"], function (exports_50, context_50) {
     "use strict";
-    var __moduleName = context_49 && context_49.id;
+    var __moduleName = context_50 && context_50.id;
     var CUtil_28, Event, CProgressEvent;
     return {
         setters: [
@@ -5990,13 +6111,13 @@ System.register("events/CProgressEvent", ["util/CUtil"], function (exports_49, c
             CProgressEvent.STANDARD_ERROR_DATA = "standardErrorData";
             CProgressEvent.STANDARD_INPUT_PROGRESS = "standardInputProgress";
             CProgressEvent.STANDARD_OUTPUT_DATA = "standardOutputData";
-            exports_49("CProgressEvent", CProgressEvent);
+            exports_50("CProgressEvent", CProgressEvent);
         }
     };
 });
-System.register("network/CLogSocket", ["events/CLogEvent"], function (exports_50, context_50) {
+System.register("network/CLogSocket", ["events/CLogEvent"], function (exports_51, context_51) {
     "use strict";
-    var __moduleName = context_50 && context_50.id;
+    var __moduleName = context_51 && context_51.id;
     var CLogEvent_1, EventDispatcher, CLogSocket;
     return {
         setters: [
@@ -6039,13 +6160,13 @@ System.register("network/CLogSocket", ["events/CLogEvent"], function (exports_50
                     this.dispatchEvent(new CLogEvent_1.CLogEvent(CLogEvent_1.CLogEvent.CONNECT_STATUS, CLogEvent_1.CLogEvent.SOCKET_SECERR));
                 }
             };
-            exports_50("CLogSocket", CLogSocket);
+            exports_51("CLogSocket", CLogSocket);
         }
     };
 });
-System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CUtil"], function (exports_51, context_51) {
+System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CUtil"], function (exports_52, context_52) {
     "use strict";
-    var __moduleName = context_51 && context_51.id;
+    var __moduleName = context_52 && context_52.id;
     var CLogEvent_2, CONST_8, CUtil_29, EventDispatcher, CLogQueue;
     return {
         setters: [
@@ -6328,13 +6449,13 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     return xResult;
                 }
             };
-            exports_51("CLogQueue", CLogQueue);
+            exports_52("CLogQueue", CLogQueue);
         }
     };
 });
-System.register("network/CURLRequest", [], function (exports_52, context_52) {
+System.register("network/CURLRequest", [], function (exports_53, context_53) {
     "use strict";
-    var __moduleName = context_52 && context_52.id;
+    var __moduleName = context_53 && context_53.id;
     var CURLRequest;
     return {
         setters: [],
@@ -6359,13 +6480,13 @@ System.register("network/CURLRequest", [], function (exports_52, context_52) {
             CURLRequest.MIME_JS = "application/javascript";
             CURLRequest.MIME_ES = "application/ecmascript";
             CURLRequest.MIME_OCTET = "application/octet-stream";
-            exports_52("CURLRequest", CURLRequest);
+            exports_53("CURLRequest", CURLRequest);
         }
     };
 });
-System.register("network/CURLLoader", [], function (exports_53, context_53) {
+System.register("network/CURLLoader", [], function (exports_54, context_54) {
     "use strict";
-    var __moduleName = context_53 && context_53.id;
+    var __moduleName = context_54 && context_54.id;
     var EventDispatcher, CURLLoader;
     return {
         setters: [],
@@ -6422,13 +6543,13 @@ System.register("network/CURLLoader", [], function (exports_53, context_53) {
                     return requestPromise;
                 }
             };
-            exports_53("CURLLoader", CURLLoader);
+            exports_54("CURLLoader", CURLLoader);
         }
     };
 });
-System.register("events/CDnsEvent", ["util/CUtil"], function (exports_54, context_54) {
+System.register("events/CDnsEvent", ["util/CUtil"], function (exports_55, context_55) {
     "use strict";
-    var __moduleName = context_54 && context_54.id;
+    var __moduleName = context_55 && context_55.id;
     var CUtil_30, Event, CDnsEvent;
     return {
         setters: [
@@ -6450,13 +6571,13 @@ System.register("events/CDnsEvent", ["util/CUtil"], function (exports_54, contex
             };
             CDnsEvent.COMPLETE = "dnscomplete";
             CDnsEvent.FAILED = "dnsfailed";
-            exports_54("CDnsEvent", CDnsEvent);
+            exports_55("CDnsEvent", CDnsEvent);
         }
     };
 });
-System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent", "events/CIOErrorEvent", "events/CSecurityErrorEvent", "events/CEFEvent", "events/CProgressEvent", "util/CUtil", "network/CURLRequest"], function (exports_55, context_55) {
+System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent", "events/CIOErrorEvent", "events/CSecurityErrorEvent", "events/CEFEvent", "events/CProgressEvent", "util/CUtil", "network/CURLRequest"], function (exports_56, context_56) {
     "use strict";
-    var __moduleName = context_55 && context_55.id;
+    var __moduleName = context_56 && context_56.id;
     var CURLLoader_1, CDnsEvent_1, CIOErrorEvent_1, CSecurityErrorEvent_1, CEFEvent_9, CProgressEvent_1, CUtil_31, CURLRequest_1, CDDnsLoader;
     return {
         setters: [
@@ -6550,13 +6671,13 @@ System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent"
                     this.dispatchEvent(new CDnsEvent_1.CDnsEvent(CDnsEvent_1.CDnsEvent.FAILED, evt.toString()));
                 }
             };
-            exports_55("CDDnsLoader", CDDnsLoader);
+            exports_56("CDDnsLoader", CDDnsLoader);
         }
     };
 });
-System.register("events/CTimerEvent", ["util/CUtil"], function (exports_56, context_56) {
+System.register("events/CTimerEvent", ["util/CUtil"], function (exports_57, context_57) {
     "use strict";
-    var __moduleName = context_56 && context_56.id;
+    var __moduleName = context_57 && context_57.id;
     var CUtil_32, Event, CTimerEvent;
     return {
         setters: [
@@ -6579,13 +6700,13 @@ System.register("events/CTimerEvent", ["util/CUtil"], function (exports_56, cont
             };
             CTimerEvent.TIMER = "timer";
             CTimerEvent.TIMER_COMPLETE = "timer_complete";
-            exports_56("CTimerEvent", CTimerEvent);
+            exports_57("CTimerEvent", CTimerEvent);
         }
     };
 });
-System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo/CObject", "network/CSocket", "network/CLogSocket", "network/CLogQueue", "network/CDDnsLoader", "events/CLogEvent", "events/CTimerEvent", "events/CDataEvent", "events/CDnsEvent", "util/CONST", "util/CUtil"], function (exports_57, context_57) {
+System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo/CObject", "network/CSocket", "network/CLogSocket", "network/CLogQueue", "network/CDDnsLoader", "events/CLogEvent", "events/CTimerEvent", "events/CDataEvent", "events/CDnsEvent", "util/CONST", "util/CUtil"], function (exports_58, context_58) {
     "use strict";
-    var __moduleName = context_57 && context_57.id;
+    var __moduleName = context_58 && context_58.id;
     var CEFTimer_3, CMongo_1, CObject_2, CSocket_1, CLogSocket_1, CLogQueue_1, CDDnsLoader_1, CLogEvent_3, CTimerEvent_1, CDataEvent_1, CDnsEvent_2, CONST_9, CUtil_33, EventDispatcher, CLogManager, SingletonObj;
     return {
         setters: [
@@ -7517,16 +7638,16 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     return xResult;
                 }
             };
-            exports_57("CLogManager", CLogManager);
+            exports_58("CLogManager", CLogManager);
             SingletonObj = class SingletonObj {
             };
-            exports_57("SingletonObj", SingletonObj);
+            exports_58("SingletonObj", SingletonObj);
         }
     };
 });
-System.register("tutorgraph/CTutorConstraint", ["util/CUtil"], function (exports_58, context_58) {
+System.register("tutorgraph/CTutorConstraint", ["util/CUtil"], function (exports_59, context_59) {
     "use strict";
-    var __moduleName = context_58 && context_58.id;
+    var __moduleName = context_59 && context_59.id;
     var CUtil_34, CTutorConstraint;
     return {
         setters: [
@@ -7566,13 +7687,13 @@ System.register("tutorgraph/CTutorConstraint", ["util/CUtil"], function (exports
                     return result;
                 }
             };
-            exports_58("CTutorConstraint", CTutorConstraint);
+            exports_59("CTutorConstraint", CTutorConstraint);
         }
     };
 });
-System.register("tutorgraph/CTutorEdge", [], function (exports_59, context_59) {
+System.register("tutorgraph/CTutorEdge", [], function (exports_60, context_60) {
     "use strict";
-    var __moduleName = context_59 && context_59.id;
+    var __moduleName = context_60 && context_60.id;
     var CTutorEdge;
     return {
         setters: [],
@@ -7616,13 +7737,13 @@ System.register("tutorgraph/CTutorEdge", [], function (exports_59, context_59) {
                     return this._parent.findNodeByName(this._edgeNode);
                 }
             };
-            exports_59("CTutorEdge", CTutorEdge);
+            exports_60("CTutorEdge", CTutorEdge);
         }
     };
 });
-System.register("tutorgraph/CTutorScene", [], function (exports_60, context_60) {
+System.register("tutorgraph/CTutorScene", [], function (exports_61, context_61) {
     "use strict";
-    var __moduleName = context_60 && context_60.id;
+    var __moduleName = context_61 && context_61.id;
     var CTutorScene;
     return {
         setters: [],
@@ -7707,13 +7828,13 @@ System.register("tutorgraph/CTutorScene", [], function (exports_60, context_60) 
                     this.tutorContainer.enumChildren(this.tutorContainer, 0);
                 }
             };
-            exports_60("CTutorScene", CTutorScene);
+            exports_61("CTutorScene", CTutorScene);
         }
     };
 });
-System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (exports_61, context_61) {
+System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (exports_62, context_62) {
     "use strict";
-    var __moduleName = context_61 && context_61.id;
+    var __moduleName = context_62 && context_62.id;
     var CTutorEdge_1, EventDispatcher, CTutorNode;
     return {
         setters: [
@@ -7785,13 +7906,13 @@ System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (ex
                 resetNode() {
                 }
             };
-            exports_61("CTutorNode", CTutorNode);
+            exports_62("CTutorNode", CTutorNode);
         }
     };
 });
-System.register("tutorgraph/CTutorAction", ["tutorgraph/CTutorNode"], function (exports_62, context_62) {
+System.register("tutorgraph/CTutorAction", ["tutorgraph/CTutorNode"], function (exports_63, context_63) {
     "use strict";
-    var __moduleName = context_62 && context_62.id;
+    var __moduleName = context_63 && context_63.id;
     var CTutorNode_1, CTutorAction;
     return {
         setters: [
@@ -7825,13 +7946,13 @@ System.register("tutorgraph/CTutorAction", ["tutorgraph/CTutorNode"], function (
                     return false;
                 }
             };
-            exports_62("CTutorAction", CTutorAction);
+            exports_63("CTutorAction", CTutorAction);
         }
     };
 });
-System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph/CTutorScene", "util/CUtil"], function (exports_63, context_63) {
+System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph/CTutorScene", "util/CUtil"], function (exports_64, context_64) {
     "use strict";
-    var __moduleName = context_63 && context_63.id;
+    var __moduleName = context_64 && context_64.id;
     var CTutorNode_2, CTutorScene_1, CUtil_35, CTutorModule;
     return {
         setters: [
@@ -7931,13 +8052,13 @@ System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph
                     this._ndx = -1;
                 }
             };
-            exports_63("CTutorModule", CTutorModule);
+            exports_64("CTutorModule", CTutorModule);
         }
     };
 });
-System.register("tutorgraph/CTutorModuleGroup", ["tutorgraph/CTutorNode", "tutorgraph/CTutorModule"], function (exports_64, context_64) {
+System.register("tutorgraph/CTutorModuleGroup", ["tutorgraph/CTutorNode", "tutorgraph/CTutorModule"], function (exports_65, context_65) {
     "use strict";
-    var __moduleName = context_64 && context_64.id;
+    var __moduleName = context_65 && context_65.id;
     var CTutorNode_3, CTutorModule_1, CTutorModuleGroup;
     return {
         setters: [
@@ -8056,13 +8177,13 @@ System.register("tutorgraph/CTutorModuleGroup", ["tutorgraph/CTutorNode", "tutor
             };
             CTutorModuleGroup.SEQUENTIAL = "seqtype";
             CTutorModuleGroup.STOCHASTIC = "randtype";
-            exports_64("CTutorModuleGroup", CTutorModuleGroup);
+            exports_65("CTutorModuleGroup", CTutorModuleGroup);
         }
     };
 });
-System.register("bkt/CBKTSkill", [], function (exports_65, context_65) {
+System.register("bkt/CBKTSkill", [], function (exports_66, context_66) {
     "use strict";
-    var __moduleName = context_65 && context_65.id;
+    var __moduleName = context_66 && context_66.id;
     var CBKTSkill;
     return {
         setters: [],
@@ -8100,13 +8221,13 @@ System.register("bkt/CBKTSkill", [], function (exports_65, context_65) {
                     return this.Bel;
                 }
             };
-            exports_65("CBKTSkill", CBKTSkill);
+            exports_66("CBKTSkill", CBKTSkill);
         }
     };
 });
-System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/CTutorConstraint", "tutorgraph/CTutorAction", "tutorgraph/CTutorModule", "tutorgraph/CTutorModuleGroup", "bkt/CBKTSkill", "util/CUtil"], function (exports_66, context_66) {
+System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/CTutorConstraint", "tutorgraph/CTutorAction", "tutorgraph/CTutorModule", "tutorgraph/CTutorModuleGroup", "bkt/CBKTSkill", "util/CUtil"], function (exports_67, context_67) {
     "use strict";
-    var __moduleName = context_66 && context_66.id;
+    var __moduleName = context_67 && context_67.id;
     var CTutorNode_4, CTutorConstraint_1, CTutorAction_1, CTutorModule_2, CTutorModuleGroup_1, CBKTSkill_1, CUtil_36, CTutorGraph;
     return {
         setters: [
@@ -8303,13 +8424,13 @@ System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/
                     this._currNode.seekToScene(seekScene);
                 }
             };
-            exports_66("CTutorGraph", CTutorGraph);
+            exports_67("CTutorGraph", CTutorGraph);
         }
     };
 });
-System.register("tutorgraph/CTutorHistoryNode", [], function (exports_67, context_67) {
+System.register("tutorgraph/CTutorHistoryNode", [], function (exports_68, context_68) {
     "use strict";
-    var __moduleName = context_67 && context_67.id;
+    var __moduleName = context_68 && context_68.id;
     var CTutorHistoryNode;
     return {
         setters: [],
@@ -8321,13 +8442,13 @@ System.register("tutorgraph/CTutorHistoryNode", [], function (exports_67, contex
                     this.scene = _scene;
                 }
             };
-            exports_67("CTutorHistoryNode", CTutorHistoryNode);
+            exports_68("CTutorHistoryNode", CTutorHistoryNode);
         }
     };
 });
-System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], function (exports_68, context_68) {
+System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], function (exports_69, context_69) {
     "use strict";
-    var __moduleName = context_68 && context_68.id;
+    var __moduleName = context_69 && context_69.id;
     var CTutorHistoryNode_1, CTutorHistory;
     return {
         setters: [
@@ -8375,13 +8496,13 @@ System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], fu
                     return this._volatile;
                 }
             };
-            exports_68("CTutorHistory", CTutorHistory);
+            exports_69("CTutorHistory", CTutorHistory);
         }
     };
 });
-System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "tutorgraph/CTutorHistory", "core/CEFNavigator", "events/CEFEvent", "util/CONST", "util/CUtil", "core/CEFTimer"], function (exports_69, context_69) {
+System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "tutorgraph/CTutorHistory", "core/CEFNavigator", "events/CEFEvent", "util/CONST", "util/CUtil", "core/CEFTimer"], function (exports_70, context_70) {
     "use strict";
-    var __moduleName = context_69 && context_69.id;
+    var __moduleName = context_70 && context_70.id;
     var CTutorGraph_1, CTutorHistory_1, CEFNavigator_1, CEFEvent_10, CONST_10, CUtil_37, Event, CEFTimer_4, CTutorGraphNavigator;
     return {
         setters: [
@@ -8626,13 +8747,13 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                     }
                 }
             };
-            exports_69("CTutorGraphNavigator", CTutorGraphNavigator);
+            exports_70("CTutorGraphNavigator", CTutorGraphNavigator);
         }
     };
 });
-System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader", "network/CURLRequest", "thermite/TTutorContainer", "events/CEFEvent", "tutorgraph/CTutorGraphNavigator", "util/CONST", "util/CUtil"], function (exports_70, context_70) {
+System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader", "network/CURLRequest", "thermite/TTutorContainer", "events/CEFEvent", "tutorgraph/CTutorGraphNavigator", "util/CONST", "util/CUtil"], function (exports_71, context_71) {
     "use strict";
-    var __moduleName = context_70 && context_70.id;
+    var __moduleName = context_71 && context_71.id;
     var CLogManager_1, CURLLoader_2, CURLRequest_2, TTutorContainer_2, CEFEvent_11, CTutorGraphNavigator_1, CONST_11, CUtil_38, EventDispatcher, CEFTutorDoc;
     return {
         setters: [
@@ -9121,13 +9242,13 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     CUtil_38.CUtil.trace(this.fFeatures);
                 }
             };
-            exports_70("CEFTutorDoc", CEFTutorDoc);
+            exports_71("CEFTutorDoc", CEFTutorDoc);
         }
     };
 });
-System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil"], function (exports_71, context_71) {
+System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil"], function (exports_72, context_72) {
     "use strict";
-    var __moduleName = context_71 && context_71.id;
+    var __moduleName = context_72 && context_72.id;
     var CEFTutorDoc_1, CONST_12, CUtil_39, CEngine;
     return {
         setters: [
@@ -9297,13 +9418,13 @@ System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil
                     }
                 }
             };
-            exports_71("CEngine", CEngine);
+            exports_72("CEngine", CEngine);
         }
     };
 });
-System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "thermite/events/TMouseEvent", "util/CONST", "util/CUtil"], function (exports_72, context_72) {
+System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "thermite/events/TMouseEvent", "util/CONST", "util/CUtil"], function (exports_73, context_73) {
     "use strict";
-    var __moduleName = context_72 && context_72.id;
+    var __moduleName = context_73 && context_73.id;
     var TObject_8, CEFEvent_12, TMouseEvent_3, CONST_13, CUtil_40, Timeline, TButton;
     return {
         setters: [
@@ -9328,10 +9449,6 @@ System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "the
             TButton = class TButton extends TObject_8.TObject {
                 constructor() {
                     super();
-                    this.curState = "unknown";
-                    this.fPressed = false;
-                    this.fEnabled = true;
-                    this.fOver = false;
                     this.onClickScript = null;
                     this.init3();
                 }
@@ -9348,6 +9465,10 @@ System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "the
                     if (this.traceMode)
                         CUtil_40.CUtil.trace("TButton:Constructor");
                     this.on(CEFEvent_12.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
+                    this.curState = "unknown";
+                    this.fPressed = false;
+                    this.fEnabled = true;
+                    this.fOver = false;
                 }
                 Destructor() {
                     this.removeEventListener(TMouseEvent_3.TMouseEvent.WOZCLICKED, this.doMouseClicked);
@@ -9391,7 +9512,7 @@ System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "the
                     this.fPressed = thisObj.defState.fPressed;
                     this.fEnabled = thisObj.defState.fEnabled;
                     this.fOver = thisObj.defState.fOver;
-                    this.enableButton(this.fEnabled);
+                    this.enable(this.fEnabled);
                     super.restoreDefState(thisObj);
                 }
                 captureLogState(obj = null) {
@@ -9463,14 +9584,14 @@ System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "the
                     else {
                         if (this.traceMode)
                             CUtil_40.CUtil.trace("Button UnMuted: " + this.name);
-                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_CLICK, this.doMouseClicked);
-                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_OVER, this.doMouseOver);
-                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_OUT, this.doMouseOut);
-                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_DOWN, this.doMouseDown);
-                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_UP, this.doMouseUp);
+                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_CLICK, this.doMouseClicked, this);
+                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_OVER, this.doMouseOver, this);
+                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_OUT, this.doMouseOut, this);
+                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_DOWN, this.doMouseDown, this);
+                        this.on(TMouseEvent_3.TMouseEvent.MOUSE_UP, this.doMouseUp, this);
                     }
                 }
-                enableButton(bFlag) {
+                enable(bFlag) {
                     this.fEnabled = bFlag;
                     if (!bFlag) {
                         if (this.traceMode)
@@ -9497,9 +9618,11 @@ System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "the
                 }
                 doClickAction(evt) {
                     try {
+                        if (this.hostScene)
+                            this.hostScene.onAction(this.name, evt.type);
                     }
                     catch (e) {
-                        CUtil_40.CUtil.trace("Error in onClick script: " + this.onClickScript);
+                        CUtil_40.CUtil.trace("Error in onClick script: " + e);
                     }
                 }
                 doMouseOver(evt) {
@@ -9532,23 +9655,18 @@ System.register("thermite/TButton", ["thermite/TObject", "events/CEFEvent", "the
                         }
                     }
                 }
-                loadXML(stringSrc) {
-                    super.loadXML(stringSrc);
-                    if (stringSrc.onclick != undefined) {
-                    }
-                }
-                saveXML() {
-                    let propVector;
-                    return propVector;
+                deSerializeObj(objData) {
+                    console.log("deserializing: Button Control");
+                    super.deSerializeObj(objData);
                 }
             };
-            exports_72("TButton", TButton);
+            exports_73("TButton", TButton);
         }
     };
 });
-System.register("controls/CEFLabelButton", ["thermite/TButton"], function (exports_73, context_73) {
+System.register("controls/CEFLabelButton", ["thermite/TButton"], function (exports_74, context_74) {
     "use strict";
-    var __moduleName = context_73 && context_73.id;
+    var __moduleName = context_74 && context_74.id;
     var TButton_1, CEFLabelButton;
     return {
         setters: [
@@ -9563,13 +9681,13 @@ System.register("controls/CEFLabelButton", ["thermite/TButton"], function (expor
                 setLabel(newLabel) {
                 }
             };
-            exports_73("CEFLabelButton", CEFLabelButton);
+            exports_74("CEFLabelButton", CEFLabelButton);
         }
     };
 });
-System.register("controls/CEFLabelControl", ["thermite/TObject"], function (exports_74, context_74) {
+System.register("controls/CEFLabelControl", ["thermite/TObject"], function (exports_75, context_75) {
     "use strict";
-    var __moduleName = context_74 && context_74.id;
+    var __moduleName = context_75 && context_75.id;
     var TObject_9, CEFLabelControl;
     return {
         setters: [
@@ -9585,13 +9703,13 @@ System.register("controls/CEFLabelControl", ["thermite/TObject"], function (expo
                 setLabel(newLabel, colour = 0x000000) {
                 }
             };
-            exports_74("CEFLabelControl", CEFLabelControl);
+            exports_75("CEFLabelControl", CEFLabelControl);
         }
     };
 });
-System.register("controls/CEFSkillBar", ["thermite/TObject"], function (exports_75, context_75) {
+System.register("controls/CEFSkillBar", ["thermite/TObject"], function (exports_76, context_76) {
     "use strict";
-    var __moduleName = context_75 && context_75.id;
+    var __moduleName = context_76 && context_76.id;
     var TObject_10, CEFSkillBar;
     return {
         setters: [
@@ -9622,13 +9740,13 @@ System.register("controls/CEFSkillBar", ["thermite/TObject"], function (exports_
                     return this._level;
                 }
             };
-            exports_75("CEFSkillBar", CEFSkillBar);
+            exports_76("CEFSkillBar", CEFSkillBar);
         }
     };
 });
-System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_76, context_76) {
+System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_77, context_77) {
     "use strict";
-    var __moduleName = context_76 && context_76.id;
+    var __moduleName = context_77 && context_77.id;
     var CUtil_41, MouseEvent, TMouseEvent;
     return {
         setters: [
@@ -9683,13 +9801,13 @@ System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_76, co
             TMouseEvent.WOZKEYDOWN = "WOZKEY_DOWN";
             TMouseEvent.WOZKEYUP = "WOZMKEY_UP";
             TMouseEvent.WOZNULL = "WOZNULL";
-            exports_76("TMouseEvent", TMouseEvent);
+            exports_77("TMouseEvent", TMouseEvent);
         }
     };
 });
-System.register("controls/CEFSkilloMeter", ["thermite/TObject", "events/CEFMouseEvent"], function (exports_77, context_77) {
+System.register("controls/CEFSkilloMeter", ["thermite/TObject", "events/CEFMouseEvent"], function (exports_78, context_78) {
     "use strict";
-    var __moduleName = context_77 && context_77.id;
+    var __moduleName = context_78 && context_78.id;
     var TObject_11, CEFMouseEvent_1, CEFSkilloMeter;
     return {
         setters: [
@@ -9737,13 +9855,13 @@ System.register("controls/CEFSkilloMeter", ["thermite/TObject", "events/CEFMouse
                     }
                 }
             };
-            exports_77("CEFSkilloMeter", CEFSkilloMeter);
+            exports_78("CEFSkilloMeter", CEFSkilloMeter);
         }
     };
 });
-System.register("thermite/TMouseMask", ["thermite/TObject", "events/CEFMouseEvent", "util/CUtil"], function (exports_78, context_78) {
+System.register("thermite/TMouseMask", ["thermite/TObject", "events/CEFMouseEvent", "util/CUtil"], function (exports_79, context_79) {
     "use strict";
-    var __moduleName = context_78 && context_78.id;
+    var __moduleName = context_79 && context_79.id;
     var TObject_12, CEFMouseEvent_2, CUtil_42, TMouseMask;
     return {
         setters: [
@@ -9797,13 +9915,13 @@ System.register("thermite/TMouseMask", ["thermite/TObject", "events/CEFMouseEven
                     }
                 }
             };
-            exports_78("TMouseMask", TMouseMask);
+            exports_79("TMouseMask", TMouseMask);
         }
     };
 });
-System.register("events/CEFDialogEvent", [], function (exports_79, context_79) {
+System.register("events/CEFDialogEvent", [], function (exports_80, context_80) {
     "use strict";
-    var __moduleName = context_79 && context_79.id;
+    var __moduleName = context_80 && context_80.id;
     var Event, CEFDialogEvent;
     return {
         setters: [],
@@ -9821,13 +9939,13 @@ System.register("events/CEFDialogEvent", [], function (exports_79, context_79) {
             CEFDialogEvent.ENDMODAL = "ENDMODAL";
             CEFDialogEvent.DLGOK = "DialogOK";
             CEFDialogEvent.DLGCANCEL = "DialogCancel";
-            exports_79("CEFDialogEvent", CEFDialogEvent);
+            exports_80("CEFDialogEvent", CEFDialogEvent);
         }
     };
 });
-System.register("dialogs/CEFDialogBox", ["thermite/TObject", "thermite/TMouseMask", "events/CEFDialogEvent", "util/CUtil"], function (exports_80, context_80) {
+System.register("dialogs/CEFDialogBox", ["thermite/TObject", "thermite/TMouseMask", "events/CEFDialogEvent", "util/CUtil"], function (exports_81, context_81) {
     "use strict";
-    var __moduleName = context_80 && context_80.id;
+    var __moduleName = context_81 && context_81.id;
     var TObject_13, TMouseMask_1, CEFDialogEvent_1, CUtil_43, CEFDialogBox;
     return {
         setters: [
@@ -9917,13 +10035,13 @@ System.register("dialogs/CEFDialogBox", ["thermite/TObject", "thermite/TMouseMas
                     }
                 }
             };
-            exports_80("CEFDialogBox", CEFDialogBox);
+            exports_81("CEFDialogBox", CEFDialogBox);
         }
     };
 });
-System.register("dialogs/CDialogDesignPrompt1", ["dialogs/CEFDialogBox", "events/CEFMouseEvent", "util/CONST"], function (exports_81, context_81) {
+System.register("dialogs/CDialogDesignPrompt1", ["dialogs/CEFDialogBox", "events/CEFMouseEvent", "util/CONST"], function (exports_82, context_82) {
     "use strict";
-    var __moduleName = context_81 && context_81.id;
+    var __moduleName = context_82 && context_82.id;
     var CEFDialogBox_1, CEFMouseEvent_3, CONST_14, CDialogDesignPrompt1;
     return {
         setters: [
@@ -9959,13 +10077,13 @@ System.register("dialogs/CDialogDesignPrompt1", ["dialogs/CEFDialogBox", "events
                     this.Scancel.removeEventListener(CEFMouseEvent_3.TMouseEvent.WOZCLICK, this.doCancel);
                 }
             };
-            exports_81("CDialogDesignPrompt1", CDialogDesignPrompt1);
+            exports_82("CDialogDesignPrompt1", CDialogDesignPrompt1);
         }
     };
 });
-System.register("events/CAuthEvent", ["util/CUtil"], function (exports_82, context_82) {
+System.register("events/CAuthEvent", ["util/CUtil"], function (exports_83, context_83) {
     "use strict";
-    var __moduleName = context_82 && context_82.id;
+    var __moduleName = context_83 && context_83.id;
     var CUtil_44, Event, CAuthEvent;
     return {
         setters: [
@@ -10006,13 +10124,13 @@ System.register("events/CAuthEvent", ["util/CUtil"], function (exports_82, conte
             CAuthEvent.SUCCESS = "success";
             CAuthEvent.VALIDATE = "validate";
             CAuthEvent.FAIL = "fail";
-            exports_82("CAuthEvent", CAuthEvent);
+            exports_83("CAuthEvent", CAuthEvent);
         }
     };
 });
-System.register("events/CCacheEvent", ["util/CUtil"], function (exports_83, context_83) {
+System.register("events/CCacheEvent", ["util/CUtil"], function (exports_84, context_84) {
     "use strict";
-    var __moduleName = context_83 && context_83.id;
+    var __moduleName = context_84 && context_84.id;
     var CUtil_45, Event, CCacheEvent;
     return {
         setters: [
@@ -10035,13 +10153,13 @@ System.register("events/CCacheEvent", ["util/CUtil"], function (exports_83, cont
             };
             CCacheEvent.READY = "READY";
             CCacheEvent.ERROR = "ERROR";
-            exports_83("CCacheEvent", CCacheEvent);
+            exports_84("CCacheEvent", CCacheEvent);
         }
     };
 });
-System.register("events/CEFAutomationEvent", [], function (exports_84, context_84) {
+System.register("events/CEFAutomationEvent", [], function (exports_85, context_85) {
     "use strict";
-    var __moduleName = context_84 && context_84.id;
+    var __moduleName = context_85 && context_85.id;
     var Event, CEFAutomationEvent;
     return {
         setters: [],
@@ -10057,13 +10175,13 @@ System.register("events/CEFAutomationEvent", [], function (exports_84, context_8
                 }
             };
             CEFAutomationEvent.ENDPROMPT = "ENDPROMPT";
-            exports_84("CEFAutomationEvent", CEFAutomationEvent);
+            exports_85("CEFAutomationEvent", CEFAutomationEvent);
         }
     };
 });
-System.register("events/CEFButtonEvent", [], function (exports_85, context_85) {
+System.register("events/CEFButtonEvent", [], function (exports_86, context_86) {
     "use strict";
-    var __moduleName = context_85 && context_85.id;
+    var __moduleName = context_86 && context_86.id;
     var Event, CEFButtonEvent;
     return {
         setters: [],
@@ -10076,13 +10194,13 @@ System.register("events/CEFButtonEvent", [], function (exports_85, context_85) {
             };
             CEFButtonEvent.WOZCHECKED = "wozchecked";
             CEFButtonEvent.WOZUNCHECKED = "wozunchecked";
-            exports_85("CEFButtonEvent", CEFButtonEvent);
+            exports_86("CEFButtonEvent", CEFButtonEvent);
         }
     };
 });
-System.register("events/CEFCaptionEvent", ["util/CUtil"], function (exports_86, context_86) {
+System.register("events/CEFCaptionEvent", ["util/CUtil"], function (exports_87, context_87) {
     "use strict";
-    var __moduleName = context_86 && context_86.id;
+    var __moduleName = context_87 && context_87.id;
     var Event, CUtil_46, CEFCaptionEvent;
     return {
         setters: [
@@ -10103,13 +10221,13 @@ System.register("events/CEFCaptionEvent", ["util/CUtil"], function (exports_86, 
                 }
             };
             CEFCaptionEvent.WOZCAP = "WOZCAPTION";
-            exports_86("CEFCaptionEvent", CEFCaptionEvent);
+            exports_87("CEFCaptionEvent", CEFCaptionEvent);
         }
     };
 });
-System.register("events/CEFCommandEvent", [], function (exports_87, context_87) {
+System.register("events/CEFCommandEvent", [], function (exports_88, context_88) {
     "use strict";
-    var __moduleName = context_87 && context_87.id;
+    var __moduleName = context_88 && context_88.id;
     var Event, CEFCommandEvent;
     return {
         setters: [],
@@ -10125,13 +10243,13 @@ System.register("events/CEFCommandEvent", [], function (exports_87, context_87) 
                 }
             };
             CEFCommandEvent.OBJCMD = "objcmd";
-            exports_87("CEFCommandEvent", CEFCommandEvent);
+            exports_88("CEFCommandEvent", CEFCommandEvent);
         }
     };
 });
-System.register("events/CEFPropertyChangeEventKind", [], function (exports_88, context_88) {
+System.register("events/CEFPropertyChangeEventKind", [], function (exports_89, context_89) {
     "use strict";
-    var __moduleName = context_88 && context_88.id;
+    var __moduleName = context_89 && context_89.id;
     var CEFPropertyChangeEventKind;
     return {
         setters: [],
@@ -10140,13 +10258,13 @@ System.register("events/CEFPropertyChangeEventKind", [], function (exports_88, c
             };
             CEFPropertyChangeEventKind.UPDATE = "update";
             CEFPropertyChangeEventKind.DELETE = "delete";
-            exports_88("CEFPropertyChangeEventKind", CEFPropertyChangeEventKind);
+            exports_89("CEFPropertyChangeEventKind", CEFPropertyChangeEventKind);
         }
     };
 });
-System.register("events/CEFPropertyChangeEvent", ["events/CEFPropertyChangeEventKind"], function (exports_89, context_89) {
+System.register("events/CEFPropertyChangeEvent", ["events/CEFPropertyChangeEventKind"], function (exports_90, context_90) {
     "use strict";
-    var __moduleName = context_89 && context_89.id;
+    var __moduleName = context_90 && context_90.id;
     var Event, CEFPropertyChangeEventKind_1, CEFPropertyChangeEvent;
     return {
         setters: [
@@ -10179,13 +10297,13 @@ System.register("events/CEFPropertyChangeEvent", ["events/CEFPropertyChangeEvent
                 }
             };
             CEFPropertyChangeEvent.PROPERTY_CHANGE = "propertyChange";
-            exports_89("CEFPropertyChangeEvent", CEFPropertyChangeEvent);
+            exports_90("CEFPropertyChangeEvent", CEFPropertyChangeEvent);
         }
     };
 });
-System.register("events/CEFSelectEvent", ["util/CUtil"], function (exports_90, context_90) {
+System.register("events/CEFSelectEvent", ["util/CUtil"], function (exports_91, context_91) {
     "use strict";
-    var __moduleName = context_90 && context_90.id;
+    var __moduleName = context_91 && context_91.id;
     var Event, CUtil_47, CEFSelectEvent;
     return {
         setters: [
@@ -10207,13 +10325,13 @@ System.register("events/CEFSelectEvent", ["util/CUtil"], function (exports_90, c
             };
             CEFSelectEvent.WOZTABSELECT = "WOZTABSELECT";
             CEFSelectEvent.WOZIMGSELECT = "WOZIMGSELECT";
-            exports_90("CEFSelectEvent", CEFSelectEvent);
+            exports_91("CEFSelectEvent", CEFSelectEvent);
         }
     };
 });
-System.register("events/CEFTextEvent", ["events/CEFEvent", "util/CUtil"], function (exports_91, context_91) {
+System.register("events/CEFTextEvent", ["events/CEFEvent", "util/CUtil"], function (exports_92, context_92) {
     "use strict";
-    var __moduleName = context_91 && context_91.id;
+    var __moduleName = context_92 && context_92.id;
     var CEFEvent_13, CUtil_48, CEFTextEvent;
     return {
         setters: [
@@ -10242,13 +10360,13 @@ System.register("events/CEFTextEvent", ["events/CEFEvent", "util/CUtil"], functi
             CEFTextEvent.WOZINPUTTEXT = "wozInputText";
             CEFTextEvent.WOZCAPTUREFOCUS = "wozCaptureFocus";
             CEFTextEvent.WOZRELEASEFOCUS = "wozReleaseFocus";
-            exports_91("CEFTextEvent", CEFTextEvent);
+            exports_92("CEFTextEvent", CEFTextEvent);
         }
     };
 });
-System.register("events/CEFTimerEvent", [], function (exports_92, context_92) {
+System.register("events/CEFTimerEvent", [], function (exports_93, context_93) {
     "use strict";
-    var __moduleName = context_92 && context_92.id;
+    var __moduleName = context_93 && context_93.id;
     var Event, CEFTimerEvent;
     return {
         setters: [],
@@ -10260,13 +10378,13 @@ System.register("events/CEFTimerEvent", [], function (exports_92, context_92) {
                 }
             };
             CEFTimerEvent.TIMER_COMPLETE = "complete";
-            exports_92("CEFTimerEvent", CEFTimerEvent);
+            exports_93("CEFTimerEvent", CEFTimerEvent);
         }
     };
 });
-System.register("kt/CEFBNode", [], function (exports_93, context_93) {
+System.register("kt/CEFBNode", [], function (exports_94, context_94) {
     "use strict";
-    var __moduleName = context_93 && context_93.id;
+    var __moduleName = context_94 && context_94.id;
     var CEFBNode;
     return {
         setters: [],
@@ -10317,13 +10435,13 @@ System.register("kt/CEFBNode", [], function (exports_93, context_93) {
                     return propVector;
                 }
             };
-            exports_93("CEFBNode", CEFBNode);
+            exports_94("CEFBNode", CEFBNode);
         }
     };
 });
-System.register("kt/CEFKTNode", ["kt/CEFBNode", "events/CEFPropertyChangeEvent"], function (exports_94, context_94) {
+System.register("kt/CEFKTNode", ["kt/CEFBNode", "events/CEFPropertyChangeEvent"], function (exports_95, context_95) {
     "use strict";
-    var __moduleName = context_94 && context_94.id;
+    var __moduleName = context_95 && context_95.id;
     var CEFBNode_1, CEFPropertyChangeEvent_1, EventDispatcher, CEFKTNode;
     return {
         setters: [
@@ -10379,13 +10497,13 @@ System.register("kt/CEFKTNode", ["kt/CEFBNode", "events/CEFPropertyChangeEvent"]
                     return propVector;
                 }
             };
-            exports_94("CEFKTNode", CEFKTNode);
+            exports_95("CEFKTNode", CEFKTNode);
         }
     };
 });
-System.register("kt/CEFProdSys", [], function (exports_95, context_95) {
+System.register("kt/CEFProdSys", [], function (exports_96, context_96) {
     "use strict";
-    var __moduleName = context_95 && context_95.id;
+    var __moduleName = context_96 && context_96.id;
     var CEFProdSys;
     return {
         setters: [],
@@ -10647,22 +10765,22 @@ System.register("kt/CEFProdSys", [], function (exports_95, context_95) {
                     }
                 }
             };
-            exports_95("CEFProdSys", CEFProdSys);
+            exports_96("CEFProdSys", CEFProdSys);
         }
     };
 });
-System.register("thermite/IThermiteTypes", [], function (exports_96, context_96) {
+System.register("thermite/IThermiteTypes", [], function (exports_97, context_97) {
     "use strict";
-    var __moduleName = context_96 && context_96.id;
+    var __moduleName = context_97 && context_97.id;
     return {
         setters: [],
         execute: function () {
         }
     };
 });
-System.register("thermite/TCheckButton", ["thermite/TButton", "events/CEFMouseEvent", "util/CONST", "util/CUtil"], function (exports_97, context_97) {
+System.register("thermite/TCheckButton", ["thermite/TButton", "events/CEFMouseEvent", "util/CONST", "util/CUtil"], function (exports_98, context_98) {
     "use strict";
-    var __moduleName = context_97 && context_97.id;
+    var __moduleName = context_98 && context_98.id;
     var TButton_2, CEFMouseEvent_4, CONST_15, CUtil_49, TCheckButton;
     return {
         setters: [
@@ -10835,13 +10953,13 @@ System.register("thermite/TCheckButton", ["thermite/TButton", "events/CEFMouseEv
                     return propVector;
                 }
             };
-            exports_97("TCheckButton", TCheckButton);
+            exports_98("TCheckButton", TCheckButton);
         }
     };
 });
-System.register("thermite/events/TButtonEvent", [], function (exports_98, context_98) {
+System.register("thermite/events/TButtonEvent", [], function (exports_99, context_99) {
     "use strict";
-    var __moduleName = context_98 && context_98.id;
+    var __moduleName = context_99 && context_99.id;
     var Event, TButtonEvent;
     return {
         setters: [],
@@ -10854,13 +10972,13 @@ System.register("thermite/events/TButtonEvent", [], function (exports_98, contex
             };
             TButtonEvent.WOZCHECKED = "wozchecked";
             TButtonEvent.WOZUNCHECKED = "wozunchecked";
-            exports_98("TButtonEvent", TButtonEvent);
+            exports_99("TButtonEvent", TButtonEvent);
         }
     };
 });
-System.register("thermite/TButtonGroup", ["thermite/TObject", "thermite/events/TButtonEvent", "util/CUtil"], function (exports_99, context_99) {
+System.register("thermite/TButtonGroup", ["thermite/TObject", "thermite/events/TButtonEvent", "util/CUtil"], function (exports_100, context_100) {
     "use strict";
-    var __moduleName = context_99 && context_99.id;
+    var __moduleName = context_100 && context_100.id;
     var TObject_14, TButtonEvent_1, CUtil_50, TButtonGroup;
     return {
         setters: [
@@ -11140,13 +11258,13 @@ System.register("thermite/TButtonGroup", ["thermite/TObject", "thermite/events/T
                 }
             };
             TButtonGroup.CHECKED = "ischecked";
-            exports_99("TButtonGroup", TButtonGroup);
+            exports_100("TButtonGroup", TButtonGroup);
         }
     };
 });
-System.register("thermite/TRadioButton", ["thermite/TCheckButton", "thermite/events/TButtonEvent", "util/CUtil"], function (exports_100, context_100) {
+System.register("thermite/TRadioButton", ["thermite/TCheckButton", "thermite/events/TButtonEvent", "util/CUtil"], function (exports_101, context_101) {
     "use strict";
-    var __moduleName = context_100 && context_100.id;
+    var __moduleName = context_101 && context_101.id;
     var TCheckButton_1, TButtonEvent_2, CUtil_51, TRadioButton;
     return {
         setters: [
@@ -11184,13 +11302,13 @@ System.register("thermite/TRadioButton", ["thermite/TCheckButton", "thermite/eve
                     return this.getLabel();
                 }
             };
-            exports_100("TRadioButton", TRadioButton);
+            exports_101("TRadioButton", TRadioButton);
         }
     };
 });
-System.register("thermite/TCheckBox", ["thermite/TRadioButton", "events/CEFEvent", "util/CUtil"], function (exports_101, context_101) {
+System.register("thermite/TCheckBox", ["thermite/TRadioButton", "events/CEFEvent", "util/CUtil"], function (exports_102, context_102) {
     "use strict";
-    var __moduleName = context_101 && context_101.id;
+    var __moduleName = context_102 && context_102.id;
     var TRadioButton_1, CEFEvent_14, CUtil_52, TCheckBox;
     return {
         setters: [
@@ -11244,13 +11362,13 @@ System.register("thermite/TCheckBox", ["thermite/TRadioButton", "events/CEFEvent
                     this.label = src["Slabel"].label.text;
                 }
             };
-            exports_101("TCheckBox", TCheckBox);
+            exports_102("TCheckBox", TCheckBox);
         }
     };
 });
-System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "events/CEFEvent", "events/CEFMouseEvent", "util/CUtil", "util/CONST"], function (exports_102, context_102) {
+System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "events/CEFEvent", "events/CEFMouseEvent", "util/CUtil", "util/CONST"], function (exports_103, context_103) {
     "use strict";
-    var __moduleName = context_102 && context_102.id;
+    var __moduleName = context_103 && context_103.id;
     var TObject_15, CEFTimeLine_2, CEFEvent_15, CEFMouseEvent_5, CUtil_53, CONST_16, Tween, Event, Ease, THtmlBase;
     return {
         setters: [
@@ -11530,13 +11648,13 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     }
                 }
             };
-            exports_102("THtmlBase", THtmlBase);
+            exports_103("THtmlBase", THtmlBase);
         }
     };
 });
-System.register("thermite/THtmlInput", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_103, context_103) {
+System.register("thermite/THtmlInput", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_104, context_104) {
     "use strict";
-    var __moduleName = context_103 && context_103.id;
+    var __moduleName = context_104 && context_104.id;
     var THtmlBase_1, CUtil_54, CONST_17, THtmlInput;
     return {
         setters: [
@@ -11749,13 +11867,13 @@ System.register("thermite/THtmlInput", ["thermite/THtmlBase", "util/CUtil", "uti
                     super.deSerializeObj(objData);
                 }
             };
-            exports_103("THtmlInput", THtmlInput);
+            exports_104("THtmlInput", THtmlInput);
         }
     };
 });
-System.register("thermite/THtmlList", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_104, context_104) {
+System.register("thermite/THtmlList", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_105, context_105) {
     "use strict";
-    var __moduleName = context_104 && context_104.id;
+    var __moduleName = context_105 && context_105.id;
     var THtmlBase_2, CUtil_55, CONST_18, THtmlList;
     return {
         setters: [
@@ -11833,13 +11951,13 @@ System.register("thermite/THtmlList", ["thermite/THtmlBase", "util/CUtil", "util
                     super.deSerializeObj(objData);
                 }
             };
-            exports_104("THtmlList", THtmlList);
+            exports_105("THtmlList", THtmlList);
         }
     };
 });
-System.register("thermite/THtmlList1", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_105, context_105) {
+System.register("thermite/THtmlList1", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_106, context_106) {
     "use strict";
-    var __moduleName = context_105 && context_105.id;
+    var __moduleName = context_106 && context_106.id;
     var THtmlBase_3, CUtil_56, CONST_19, THtmlList1;
     return {
         setters: [
@@ -12058,13 +12176,13 @@ System.register("thermite/THtmlList1", ["thermite/THtmlBase", "util/CUtil", "uti
                     }
                 }
             };
-            exports_105("THtmlList1", THtmlList1);
+            exports_106("THtmlList1", THtmlList1);
         }
     };
 });
-System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_106, context_106) {
+System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_107, context_107) {
     "use strict";
-    var __moduleName = context_106 && context_106.id;
+    var __moduleName = context_107 && context_107.id;
     var THtmlBase_4, CUtil_57, CONST_20, THtmlTable;
     return {
         setters: [
@@ -12356,13 +12474,13 @@ System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "uti
                     }
                 }
             };
-            exports_106("THtmlTable", THtmlTable);
+            exports_107("THtmlTable", THtmlTable);
         }
     };
 });
-System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_107, context_107) {
+System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_108, context_108) {
     "use strict";
-    var __moduleName = context_107 && context_107.id;
+    var __moduleName = context_108 && context_108.id;
     var THtmlBase_5, CUtil_58, CONST_21, THtmlText;
     return {
         setters: [
@@ -12439,13 +12557,13 @@ System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util
                     super.deSerializeObj(objData);
                 }
             };
-            exports_107("THtmlText", THtmlText);
+            exports_108("THtmlText", THtmlText);
         }
     };
 });
-System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TScene"], function (exports_108, context_108) {
+System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TScene"], function (exports_109, context_109) {
     "use strict";
-    var __moduleName = context_108 && context_108.id;
+    var __moduleName = context_109 && context_109.id;
     var CUtil_59, CONST_22, TScene_1, TNavPanel;
     return {
         setters: [
@@ -12485,10 +12603,10 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     super.onCreate();
                 }
                 enableNext(enable) {
-                    this.Snext.enableButton(enable);
+                    this.Snext.enable(enable);
                 }
                 enablePrev(enable) {
-                    this.Sback.enableButton(enable);
+                    this.Sback.enable(enable);
                 }
                 connectNavButton(type, butComp, _once = true) {
                     this.disConnectNavButton(type, butComp);
@@ -12496,12 +12614,12 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                         case CONST_22.CONST.NEXTSCENE:
                             this._nextButton = this[butComp].on(CONST_22.CONST.MOUSE_CLICK, this.tutorNavigator.onButtonNext, this.tutorNavigator);
                             this.Snext.hidden = false;
-                            this.Snext.enableButton(true);
+                            this.Snext.enable(true);
                             break;
                         case CONST_22.CONST.PREVSCENE:
                             this._prevButton = this[butComp].on(CONST_22.CONST.MOUSE_CLICK, this.tutorNavigator.onButtonPrev, this.tutorNavigator);
                             this.Sback.hidden = false;
-                            this.Sback.enableButton(true);
+                            this.Sback.enable(true);
                             break;
                     }
                 }
@@ -12525,11 +12643,11 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     switch (type) {
                         case CONST_22.CONST.NEXTSCENE:
                             this.Snext.hidden = !show;
-                            this.Snext.enableButton(show);
+                            this.Snext.enable(show);
                             break;
                         case CONST_22.CONST.PREVSCENE:
                             this.Sback.hidden = !show;
-                            this.Sback.enableButton(show);
+                            this.Sback.enable(show);
                             break;
                     }
                 }
@@ -12540,18 +12658,64 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                         this.tutorNavigator.buttonBehavior = CONST_22.CONST.GOTONEXTTRACK;
                 }
             };
-            exports_108("TNavPanel", TNavPanel);
+            exports_109("TNavPanel", TNavPanel);
         }
     };
 });
-System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase", "events/CEFMouseEvent", "events/CEFNavEvent", "util/CUtil"], function (exports_109, context_109) {
+System.register("thermite/TText", ["thermite/TObject", "events/CEFEvent", "util/CUtil"], function (exports_110, context_110) {
     "use strict";
-    var __moduleName = context_109 && context_109.id;
-    var TObject_16, TSceneBase_4, CEFMouseEvent_6, CEFNavEvent_2, CUtil_60, TTitleBar;
+    var __moduleName = context_110 && context_110.id;
+    var TObject_16, CEFEvent_16, CUtil_60, TText;
     return {
         setters: [
             function (TObject_16_1) {
                 TObject_16 = TObject_16_1;
+            },
+            function (CEFEvent_16_1) {
+                CEFEvent_16 = CEFEvent_16_1;
+            },
+            function (CUtil_60_1) {
+                CUtil_60 = CUtil_60_1;
+            }
+        ],
+        execute: function () {
+            TText = class TText extends TObject_16.TObject {
+                constructor() {
+                    super();
+                    this.init3();
+                }
+                TTextInitialize() {
+                    this.TObjectInitialize.call(this);
+                    this.init3();
+                }
+                initialize() {
+                    this.TObjectInitialize.call(this);
+                    this.init3();
+                }
+                init3() {
+                    this.traceMode = true;
+                    if (this.traceMode)
+                        CUtil_60.CUtil.trace("TText:Constructor");
+                    this.on(CEFEvent_16.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
+                }
+                Destructor() {
+                }
+                onAddedToStage(evt) {
+                    console.log("Text On Stage");
+                }
+            };
+            exports_110("TText", TText);
+        }
+    };
+});
+System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase", "events/CEFMouseEvent", "events/CEFNavEvent", "util/CUtil"], function (exports_111, context_111) {
+    "use strict";
+    var __moduleName = context_111 && context_111.id;
+    var TObject_17, TSceneBase_4, CEFMouseEvent_6, CEFNavEvent_2, CUtil_61, TTitleBar;
+    return {
+        setters: [
+            function (TObject_17_1) {
+                TObject_17 = TObject_17_1;
             },
             function (TSceneBase_4_1) {
                 TSceneBase_4 = TSceneBase_4_1;
@@ -12562,8 +12726,8 @@ System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase"
             function (CEFNavEvent_2_1) {
                 CEFNavEvent_2 = CEFNavEvent_2_1;
             },
-            function (CUtil_60_1) {
-                CUtil_60 = CUtil_60_1;
+            function (CUtil_61_1) {
+                CUtil_61 = CUtil_61_1;
             }
         ],
         execute: function () {
@@ -12575,7 +12739,7 @@ System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase"
                 }
                 CEFTitleBar() {
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("CEFTitleBar:Constructor");
+                        CUtil_61.CUtil.trace("CEFTitleBar:Constructor");
                     try {
                         this.Splay.addEventListener(CEFMouseEvent_6.TMouseEvent.WOZCLICK, this.onTutorPlay);
                         this.Spause.addEventListener(CEFMouseEvent_6.TMouseEvent.WOZCLICK, this.onTutorPause);
@@ -12596,7 +12760,7 @@ System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase"
                 configDemoButton(_Tutor) {
                     if (this.tutorDoc.fDemo) {
                         if (this.traceMode)
-                            CUtil_60.CUtil.trace("Title in Demo Mode");
+                            CUtil_61.CUtil.trace("Title in Demo Mode");
                         this.SdemoButton.addEventListener(CEFMouseEvent_6.TMouseEvent.WOZCLICKED, this.doDemoClick);
                         _Tutor.addEventListener("deferedDemoCheck", this.doDeferedDemoClick);
                     }
@@ -12607,7 +12771,7 @@ System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase"
                 }
                 doTitleClick(evt) {
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("TitleClick");
+                        CUtil_61.CUtil.trace("TitleClick");
                 }
                 doDemoClick(evt) {
                     if (this.tutorDoc.fDeferDemoClick)
@@ -12624,68 +12788,68 @@ System.register("thermite/TTitleBar", ["thermite/TObject", "thermite/TSceneBase"
                 }
                 onTutorPlay(evt) {
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("onTutorPlay: ");
+                        CUtil_61.CUtil.trace("onTutorPlay: ");
                     this.tutorDoc.tutorContainer.wozPlay();
                     this.Splay.visible = false;
                     this.Spause.visible = true;
                 }
                 onTutorPause(evt) {
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("onTutorPause: ");
+                        CUtil_61.CUtil.trace("onTutorPause: ");
                     this.tutorDoc.tutorContainer.wozPause();
                     this.Spause.visible = false;
                     this.Splay.visible = true;
                 }
                 onTutorReplay(evt) {
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("onTutorReplay: ");
+                        CUtil_61.CUtil.trace("onTutorReplay: ");
                     this.tutorDoc.tutorContainer.wozReplay();
                 }
                 setObjMode(TutScene, sMode) {
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("\t*** Start - Walking Top Level Nav Objects***");
+                        CUtil_61.CUtil.trace("\t*** Start - Walking Top Level Nav Objects***");
                     for (let sceneObj in TutScene) {
-                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_16.TObject) {
+                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_17.TObject) {
                             TutScene[sceneObj]._instance.setAutomationMode(TutScene[sceneObj], sMode);
                         }
                     }
                     if (this.traceMode)
-                        CUtil_60.CUtil.trace("\t*** End - Walking Top Level Nav Objects***");
+                        CUtil_61.CUtil.trace("\t*** End - Walking Top Level Nav Objects***");
                 }
                 dumpSceneObjs(TutScene) {
                     for (let sceneObj in TutScene) {
                         if (this.traceMode)
-                            CUtil_60.CUtil.trace("\tNavPanelObj : " + sceneObj);
-                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_16.TObject) {
+                            CUtil_61.CUtil.trace("\tNavPanelObj : " + sceneObj);
+                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_17.TObject) {
                             if (this.traceMode)
-                                CUtil_60.CUtil.trace("\tCEF***");
+                                CUtil_61.CUtil.trace("\tCEF***");
                             TutScene[sceneObj]._instance.dumpSubObjs(TutScene[sceneObj], "\t");
                         }
                     }
                 }
             };
-            exports_109("TTitleBar", TTitleBar);
+            exports_111("TTitleBar", TTitleBar);
         }
     };
 });
-System.register("thermite/TVirtual", ["thermite/TObject", "events/CEFEvent", "util/CUtil"], function (exports_110, context_110) {
+System.register("thermite/TVirtual", ["thermite/TObject", "events/CEFEvent", "util/CUtil"], function (exports_112, context_112) {
     "use strict";
-    var __moduleName = context_110 && context_110.id;
-    var TObject_17, CEFEvent_16, CUtil_61, TVirtual;
+    var __moduleName = context_112 && context_112.id;
+    var TObject_18, CEFEvent_17, CUtil_62, TVirtual;
     return {
         setters: [
-            function (TObject_17_1) {
-                TObject_17 = TObject_17_1;
+            function (TObject_18_1) {
+                TObject_18 = TObject_18_1;
             },
-            function (CEFEvent_16_1) {
-                CEFEvent_16 = CEFEvent_16_1;
+            function (CEFEvent_17_1) {
+                CEFEvent_17 = CEFEvent_17_1;
             },
-            function (CUtil_61_1) {
-                CUtil_61 = CUtil_61_1;
+            function (CUtil_62_1) {
+                CUtil_62 = CUtil_62_1;
             }
         ],
         execute: function () {
-            TVirtual = class TVirtual extends TObject_17.TObject {
+            TVirtual = class TVirtual extends TObject_18.TObject {
                 constructor() {
                     super();
                     this.curState = "unknown";
@@ -12706,8 +12870,8 @@ System.register("thermite/TVirtual", ["thermite/TObject", "events/CEFEvent", "ut
                 init3() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_61.CUtil.trace("TVirtual:Constructor");
-                    this.on(CEFEvent_16.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
+                        CUtil_62.CUtil.trace("TVirtual:Constructor");
+                    this.on(CEFEvent_17.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
                 }
                 Destructor() {
                     super.Destructor();
@@ -12719,21 +12883,21 @@ System.register("thermite/TVirtual", ["thermite/TObject", "events/CEFEvent", "ut
                     this.visible = false;
                 }
             };
-            exports_110("TVirtual", TVirtual);
+            exports_112("TVirtual", TVirtual);
         }
     };
 });
-System.register("thermite/scenes/CEFEndCloak", ["thermite/TScene", "util/CUtil"], function (exports_111, context_111) {
+System.register("thermite/scenes/CEFEndCloak", ["thermite/TScene", "util/CUtil"], function (exports_113, context_113) {
     "use strict";
-    var __moduleName = context_111 && context_111.id;
-    var TScene_2, CUtil_62, CEFEndCloak;
+    var __moduleName = context_113 && context_113.id;
+    var TScene_2, CUtil_63, CEFEndCloak;
     return {
         setters: [
             function (TScene_2_1) {
                 TScene_2 = TScene_2_1;
             },
-            function (CUtil_62_1) {
-                CUtil_62 = CUtil_62_1;
+            function (CUtil_63_1) {
+                CUtil_63 = CUtil_63_1;
             }
         ],
         execute: function () {
@@ -12741,7 +12905,7 @@ System.register("thermite/scenes/CEFEndCloak", ["thermite/TScene", "util/CUtil"]
                 constructor() {
                     super();
                     if (this.traceMode)
-                        CUtil_62.CUtil.trace("CEFEndCloak:Constructor");
+                        CUtil_63.CUtil.trace("CEFEndCloak:Constructor");
                 }
                 captureDefState(TutScene) {
                     super.captureDefState(TutScene);
@@ -12751,22 +12915,22 @@ System.register("thermite/scenes/CEFEndCloak", ["thermite/TScene", "util/CUtil"]
                 }
                 preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction) {
                     if (this.traceMode)
-                        CUtil_62.CUtil.trace("CEFEndCloak Pre-Enter Scene Behavior: " + sceneTitle);
+                        CUtil_63.CUtil.trace("CEFEndCloak Pre-Enter Scene Behavior: " + sceneTitle);
                     this.tutorDoc.tutorContainer.showPPlay(false);
                     this.tutorDoc.tutorContainer.showReplay(false);
-                    this.tutorDoc.tutorContainer.SnavPanel.SnextButton.enableButton(false);
-                    this.tutorDoc.tutorContainer.SnavPanel.SbackButton.enableButton(false);
+                    this.tutorDoc.tutorContainer.SnavPanel.SnextButton.enable(false);
+                    this.tutorDoc.tutorContainer.SnavPanel.SbackButton.enable(false);
                     return super.preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction);
                 }
             };
-            exports_111("CEFEndCloak", CEFEndCloak);
+            exports_113("CEFEndCloak", CEFEndCloak);
         }
     };
 });
-System.register("thermite/scenes/CEFEndScene", ["thermite/TScene", "events/CEFNavEvent", "util/CUtil"], function (exports_112, context_112) {
+System.register("thermite/scenes/CEFEndScene", ["thermite/TScene", "events/CEFNavEvent", "util/CUtil"], function (exports_114, context_114) {
     "use strict";
-    var __moduleName = context_112 && context_112.id;
-    var TScene_3, CEFNavEvent_3, CUtil_63, CEFEndScene;
+    var __moduleName = context_114 && context_114.id;
+    var TScene_3, CEFNavEvent_3, CUtil_64, CEFEndScene;
     return {
         setters: [
             function (TScene_3_1) {
@@ -12775,14 +12939,14 @@ System.register("thermite/scenes/CEFEndScene", ["thermite/TScene", "events/CEFNa
             function (CEFNavEvent_3_1) {
                 CEFNavEvent_3 = CEFNavEvent_3_1;
             },
-            function (CUtil_63_1) {
-                CUtil_63 = CUtil_63_1;
+            function (CUtil_64_1) {
+                CUtil_64 = CUtil_64_1;
             }
         ],
         execute: function () {
             CEFEndScene = class CEFEndScene extends TScene_3.TScene {
                 CEFEndScene() {
-                    CUtil_63.CUtil.trace("CEFEndScene:Constructor");
+                    CUtil_64.CUtil.trace("CEFEndScene:Constructor");
                     this.fComplete = true;
                 }
                 onDoneClick(evt) {
@@ -12800,14 +12964,14 @@ System.register("thermite/scenes/CEFEndScene", ["thermite/TScene", "events/CEFNa
                     super.restoreDefState(TutScene);
                 }
             };
-            exports_112("CEFEndScene", CEFEndScene);
+            exports_114("CEFEndScene", CEFEndScene);
         }
     };
 });
-System.register("thermite/scenes/CEFNavDemo", ["thermite/TScene", "events/CEFNavEvent", "util/CUtil"], function (exports_113, context_113) {
+System.register("thermite/scenes/CEFNavDemo", ["thermite/TScene", "events/CEFNavEvent", "util/CUtil"], function (exports_115, context_115) {
     "use strict";
-    var __moduleName = context_113 && context_113.id;
-    var TScene_4, CEFNavEvent_4, CUtil_64, CEFNavDemo;
+    var __moduleName = context_115 && context_115.id;
+    var TScene_4, CEFNavEvent_4, CUtil_65, CEFNavDemo;
     return {
         setters: [
             function (TScene_4_1) {
@@ -12816,8 +12980,8 @@ System.register("thermite/scenes/CEFNavDemo", ["thermite/TScene", "events/CEFNav
             function (CEFNavEvent_4_1) {
                 CEFNavEvent_4 = CEFNavEvent_4_1;
             },
-            function (CUtil_64_1) {
-                CUtil_64 = CUtil_64_1;
+            function (CUtil_65_1) {
+                CUtil_65 = CUtil_65_1;
             }
         ],
         execute: function () {
@@ -12826,8 +12990,8 @@ System.register("thermite/scenes/CEFNavDemo", ["thermite/TScene", "events/CEFNav
                     super();
                     this._scenesShown = false;
                     if (this.traceMode)
-                        CUtil_64.CUtil.trace("CEFNavDemo:Constructor");
-                    this._demoPanel = CUtil_64.CUtil.instantiateThermiteObject("unknownModule", "CDemoPanel");
+                        CUtil_65.CUtil.trace("CEFNavDemo:Constructor");
+                    this._demoPanel = CUtil_65.CUtil.instantiateThermiteObject("unknownModule", "CDemoPanel");
                     this._demoPanel.x = 0;
                     this._demoPanel.y = 0;
                     this._demoPanel.alpha = 1.0;
@@ -12853,28 +13017,28 @@ System.register("thermite/scenes/CEFNavDemo", ["thermite/TScene", "events/CEFNav
                     this.tutorDoc.tutorContainer.goToScene(new CEFNavEvent_4.CEFNavEvent(CEFNavEvent_4.CEFNavEvent.WOZNAVTO, evt.wozNavTarget));
                 }
             };
-            exports_113("CEFNavDemo", CEFNavDemo);
+            exports_115("CEFNavDemo", CEFNavDemo);
         }
     };
 });
-System.register("thermite/scenes/CEFScene0", ["thermite/TScene", "util/CUtil"], function (exports_114, context_114) {
+System.register("thermite/scenes/CEFScene0", ["thermite/TScene", "util/CUtil"], function (exports_116, context_116) {
     "use strict";
-    var __moduleName = context_114 && context_114.id;
-    var TScene_5, CUtil_65, CEFScene0;
+    var __moduleName = context_116 && context_116.id;
+    var TScene_5, CUtil_66, CEFScene0;
     return {
         setters: [
             function (TScene_5_1) {
                 TScene_5 = TScene_5_1;
             },
-            function (CUtil_65_1) {
-                CUtil_65 = CUtil_65_1;
+            function (CUtil_66_1) {
+                CUtil_66 = CUtil_66_1;
             }
         ],
         execute: function () {
             CEFScene0 = class CEFScene0 extends TScene_5.TScene {
                 constructor() {
                     super();
-                    CUtil_65.CUtil.trace("CEFScene0:Constructor");
+                    CUtil_66.CUtil.trace("CEFScene0:Constructor");
                 }
                 captureDefState(TutScene) {
                     super.captureDefState(TutScene);
@@ -12883,14 +13047,14 @@ System.register("thermite/scenes/CEFScene0", ["thermite/TScene", "util/CUtil"], 
                     super.restoreDefState(TutScene);
                 }
             };
-            exports_114("CEFScene0", CEFScene0);
+            exports_116("CEFScene0", CEFScene0);
         }
     };
 });
-System.register("thermite/scenes/CEFSceneN", ["thermite/events/TMouseEvent", "thermite/TScene", "util/CUtil"], function (exports_115, context_115) {
+System.register("thermite/scenes/CEFSceneN", ["thermite/events/TMouseEvent", "thermite/TScene", "util/CUtil"], function (exports_117, context_117) {
     "use strict";
-    var __moduleName = context_115 && context_115.id;
-    var TMouseEvent_4, TScene_6, CUtil_66, CEFSceneN;
+    var __moduleName = context_117 && context_117.id;
+    var TMouseEvent_4, TScene_6, CUtil_67, CEFSceneN;
     return {
         setters: [
             function (TMouseEvent_4_1) {
@@ -12899,14 +13063,14 @@ System.register("thermite/scenes/CEFSceneN", ["thermite/events/TMouseEvent", "th
             function (TScene_6_1) {
                 TScene_6 = TScene_6_1;
             },
-            function (CUtil_66_1) {
-                CUtil_66 = CUtil_66_1;
+            function (CUtil_67_1) {
+                CUtil_67 = CUtil_67_1;
             }
         ],
         execute: function () {
             CEFSceneN = class CEFSceneN extends TScene_6.TScene {
                 CEFSceneN() {
-                    CUtil_66.CUtil.trace("CEFSceneN:Constructor");
+                    CUtil_67.CUtil.trace("CEFSceneN:Constructor");
                     this.SreplaySession.addEventListener(TMouseEvent_4.TMouseEvent.WOZCLICK, this.doReplay);
                 }
                 doReplay(evt) {
@@ -12919,21 +13083,21 @@ System.register("thermite/scenes/CEFSceneN", ["thermite/events/TMouseEvent", "th
                     super.restoreDefState(TutScene);
                 }
             };
-            exports_115("CEFSceneN", CEFSceneN);
+            exports_117("CEFSceneN", CEFSceneN);
         }
     };
 });
-System.register("thermite/scenes/CEFStartScene", ["thermite/TScene", "util/CUtil"], function (exports_116, context_116) {
+System.register("thermite/scenes/CEFStartScene", ["thermite/TScene", "util/CUtil"], function (exports_118, context_118) {
     "use strict";
-    var __moduleName = context_116 && context_116.id;
-    var TScene_7, CUtil_67, CEFStartScene;
+    var __moduleName = context_118 && context_118.id;
+    var TScene_7, CUtil_68, CEFStartScene;
     return {
         setters: [
             function (TScene_7_1) {
                 TScene_7 = TScene_7_1;
             },
-            function (CUtil_67_1) {
-                CUtil_67 = CUtil_67_1;
+            function (CUtil_68_1) {
+                CUtil_68 = CUtil_68_1;
             }
         ],
         execute: function () {
@@ -12941,7 +13105,7 @@ System.register("thermite/scenes/CEFStartScene", ["thermite/TScene", "util/CUtil
                 CEFStartScene() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_67.CUtil.trace("CEFStartScene:Constructor");
+                        CUtil_68.CUtil.trace("CEFStartScene:Constructor");
                     this.fComplete = true;
                 }
                 captureDefState(TutScene) {
@@ -12952,24 +13116,24 @@ System.register("thermite/scenes/CEFStartScene", ["thermite/TScene", "util/CUtil
                 }
                 preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction) {
                     if (this.traceMode)
-                        CUtil_67.CUtil.trace("CEFStartScene Pre-Enter Scene Behavior: " + sceneTitle);
+                        CUtil_68.CUtil.trace("CEFStartScene Pre-Enter Scene Behavior: " + sceneTitle);
                     this.tutorDoc.tutorContainer.showReplay(false);
                     this.tutorDoc.tutorContainer.showPPlay(false);
                     return super.preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction);
                 }
                 onEnterScene(Direction) {
                     if (this.traceMode)
-                        CUtil_67.CUtil.trace("CEFStartScene Enter Scene Behavior: CEFRampScene0");
+                        CUtil_68.CUtil.trace("CEFStartScene Enter Scene Behavior: CEFRampScene0");
                 }
                 preExitScene(Direction, sceneCurr) {
                     if (this.traceMode)
-                        CUtil_67.CUtil.trace("CEFStartScene Pre-Exit Scene Behavior:");
+                        CUtil_68.CUtil.trace("CEFStartScene Pre-Exit Scene Behavior:");
                     this.tutorDoc.tutorContainer.showReplay(false);
                     this.tutorDoc.tutorContainer.showPPlay(true);
                     return ("OK");
                 }
             };
-            exports_116("CEFStartScene", CEFStartScene);
+            exports_118("CEFStartScene", CEFStartScene);
         }
     };
 });

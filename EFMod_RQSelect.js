@@ -41,6 +41,1023 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	}
 
 
+(lib.TL_Soda__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-125.65,-451.55,251.3,903.1);
+	this.shape.setTransform(125.6,451.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__Topic, new cjs.Rectangle(0,0,251.3,903.1), null);
+
+
+(lib.TL_Soda__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Soda__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Soda__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Soda__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Soda__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Soda__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_Sinking__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-146.75,-377.35,293.5,754.7);
+	this.shape.setTransform(146.7,377.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__Topic, new cjs.Rectangle(0,0,293.5,754.7), null);
+
+
+(lib.TL_Sinking__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_Ramps__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-246,-171.9,492,343.8);
+	this.shape.setTransform(246,171.9);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__Topic, new cjs.Rectangle(0,0,492.1,343.8), null);
+
+
+(lib.TL_Ramps__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Ramps__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Ramps__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Ramps__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Ramps__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Ramps__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_IceMelt__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-274.95,-147.85,549.9,295.7);
+	this.shape.setTransform(275,147.8);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__Topic, new cjs.Rectangle(0,0,550,295.7), null);
+
+
+(lib.TL_IceMelt__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_GrHouse__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-524.4,-354.05,1048.8,708.1);
+	this.shape.setTransform(524.5,354.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__Topic, new cjs.Rectangle(0,0,1049,708.1), null);
+
+
+(lib.TL_GrHouse__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_GrHouse__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_GrHouse__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_GrHouse__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_GrHouse__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_GrHouse__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_Crystal__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-182.25,-197.45,364.5,394.9);
+	this.shape.setTransform(182.3,197.5);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__Topic, new cjs.Rectangle(0,0,364.5,394.9), null);
+
+
+(lib.TL_Crystal__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_Balloon__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-258.45,-249.45,516.9,498.9);
+	this.shape.setTransform(258.5,249.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__Topic, new cjs.Rectangle(0,0,517,498.9), null);
+
+
+(lib.TL_Balloon__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Balloon__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Balloon__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Balloon__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Balloon__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Balloon__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TL_Algae__Topic = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-148.5,-130.5,297,261);
+	this.shape.setTransform(148.5,130.5);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__Topic, new cjs.Rectangle(0,0,297,261), null);
+
+
+(lib.TL_Algae__RQmovie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__RQmovie, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__RQintro4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__RQintro4, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__RQintro3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__RQintro3, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__RQintro2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__RQintro2, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__RQintro1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__Movie = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-300.15,-217.55,600.3,435.1);
+	this.shape.setTransform(300.2,217.6);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__Movie, new cjs.Rectangle(0,0,600.4,435.1), null);
+
+
+(lib.TC_TText__Area4Title = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Stitle = new cjs.Text("Plant Growth", "bold 32px 'PT Sans'", "#333333");
+	this.Stitle.name = "Stitle";
+	this.Stitle.textAlign = "center";
+	this.Stitle.lineHeight = 43;
+	this.Stitle.lineWidth = 425;
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(214.4,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area4Title, new cjs.Rectangle(0,0,428.8,52.7), null);
+
+
+(lib.TC_TText__Area4st2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle2 = new cjs.Text("Algae Growth", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.textAlign = "center";
+	this.SsubTitle2.lineHeight = 33;
+	this.SsubTitle2.lineWidth = 303;
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(153.5,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area4st2, new cjs.Rectangle(0,0,307.1,45.5), null);
+
+
+(lib.TC_TText__Area4st1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle1 = new cjs.Text("Flower Production", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.textAlign = "center";
+	this.SsubTitle1.lineHeight = 33;
+	this.SsubTitle1.lineWidth = 227;
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(115.7,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area4st1, new cjs.Rectangle(0,0,231.5,45.5), null);
+
+
+(lib.TC_TText__Area4Or = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Sor = new cjs.Text("OR", "bold 32px 'PT Sans'", "#333333");
+	this.Sor.name = "Sor";
+	this.Sor.textAlign = "center";
+	this.Sor.lineHeight = 43;
+	this.Sor.lineWidth = 52;
+	this.Sor.parent = this;
+	this.Sor.setTransform(28.2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area4Or, new cjs.Rectangle(0,0,56.4,52.7), null);
+
+
+(lib.TC_TText__Area3Title = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Stitle = new cjs.Text("Forces & motion", "bold 32px 'PT Sans'", "#333333");
+	this.Stitle.name = "Stitle";
+	this.Stitle.textAlign = "center";
+	this.Stitle.lineHeight = 43;
+	this.Stitle.lineWidth = 425;
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(214.4,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area3Title, new cjs.Rectangle(0,0,428.8,52.7), null);
+
+
+(lib.TC_TText__Area3st2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle2 = new cjs.Text("Time for objects to sink", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.textAlign = "center";
+	this.SsubTitle2.lineHeight = 33;
+	this.SsubTitle2.lineWidth = 178;
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(91.2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area3st2, new cjs.Rectangle(0,0,182.4,68.1), null);
+
+
+(lib.TC_TText__Area3st1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle1 = new cjs.Text("Speed of balls at the bottom of ramps", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.textAlign = "center";
+	this.SsubTitle1.lineHeight = 33;
+	this.SsubTitle1.lineWidth = 227;
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(115.7,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area3st1, new cjs.Rectangle(0,0,231.5,68.1), null);
+
+
+(lib.TC_TText__Area3Or = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Sor = new cjs.Text("OR", "bold 32px 'PT Sans'", "#333333");
+	this.Sor.name = "Sor";
+	this.Sor.textAlign = "center";
+	this.Sor.lineHeight = 43;
+	this.Sor.lineWidth = 52;
+	this.Sor.parent = this;
+	this.Sor.setTransform(28.2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area3Or, new cjs.Rectangle(0,0,56.4,52.7), null);
+
+
+(lib.TC_TText__Area2Title = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Stitle = new cjs.Text("Heat & Temperature", "bold 32px 'PT Sans'", "#333333");
+	this.Stitle.name = "Stitle";
+	this.Stitle.textAlign = "center";
+	this.Stitle.lineHeight = 43;
+	this.Stitle.lineWidth = 425;
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(214.4,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area2Title, new cjs.Rectangle(0,0,428.8,52.7), null);
+
+
+(lib.TC_TText__Area2st2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle2 = new cjs.Text("Temperature of a Gas", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.textAlign = "center";
+	this.SsubTitle2.lineHeight = 33;
+	this.SsubTitle2.lineWidth = 303;
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(153.5,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area2st2, new cjs.Rectangle(0,0,307.1,45.5), null);
+
+
+(lib.TC_TText__Area2st1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle1 = new cjs.Text("Ice Melting Time", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.textAlign = "center";
+	this.SsubTitle1.lineHeight = 33;
+	this.SsubTitle1.lineWidth = 227;
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(115.7,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area2st1, new cjs.Rectangle(0,0,231.5,45.5), null);
+
+
+(lib.TC_TText__Area2Or = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Sor = new cjs.Text("OR", "bold 32px 'PT Sans'", "#333333");
+	this.Sor.name = "Sor";
+	this.Sor.textAlign = "center";
+	this.Sor.lineHeight = 43;
+	this.Sor.lineWidth = 52;
+	this.Sor.parent = this;
+	this.Sor.setTransform(28.2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area2Or, new cjs.Rectangle(0,0,56.4,52.7), null);
+
+
+(lib.TC_TText__Area1Title = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Stitle = new cjs.Text("Physical & Chemical Changes", "bold 32px 'PT Sans'", "#333333");
+	this.Stitle.name = "Stitle";
+	this.Stitle.textAlign = "center";
+	this.Stitle.lineHeight = 43;
+	this.Stitle.lineWidth = 425;
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(214.4,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area1Title, new cjs.Rectangle(0,0,428.8,52.7), null);
+
+
+(lib.TC_TText__Area1st2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle2 = new cjs.Text("Soda/Mint Reactions", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.textAlign = "center";
+	this.SsubTitle2.lineHeight = 33;
+	this.SsubTitle2.lineWidth = 303;
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(153.5,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area1st2, new cjs.Rectangle(0,0,307.1,45.5), null);
+
+
+(lib.TC_TText__Area1st1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.SsubTitle1 = new cjs.Text("Crystal Growth", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.textAlign = "center";
+	this.SsubTitle1.lineHeight = 33;
+	this.SsubTitle1.lineWidth = 227;
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(115.7,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area1st1, new cjs.Rectangle(0,0,231.5,45.5), null);
+
+
+(lib.TC_TText__Area1Or = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.Sor = new cjs.Text("OR", "bold 32px 'PT Sans'", "#333333");
+	this.Sor.name = "Sor";
+	this.Sor.textAlign = "center";
+	this.Sor.lineHeight = 43;
+	this.Sor.lineWidth = 52;
+	this.Sor.parent = this;
+	this.Sor.setTransform(28.2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TText__Area1Or, new cjs.Rectangle(0,0,56.4,52.7), null);
+
+
+(lib.TC_TObject__arrow = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#999999").ss(2,1,1).p("AINgFIlUE2IgBi+IrEAAIABjlILEAAIgBi+g");
+	this.shape.setTransform(52.5,30.5);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#0098FF").s().p("AC5BzIrFAAIABjlILEAAIAAi+IFUErIlUE2g");
+	this.shape_1.setTransform(52.5,30.5);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__arrow, new cjs.Rectangle(-1,-1,107,63), null);
+
+
 (lib.ForceSpriteSheetKludge = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -165,6 +1182,71 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.arrow, new cjs.Rectangle(-1,-7.3,97.8,100.3), null);
 
 
+(lib.TC_TObject__AreaSelected = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(0,204,255,0.086)").s("#00CCFF").ss(7.1,1,1).rr(-343.25,-187.65,686.5,375.3,19.5);
+	this.shape.setTransform(343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__AreaSelected, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__AreaNormal = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#EEEEEE").s("#000066").ss(7.1,1,1).rr(-343.25,-187.65,686.5,375.3,19.5);
+	this.shape.setTransform(343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__AreaNormal, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__AreaButtonUp = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(255,255,0,0.008)").s("#000000").ss(7.1,1,1).rr(-343.25,-187.65,686.5,375.3,19.5);
+	this.shape.setTransform(343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__AreaButtonUp, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__AreaButtonOver = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(255,255,0,0.008)").s("#0000FF").ss(7.1,1,1).rr(-343.25,-187.65,686.5,375.3,19.5);
+	this.shape.setTransform(343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__AreaButtonOver, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__AreaButtonDn = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(255,255,0,0.086)").s("#FFFF00").ss(7.1,1,1).rr(-343.25,-187.65,686.5,375.3,19.5);
+	this.shape.setTransform(343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__AreaButtonDn, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
 (lib.ef_TutorModule = function(options) {
 	this._element = new $.ef.TutorModule(options);
 	this._el = this._element.create();
@@ -191,32 +1273,12 @@ p._updateVisibility = _updateVisibility;
 	this.shape.setTransform(960,587.4);
 
 	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("rgba(210,210,210,0.047)").s("#99FFFF").ss(0.1,1,1).rc(-960,-600,1920,1200,10,10,-240,-240);
+	this.shape_1.graphics.f("rgba(210,210,210,0.047)").s("#99FFFF").ss(0.1,1,1).dr(-960,-600,1920,1200);
 	this.shape_1.setTransform(960,600);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TVirtual__SceneRgn, new cjs.Rectangle(-1,-1,1922,1202), null);
-
-
-(lib.SceneRegion = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// region
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#000000").ss(1,1,1).dr(-406.5,-337,813,674);
-	this.shape.setTransform(958.8,549.4,2.264,1.51,0,0,0,-0.5,-0.3);
-
-	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
-
-	// background
-	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#CCCCCC").s("#000066").ss(2.5,1,1).rc(-960,-600,1920,1200,10,10,-123,-123);
-	this.shape_1.setTransform(960,600);
-
-	this.timeline.addTween(cjs.Tween.get(this.shape_1).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.SceneRegion, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TObject__NavBackground = function(mode,startPosition,loop) {
@@ -338,6 +1400,459 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TextArea, new cjs.Rectangle(-1,-1,102,102), null);
+
+
+(lib.TC_TObject__TopicSelector = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sarea1topic2
+	this.Sarea4title2 = new lib.TC_TText__Area4st2();
+	this.Sarea4title2.name = "Sarea4title2";
+	this.Sarea4title2.parent = this;
+	this.Sarea4title2.setTransform(293.2,74.8,1.697,1.697,0,0,0,153.5,22.7);
+
+	this.Sarea4title1 = new lib.TC_TText__Area4st1();
+	this.Sarea4title1.name = "Sarea4title1";
+	this.Sarea4title1.parent = this;
+	this.Sarea4title1.setTransform(293.3,74.8,1.697,1.697,0,0,0,115.7,22.7);
+
+	this.Sarea3title2 = new lib.TC_TText__Area3st2();
+	this.Sarea3title2.name = "Sarea3title2";
+	this.Sarea3title2.parent = this;
+	this.Sarea3title2.setTransform(293.3,74.8,1.697,1.697,0,0,0,91.2,34);
+
+	this.Sarea3title1 = new lib.TC_TText__Area3st1();
+	this.Sarea3title1.name = "Sarea3title1";
+	this.Sarea3title1.parent = this;
+	this.Sarea3title1.setTransform(293.3,74.8,1.697,1.697,0,0,0,115.7,34);
+
+	this.Sarea2title2 = new lib.TC_TText__Area2st2();
+	this.Sarea2title2.name = "Sarea2title2";
+	this.Sarea2title2.parent = this;
+	this.Sarea2title2.setTransform(293.2,74.8,1.697,1.697,0,0,0,153.5,22.7);
+
+	this.Sarea2title1 = new lib.TC_TText__Area2st1();
+	this.Sarea2title1.name = "Sarea2title1";
+	this.Sarea2title1.parent = this;
+	this.Sarea2title1.setTransform(293.3,74.8,1.697,1.697,0,0,0,115.7,22.7);
+
+	this.Sarea1title2 = new lib.TC_TText__Area1st2();
+	this.Sarea1title2.name = "Sarea1title2";
+	this.Sarea1title2.parent = this;
+	this.Sarea1title2.setTransform(293.2,74.8,1.697,1.697,0,0,0,153.5,22.7);
+
+	this.Sarea1title1 = new lib.TC_TText__Area1st1();
+	this.Sarea1title1.name = "Sarea1title1";
+	this.Sarea1title1.parent = this;
+	this.Sarea1title1.setTransform(293.3,74.8,1.697,1.697,0,0,0,115.7,22.7);
+
+	this.Sarea1topic2 = new lib.TL_Soda__Topic();
+	this.Sarea1topic2.name = "Sarea1topic2";
+	this.Sarea1topic2.parent = this;
+	this.Sarea1topic2.setTransform(284.8,263,0.252,0.252,0,0,0,125.9,451.8);
+	this.Sarea1topic2.cache(-2,-2,255,907);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sarea1topic2},{t:this.Sarea1title1},{t:this.Sarea1title2},{t:this.Sarea2title1},{t:this.Sarea2title2},{t:this.Sarea3title1},{t:this.Sarea3title2},{t:this.Sarea4title1},{t:this.Sarea4title2}]}).wait(1));
+
+	// Sarea1topic1
+	this.Sarea1topic1 = new lib.TL_Crystal__Topic();
+	this.Sarea1topic1.name = "Sarea1topic1";
+	this.Sarea1topic1.parent = this;
+	this.Sarea1topic1.setTransform(284.8,263,0.577,0.577,0,0,0,182.3,197.6);
+	this.Sarea1topic1.cache(-2,-2,369,399);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea1topic1).wait(1));
+
+	// Sarea2topic2
+	this.Sarea2topic2 = new lib.TL_Balloon__Topic();
+	this.Sarea2topic2.name = "Sarea2topic2";
+	this.Sarea2topic2.parent = this;
+	this.Sarea2topic2.setTransform(284.8,263.1,0.457,0.457,0,0,0,258.6,249.7);
+	this.Sarea2topic2.cache(-2,-2,521,503);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea2topic2).wait(1));
+
+	// Sarea2topic1
+	this.Sarea2topic1 = new lib.TL_IceMelt__Topic();
+	this.Sarea2topic1.name = "Sarea2topic1";
+	this.Sarea2topic1.parent = this;
+	this.Sarea2topic1.setTransform(284.8,263,0.502,0.502,0,0,0,275,148);
+	this.Sarea2topic1.cache(-2,-2,554,300);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea2topic1).wait(1));
+
+	// Sarea3topic2
+	this.Sarea3topic2 = new lib.TL_Sinking__Topic();
+	this.Sarea3topic2.name = "Sarea3topic2";
+	this.Sarea3topic2.parent = this;
+	this.Sarea3topic2.setTransform(284.8,263,0.273,0.273,0,0,0,147,377.6);
+	this.Sarea3topic2.cache(-2,-2,298,759);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea3topic2).wait(1));
+
+	// Sarea3topic1
+	this.Sarea3topic1 = new lib.TL_Ramps__Topic();
+	this.Sarea3topic1.name = "Sarea3topic1";
+	this.Sarea3topic1.parent = this;
+	this.Sarea3topic1.setTransform(284.8,263,0.599,0.599,0,0,0,246.2,172.1);
+	this.Sarea3topic1.cache(-2,-2,496,348);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea3topic1).wait(1));
+
+	// Sarea4topic2
+	this.Sarea4topic2 = new lib.TL_Algae__Topic();
+	this.Sarea4topic2.name = "Sarea4topic2";
+	this.Sarea4topic2.parent = this;
+	this.Sarea4topic2.setTransform(284.8,263,0.844,0.844,0,0,0,148.5,130.6);
+	this.Sarea4topic2.cache(-2,-2,301,265);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea4topic2).wait(1));
+
+	// Sarea4topic1
+	this.Sarea4topic1 = new lib.TL_GrHouse__Topic();
+	this.Sarea4topic1.name = "Sarea4topic1";
+	this.Sarea4topic1.parent = this;
+	this.Sarea4topic1.setTransform(284.7,262.9,0.311,0.311,0,0,0,524.5,354.1);
+	this.Sarea4topic1.cache(-2,-2,1053,712);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sarea4topic1).wait(1));
+
+	// TC_TObject__AreaSelected
+	this.Sselected = new lib.TC_TObject__AreaSelected();
+	this.Sselected.name = "Sselected";
+	this.Sselected.parent = this;
+	this.Sselected.setTransform(287.2,204,0.836,1.087,0,0,0,343.4,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sselected).wait(1));
+
+	// TC_TObject__AreaNormal
+	this.Snormal = new lib.TC_TObject__AreaNormal();
+	this.Snormal.name = "Snormal";
+	this.Snormal.parent = this;
+	this.Snormal.setTransform(287.2,204,0.836,1.087,0,0,0,343.4,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Snormal).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__TopicSelector, new cjs.Rectangle(-2.9,-3.8,580,415.5), null);
+
+
+(lib.TC_TButton__AreaButton = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.instance = new lib.TC_TObject__AreaButtonUp();
+	this.instance.name = "instance";
+	this.instance.parent = this;
+	this.instance.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.instance_1 = new lib.TC_TObject__AreaButtonOver();
+	this.instance_1.name = "instance_1";
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.instance_2 = new lib.TC_TObject__AreaButtonDn();
+	this.instance_2.name = "instance_2";
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(342.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.instance_3 = new lib.TC_TObject__AreaButtonDn();
+	this.instance_3.name = "instance_3";
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(342.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.instance_4 = new lib.TC_TObject__AreaButtonDn();
+	this.instance_4.name = "instance_4";
+	this.instance_4.parent = this;
+	this.instance_4.setTransform(342.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).to({state:[{t:this.instance_2}]},1).to({state:[{t:this.instance_3}]},1).to({state:[{t:this.instance_4}]},1).wait(1));
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(-3.5,-3.5,693.5,382.3);
+
+
+(lib.TC_TObject__Area4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// SsubTitle2
+	this.SsubTitle2 = new lib.TC_TText__Area4st2();
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(513.3,337.3,1,1,0,0,0,153.5,22.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+	// SsubTitle1
+	this.SsubTitle1 = new lib.TC_TText__Area4st1();
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(202.1,337.3,1,1,0,0,0,115.7,22.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+	// Sor
+	this.Sor = new lib.TC_TText__Area4Or();
+	this.Sor.name = "Sor";
+	this.Sor.parent = this;
+	this.Sor.setTransform(381.6,195.7,1,1,0,0,0,28.2,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+	// Svar2
+	this.Svar2 = new lib.TL_Algae__Topic();
+	this.Svar2.name = "Svar2";
+	this.Svar2.parent = this;
+	this.Svar2.setTransform(541.5,197.1,0.844,0.844,0,0,0,148.5,130.6);
+	this.Svar2.cache(-2,-2,301,265);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar2).wait(1));
+
+	// Svar1
+	this.Svar1 = new lib.TL_GrHouse__Topic();
+	this.Svar1.name = "Svar1";
+	this.Svar1.parent = this;
+	this.Svar1.setTransform(184.2,197,0.311,0.311,0,0,0,524.5,354.1);
+	this.Svar1.cache(-2,-2,1053,712);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_TText__Area4Title();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(343.3,48.1,1,1,0,0,0,214.4,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// TC_TObject__AreaSelected
+	this.Sselected = new lib.TC_TObject__AreaSelected();
+	this.Sselected.name = "Sselected";
+	this.Sselected.parent = this;
+	this.Sselected.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sselected).wait(1));
+
+	// TC_TObject__AreaNormal
+	this.instance = new lib.TC_TObject__AreaNormal();
+	this.instance.parent = this;
+	this.instance.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Area4, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__Area3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// SsubTitle2
+	this.SsubTitle2 = new lib.TC_TText__Area3st2();
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(536.9,326.5,1,1,0,0,0,91.2,34);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+	// SsubTitle1
+	this.SsubTitle1 = new lib.TC_TText__Area3st1();
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(210.9,326.5,1,1,0,0,0,115.7,34);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+	// Sor
+	this.Sor = new lib.TC_TText__Area3Or();
+	this.Sor.name = "Sor";
+	this.Sor.parent = this;
+	this.Sor.setTransform(417.5,195.7,1,1,0,0,0,28.2,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+	// Svar2
+	this.Svar2 = new lib.TL_Sinking__Topic();
+	this.Svar2.name = "Svar2";
+	this.Svar2.parent = this;
+	this.Svar2.setTransform(539,189.7,0.273,0.273,0,0,0,147,377.6);
+	this.Svar2.cache(-2,-2,298,759);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar2).wait(1));
+
+	// Svar1
+	this.Svar1 = new lib.TL_Ramps__Topic();
+	this.Svar1.name = "Svar1";
+	this.Svar1.parent = this;
+	this.Svar1.setTransform(212.5,189.7,0.599,0.599,0,0,0,246.2,172.1);
+	this.Svar1.cache(-2,-2,496,348);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_TText__Area3Title();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(343.3,48.1,1,1,0,0,0,214.4,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// TC_TObject__AreaSelected
+	this.Sselected = new lib.TC_TObject__AreaSelected();
+	this.Sselected.name = "Sselected";
+	this.Sselected.parent = this;
+	this.Sselected.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sselected).wait(1));
+
+	// TC_TObject__AreaNormal
+	this.instance = new lib.TC_TObject__AreaNormal();
+	this.instance.parent = this;
+	this.instance.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Area3, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__Area2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// SsubTitle2
+	this.SsubTitle2 = new lib.TC_TText__Area2st2();
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(513.3,333.6,1,1,0,0,0,153.5,22.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+	// SsubTitle1
+	this.SsubTitle1 = new lib.TC_TText__Area2st1();
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(182.6,301.5,1,1,0,0,0,115.7,22.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+	// Sor
+	this.Sor = new lib.TC_TText__Area2Or();
+	this.Sor.name = "Sor";
+	this.Sor.parent = this;
+	this.Sor.setTransform(359.9,207.2,1,1,0,0,0,28.2,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+	// Svar2
+	this.Svar2 = new lib.TL_Balloon__Topic();
+	this.Svar2.name = "Svar2";
+	this.Svar2.parent = this;
+	this.Svar2.setTransform(523,197.1,0.457,0.457,0,0,0,258.6,249.7);
+	this.Svar2.cache(-2,-2,521,503);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar2).wait(1));
+
+	// Svar1
+	this.Svar1 = new lib.TL_IceMelt__Topic();
+	this.Svar1.name = "Svar1";
+	this.Svar1.parent = this;
+	this.Svar1.setTransform(181.5,197.9,0.502,0.502,0,0,0,275,148);
+	this.Svar1.cache(-2,-2,554,300);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_TText__Area2Title();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(343.3,44.7,1,1,0,0,0,214.4,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// TC_TObject__AreaSelected
+	this.Sselected = new lib.TC_TObject__AreaSelected();
+	this.Sselected.name = "Sselected";
+	this.Sselected.parent = this;
+	this.Sselected.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sselected).wait(1));
+
+	// TC_TObject__AreaNormal
+	this.instance = new lib.TC_TObject__AreaNormal();
+	this.instance.parent = this;
+	this.instance.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Area2, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
+
+
+(lib.TC_TObject__Area1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sor
+	this.Sor = new lib.TC_TText__Area1Or();
+	this.Sor.name = "Sor";
+	this.Sor.parent = this;
+	this.Sor.setTransform(370.2,207.2,1,1,0,0,0,28.2,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sor).wait(1));
+
+	// SsubTitle2
+	this.SsubTitle2 = new lib.TC_TText__Area1st2();
+	this.SsubTitle2.name = "SsubTitle2";
+	this.SsubTitle2.parent = this;
+	this.SsubTitle2.setTransform(503.1,333.6,1,1,0,0,0,153.5,22.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle2).wait(1));
+
+	// SsubTitle1
+	this.SsubTitle1 = new lib.TC_TText__Area1st1();
+	this.SsubTitle1.name = "SsubTitle1";
+	this.SsubTitle1.parent = this;
+	this.SsubTitle1.setTransform(191.9,333.6,1,1,0,0,0,115.7,22.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.SsubTitle1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_TText__Area1Title();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(343.3,44.7,1,1,0,0,0,214.4,26.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// Svar2
+	this.Svar2 = new lib.TL_Soda__Topic();
+	this.Svar2.name = "Svar2";
+	this.Svar2.parent = this;
+	this.Svar2.setTransform(500.5,197,0.252,0.252,0,0,0,125.9,451.8);
+	this.Svar2.cache(-2,-2,255,907);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar2).wait(1));
+
+	// Svar1
+	this.Svar1 = new lib.TL_Crystal__Topic();
+	this.Svar1.name = "Svar1";
+	this.Svar1.parent = this;
+	this.Svar1.setTransform(193.3,197.1,0.577,0.577,0,0,0,182.3,197.6);
+	this.Svar1.cache(-2,-2,369,399);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar1).wait(1));
+
+	// TC_TObject__AreaSelected
+	this.Sselected = new lib.TC_TObject__AreaSelected();
+	this.Sselected.name = "Sselected";
+	this.Sselected.parent = this;
+	this.Sselected.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sselected).wait(1));
+
+	// TC_TObject__AreaNormal
+	this.instance = new lib.TC_TObject__AreaNormal();
+	this.instance.parent = this;
+	this.instance.setTransform(343.3,187.7,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Area1, new cjs.Rectangle(-3.5,-3.5,693.5,382.3), null);
 
 
 (lib.NextButtonUp = function(mode,startPosition,loop) {
@@ -730,6 +2245,187 @@ p._updateVisibility = _updateVisibility;
 }).prototype = getMCSymbolPrototype(lib.TC_THtmlText__Text1, new cjs.Rectangle(-0.5,-0.5,101,101), null);
 
 
+(lib.TC_TScene__Scene4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Stitle
+	this.Sarrow1 = new lib.TC_TObject__arrow();
+	this.Sarrow1.name = "Sarrow1";
+	this.Sarrow1.parent = this;
+	this.Sarrow1.setTransform(519.8,601.1,1,1,0,0,0,52.5,30.4);
+
+	this.Svar1 = new lib.TC_THtmlText__Text1();
+	this.Svar1.name = "Svar1";
+	this.Svar1.parent = this;
+	this.Svar1.setTransform(1073.6,601.2,9.403,0.477,0,0,0,50,50.1);
+
+	this.Sarrow2 = new lib.TC_TObject__arrow();
+	this.Sarrow2.name = "Sarrow2";
+	this.Sarrow2.parent = this;
+	this.Sarrow2.setTransform(519.8,689.3,1,1,0,0,0,52.5,30.4);
+
+	this.Svar2 = new lib.TC_THtmlText__Text1();
+	this.Svar2.name = "Svar2";
+	this.Svar2.parent = this;
+	this.Svar2.setTransform(1073.6,689.4,9.403,0.477,0,0,0,50,50.1);
+
+	this.Sarrow3 = new lib.TC_TObject__arrow();
+	this.Sarrow3.name = "Sarrow3";
+	this.Sarrow3.parent = this;
+	this.Sarrow3.setTransform(519.8,777.5,1,1,0,0,0,52.5,30.4);
+
+	this.Svar3 = new lib.TC_THtmlText__Text1();
+	this.Svar3.name = "Svar3";
+	this.Svar3.parent = this;
+	this.Svar3.setTransform(1073.6,777.6,9.403,0.477,0,0,0,50,50.1);
+
+	this.Sarrow4 = new lib.TC_TObject__arrow();
+	this.Sarrow4.name = "Sarrow4";
+	this.Sarrow4.parent = this;
+	this.Sarrow4.setTransform(519.8,865.8,1,1,0,0,0,52.5,30.4);
+
+	this.Svar4 = new lib.TC_THtmlText__Text1();
+	this.Svar4.name = "Svar4";
+	this.Svar4.parent = this;
+	this.Svar4.setTransform(1073.6,865.9,9.403,0.477,0,0,0,50,50.1);
+
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(960,311.7,15.645,3.358,0,0,0,50,50.1);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Svar4},{t:this.Sarrow4},{t:this.Svar3},{t:this.Sarrow3},{t:this.Svar2},{t:this.Sarrow2},{t:this.Svar1},{t:this.Sarrow1}]}).wait(1));
+
+	// SceneRegion
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene4, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
+(lib.TC_TScene__Scene3 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Sbutton2 = new lib.TC_TButton__AreaButton();
+	this.Sbutton2.name = "Sbutton2";
+	this.Sbutton2.parent = this;
+	this.Sbutton2.setTransform(1027.5,498.6,0.836,1.087);
+	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_TButton__AreaButton(), 3);
+
+	this.Sbutton1 = new lib.TC_TButton__AreaButton();
+	this.Sbutton1.name = "Sbutton1";
+	this.Sbutton1.parent = this;
+	this.Sbutton1.setTransform(318.5,498.6,0.836,1.087);
+	new cjs.ButtonHelper(this.Sbutton1, 0, 1, 2, false, new lib.TC_TButton__AreaButton(), 3);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sbutton1},{t:this.Sbutton2}]}).wait(1));
+
+	// Stopic2
+	this.Stopic2 = new lib.TC_TObject__TopicSelector();
+	this.Stopic2.name = "Stopic2";
+	this.Stopic2.parent = this;
+	this.Stopic2.setTransform(1314.5,702.5,1,1,0,0,0,287,203.9);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stopic2).wait(1));
+
+	// Stopic1
+	this.Stopic1 = new lib.TC_TObject__TopicSelector();
+	this.Stopic1.name = "Stopic1";
+	this.Stopic1.parent = this;
+	this.Stopic1.setTransform(605.5,702.5,1,1,0,0,0,287,203.9);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stopic1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(960,272.9,15.645,2.589,0,0,0,50,50);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// TC_TVirtual__SceneRgn
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene3, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
+(lib.TC_TScene__Scene2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Sbutton4 = new lib.TC_TButton__AreaButton();
+	this.Sbutton4.name = "Sbutton4";
+	this.Sbutton4.parent = this;
+	this.Sbutton4.setTransform(981.8,627);
+	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_TButton__AreaButton(), 3);
+
+	this.Sbutton3 = new lib.TC_TButton__AreaButton();
+	this.Sbutton3.name = "Sbutton3";
+	this.Sbutton3.parent = this;
+	this.Sbutton3.setTransform(251.8,627);
+	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_TButton__AreaButton(), 3);
+
+	this.Sbutton2 = new lib.TC_TButton__AreaButton();
+	this.Sbutton2.name = "Sbutton2";
+	this.Sbutton2.parent = this;
+	this.Sbutton2.setTransform(981.8,220.8);
+	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_TButton__AreaButton(), 3);
+
+	this.Sbutton1 = new lib.TC_TButton__AreaButton();
+	this.Sbutton1.name = "Sbutton1";
+	this.Sbutton1.parent = this;
+	this.Sbutton1.setTransform(251.8,220.8);
+	new cjs.ButtonHelper(this.Sbutton1, 0, 1, 2, false, new lib.TC_TButton__AreaButton(), 3);
+
+	this.Stitle = new cjs.Text("Areas of Science", "bold 84px 'PT Sans'", "#333333");
+	this.Stitle.name = "Stitle";
+	this.Stitle.textAlign = "center";
+	this.Stitle.lineHeight = 111;
+	this.Stitle.lineWidth = 1267;
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(969.2,78.8);
+
+	this.Sarea4 = new lib.TC_TObject__Area4();
+	this.Sarea4.name = "Sarea4";
+	this.Sarea4.parent = this;
+	this.Sarea4.setTransform(1325.1,814.7,1,1,0,0,0,343.3,187.7);
+
+	this.Sarea3 = new lib.TC_TObject__Area3();
+	this.Sarea3.name = "Sarea3";
+	this.Sarea3.parent = this;
+	this.Sarea3.setTransform(595.1,814.7,1,1,0,0,0,343.3,187.7);
+
+	this.Sarea2 = new lib.TC_TObject__Area2();
+	this.Sarea2.name = "Sarea2";
+	this.Sarea2.parent = this;
+	this.Sarea2.setTransform(1325.1,408.5,1,1,0,0,0,343.3,187.7);
+
+	this.Sarea1 = new lib.TC_TObject__Area1();
+	this.Sarea1.name = "Sarea1";
+	this.Sarea1.parent = this;
+	this.Sarea1.setTransform(595.1,408.5,1,1,0,0,0,343.3,187.7);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sarea1},{t:this.Sarea2},{t:this.Sarea3},{t:this.Sarea4},{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4}]}).wait(1));
+
+	// SceneRegion
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene2, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
 (lib.TC_TIntroControl__RQIntro = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -1016,25 +2712,30 @@ p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 	this.instance_1.parent = this;
 	this.instance_1.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.instance_2 = new lib.ForceSpriteSheetKludge();
+	this.instance_2 = new lib.TC_TScene__Scene2();
 	this.instance_2.parent = this;
-	this.instance_2.setTransform(958.3,610.4,1,1,0,0,0,-194.5,124.5);
+	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).to({state:[]},1).to({state:[{t:this.instance_2}]},7).wait(1));
-
-	// Scene Bounds
-	this.instance_3 = new lib.SceneRegion();
+	this.instance_3 = new lib.TC_TScene__Scene3();
 	this.instance_3.parent = this;
 	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(10));
+	this.instance_4 = new lib.TC_TScene__Scene4();
+	this.instance_4.parent = this;
+	this.instance_4.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.instance_5 = new lib.ForceSpriteSheetKludge();
+	this.instance_5.parent = this;
+	this.instance_5.setTransform(958.3,610.4,1,1,0,0,0,-194.5,124.5);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).to({state:[{t:this.instance_2}]},1).to({state:[{t:this.instance_3}]},1).to({state:[{t:this.instance_4}]},1).to({state:[]},1).to({state:[{t:this.instance_5}]},4).wait(1));
 
 	// Module Component
-	this.instance_4 = new lib.ef_TutorModule({'id': 'instance_4', 'compositionID':'F2AAB060E6A643B152F88DFFCB60C58D'});
+	this.instance_6 = new lib.ef_TutorModule({'id': 'instance_6', 'compositionID':'F2AAB060E6A643B152F88DFFCB60C58D'});
 
-	this.instance_4.setTransform(960,600,1,1,0,0,0,50,50);
+	this.instance_6.setTransform(960,600,1,1,0,0,0,50,50);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_4).to({_off:true},1).wait(9));
+	this.timeline.addTween(cjs.Tween.get(this.instance_6).to({_off:true},1).wait(9));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(958.8,598.8,1922.5,1202.5);
