@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[970,397,50,50],[834,439,50,50],[886,449,50,50],[918,397,50,50],[353,432,50,50],[938,449,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
+		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[918,397,50,50],[970,397,50,50],[886,449,50,50],[834,439,50,50],[938,449,50,50],[353,432,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
 ];
 
 
@@ -680,19 +680,6 @@ p._updateVisibility = _updateVisibility;
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__NavBackground, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
-(lib.TC_TObject__backMask = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// Layer_1
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#B9DBFF").s().p("EhD7AR9IhWABQgigBgNgIQgZgQgBhtMAABgh5QAeB3BWB9QBkCTCbBzQGLEmJsgBMBgFAAIQGoABFFDOQEHCoC7EpQCLDgBQEMQA6DDABBdIAAAwg");
-	this.shape.setTransform(451.8,116.2,1,0.843,0,0,0,1.1,22.5);
-
-	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__backMask, new cjs.Rectangle(0,0,901.3,194.5), null);
-
-
 (lib.NextOutline = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -773,6 +760,19 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.SpinFocusOutline, new cjs.Rectangle(-17.8,-17.8,114.2,77.6), null);
+
+
+(lib.contentFrame = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#FFFFFF").s("#FFFFFF").ss(1,1,1).rc(-866.5,-523.4,1733,1046.8,11.4,11.4,-110,-110);
+	this.shape.setTransform(866.5,523.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.contentFrame, new cjs.Rectangle(-1,-1,1735,1048.8), null);
 
 
 (lib.TextArea = function(mode,startPosition,loop) {
@@ -2069,12 +2069,11 @@ p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 	this.timeline.addTween(cjs.Tween.get(this.Sback).wait(1));
 
 	// SbackMask
-	this.SbackMask = new lib.TC_TObject__backMask();
-	this.SbackMask.name = "SbackMask";
-	this.SbackMask.parent = this;
-	this.SbackMask.setTransform(449.7,1103.8,1,1,0,0,0,450.7,97.2);
+	this.instance = new lib.contentFrame();
+	this.instance.parent = this;
+	this.instance.setTransform(960,587.5,1,1,0,0,0,866.5,523.4);
 
-	this.timeline.addTween(cjs.Tween.get(this.SbackMask).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 	// Sbackground
 	this.Sbackground = new lib.TC_TObject__NavBackground();

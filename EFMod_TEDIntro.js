@@ -722,19 +722,6 @@ p._updateVisibility = _updateVisibility;
 
 
 
-(lib.TC_TVirtual__SceneRgn = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// background
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(210,210,210,0.047)").s("#000066").ss(2.5,1,1).rc(-960,-600,1920,1200,10,10,-240,-240);
-	this.shape.setTransform(960,600);
-
-	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TVirtual__SceneRgn, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
-
-
 (lib.TC_TObject__NavBackground = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -759,6 +746,19 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__backMask, new cjs.Rectangle(0,0,901.3,194.5), null);
+
+
+(lib.contentFrame = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#FFFFFF").s("#FFFFFF").ss(1,1,1).rc(-866.5,-523.4,1733,1046.8,11.4,11.4,-110,-110);
+	this.shape.setTransform(866.5,523.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.contentFrame, new cjs.Rectangle(-1,-1,1735,1048.8), null);
 
 
 (lib.TextArea = function(mode,startPosition,loop) {
@@ -1380,6 +1380,26 @@ p._updateVisibility = _updateVisibility;
 }).prototype = getMCSymbolPrototype(lib.CChairsCombined, new cjs.Rectangle(-556,-66.6,1112.2,141.1), null);
 
 
+(lib.TC_TVirtual__SceneRgn = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// region
+	this.instance = new lib.contentFrame();
+	this.instance.parent = this;
+	this.instance.setTransform(960,580.1,1,1,0,0,0,866.5,523.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// background
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(210,210,210,0.047)").s("#000066").ss(2.5,1,1).rc(-960,-600,1920,1200,10,10,-240,-240);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TVirtual__SceneRgn, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
 (lib.TC_THtmlText__Text1 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -1549,6 +1569,13 @@ p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 
 	this.timeline.addTween(cjs.Tween.get(this.Sback).wait(1));
 
+	// Layer_2
+	this.instance = new lib.contentFrame();
+	this.instance.parent = this;
+	this.instance.setTransform(960,580.1,1,1,0,0,0,866.5,523.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
 	// SbackMask
 	this.SbackMask = new lib.TC_TObject__backMask();
 	this.SbackMask.name = "SbackMask";
@@ -1633,7 +1660,14 @@ p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.instance_1},{t:this.SStudent2},{t:this.SStudent1},{t:this.SStudent4},{t:this.SStudent3},{t:this.instance}]}).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__TedIntro, new cjs.Rectangle(204.4,129.9,1510.9,936.2), null);
+	// Layer_4
+	this.instance_4 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_4.parent = this;
+	this.instance_4.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_4).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TedIntro, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 // stage content:

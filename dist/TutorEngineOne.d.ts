@@ -114,6 +114,14 @@ declare module "core/IEFTutorDoc" {
         _phaseData: any;
         TutAutomator: any;
         initializeTutor(): void;
+        assignProperty(root: any, property: string, value: any): any;
+        resolveProperty(root: any, property: string): any;
+        $nodeConstraint(edgeConstraint: string): boolean;
+        getSceneValue(property: string): any;
+        getModuleValue(property: string): any;
+        getTutorValue(property: string): any;
+        getStateValue(property: string, target: string): any;
+        getRawStateValue(property: string, target: string): any;
         extAccount: any;
         extFTutorPart: string;
         extFFullSignIn: string;
@@ -161,8 +169,8 @@ declare module "core/IEFTutorDoc" {
         setTutorDefaults(featSet: string): void;
         setTutorFeatures(featSet: string): void;
         features: string;
-        addFeature: string;
-        delFeature: string;
+        addFeature(feature: string, _id?: string): void;
+        delFeature(feature: string, _id?: string): void;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
     }
@@ -282,6 +290,8 @@ declare module "events/CEFEvent" {
 }
 declare module "util/CONST" {
     export class CONST {
+        static readonly MC_NOLOOP: boolean;
+        static readonly MC_LOOP: boolean;
         static readonly TUTORCONTAINER: string;
         static readonly ACTION_PFX: string;
         static readonly SCENE_CHOICESET: string;
@@ -470,6 +480,7 @@ declare module "core/CEFTimer" {
         private _handler;
         private _scope;
         private _event;
+        publicEvent: Object;
         private _time;
         private _repeatCount;
         private count;
@@ -627,6 +638,336 @@ declare module "events/CEFKeyboardEvent" {
         constructor(type: string, bubbles?: boolean, cancelable?: boolean);
     }
 }
+declare module "tutorgraph/CTutorConstraint" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    export class CTutorConstraint extends Object {
+        protected tutorDoc: IEFTutorDoc;
+        protected _parent: CTutorGraph;
+        private _cmd;
+        private _code;
+        constructor(_tutorDoc: IEFTutorDoc);
+        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, factory: any): CTutorConstraint;
+        execute(): boolean;
+    }
+}
+declare module "tutorgraph/CTutorEdge" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    import { CTutorNode } from "tutorgraph/CTutorNode";
+    export class CTutorEdge extends Object {
+        protected tutorDoc: IEFTutorDoc;
+        protected _parent: CTutorGraph;
+        private _edgeConst;
+        private _edgeNode;
+        private _pid;
+        private _cycle;
+        private _prob;
+        constructor(_tutorDoc: IEFTutorDoc);
+        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, factory: any): CTutorEdge;
+        testPConstraint(): boolean;
+        testConstraint(): boolean;
+        followEdge(): CTutorNode;
+    }
+}
+declare module "tutorgraph/CTutorNode" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    import { CTutorScene } from "tutorgraph/CTutorScene";
+    import EventDispatcher = createjs.EventDispatcher;
+    export class CTutorNode extends EventDispatcher {
+        protected tutorDoc: IEFTutorDoc;
+        protected _parent: CTutorGraph;
+        protected _id: string;
+        protected _name: string;
+        protected _type: string;
+        protected _edges: Array<any>;
+        protected _preEnter: string;
+        protected _preExit: string;
+        constructor(_tutorDoc: IEFTutorDoc);
+        protected nodeFactory(parent: CTutorGraph, id: string, nodefactory: any): void;
+        readonly id: string;
+        captureGraph(obj: Object): Object;
+        restoreGraph(obj: Object): any;
+        nextScene(): CTutorScene;
+        nextNode(): CTutorNode;
+        applyNode(): boolean;
+        seekToScene(seekScene: CTutorScene): CTutorScene;
+        seekToSceneByName(seekScene: string): CTutorScene;
+        resetNode(): void;
+    }
+}
+declare module "tutorgraph/CTutorAction" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorNode } from "tutorgraph/CTutorNode";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    import { CTutorScene } from "tutorgraph/CTutorScene";
+    export class CTutorAction extends CTutorNode {
+        private _cmnd;
+        private _parms;
+        constructor(_tutorDoc: IEFTutorDoc);
+        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, id: string, factory: any): CTutorAction;
+        captureGraph(obj: Object): Object;
+        restoreGraph(obj: Object): any;
+        nextScene(): CTutorScene;
+        applyNode(): boolean;
+    }
+}
+declare module "tutorgraph/CTutorModule" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorNode } from "tutorgraph/CTutorNode";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    import { CTutorScene } from "tutorgraph/CTutorScene";
+    export class CTutorModule extends CTutorNode {
+        private _scenes;
+        private _ndx;
+        private _reuse;
+        constructor(_tutorDoc: IEFTutorDoc);
+        static factory(_tutorDoc: any, parent: CTutorGraph, id: string, moduleFactory: any, factory: any): CTutorModule;
+        captureGraph(obj: any): Object;
+        restoreGraph(obj: any): any;
+        nextScene(): CTutorScene;
+        applyNode(): boolean;
+        seekToScene(seekScene: CTutorScene): CTutorScene;
+        resetNode(): void;
+    }
+}
+declare module "tutorgraph/CTutorModuleGroup" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorNode } from "tutorgraph/CTutorNode";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    import { CTutorScene } from "tutorgraph/CTutorScene";
+    export class CTutorModuleGroup extends CTutorNode {
+        private _modules;
+        private _ndx;
+        private _moduleShown;
+        private _shownCount;
+        private instanceNode;
+        private type;
+        private start;
+        private show;
+        private reuse;
+        private onempty;
+        private static SEQUENTIAL;
+        private static STOCHASTIC;
+        constructor(_tutorDoc: IEFTutorDoc);
+        static factory(_tutorDoc: any, parent: CTutorGraph, id: string, groupFactory: any, factory: any): CTutorModuleGroup;
+        captureGraph(obj: any): Object;
+        restoreGraph(obj: any): any;
+        initialize(): void;
+        nextScene(): CTutorScene;
+        applyNode(): boolean;
+        seekToScene(seekScene: CTutorScene): CTutorScene;
+        resetNode(): void;
+    }
+}
+declare module "thermite/TObjectMask" {
+    import { TObject } from "thermite/TObject";
+    export class TObjectMask extends TObject {
+        constructor();
+    }
+}
+declare module "core/CEFTimeLine" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CEFEvent } from "events/CEFEvent";
+    import Tween = createjs.Tween;
+    import Timeline = createjs.Timeline;
+    export class CEFTimeLine extends Timeline {
+        traceMode: boolean;
+        tutorDoc: IEFTutorDoc;
+        tutorContainer: any;
+        tutorAutoObj: any;
+        targets: Array<any>;
+        xnFinalize: Function;
+        xnScope: any;
+        constructor(tweens: Tween[], labels: Object, props: Object, _tutorDoc: IEFTutorDoc);
+        addTween(...tween: Tween[]): void;
+        startTransition(xnF: Function, scope: any): void;
+        stopTransitions(): void;
+        xnChanged(evt: CEFEvent): void;
+        xnFinished(): void;
+    }
+}
+declare module "core/CEFTransitions" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { TTutorContainer } from "thermite/TTutorContainer";
+    import { CEFTimeLine } from "core/CEFTimeLine";
+    import DisplayObject = createjs.DisplayObject;
+    export class CEFTransitions extends CEFTimeLine {
+        currScene: string;
+        newScene: string;
+        rTime: number;
+        tTime: number;
+        fSingleStep: boolean;
+        private activeObjs;
+        private persistObjs;
+        private currentObjs;
+        private fSwapObjects;
+        constructor(_tutorDoc: IEFTutorDoc);
+        connectToTutor(parentTutor: TTutorContainer, autoTutor: Object): void;
+        resetTransitions(): void;
+        walkTweens(): void;
+        gotoScene(scn: string): void;
+        setTransitionOUT(): void;
+        setTransitionIN(objectList: any, sceneName: string): void;
+        changeScene(): void;
+        shallowStateCopy(tar: DisplayObject, src: DisplayObject): void;
+        outFinished(): void;
+        inFinished(): void;
+    }
+}
+declare module "core/CEFNavigator" {
+    import { CEFTutorDoc } from "core/CEFTutorDoc";
+    import { CEFTransitions } from "core/CEFTransitions";
+    import { TScene } from "thermite/TScene";
+    import { TMouseEvent } from "thermite/events/TMouseEvent";
+    import Event = createjs.Event;
+    import EventDispatcher = createjs.EventDispatcher;
+    export class CEFNavigator extends EventDispatcher {
+        traceMode: boolean;
+        tutorDoc: CEFTutorDoc;
+        tutorAutoObj: any;
+        sceneCnt: number;
+        changeRequestorScene: string;
+        xitions: CEFTransitions;
+        protected _inNavigation: boolean;
+        constructor(_tutorDoc: any);
+        readonly iteration: string;
+        readonly sceneObj: TScene;
+        addScene(SceneTitle: string, ScenePage: string, SceneName: string, SceneClass: string, ScenePersist: boolean, SceneFeatures?: string): void;
+        connectToTutor(parentTutor: any, autoTutor: any): void;
+        protected scenePrev: number;
+        protected sceneCurr: number;
+        protected readonly sceneCurrINC: number;
+        protected readonly sceneCurrDEC: number;
+        protected sceneTitle: Array<string>;
+        protected sceneSeq: Array<string>;
+        protected scenePage: Array<string>;
+        protected sceneName: Array<string>;
+        protected sceneClass: Array<string>;
+        protected scenePersist: Array<string>;
+        private findSceneOrd(tarScene);
+        goToScene(tarScene: string): void;
+        onButtonNext(evt: TMouseEvent): void;
+        recoverState(): void;
+        gotoNextScene(source: string): void;
+        onButtonPrev(evt: TMouseEvent): void;
+        private gotoPrevScene();
+        protected doEnterNext(evt: Event): void;
+        protected doEnterBack(evt: Event): void;
+        protected doEnterScene(evt: Event): void;
+    }
+}
+declare module "bkt/CBKTSkill" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    export class CBKTSkill {
+        protected tutorDoc: IEFTutorDoc;
+        Bel: number;
+        pL: number;
+        pT: number;
+        pG: number;
+        pS: number;
+        constructor(_tutorDoc: IEFTutorDoc);
+        static factory(_tutorDoc: IEFTutorDoc, factory: any): CBKTSkill;
+        updateBelief(ans: boolean): void;
+        private calcTRUE();
+        private calcFALSE();
+        private updatePrior(Bel);
+        queryBelief(): number;
+    }
+}
+declare module "tutorgraph/CTutorGraph" {
+    import { CTutorNode } from "tutorgraph/CTutorNode";
+    import { CTutorScene } from "tutorgraph/CTutorScene";
+    import { CTutorConstraint } from "tutorgraph/CTutorConstraint";
+    import { TObject } from "thermite/TObject";
+    export class CTutorGraph extends CTutorNode {
+        private _nodes;
+        private _modules;
+        private _actions;
+        private _graphs;
+        private _constraints;
+        private _skillSet;
+        private _currNode;
+        private _currScene;
+        private _prevScene;
+        private _factory;
+        private _pFeatures;
+        private _pConstraints;
+        constructor(_tutorDoc: any, factory: any);
+        static factory(_tutorDoc: any, parent: CTutorGraph, id: string, factory: any): CTutorGraph;
+        captureGraph(obj: any): Object;
+        restoreGraph(obj: any): any;
+        sceneInstance(): TObject;
+        queryPFeature(pid: string, size: number, cycle: number): number;
+        queryPConstraint(pid: string, size: number, cycle: number): number;
+        seekTo(nxtScene: string): CTutorScene;
+        seekEnd(): CTutorScene;
+        applyNode(): boolean;
+        seekBack(): CTutorScene;
+        seekRoot(): void;
+        nextScene(): CTutorScene;
+        private parseNodes();
+        private parseConstraints();
+        recoverSkills(recoveredSkills: any): boolean;
+        parseSkills(): boolean;
+        findNodeByName(name: string): CTutorNode;
+        findConstraintByName(name: string): CTutorConstraint;
+        node: CTutorNode;
+        scene: CTutorScene;
+    }
+}
+declare module "tutorgraph/CTutorScene" {
+    import { IEFTutorDoc } from "core/IEFTutorDoc";
+    import { CTutorGraph } from "tutorgraph/CTutorGraph";
+    import { TTutorContainer } from "thermite/TTutorContainer";
+    export class CTutorScene {
+        protected tutorDoc: IEFTutorDoc;
+        protected tutorContainer: TTutorContainer;
+        private _parent;
+        private _scene;
+        _name: string;
+        private _title;
+        private _page;
+        private _isAnchor;
+        private _copyOf;
+        private _classPath;
+        private _hostModule;
+        private _ownerModule;
+        private _className;
+        private _features;
+        private _enqueue;
+        private _create;
+        private _visible;
+        private _persist;
+        private _checkpnt;
+        private _pid;
+        private _cycle;
+        private _prob;
+        private _iteration;
+        constructor(_tutorDoc: IEFTutorDoc, factory: any, parent: CTutorGraph);
+        instantiateScene(): any;
+        destroyScene(): void;
+        features: string;
+        readonly hasPFeature: boolean;
+        testPFeature(): boolean;
+        readonly scenename: string;
+        readonly classname: string;
+        readonly classpath: string;
+        readonly ownermodule: string;
+        readonly hostmodule: string;
+        readonly title: string;
+        readonly isCheckPoint: boolean;
+        readonly page: string;
+        readonly visible: boolean;
+        readonly isAnchor: boolean;
+        readonly copyOf: string;
+        readonly persist: boolean;
+        readonly iteration: number;
+        incIteration(): number;
+        enumDisplayList(): void;
+    }
+}
 declare module "thermite/TTutorContainer" {
     import { TRoot } from "thermite/TRoot";
     import { TSceneBase } from "thermite/TSceneBase";
@@ -638,6 +979,7 @@ declare module "thermite/TTutorContainer" {
     import Tween = createjs.Tween;
     import Rectangle = createjs.Rectangle;
     import Shape = createjs.Shape;
+    import { CTutorScene } from "tutorgraph/CTutorScene";
     export class TTutorContainer extends TRoot {
         fIntroVideo: boolean;
         fCVSIntro: boolean;
@@ -677,7 +1019,7 @@ declare module "thermite/TTutorContainer" {
         saveXML(): string;
         captureSceneGraph(): void;
         instantiateScenePath(sceneName: string, classPath: string, sceneVisible?: boolean): any;
-        instantiateScene(sceneName: string, hostModule: string, classPath: string, sceneVisible?: boolean): any;
+        instantiateScene(factory: CTutorScene): any;
         private initSceneTick(tarScene);
         destroyScene(sceneName: string): void;
         automateScene(sceneName: string, sceneObj: any, nameObj?: boolean): void;
@@ -794,6 +1136,7 @@ declare module "scenegraph/IAudioTypes" {
         duration: number;
         trim: number;
         volume: number;
+        track: any;
     }
     export interface cuePoint {
         name: string;
@@ -864,8 +1207,6 @@ declare module "thermite/TSceneBase" {
         private init3();
         onCreate(): void;
         protected initUI(): void;
-        private assignProperty(root, property, value);
-        private resolveProperty(root, property);
         setSceneValue(property: string, value: any): void;
         setModuleValue(property: string, value: any): void;
         setTutorValue(property: string, value: any): void;
@@ -897,6 +1238,7 @@ declare module "thermite/TSceneBase" {
         resolveRawSelector(selector: string, templateRef: any, targetThis?: any): any;
         private resolveObject(baseObj, objPath);
         private resolveOntologyObject(oSelector, ontologyRoot, templateRef);
+        addFeaturebyQuery(_selector: string, _name: string): void;
         effectHandler(evt: CEFActionEvent): void;
         scriptHandler(evt: CEFScriptEvent): void;
         logSceneTag(): Object;
@@ -1061,6 +1403,7 @@ declare module "scenegraph/CSceneTrack" {
         private hostScene;
         private sceneName;
         private hostModule;
+        private ownerModule;
         private voice;
         private language;
         private _type;
@@ -1102,6 +1445,9 @@ declare module "scenegraph/CSceneTrack" {
         private _asyncCueTimer;
         private _cueTimers;
         private RX_DELIMITERS;
+        private assetPath;
+        private newSounds;
+        private static lastLoaded;
         constructor(_tutorDoc: IEFTutorDoc, factory: any, parent: CSceneGraph);
         resolve(): CSceneTrack;
         readonly isHistoric: boolean;
@@ -1111,6 +1457,7 @@ declare module "scenegraph/CSceneTrack" {
         playTrack(): void;
         private setCuePoints(segment);
         private cueHandler(evt, _timer);
+        ensureFireCues(): void;
         private segmentComplete(event);
         autoStep(): void;
         private _asyncAutoPlay(evt);
@@ -1209,6 +1556,7 @@ declare module "thermite/TRoot" {
         private changeBoundListener;
         xname: string;
         static xInstID: number;
+        ownerModule: string;
         hostModule: string;
         _hostScene: TScene;
         protected _InitData: string;
@@ -1227,6 +1575,7 @@ declare module "thermite/TRoot" {
         removeListener(target: any, type: string): void;
         protected clickListener(e: Event): void;
         protected changeListener(e: Event): void;
+        protected completeListener(e: Event): void;
         nextXname(): string;
         Destructor(): void;
         captureXMLStructure(parentXML: string, iDepth: number): void;
@@ -1253,6 +1602,7 @@ declare module "thermite/TRoot" {
         private resolveReferences(...dataElement);
         resetInitState(): void;
         private initFromDataSource(datasource);
+        setContext(_hostModule: any, _ownerModule: any, _hostScene: any): void;
         deSerializeObj(objData: any): void;
     }
 }
@@ -1270,103 +1620,6 @@ declare module "thermite/TObjectDyno" {
         initAutomation(_parentScene: TSceneBase, sceneObj: Object, ObjIdRef: string, lLogger: ILogManager, lTutor: TTutorContainer): void;
     }
 }
-declare module "thermite/TObjectMask" {
-    import { TObject } from "thermite/TObject";
-    export class TObjectMask extends TObject {
-        constructor();
-    }
-}
-declare module "core/CEFTimeLine" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CEFEvent } from "events/CEFEvent";
-    import Tween = createjs.Tween;
-    import Timeline = createjs.Timeline;
-    export class CEFTimeLine extends Timeline {
-        traceMode: boolean;
-        tutorDoc: IEFTutorDoc;
-        tutorContainer: any;
-        tutorAutoObj: any;
-        targets: Array<any>;
-        xnFinalize: Function;
-        xnScope: any;
-        constructor(tweens: Tween[], labels: Object, props: Object, _tutorDoc: IEFTutorDoc);
-        addTween(...tween: Tween[]): void;
-        startTransition(xnF: Function, scope: any): void;
-        stopTransitions(): void;
-        xnChanged(evt: CEFEvent): void;
-        xnFinished(): void;
-    }
-}
-declare module "core/CEFTransitions" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { TTutorContainer } from "thermite/TTutorContainer";
-    import { CEFTimeLine } from "core/CEFTimeLine";
-    import DisplayObject = createjs.DisplayObject;
-    export class CEFTransitions extends CEFTimeLine {
-        currScene: string;
-        newScene: string;
-        rTime: number;
-        tTime: number;
-        fSingleStep: boolean;
-        private activeObjs;
-        private persistObjs;
-        private currentObjs;
-        private fSwapObjects;
-        constructor(_tutorDoc: IEFTutorDoc);
-        connectToTutor(parentTutor: TTutorContainer, autoTutor: Object): void;
-        resetTransitions(): void;
-        walkTweens(): void;
-        gotoScene(scn: string): void;
-        setTransitionOUT(): void;
-        setTransitionIN(objectList: any, sceneName: string): void;
-        changeScene(): void;
-        shallowStateCopy(tar: DisplayObject, src: DisplayObject): void;
-        outFinished(): void;
-        inFinished(): void;
-    }
-}
-declare module "core/CEFNavigator" {
-    import { CEFTutorDoc } from "core/CEFTutorDoc";
-    import { CEFTransitions } from "core/CEFTransitions";
-    import { TScene } from "thermite/TScene";
-    import { TMouseEvent } from "thermite/events/TMouseEvent";
-    import Event = createjs.Event;
-    import EventDispatcher = createjs.EventDispatcher;
-    export class CEFNavigator extends EventDispatcher {
-        traceMode: boolean;
-        tutorDoc: CEFTutorDoc;
-        tutorAutoObj: any;
-        sceneCnt: number;
-        changeRequestorScene: string;
-        xitions: CEFTransitions;
-        protected _inNavigation: boolean;
-        constructor(_tutorDoc: any);
-        readonly iteration: string;
-        readonly sceneObj: TScene;
-        addScene(SceneTitle: string, ScenePage: string, SceneName: string, SceneClass: string, ScenePersist: boolean, SceneFeatures?: string): void;
-        connectToTutor(parentTutor: any, autoTutor: any): void;
-        protected scenePrev: number;
-        protected sceneCurr: number;
-        protected readonly sceneCurrINC: number;
-        protected readonly sceneCurrDEC: number;
-        protected sceneTitle: Array<string>;
-        protected sceneSeq: Array<string>;
-        protected scenePage: Array<string>;
-        protected sceneName: Array<string>;
-        protected sceneClass: Array<string>;
-        protected scenePersist: Array<string>;
-        private findSceneOrd(tarScene);
-        goToScene(tarScene: string): void;
-        onButtonNext(evt: TMouseEvent): void;
-        recoverState(): void;
-        gotoNextScene(source: string): void;
-        onButtonPrev(evt: TMouseEvent): void;
-        private gotoPrevScene();
-        protected doEnterNext(evt: Event): void;
-        protected doEnterBack(evt: Event): void;
-        protected doEnterScene(evt: Event): void;
-    }
-}
 declare module "thermite/TSelector" {
     import { TObject } from "thermite/TObject";
     export class TSelector {
@@ -1380,6 +1633,44 @@ declare module "thermite/TSelector" {
         show(): void;
         enable(): void;
         disable(): void;
+        play(): void;
+    }
+}
+declare module "events/CEFMouseEvent" {
+    import MouseEvent = createjs.MouseEvent;
+    export class TMouseEvent extends MouseEvent {
+        tarObjID: string;
+        localX: number;
+        localY: number;
+        static readonly MOUSE_MOVE: string;
+        static readonly MOUSE_DOWN: string;
+        static readonly MOUSE_UP: string;
+        static readonly MOUSE_CLICK: string;
+        static readonly DOUBLE_CLICK: string;
+        static readonly CLICK: string;
+        static readonly WOZCLICK: string;
+        static readonly WOZCLICKED: string;
+        static readonly WOZDBLCLICK: string;
+        static readonly WOZMOVE: string;
+        static readonly WOZDOWN: string;
+        static readonly WOZUP: string;
+        static readonly WOZOVER: string;
+        static readonly WOZOUT: string;
+        static readonly WOZKEYDOWN: string;
+        static readonly WOZKEYUP: string;
+        static readonly WOZNULL: string;
+        constructor(TarObjID: string, type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
+        clone(): TMouseEvent;
+        captureLogState(obj?: any): any;
+        captureXMLState(): any;
+        restoreXMLState(xmlState: any): void;
+        compareXMLState(xmlState: any): Boolean;
+    }
+}
+declare module "thermite/events/TEvent" {
+    import Event = createjs.Event;
+    export class TEvent extends Event {
+        constructor(type: string, bubbles?: boolean, cancelable?: boolean);
     }
 }
 declare module "thermite/TObject" {
@@ -1395,6 +1686,7 @@ declare module "thermite/TObject" {
     import Tween = createjs.Tween;
     import ColorMatrixFilter = createjs.ColorMatrixFilter;
     import DisplayObject = createjs.DisplayObject;
+    import { TEvent } from "thermite/events/TEvent";
     export class TObject extends TRoot {
         SclickMask: Shape;
         sAuto: string;
@@ -1449,14 +1741,16 @@ declare module "thermite/TObject" {
         private _shownVisibility;
         private _shownAlpha;
         navigator: CEFNavigator;
-        protected onCreateScript: string;
-        protected onExitScript: string;
         constructor();
         TObjectInitialize(): void;
         initialize(): void;
         private init2();
+        Destructor(): void;
         readonly ontologyPath: string;
         addHTMLControls(): void;
+        playMC(): void;
+        private checkMCcomplete(evt);
+        protected doAction(evt: TEvent): void;
         hidden: boolean;
         hide(): void;
         show(): void;
@@ -1513,8 +1807,10 @@ declare module "thermite/TObject" {
         assertFeatures(): string;
         retractFeatures(): void;
         readonly tallyValid: string;
-        assertFeature(_feature: string): void;
-        retractFeature(_feature: string): void;
+        addFeature(_feature: string, _name?: string): void;
+        delFeature(_feature: string, _name?: string): void;
+        assertFeature(_feature: string, _name?: string): void;
+        retractFeature(_feature: string, _name?: string): void;
         valid: boolean;
         wozMouseClick(evt: CEFEvent): void;
         wozMouseMove(evt: CEFEvent): void;
@@ -2026,230 +2322,6 @@ declare module "managers/CLogManager" {
     export class SingletonObj {
     }
 }
-declare module "tutorgraph/CTutorConstraint" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    export class CTutorConstraint extends Object {
-        protected tutorDoc: IEFTutorDoc;
-        protected _parent: CTutorGraph;
-        private _cmd;
-        private _code;
-        constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, factory: any): CTutorConstraint;
-        execute(): boolean;
-    }
-}
-declare module "tutorgraph/CTutorEdge" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    import { CTutorNode } from "tutorgraph/CTutorNode";
-    export class CTutorEdge extends Object {
-        protected tutorDoc: IEFTutorDoc;
-        protected _parent: CTutorGraph;
-        private _edgeConst;
-        private _edgeNode;
-        private _pid;
-        private _cycle;
-        private _prob;
-        constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, factory: any): CTutorEdge;
-        testPConstraint(): boolean;
-        testConstraint(): boolean;
-        followEdge(): CTutorNode;
-    }
-}
-declare module "tutorgraph/CTutorScene" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    import { TTutorContainer } from "thermite/TTutorContainer";
-    export class CTutorScene {
-        protected tutorDoc: IEFTutorDoc;
-        protected tutorContainer: TTutorContainer;
-        private _parent;
-        private _scene;
-        _name: string;
-        private _title;
-        private _page;
-        private _classPath;
-        private _hostModule;
-        private _className;
-        private _features;
-        private _enqueue;
-        private _create;
-        private _visible;
-        private _persist;
-        private _checkpnt;
-        private _pid;
-        private _cycle;
-        private _prob;
-        private _iteration;
-        constructor(_tutorDoc: IEFTutorDoc, factory: any, parent: CTutorGraph);
-        instantiateScene(): any;
-        destroyScene(): void;
-        features: string;
-        readonly hasPFeature: boolean;
-        testPFeature(): boolean;
-        readonly scenename: string;
-        readonly classname: string;
-        readonly title: string;
-        readonly isCheckPoint: boolean;
-        readonly page: string;
-        readonly persist: boolean;
-        readonly iteration: number;
-        incIteration(): number;
-        enumDisplayList(): void;
-    }
-}
-declare module "tutorgraph/CTutorNode" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    import { CTutorScene } from "tutorgraph/CTutorScene";
-    import EventDispatcher = createjs.EventDispatcher;
-    export class CTutorNode extends EventDispatcher {
-        protected tutorDoc: IEFTutorDoc;
-        protected _parent: CTutorGraph;
-        protected _id: string;
-        protected _name: string;
-        protected _type: string;
-        protected _edges: Array<any>;
-        protected _preEnter: string;
-        protected _preExit: string;
-        constructor(_tutorDoc: IEFTutorDoc);
-        protected nodeFactory(parent: CTutorGraph, id: string, nodefactory: any): void;
-        readonly id: string;
-        captureGraph(obj: Object): Object;
-        restoreGraph(obj: Object): any;
-        nextScene(): CTutorScene;
-        nextNode(): CTutorNode;
-        applyNode(): boolean;
-        seekToScene(seekScene: CTutorScene): CTutorScene;
-        seekToSceneByName(seekScene: string): CTutorScene;
-        resetNode(): void;
-    }
-}
-declare module "tutorgraph/CTutorAction" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorNode } from "tutorgraph/CTutorNode";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    import { CTutorScene } from "tutorgraph/CTutorScene";
-    export class CTutorAction extends CTutorNode {
-        private _cmnd;
-        private _parms;
-        constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, id: string, factory: any): CTutorAction;
-        captureGraph(obj: Object): Object;
-        restoreGraph(obj: Object): any;
-        nextScene(): CTutorScene;
-        applyNode(): boolean;
-    }
-}
-declare module "tutorgraph/CTutorModule" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorNode } from "tutorgraph/CTutorNode";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    import { CTutorScene } from "tutorgraph/CTutorScene";
-    export class CTutorModule extends CTutorNode {
-        private _scenes;
-        private _ndx;
-        private _reuse;
-        constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: any, parent: CTutorGraph, id: string, moduleFactory: any, factory: any): CTutorModule;
-        captureGraph(obj: any): Object;
-        restoreGraph(obj: any): any;
-        nextScene(): CTutorScene;
-        applyNode(): boolean;
-        seekToScene(seekScene: CTutorScene): CTutorScene;
-        resetNode(): void;
-    }
-}
-declare module "tutorgraph/CTutorModuleGroup" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    import { CTutorNode } from "tutorgraph/CTutorNode";
-    import { CTutorGraph } from "tutorgraph/CTutorGraph";
-    import { CTutorScene } from "tutorgraph/CTutorScene";
-    export class CTutorModuleGroup extends CTutorNode {
-        private _modules;
-        private _ndx;
-        private _moduleShown;
-        private _shownCount;
-        private instanceNode;
-        private type;
-        private start;
-        private show;
-        private reuse;
-        private onempty;
-        private static SEQUENTIAL;
-        private static STOCHASTIC;
-        constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: any, parent: CTutorGraph, id: string, groupFactory: any, factory: any): CTutorModuleGroup;
-        captureGraph(obj: any): Object;
-        restoreGraph(obj: any): any;
-        initialize(): void;
-        nextScene(): CTutorScene;
-        applyNode(): boolean;
-        seekToScene(seekScene: CTutorScene): CTutorScene;
-        resetNode(): void;
-    }
-}
-declare module "bkt/CBKTSkill" {
-    import { IEFTutorDoc } from "core/IEFTutorDoc";
-    export class CBKTSkill {
-        protected tutorDoc: IEFTutorDoc;
-        Bel: number;
-        pL: number;
-        pT: number;
-        pG: number;
-        pS: number;
-        constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: IEFTutorDoc, factory: any): CBKTSkill;
-        updateBelief(ans: boolean): void;
-        private calcTRUE();
-        private calcFALSE();
-        private updatePrior(Bel);
-        queryBelief(): number;
-    }
-}
-declare module "tutorgraph/CTutorGraph" {
-    import { CTutorNode } from "tutorgraph/CTutorNode";
-    import { CTutorScene } from "tutorgraph/CTutorScene";
-    import { CTutorConstraint } from "tutorgraph/CTutorConstraint";
-    import { TObject } from "thermite/TObject";
-    export class CTutorGraph extends CTutorNode {
-        private _nodes;
-        private _modules;
-        private _actions;
-        private _graphs;
-        private _constraints;
-        private _skillSet;
-        private _currNode;
-        private _currScene;
-        private _prevScene;
-        private _factory;
-        private _pFeatures;
-        private _pConstraints;
-        constructor(_tutorDoc: any, factory: any);
-        static factory(_tutorDoc: any, parent: CTutorGraph, id: string, factory: any): CTutorGraph;
-        captureGraph(obj: any): Object;
-        restoreGraph(obj: any): any;
-        sceneInstance(): TObject;
-        queryPFeature(pid: string, size: number, cycle: number): number;
-        queryPConstraint(pid: string, size: number, cycle: number): number;
-        seekTo(nxtScene: string): CTutorScene;
-        seekEnd(): CTutorScene;
-        applyNode(): boolean;
-        seekBack(): CTutorScene;
-        seekRoot(): void;
-        nextScene(): CTutorScene;
-        private parseNodes();
-        private parseConstraints();
-        recoverSkills(recoveredSkills: any): boolean;
-        parseSkills(): boolean;
-        findNodeByName(name: string): CTutorNode;
-        findConstraintByName(name: string): CTutorConstraint;
-        node: CTutorNode;
-        scene: CTutorScene;
-    }
-}
 declare module "tutorgraph/CTutorHistoryNode" {
     import { CTutorNode } from "tutorgraph/CTutorNode";
     import { CTutorScene } from "tutorgraph/CTutorScene";
@@ -2366,6 +2438,7 @@ declare module "core/CEFTutorDoc" {
         serverUserID: number;
         fPlaybackMode: boolean;
         _log: any;
+        hostModule: string;
         sceneState: any;
         moduleState: any;
         tutorState: any;
@@ -2377,9 +2450,18 @@ declare module "core/CEFTutorDoc" {
         _sceneData: any;
         _phaseData: any;
         private fFeatures;
+        private featureID;
         private fDefaults;
         constructor();
         initializeTutor(): void;
+        $nodeConstraint(edgeConstraint: string): boolean;
+        getSceneValue(property: string): any;
+        getModuleValue(property: string): any;
+        getTutorValue(property: string): any;
+        getStateValue(property: string, target?: string): any;
+        getRawStateValue(property: string, target?: string): any;
+        assignProperty(root: any, property: string, value: any): void;
+        resolveProperty(root: any, property: string): any;
         extAccount: any;
         extFTutorPart: string;
         extFFullSignIn: string;
@@ -2427,8 +2509,8 @@ declare module "core/CEFTutorDoc" {
         setTutorDefaults(featSet: string): void;
         setTutorFeatures(featSet: string): void;
         features: string;
-        addFeature: string;
-        delFeature: string;
+        addFeature(_feature: string, _id: string): void;
+        delFeature(_feature: string, _id: string): void;
         private testFeature(element, index, arr);
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
@@ -2495,7 +2577,6 @@ declare module "thermite/TButton" {
         muteButton(bMute: boolean): void;
         enable(bFlag: boolean): void;
         doMouseClicked(evt: TMouseEvent): void;
-        protected doClickAction(evt: TMouseEvent): void;
         doMouseOver(evt: TMouseEvent): void;
         doMouseOut(evt: TMouseEvent): void;
         doMouseDown(evt: TMouseEvent): void;
@@ -2537,37 +2618,6 @@ declare module "controls/CEFSkillBar" {
         constructor();
         skillName: string;
         level: number;
-    }
-}
-declare module "events/CEFMouseEvent" {
-    import MouseEvent = createjs.MouseEvent;
-    export class TMouseEvent extends MouseEvent {
-        tarObjID: string;
-        localX: number;
-        localY: number;
-        static readonly MOUSE_MOVE: string;
-        static readonly MOUSE_DOWN: string;
-        static readonly MOUSE_UP: string;
-        static readonly MOUSE_CLICK: string;
-        static readonly DOUBLE_CLICK: string;
-        static readonly CLICK: string;
-        static readonly WOZCLICK: string;
-        static readonly WOZCLICKED: string;
-        static readonly WOZDBLCLICK: string;
-        static readonly WOZMOVE: string;
-        static readonly WOZDOWN: string;
-        static readonly WOZUP: string;
-        static readonly WOZOVER: string;
-        static readonly WOZOUT: string;
-        static readonly WOZKEYDOWN: string;
-        static readonly WOZKEYUP: string;
-        static readonly WOZNULL: string;
-        constructor(TarObjID: string, type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
-        clone(): TMouseEvent;
-        captureLogState(obj?: any): any;
-        captureXMLState(): any;
-        restoreXMLState(xmlState: any): void;
-        compareXMLState(xmlState: any): Boolean;
     }
 }
 declare module "controls/CEFSkilloMeter" {
@@ -2988,6 +3038,41 @@ declare module "thermite/THtmlBase" {
         deSerializeObj(objData: any): void;
     }
 }
+declare module "thermite/THtmlText" {
+    import { TObject } from "thermite/TObject";
+    import { THtmlBase } from "thermite/THtmlBase";
+    import { CEFEvent } from "events/CEFEvent";
+    export class THtmlText extends THtmlBase {
+        SControlContainer: TObject;
+        constructor();
+        THtmlTextInitialize(): void;
+        initialize(): void;
+        private init4();
+        onAddedToStage(evt: CEFEvent): void;
+        deSerializeObj(objData: any): void;
+    }
+}
+declare module "thermite/THtmlButton" {
+    import { TButton } from "thermite/TButton";
+    import { THtmlText } from "thermite/THtmlText";
+    import { CEFEvent } from "events/CEFEvent";
+    export class THtmlButton extends TButton {
+        Stext: THtmlText;
+        protected fAdded: boolean;
+        protected _updateVisibilityCbk: any;
+        protected _updateComponentCbk: any;
+        THtmlButtonInitialize(): void;
+        initialize(): void;
+        private init4();
+        Destructor(): void;
+        onAddedToStage(evt: CEFEvent): void;
+        _handleDrawStart(evt: CEFEvent): void;
+        _handleDrawEnd(evt: CEFEvent): void;
+        addHTMLControls(): void;
+        setContext(_hostModule: any, _ownerModule: any, _hostScene: any): void;
+        deSerializeObj(objData: any): void;
+    }
+}
 declare module "thermite/THtmlInput" {
     import { TObject } from "thermite/TObject";
     import { THtmlBase } from "thermite/THtmlBase";
@@ -2998,7 +3083,6 @@ declare module "thermite/THtmlInput" {
         THtmlInputInitialize(): void;
         initialize(): void;
         private init4();
-        Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         setFocus(focus: boolean): void;
         setEnabled(enabled: boolean): void;
@@ -3024,7 +3108,6 @@ declare module "thermite/THtmlList" {
         THtmlListInitialize(): void;
         initialize(): void;
         private init4();
-        Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         deSerializeObj(objData: any): void;
     }
@@ -3045,7 +3128,6 @@ declare module "thermite/THtmlList1" {
         THtmlList1Initialize(): void;
         initialize(): void;
         private init4();
-        Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         private selectObjectByElement(tar);
         private getSelectionByName(itemName);
@@ -3073,7 +3155,6 @@ declare module "thermite/THtmlTable" {
         THtmlTableInitialize(): void;
         initialize(): void;
         private init4();
-        Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         getCell(row: number, col: number): any;
         getRows(): number;
@@ -3098,21 +3179,6 @@ declare module "thermite/THtmlTable" {
         private resolvePlaceHolderElement(selector, cellData);
         private resolveOptionElements(options, cellData);
         private initElementFromData(rowindex, colindex, element);
-        deSerializeObj(objData: any): void;
-    }
-}
-declare module "thermite/THtmlText" {
-    import { TObject } from "thermite/TObject";
-    import { THtmlBase } from "thermite/THtmlBase";
-    import { CEFEvent } from "events/CEFEvent";
-    export class THtmlText extends THtmlBase {
-        SControlContainer: TObject;
-        constructor();
-        THtmlTextInitialize(): void;
-        initialize(): void;
-        private init4();
-        Destructor(): void;
-        onAddedToStage(evt: CEFEvent): void;
         deSerializeObj(objData: any): void;
     }
 }

@@ -119,6 +119,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_Soda__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
 
 
+(lib.TL_Soda__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_Soda__Movie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -208,6 +221,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_Sinking__Movie = function(mode,startPosition,loop) {
@@ -301,6 +327,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
 
 
+(lib.TL_Ramps__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_Ramps__Movie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -390,6 +429,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_IceMelt__Movie = function(mode,startPosition,loop) {
@@ -483,6 +535,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
 
 
+(lib.TL_GrHouse__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_GrHouse__Movie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -572,6 +637,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_Crystal__Movie = function(mode,startPosition,loop) {
@@ -665,6 +743,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
 
 
+(lib.TL_Balloon__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_Balloon__Movie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -754,6 +845,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_Algae__RQintro1, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__RQenumVars = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__RQenumVars, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_Algae__Movie = function(mode,startPosition,loop) {
@@ -2245,6 +2349,27 @@ p.nominalBounds = new cjs.Rectangle(-3.5,-3.5,693.5,382.3);
 }).prototype = getMCSymbolPrototype(lib.TC_THtmlText__Text1, new cjs.Rectangle(-0.5,-0.5,101,101), null);
 
 
+(lib.TC_TScene__Scene11 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(954.6,544.4,15.649,4.959,0,0,0,49.4,50.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// SceneRegion
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene11, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
 (lib.TC_TScene__Scene4 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -2426,6 +2551,60 @@ p.nominalBounds = new cjs.Rectangle(-3.5,-3.5,693.5,382.3);
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene2, new cjs.Rectangle(0,0,1920.1,1200.1), null);
 
 
+(lib.TC_THtmlButton__VarSelector = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Stext = new lib.TC_THtmlText__Text1();
+	this.Stext.name = "Stext";
+	this.Stext.parent = this;
+	this.Stext.setTransform(541.9,90.2,10.719,1.68,0,0,0,49.9,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stext).wait(5));
+
+	// up
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#999999").s("#000000").ss(4,1,1).rr(-543.45,-90.5,1086.9,181,10);
+	this.shape.setTransform(543.5,90.5);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).to({_off:true},1).wait(4));
+
+	// over
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#0066FF").s("#000000").ss(4,1,1).rr(-543.45,-90.5,1086.9,181,10);
+	this.shape_1.setTransform(543.5,90.5);
+	this.shape_1._off = true;
+
+	this.timeline.addTween(cjs.Tween.get(this.shape_1).wait(1).to({_off:false},0).to({_off:true},1).wait(3));
+
+	// down
+	this.shape_2 = new cjs.Shape();
+	this.shape_2.graphics.f("#000099").s("#000000").ss(4,1,1).rr(-543.45,-90.5,1086.9,181,10);
+	this.shape_2.setTransform(543.5,90.5);
+	this.shape_2._off = true;
+
+	this.timeline.addTween(cjs.Tween.get(this.shape_2).wait(2).to({_off:false},0).to({_off:true},1).wait(2));
+
+	// disabled
+	this.shape_3 = new cjs.Shape();
+	this.shape_3.graphics.f("rgba(204,204,204,0.408)").s("#999999").ss(4,1,1).rr(-543.45,-90.5,1086.9,181,10);
+	this.shape_3.setTransform(543.5,90.5);
+	this.shape_3._off = true;
+
+	this.timeline.addTween(cjs.Tween.get(this.shape_3).wait(3).to({_off:false},0).to({_off:true},1).wait(1));
+
+	// focus
+	this.shape_4 = new cjs.Shape();
+	this.shape_4.graphics.f("rgba(204,204,204,0.408)").s("#999999").ss(4,1,1).rr(-543.45,-90.5,1086.9,181,10);
+	this.shape_4.setTransform(543.5,90.5);
+	this.shape_4._off = true;
+
+	this.timeline.addTween(cjs.Tween.get(this.shape_4).wait(4).to({_off:false},0).wait(1));
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(-2,-2,1090.9,185);
+
+
 (lib.TC_TIntroControl__RQIntro = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -2598,6 +2777,96 @@ p.nominalBounds = new cjs.Rectangle(-52.3,-80.3,228.3,182.6);
 p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 
 
+(lib.TC_TScene__Scene10 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Sbutton4 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton4.name = "Sbutton4";
+	this.Sbutton4.parent = this;
+	this.Sbutton4.setTransform(375.1,875.4,1.118,0.497);
+	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Sbutton3 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton3.name = "Sbutton3";
+	this.Sbutton3.parent = this;
+	this.Sbutton3.setTransform(375.1,741,1.118,0.497);
+	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Sbutton2 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton2.name = "Sbutton2";
+	this.Sbutton2.parent = this;
+	this.Sbutton2.setTransform(375.1,606.6,1.118,0.497);
+	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Sbutton1 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton1.name = "Sbutton1";
+	this.Sbutton1.parent = this;
+	this.Sbutton1.setTransform(375.1,472.2,1.118,0.497);
+	new cjs.ButtonHelper(this.Sbutton1, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(953,269.2,15.649,2.47,0,0,0,49.3,50.1);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4}]}).wait(1));
+
+	// SceneRegion
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene10, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
+(lib.TC_TScene__Scene9 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Sbutton4 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton4.name = "Sbutton4";
+	this.Sbutton4.parent = this;
+	this.Sbutton4.setTransform(423.3,899.5,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Sbutton3 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton3.name = "Sbutton3";
+	this.Sbutton3.parent = this;
+	this.Sbutton3.setTransform(423.3,744.5,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Sbutton2 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton2.name = "Sbutton2";
+	this.Sbutton2.parent = this;
+	this.Sbutton2.setTransform(423.3,589.4,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Sbutton1 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton1.name = "Sbutton1";
+	this.Sbutton1.parent = this;
+	this.Sbutton1.setTransform(423.3,434.3,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton1, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(953,269.2,15.649,2.47,0,0,0,49.3,50.1);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4}]}).wait(1));
+
+	// SceneRegion
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene9, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
 (lib.TC_TScene__Scene1 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -2703,42 +2972,15 @@ p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 	// actions tween:
 	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(10));
 
-	// Module Content
-	this.instance = new lib.TC_TNavPanel__Navigator();
-	this.instance.parent = this;
-	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
-
-	this.instance_1 = new lib.TC_TScene__Scene1();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(960,600,1,1,0,0,0,960,600);
-
-	this.instance_2 = new lib.TC_TScene__Scene2();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
-
-	this.instance_3 = new lib.TC_TScene__Scene3();
-	this.instance_3.parent = this;
-	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
-
-	this.instance_4 = new lib.TC_TScene__Scene4();
-	this.instance_4.parent = this;
-	this.instance_4.setTransform(960,600,1,1,0,0,0,960,600);
-
-	this.instance_5 = new lib.ForceSpriteSheetKludge();
-	this.instance_5.parent = this;
-	this.instance_5.setTransform(958.3,610.4,1,1,0,0,0,-194.5,124.5);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).to({state:[{t:this.instance_2}]},1).to({state:[{t:this.instance_3}]},1).to({state:[{t:this.instance_4}]},1).to({state:[]},1).to({state:[{t:this.instance_5}]},4).wait(1));
-
 	// Module Component
-	this.instance_6 = new lib.ef_TutorModule({'id': 'instance_6', 'compositionID':'F2AAB060E6A643B152F88DFFCB60C58D'});
+	this.instance = new lib.ef_TutorModule({'id': '', 'compositionID':'F2AAB060E6A643B152F88DFFCB60C58D'});
 
-	this.instance_6.setTransform(960,600,1,1,0,0,0,50,50);
+	this.instance.setTransform(960,600,1,1,0,0,0,50,50);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_6).to({_off:true},1).wait(9));
+	this.timeline.addTween(cjs.Tween.get(this.instance).to({_off:true},1).wait(9));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(958.8,598.8,1922.5,1202.5);
+p.nominalBounds = new cjs.Rectangle(1869.5,1149.5,101,101);
 // library properties:
 lib.properties = {
 	id: 'F2AAB060E6A643B152F88DFFCB60C58D',
