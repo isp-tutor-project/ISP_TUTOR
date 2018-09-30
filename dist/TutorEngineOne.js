@@ -293,6 +293,7 @@ System.register("util/CONST", [], function (exports_8, context_8) {
             CONST.GLOBAL_CODE = "$GLOBAL";
             CONST.COMMON_CODE = "$Common";
             CONST.EXT_SIG = "$";
+            CONST.XNAME_SIG = "$$";
             CONST.TUTOR_COMMONPATH = "EFTutors/";
             CONST.ACCOUNT_LOADER = "/EFTutors/accounts.json";
             CONST.MODID_FILEPATH = "/EFconfig.json";
@@ -1365,9 +1366,10 @@ System.register("tutorgraph/CTutorEdge", [], function (exports_17, context_17) {
                     super();
                     this.tutorDoc = _tutorDoc;
                 }
-                static factory(_tutorDoc, parent, factory) {
+                static factory(_tutorDoc, parent, owner, factory) {
                     let edge = new CTutorEdge(_tutorDoc);
                     edge._parent = parent;
+                    edge._edgeOwner = owner;
                     edge._edgeConst = factory.constraint;
                     edge._edgeNode = factory.edge;
                     if (factory.$P != undefined) {
@@ -1390,7 +1392,7 @@ System.register("tutorgraph/CTutorEdge", [], function (exports_17, context_17) {
                 }
                 testConstraint() {
                     let result = true;
-                    result = (this._edgeConst === "") ? true : this.tutorDoc.$nodeConstraint(this._edgeConst);
+                    result = (this._edgeConst === "") ? true : this.tutorDoc.$nodeConstraint(this._edgeOwner.id, this._edgeConst);
                     return result;
                 }
                 followEdge() {
@@ -1419,11 +1421,11 @@ System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (ex
                     this._edges = new Array;
                     this.tutorDoc = _tutorDoc;
                 }
-                nodeFactory(parent, id, nodefactory) {
+                nodeFactory(parent, nodeName, nodefactory) {
                     this._parent = parent;
-                    this._id = id;
+                    this._id = nodefactory.id;
                     this._type = nodefactory.type;
-                    this._name = nodefactory.name;
+                    this._name = nodeName;
                     this._preEnter = nodefactory.preenter;
                     this._preExit = nodefactory.preexit;
                     if (this._preEnter == "")
@@ -1431,11 +1433,14 @@ System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (ex
                     if (this._preExit == "")
                         this._preExit = null;
                     for (let edge of nodefactory.edges) {
-                        this._edges.push(CTutorEdge_1.CTutorEdge.factory(this.tutorDoc, parent, edge));
+                        this._edges.push(CTutorEdge_1.CTutorEdge.factory(this.tutorDoc, parent, this, edge));
                     }
                 }
                 get id() {
                     return this._id;
+                }
+                get name() {
+                    return this._name;
                 }
                 captureGraph(obj) {
                     return obj;
@@ -1494,11 +1499,11 @@ System.register("tutorgraph/CTutorAction", ["tutorgraph/CTutorNode"], function (
                 constructor(_tutorDoc) {
                     super(_tutorDoc);
                 }
-                static factory(_tutorDoc, parent, id, factory) {
-                    let nodeFactoryData = factory.CNodes[id];
+                static factory(_tutorDoc, parent, name, factory) {
+                    let nodeFactoryData = factory.CNodes[name];
                     let node = new CTutorAction(_tutorDoc);
-                    node.nodeFactory(parent, id, nodeFactoryData);
-                    let actObject = factory.CActions[nodeFactoryData.name];
+                    node.nodeFactory(parent, name, nodeFactoryData);
+                    let actObject = factory.CActions[nodeFactoryData.link];
                     node._cmnd = actObject.cmd;
                     node._parms = actObject.parms;
                     return node;
@@ -1543,7 +1548,7 @@ System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph
                     this._ndx = -1;
                 }
                 static factory(_tutorDoc, parent, id, moduleFactory, factory) {
-                    var moduleFactoryData = factory.CModules[moduleFactory.name];
+                    var moduleFactoryData = factory.CModules[moduleFactory.link];
                     var node = new CTutorModule(_tutorDoc);
                     if (moduleFactory.edges)
                         node.nodeFactory(parent, id, moduleFactory);
@@ -1648,7 +1653,7 @@ System.register("tutorgraph/CTutorModuleGroup", ["tutorgraph/CTutorNode", "tutor
                     this._shownCount = 0;
                 }
                 static factory(_tutorDoc, parent, id, groupFactory, factory) {
-                    let groupFactoryData = factory.CModuleGroups[groupFactory.name];
+                    let groupFactoryData = factory.CModuleGroups[groupFactory.link];
                     let node = new CTutorModuleGroup(_tutorDoc);
                     if (groupFactory.edges)
                         node.nodeFactory(parent, id, groupFactory);
@@ -2548,7 +2553,9 @@ System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/
                 sceneInstance() {
                     let objInstance = null;
                     try {
-                        objInstance = this.tutorDoc.TutAutomator[this._currScene.scenename]._instance;
+                        if (this._currScene) {
+                            objInstance = this.tutorDoc.TutAutomator[this._currScene.scenename]._instance;
+                        }
                     }
                     catch (err) {
                         CUtil_13.CUtil.trace("CONST.sceneInstance: " + err.toString());
@@ -2617,22 +2624,23 @@ System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/
                 parseNodes() {
                     let nodeList = this._factory.CNodes;
                     for (let name in nodeList) {
-                        if (name != "COMMENT")
+                        if (!(name.startsWith("COMMENT"))) {
                             CUtil_13.CUtil.trace("TutorGraph - generating node: " + name);
-                        switch (nodeList[name].type) {
-                            case "action":
-                                this._nodes[name] = CTutorAction_1.CTutorAction.factory(this.tutorDoc, this, name, this._factory);
-                                break;
-                            case "module":
-                                this._nodes[name] = CTutorModule_2.CTutorModule.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
-                                break;
-                            case "modulegroup":
-                                this._nodes[name] = CTutorModuleGroup_1.CTutorModuleGroup.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
-                                break;
-                            case "subgraph":
-                                break;
-                            case "external":
-                                break;
+                            switch (nodeList[name].type) {
+                                case "action":
+                                    this._nodes[name] = CTutorAction_1.CTutorAction.factory(this.tutorDoc, this, name, this._factory);
+                                    break;
+                                case "module":
+                                    this._nodes[name] = CTutorModule_2.CTutorModule.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
+                                    break;
+                                case "modulegroup":
+                                    this._nodes[name] = CTutorModuleGroup_1.CTutorModuleGroup.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
+                                    break;
+                                case "subgraph":
+                                    break;
+                                case "external":
+                                    break;
+                            }
                         }
                     }
                     return true;
@@ -2640,7 +2648,7 @@ System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/
                 parseConstraints() {
                     let constFactory = this._factory.CConstraints;
                     for (let name in constFactory) {
-                        if (name != "COMMENT")
+                        if (!(name.startsWith("COMMENT")))
                             this._constraints[name] = CTutorConstraint_1.CTutorConstraint.factory(this.tutorDoc, this, constFactory[name]);
                     }
                     return true;
@@ -2652,7 +2660,7 @@ System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/
                 parseSkills() {
                     let skillsFactory = this._factory.CSkills;
                     for (let name in skillsFactory) {
-                        if (name != "COMMENT")
+                        if (!(name.startsWith("COMMENT")))
                             this._skillSet[name] = CBKTSkill_1.CBKTSkill.factory(this.tutorDoc, skillsFactory[name]);
                     }
                     this.tutorDoc.ktSkills = this._skillSet;
@@ -3509,8 +3517,6 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                                 console.log(`Error: ObjData mismatch: Module-${this.hostModule}  Scene-${this.sceneName}  Element-${element}`);
                             }
                         }
-                        this.$onCreateScene();
-                        this.$demoInitScene();
                     }
                     catch (error) {
                         CUtil_16.CUtil.trace(`Error in TSceneBase onCreate: ${this.sceneName} -- ${error}`);
@@ -3813,14 +3819,13 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                             childObj.measure();
                         }
                         if (childObj instanceof DisplayObject) {
-                            if (this.isAnchor) {
-                                childObj.xname = this.name + (childObj.name ? childObj.name : childObj.id);
-                            }
-                            else if (this.copyOf && this.copyOf !== "") {
-                                childObj.xname = this.copyOf + (childObj.name ? childObj.name : childObj.id);
-                            }
-                            else {
-                                childObj.xname = this.nextXname();
+                            if (!childObj.xname || childObj.xname.startsWith(CONST_4.CONST.XNAME_SIG)) {
+                                if (this.isAnchor) {
+                                    childObj.xname = this.name + (childObj.name ? childObj.name : childObj.id);
+                                }
+                                else if (this.copyOf && this.copyOf !== "") {
+                                    childObj.xname = this.copyOf + (childObj.name ? childObj.name : childObj.id);
+                                }
                             }
                             if (childObj.name)
                                 childName = childObj.name;
@@ -3841,6 +3846,7 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                                 }
                         }
                     }
+                    this.$onCreateScene();
                 }
                 captureDefState(TutScene) {
                     if (this.traceMode)
@@ -4343,7 +4349,7 @@ System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/
                 parseNodes() {
                     let nodeList = this._graphFactory.CNodes;
                     for (let name in nodeList) {
-                        if (name != "COMMENT") {
+                        if (!(name.startsWith("COMMENT"))) {
                             let nodeType = nodeList[name].subtype || nodeList[name].type;
                             switch (nodeType) {
                                 case "module":
@@ -4545,11 +4551,16 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                     return this._enqueue;
                 }
                 resolveSegmentKey(selector, templateRef) {
-                    let ontologyRef = templateRef[selector] || templateRef["*"];
-                    if (!ontologyRef) {
-                        console.error("SCENETRACK: ERROR: missing Template Reference for:" + selector);
+                    if (templateRef) {
+                        let ontologyRef = templateRef[selector] || templateRef["*"];
+                        if (!ontologyRef) {
+                            if (selector.includes("?"))
+                                console.error("SCENETRACK: ERROR: missing Template Reference for:" + selector);
+                        }
+                        else {
+                            this._ontologyRef = this.hostScene.resolveRawSelector(ontologyRef, null);
+                        }
                     }
-                    this._ontologyRef = this.hostScene.resolveRawSelector(ontologyRef, null);
                     this.hostScene.resolveRawSelector(selector, this._ontologyRef);
                     return this.hostScene.ontologyPath;
                 }
@@ -4566,13 +4577,13 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                             switch (selector) {
                                 case CONST_5.CONST.NOVAR:
                                     segvalue = segment[selector];
-                                    segvalue.filepath = this.sceneName + "/" + this._trackname + CONST_5.CONST.SEGMENT_PREFIX + segvalue.fileid + CONST_5.CONST.VOICE_PREFIX + this.voice + CONST_5.CONST.TYPE_WAV;
+                                    segvalue.filepath = this.sceneName + "/" + this._trackname + CONST_5.CONST.SEGMENT_PREFIX + segvalue.fileid + CONST_5.CONST.VOICE_PREFIX + this.voice + CONST_5.CONST.TYPE_MP3;
                                     break;
                                 default:
                                     this._ontologyPath = this.resolveSegmentKey(selector, this.templateRef);
                                     let selectorTag = this._ontologyPath.replace(this.RX_DELIMITERS, "");
                                     segvalue = segment[selectorTag];
-                                    segvalue.filepath = CONST_5.CONST.COMMONAUDIO + selectorTag + CONST_5.CONST.VOICE_PREFIX + this.voice + CONST_5.CONST.TYPE_WAV;
+                                    segvalue.filepath = CONST_5.CONST.COMMONAUDIO + selectorTag + CONST_5.CONST.VOICE_PREFIX + this.voice + CONST_5.CONST.TYPE_MP3;
                                     break;
                             }
                             console.log("SCENEGRAPH: Loading: " + this._trackname + segvalue.fileid + " => " + segvalue.SSML);
@@ -5142,7 +5153,7 @@ System.register("thermite/TRoot", ["util/CONST", "util/CUtil"], function (export
                 completeListener(e) {
                 }
                 nextXname() {
-                    let Xname = "CEF" + TRoot.xInstID.toString();
+                    let Xname = CONST_7.CONST.XNAME_SIG + TRoot.xInstID.toString();
                     TRoot.xInstID++;
                     return Xname;
                 }
@@ -5156,6 +5167,12 @@ System.register("thermite/TRoot", ["util/CONST", "util/CUtil"], function (export
                             subObj.Destructor();
                         }
                     }
+                }
+                testFeatures(features) {
+                    let result = false;
+                    if (features && features !== "")
+                        result = this.tutorDoc.testFeatureSet(features);
+                    return result;
                 }
                 captureXMLStructure(parentXML, iDepth) {
                     let element;
@@ -5463,6 +5480,13 @@ System.register("thermite/TSelector", [], function (exports_47, context_47) {
                         }
                     });
                 }
+                hideAll() {
+                    this.targets.forEach(component => {
+                        if (component.hideAll instanceof Function) {
+                            component.hideAll();
+                        }
+                    });
+                }
                 show() {
                     this.targets.forEach(component => {
                         if (component.show instanceof Function) {
@@ -5488,6 +5512,13 @@ System.register("thermite/TSelector", [], function (exports_47, context_47) {
                     this.targets.forEach(component => {
                         if (component.playMC instanceof Function) {
                             component.playMC();
+                        }
+                    });
+                }
+                exec(func, ...vars) {
+                    this.targets.forEach(component => {
+                        if (component[func] instanceof Function) {
+                            component[func](vars);
                         }
                     });
                 }
@@ -5735,16 +5766,19 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
                         else {
                             let ontologyRef = templateRef[selector] || templateRef["*"];
                             if (!ontologyRef) {
-                                console.error("ERROR: missing Template Reference for:" + selector);
+                                if (selector.includes("?"))
+                                    console.error("SELECTOR ERROR: missing Template Reference for:" + selector);
                             }
-                            this._ontologyRef = this.resolveRawSelector(ontologyRef, null);
+                            else {
+                                this._ontologyRef = this.resolveRawSelector(ontologyRef, null);
+                            }
                         }
                         if (this._ontologyRef) {
                             let objSelector = this._ontologyRef.split("|");
                             this._ontologyKey = objSelector[0].split("_");
                         }
                         else {
-                            console.error("Error: invalid Ontology Reference: " + templateRef);
+                            this._ontologyKey = [];
                         }
                     }
                 }
@@ -8996,7 +9030,7 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     this.tutorContainer.initAutomation();
                     this.launchTutor();
                 }
-                $nodeConstraint(edgeConstraint) { return false; }
+                $nodeConstraint(nodeName, edgeConstraint) { return false; }
                 ;
                 getSceneValue(property) {
                     return this.getStateValue(property, CONST_12.CONST.SCENESTATE);
@@ -9460,6 +9494,12 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                         }
                     }
                     return (invResult) ? !result : result;
+                }
+                testFeatures(features) {
+                    let result = false;
+                    if (features && features !== "")
+                        result = this.testFeatureSet(features);
+                    return result;
                 }
                 testFeatureSet(featSet) {
                     let feature;
@@ -11726,6 +11766,14 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     let zeroBase = newIndex - 1;
                     this.performTransition(zeroBase, effectType, effectDur);
                 }
+                setContentFromString(newContent) {
+                    let dataSource = {
+                        "htmlData": {
+                            "html": newContent
+                        },
+                    };
+                    this.deSerializeObj(dataSource);
+                }
                 performTransition(effectNewIndex, effectType, effectDur = 500) {
                     if (this._currObjNdx !== effectNewIndex) {
                         this.effectNewIndex = effectNewIndex;
@@ -11792,8 +11840,8 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     }
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: HTMLBase Custom Control");
                     super.deSerializeObj(objData);
+                    console.log("deserializing: HTMLBase Custom Control");
                     if (Array.isArray(objData)) {
                         this._objDataArray = objData;
                         for (let i1 = 0; i1 < objData.length; i1++) {
@@ -11881,8 +11929,8 @@ System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util
                     }
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: Text Control");
                     super.deSerializeObj(objData);
+                    console.log("deserializing: Text Control");
                 }
             };
             exports_105("THtmlText", THtmlText);
@@ -11954,8 +12002,8 @@ System.register("thermite/THtmlButton", ["thermite/TButton", "util/CUtil"], func
                     this.Stext.setContext(_hostModule, _ownerModule, _hostScene);
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: Text Control");
                     super.deSerializeObj(objData);
+                    console.log("deserializing: Text Control");
                     if (objData.buttonHTML)
                         this.Stext.deSerializeObj(objData.buttonHTML);
                 }
@@ -12167,9 +12215,9 @@ System.register("thermite/THtmlInput", ["thermite/THtmlBase", "util/CUtil", "uti
                     super._handleDrawEnd(evt);
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: Input Custom Control");
                     this.fontSize = objData.fontSize || this.fontSize;
                     super.deSerializeObj(objData);
+                    console.log("deserializing: Input Custom Control");
                 }
             };
             exports_107("THtmlInput", THtmlInput);
@@ -12244,8 +12292,8 @@ System.register("thermite/THtmlList", ["thermite/THtmlBase", "util/CUtil", "util
                     }
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: Input Custom Control");
                     super.deSerializeObj(objData);
+                    console.log("deserializing: Input Custom Control");
                 }
             };
             exports_108("THtmlList", THtmlList);
@@ -12454,8 +12502,8 @@ System.register("thermite/THtmlList1", ["thermite/THtmlBase", "util/CUtil", "uti
                     }
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: Input Custom Control");
                     super.deSerializeObj(objData);
+                    console.log("deserializing: Input Custom Control");
                     if (objData.listdata) {
                         this.listData = objData.listdata;
                         this.clearOptionList();
@@ -12743,8 +12791,8 @@ System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "uti
                     cellData.cell = cell;
                 }
                 deSerializeObj(objData) {
-                    console.log("deserializing: Table Control");
                     super.deSerializeObj(objData);
+                    console.log("deserializing: Table Control");
                     if (objData.tabledata) {
                         this.cellData = [];
                         objData.tabledata.rowdata.forEach((coldata, rowindex) => {

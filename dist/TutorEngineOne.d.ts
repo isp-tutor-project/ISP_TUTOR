@@ -116,7 +116,7 @@ declare module "core/IEFTutorDoc" {
         initializeTutor(): void;
         assignProperty(root: any, property: string, value: any): any;
         resolveProperty(root: any, property: string): any;
-        $nodeConstraint(edgeConstraint: string): boolean;
+        $nodeConstraint(ownerNode: string, edgeConstraint: string): boolean;
         getSceneValue(property: string): any;
         getModuleValue(property: string): any;
         getTutorValue(property: string): any;
@@ -171,6 +171,7 @@ declare module "core/IEFTutorDoc" {
         features: string;
         addFeature(feature: string, _id?: string): void;
         delFeature(feature: string, _id?: string): void;
+        testFeatures(features: string): boolean;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
     }
@@ -312,6 +313,7 @@ declare module "util/CONST" {
         static readonly GLOBAL_CODE: string;
         static readonly COMMON_CODE: string;
         static readonly EXT_SIG: string;
+        static readonly XNAME_SIG: string;
         static readonly TUTOR_COMMONPATH: string;
         static readonly ACCOUNT_LOADER: string;
         static readonly MODID_FILEPATH: string;
@@ -658,13 +660,14 @@ declare module "tutorgraph/CTutorEdge" {
     export class CTutorEdge extends Object {
         protected tutorDoc: IEFTutorDoc;
         protected _parent: CTutorGraph;
+        private _edgeOwner;
         private _edgeConst;
         private _edgeNode;
         private _pid;
         private _cycle;
         private _prob;
         constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, factory: any): CTutorEdge;
+        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, owner: CTutorNode, factory: any): CTutorEdge;
         testPConstraint(): boolean;
         testConstraint(): boolean;
         followEdge(): CTutorNode;
@@ -685,8 +688,9 @@ declare module "tutorgraph/CTutorNode" {
         protected _preEnter: string;
         protected _preExit: string;
         constructor(_tutorDoc: IEFTutorDoc);
-        protected nodeFactory(parent: CTutorGraph, id: string, nodefactory: any): void;
+        protected nodeFactory(parent: CTutorGraph, nodeName: string, nodefactory: any): void;
         readonly id: string;
+        readonly name: string;
         captureGraph(obj: Object): Object;
         restoreGraph(obj: Object): any;
         nextScene(): CTutorScene;
@@ -706,7 +710,7 @@ declare module "tutorgraph/CTutorAction" {
         private _cmnd;
         private _parms;
         constructor(_tutorDoc: IEFTutorDoc);
-        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, id: string, factory: any): CTutorAction;
+        static factory(_tutorDoc: IEFTutorDoc, parent: CTutorGraph, name: string, factory: any): CTutorAction;
         captureGraph(obj: Object): Object;
         restoreGraph(obj: Object): any;
         nextScene(): CTutorScene;
@@ -1578,6 +1582,7 @@ declare module "thermite/TRoot" {
         protected completeListener(e: Event): void;
         nextXname(): string;
         Destructor(): void;
+        testFeatures(features: string): boolean;
         captureXMLStructure(parentXML: string, iDepth: number): void;
         resetXML(): void;
         saveXML(): string;
@@ -1630,10 +1635,12 @@ declare module "thermite/TSelector" {
         private testSelector(currRegEx, element);
         private resolveSelectors(host, regex);
         hide(): void;
+        hideAll(): void;
         show(): void;
         enable(): void;
         disable(): void;
         play(): void;
+        exec(func: string, ...vars: any[]): void;
     }
 }
 declare module "events/CEFMouseEvent" {
@@ -2454,7 +2461,7 @@ declare module "core/CEFTutorDoc" {
         private fDefaults;
         constructor();
         initializeTutor(): void;
-        $nodeConstraint(edgeConstraint: string): boolean;
+        $nodeConstraint(nodeName: string, edgeConstraint: string): boolean;
         getSceneValue(property: string): any;
         getModuleValue(property: string): any;
         getTutorValue(property: string): any;
@@ -2512,6 +2519,7 @@ declare module "core/CEFTutorDoc" {
         addFeature(_feature: string, _id: string): void;
         delFeature(_feature: string, _id: string): void;
         private testFeature(element, index, arr);
+        testFeatures(features: string): boolean;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
     }
@@ -3029,6 +3037,7 @@ declare module "thermite/THtmlBase" {
         setContentById(objId: string, effectType?: string, effectDur?: number): void;
         setContentNext(effectType?: string, effectDur?: number): void;
         setContentByIndex(newIndex: number, effectType?: string, effectDur?: number): void;
+        setContentFromString(newContent: string): void;
         private performTransition(effectNewIndex, effectType, effectDur?);
         private swapContent();
         private effectFinished();

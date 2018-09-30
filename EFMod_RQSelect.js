@@ -54,6 +54,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_Soda__Topic, new cjs.Rectangle(0,0,251.3,903.1), null);
 
 
+(lib.TL_Soda__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Soda__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Soda__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_Soda__RQmovie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -156,6 +182,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_Sinking__Topic, new cjs.Rectangle(0,0,293.5,754.7), null);
+
+
+(lib.TL_Sinking__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Sinking__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Sinking__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_Sinking__RQmovie = function(mode,startPosition,loop) {
@@ -262,6 +314,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_Ramps__Topic, new cjs.Rectangle(0,0,492.1,343.8), null);
 
 
+(lib.TL_Ramps__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Ramps__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Ramps__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_Ramps__RQmovie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -364,6 +442,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_IceMelt__Topic, new cjs.Rectangle(0,0,550,295.7), null);
+
+
+(lib.TL_IceMelt__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_IceMelt__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_IceMelt__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_IceMelt__RQmovie = function(mode,startPosition,loop) {
@@ -470,6 +574,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_GrHouse__Topic, new cjs.Rectangle(0,0,1049,708.1), null);
 
 
+(lib.TL_GrHouse__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_GrHouse__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_GrHouse__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_GrHouse__RQmovie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -572,6 +702,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_Crystal__Topic, new cjs.Rectangle(0,0,364.5,394.9), null);
+
+
+(lib.TL_Crystal__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Crystal__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Crystal__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_Crystal__RQmovie = function(mode,startPosition,loop) {
@@ -678,6 +834,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TL_Balloon__Topic, new cjs.Rectangle(0,0,517,498.9), null);
 
 
+(lib.TL_Balloon__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Balloon__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Balloon__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
+
+
 (lib.TL_Balloon__RQmovie = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -780,6 +962,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TL_Algae__Topic, new cjs.Rectangle(0,0,297,261), null);
+
+
+(lib.TL_Algae__TEDQuest = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__TEDQuest, new cjs.Rectangle(0,0,1920,1200), null);
+
+
+(lib.TL_Algae__TEDExpt = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0000FF").s().dr(-959.85,-600,1919.7,1200);
+	this.shape.setTransform(960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TL_Algae__TEDExpt, new cjs.Rectangle(0,0,1920,1200), null);
 
 
 (lib.TL_Algae__RQmovie = function(mode,startPosition,loop) {

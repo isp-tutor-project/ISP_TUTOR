@@ -22,26 +22,6 @@
   }
 </style>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
-<!--script src="https://code.createjs.com/createjs-2015.11.26.combined.js"></script-->
-<!--
-	require.js will use the value of the 'data-main' attribute in the following
-	script tag to load '../EFTutorEngineOne/lib/engine.js' after require.js itself loads.
-	NOTE: requireJS must load after createJS or you will receive error:
-	MISMATCHED ANONYMOUS DEFINE() MODULES
-	If further easel etc problems see:
-	https://github.com/CreateJS/EaselJS/wiki/Using-easeljs-and-tweenjs-with-requirejs
--->    
-<!-- Load the SystemJS module loader and the tutor engine module -->
-<script src="./node_modules/systemjs/dist/system.js"></script>
-<script src="./dist/TutorEngineOne.js"></script>
-<!-- Load the module containing the engine boot routines they will wait for the
-	 createJS preload to complete and the tutorEngine component to initialize  -->
-<script>
-	System.import('TutorEngineOne').then(function(TutorEngineOne){
-		var Engine = new TutorEngineOne.CEngine;  
-		Engine.start();
-	});
-</script>
 <script src="EFMod_RQSelect.js"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
