@@ -4565,6 +4565,7 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                     return this.hostScene.ontologyPath;
                 }
                 registerTrack() {
+                    createjs.Sound.removeAllSounds();
                     this.assetPath = [this.hostModule] + CONST_5.CONST.TRACKASSETS_FILEPATH + this.language + "/";
                     this.newSounds = [];
                     let segvalue;
@@ -12719,6 +12720,9 @@ System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "uti
                 }
                 setCellValue(row, col, value) {
                     this.cellData[row][col].cell.innerHTML = value;
+                }
+                getCellValue(row, col) {
+                    return this.cellData[row][col].cell.innerHTML;
                 }
                 highlightNone() {
                     for (let row = 0; row < this.cellData.length; row++) {

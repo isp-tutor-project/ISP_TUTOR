@@ -1700,6 +1700,64 @@ p._updateVisibility = _updateVisibility;
 }).prototype = getMCSymbolPrototype(lib.TC_THtmlList1__CustomList1, new cjs.Rectangle(-0.5,-0.5,101,101), null);
 
 
+(lib.TC_TScene__Scene17 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// STable1
+	this.STblExp1 = new lib.TC_THtmlTable__Table1();
+	this.STblExp1.name = "STblExp1";
+	this.STblExp1.parent = this;
+	this.STblExp1.setTransform(960.5,622,10.583,3.04,0,0,0,50,50);
+
+	this.timeline.addTween(cjs.Tween.get(this.STblExp1).wait(1));
+
+	// STextBox1
+	this.STextBox1 = new lib.TC_THtmlText__Text1();
+	this.STextBox1.name = "STextBox1";
+	this.STextBox1.parent = this;
+	this.STextBox1.setTransform(961.7,246.9,16.439,3.169,0,0,0,50.1,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
+
+	// Layer_1
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene17, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__Scene16 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// STable1
+	this.STblExp1 = new lib.TC_THtmlTable__Table1();
+	this.STblExp1.name = "STblExp1";
+	this.STblExp1.parent = this;
+	this.STblExp1.setTransform(546.4,496.8,8.339,3.04,0,0,0,0.4,0);
+
+	this.timeline.addTween(cjs.Tween.get(this.STblExp1).wait(1));
+
+	// STextBox1
+	this.STextBox1 = new lib.TC_THtmlText__Text1();
+	this.STextBox1.name = "STextBox1";
+	this.STextBox1.parent = this;
+	this.STextBox1.setTransform(958.1,300.9,16.439,3.169,0,0,0,50.1,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
+
+	// Layer_1
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene16, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
 (lib.TC_TScene__Scene15 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -1715,7 +1773,7 @@ p._updateVisibility = _updateVisibility;
 	this.STextBox1 = new lib.TC_THtmlText__Text1();
 	this.STextBox1.name = "STextBox1";
 	this.STextBox1.parent = this;
-	this.STextBox1.setTransform(961.7,300.9,16.439,3.169,0,0,0,50.1,50.1);
+	this.STextBox1.setTransform(958.1,300.9,16.439,3.169,0,0,0,50.1,50.1);
 
 	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
 

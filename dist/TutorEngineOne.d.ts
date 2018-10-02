@@ -3180,6 +3180,7 @@ declare module "thermite/THtmlTable" {
         listenToCells(type: string, left: number, top: number, right: number, bottom: number): void;
         clearListeners(type: string): void;
         setCellValue(row: number, col: number, value: string): void;
+        getCellValue(row: number, col: number): string;
         highlightNone(): void;
         highlightSelected(bgcolor: string): void;
         highlightRow(bgcolor: string, row: number, flashCount?: number, flashRate?: number): void;

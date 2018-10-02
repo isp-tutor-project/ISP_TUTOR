@@ -46,6 +46,7 @@ function init() {
         dom_overlay_container = document.getElementById("dom_overlay_container");
         var comp=AdobeAn.getComposition("52BBDDD43BDBD64499D685AAA6743D14");
         var lib=comp.getLibrary();
+		createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
         var loader = new createjs.LoadQueue(false);
         loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
         var lib=comp.getLibrary();
