@@ -114,8 +114,13 @@ declare module "core/IEFTutorDoc" {
         _phaseData: any;
         TutAutomator: any;
         initializeTutor(): void;
+        attachNavPanel(panel: any): void;
+        setBreadCrumbs(text: string): void;
+        enableNext(fEnable: boolean): void;
         assignProperty(root: any, property: string, value: any): any;
         resolveProperty(root: any, property: string): any;
+        $preEnterScene(scene: any): void;
+        $preExitScene(scene: any): void;
         $nodeConstraint(ownerNode: string, edgeConstraint: string): boolean;
         getSceneValue(property: string): any;
         getModuleValue(property: string): any;
@@ -368,6 +373,7 @@ declare module "util/CONST" {
         static STATE_DOWN: string;
         static STATE_DISABLED: string;
         static STATE_HIT: string;
+        static readonly BUTTON_TEXT: string;
         static readonly SHAPE_UP: string;
         static readonly SHAPE_OVER: string;
         static readonly SHAPE_DOWN: string;
@@ -386,6 +392,7 @@ declare module "util/CONST" {
         static readonly MOUSE_UP: string;
         static readonly MOUSE_CLICK: string;
         static readonly DOUBLE_CLICK: string;
+        static readonly BUTTON_CLICK: string;
         static readonly CLICK: string;
         static readonly CANCELNAV: string;
         static readonly OKNAV: string;
@@ -1211,6 +1218,8 @@ declare module "thermite/TSceneBase" {
         private init3();
         onCreate(): void;
         protected initUI(): void;
+        setBreadCrumbs(text: string): void;
+        enableNext(fEnable: boolean): void;
         setSceneValue(property: string, value: any): void;
         setModuleValue(property: string, value: any): void;
         setTutorValue(property: string, value: any): void;
@@ -1446,6 +1455,7 @@ declare module "scenegraph/CSceneTrack" {
         private _trimHandler;
         private _asyncPlayTimer;
         private _playHandler;
+        private _soundCount;
         private _asyncCueTimer;
         private _cueTimers;
         private RX_DELIMITERS;
@@ -1752,6 +1762,7 @@ declare module "thermite/TObject" {
         TObjectInitialize(): void;
         initialize(): void;
         private init2();
+        onCreate(): void;
         Destructor(): void;
         readonly ontologyPath: string;
         addHTMLControls(): void;
@@ -2329,6 +2340,111 @@ declare module "managers/CLogManager" {
     export class SingletonObj {
     }
 }
+declare module "thermite/TText" {
+    import { TObject } from "thermite/TObject";
+    import { CEFEvent } from "events/CEFEvent";
+    export class TText extends TObject {
+        constructor();
+        TTextInitialize(): void;
+        initialize(): void;
+        private init3();
+        Destructor(): void;
+        onAddedToStage(evt: CEFEvent): void;
+    }
+}
+declare module "thermite/THtmlBase" {
+    import { TObject } from "thermite/TObject";
+    import { CEFEvent } from "events/CEFEvent";
+    export class THtmlBase extends TObject {
+        protected outerContainer: HTMLElement;
+        protected controlContainer: HTMLElement;
+        protected dimContainer: TObject;
+        protected scaleCompensation: number;
+        protected fAdded: boolean;
+        protected isHTMLControl: boolean;
+        protected HTMLmute: boolean;
+        protected startText: string;
+        protected styleElement: HTMLStyleElement;
+        protected styleSheet: StyleSheet;
+        protected cssSheet: any;
+        protected cssDirty: any;
+        protected fontSize: number;
+        protected cssClass: string;
+        protected _updateVisibilityCbk: any;
+        protected _updateComponentCbk: any;
+        protected _lastFrame: number;
+        protected _objDataArray: Array<any>;
+        protected _currObjNdx: number;
+        constructor();
+        THtmlBaseInitialize(): void;
+        initialize(): void;
+        private init3();
+        Destructor(): void;
+        invertScale(): void;
+        onAddedToStage(evt: CEFEvent): void;
+        addHTMLControls(): void;
+        buildRuleSet(cssRules: any): string;
+        setProperty(key: string, value: string | number, force?: boolean): void;
+        updateStyle(force: boolean): void;
+        muteHTMLControl(mute: boolean): void;
+        _handleDrawStart(evt: CEFEvent): void;
+        _handleDrawEnd(evt: CEFEvent): void;
+        hideSpan(spanID: string): void;
+        showSpan(spanID: string): void;
+        show(): void;
+        hide(): void;
+        setContentById(objId: string, effectType?: string, effectDur?: number): void;
+        setContentNext(effectType?: string, effectDur?: number): void;
+        setContentByIndex(newIndex: number, effectType?: string, effectDur?: number): void;
+        setContentFromString(newContent: string): void;
+        private performTransition(effectNewIndex, effectType, effectDur?);
+        private swapContent();
+        private effectFinished();
+        addCSSRules(styleElement: HTMLStyleElement, cssStyles: any): void;
+        protected addCustomStyles(srcStyle: any, tarStyle: any): void;
+        protected initObjfromHtmlData(objData: any): void;
+        deSerializeObj(objData: any): void;
+    }
+}
+declare module "thermite/THtmlText" {
+    import { TObject } from "thermite/TObject";
+    import { THtmlBase } from "thermite/THtmlBase";
+    import { CEFEvent } from "events/CEFEvent";
+    export class THtmlText extends THtmlBase {
+        SControlContainer: TObject;
+        constructor();
+        THtmlTextInitialize(): void;
+        initialize(): void;
+        private init4();
+        onAddedToStage(evt: CEFEvent): void;
+        deSerializeObj(objData: any): void;
+    }
+}
+declare module "thermite/TNavPanel" {
+    import { TScene } from "thermite/TScene";
+    import { TObject } from "thermite/TObject";
+    import { THtmlText } from "thermite/THtmlText";
+    export class TNavPanel extends TScene {
+        protected SbreadCrumbs: THtmlText;
+        protected Sbackground: TObject;
+        protected Sback: TObject;
+        protected SbackMask: TObject;
+        protected Snext: TObject;
+        constructor();
+        TNavPanelInitialize(): void;
+        initialize(): void;
+        private init5();
+        Destructor(): void;
+        onCreate(): void;
+        enableNext(enable: boolean): void;
+        enablePrev(enable: boolean): void;
+        connectNavButton(type: string, butComp: string, _once?: boolean): void;
+        setBreadCrumbs(text: string): void;
+        disConnectNavButton(type: string, butComp: string): void;
+        showHideNavButton(type: string, show: boolean): void;
+        setNavigationTarget(behavior: string): void;
+    }
+}
 declare module "tutorgraph/CTutorHistoryNode" {
     import { CTutorNode } from "tutorgraph/CTutorNode";
     import { CTutorScene } from "tutorgraph/CTutorScene";
@@ -2395,6 +2511,7 @@ declare module "core/CEFTutorDoc" {
     import { IEFTutorDoc } from "core/IEFTutorDoc";
     import { CLogManager } from "managers/CLogManager";
     import { TTutorContainer } from "thermite/TTutorContainer";
+    import { TNavPanel } from "thermite/TNavPanel";
     import { CTutorGraphNavigator } from "tutorgraph/CTutorGraphNavigator";
     import { LoaderPackage } from "util/IBootLoader";
     import EventDispatcher = createjs.EventDispatcher;
@@ -2403,6 +2520,7 @@ declare module "core/CEFTutorDoc" {
         private isDebug;
         [key: string]: any;
         tutorContainer: TTutorContainer;
+        SnavPanel: TNavPanel;
         tutorNavigator: CTutorGraphNavigator;
         name: string;
         loaderData: Array<LoaderPackage.ILoaderData>;
@@ -2461,6 +2579,11 @@ declare module "core/CEFTutorDoc" {
         private fDefaults;
         constructor();
         initializeTutor(): void;
+        attachNavPanel(panel: TNavPanel): void;
+        setBreadCrumbs(text: string): void;
+        enableNext(fEnable: boolean): void;
+        $preEnterScene(scene: any): void;
+        $preExitScene(scene: any): void;
         $nodeConstraint(nodeName: string, edgeConstraint: string): boolean;
         getSceneValue(property: string): any;
         getModuleValue(property: string): any;
@@ -2555,11 +2678,14 @@ declare module "thermite/TButton" {
     import { CEFEvent } from "events/CEFEvent";
     import { TMouseEvent } from "thermite/events/TMouseEvent";
     import MovieClip = createjs.MovieClip;
+    import Text = createjs.Text;
     export class TButton extends TObject {
+        text: Text;
         shape: MovieClip;
         shape_1: MovieClip;
         shape_2: MovieClip;
         shape_3: MovieClip;
+        Label: Text;
         curState: string;
         fPressed: boolean;
         fEnabled: boolean;
@@ -2994,73 +3120,6 @@ declare module "thermite/TCheckBox" {
         deepStateCopy(src: any): void;
     }
 }
-declare module "thermite/THtmlBase" {
-    import { TObject } from "thermite/TObject";
-    import { CEFEvent } from "events/CEFEvent";
-    export class THtmlBase extends TObject {
-        protected outerContainer: HTMLElement;
-        protected controlContainer: HTMLElement;
-        protected dimContainer: TObject;
-        protected scaleCompensation: number;
-        protected fAdded: boolean;
-        protected isHTMLControl: boolean;
-        protected HTMLmute: boolean;
-        protected startText: string;
-        protected styleElement: HTMLStyleElement;
-        protected styleSheet: StyleSheet;
-        protected cssSheet: any;
-        protected cssDirty: any;
-        protected fontSize: number;
-        protected _updateVisibilityCbk: any;
-        protected _updateComponentCbk: any;
-        protected _lastFrame: number;
-        protected _objDataArray: Array<any>;
-        protected _currObjNdx: number;
-        constructor();
-        THtmlBaseInitialize(): void;
-        initialize(): void;
-        private init3();
-        Destructor(): void;
-        invertScale(): void;
-        onAddedToStage(evt: CEFEvent): void;
-        addHTMLControls(): void;
-        buildRuleSet(cssRules: any): string;
-        setProperty(key: string, value: string | number, force?: boolean): void;
-        updateStyle(force: boolean): void;
-        muteHTMLControl(mute: boolean): void;
-        _handleDrawStart(evt: CEFEvent): void;
-        _handleDrawEnd(evt: CEFEvent): void;
-        hideSpan(spanID: string): void;
-        showSpan(spanID: string): void;
-        show(): void;
-        hide(): void;
-        setContentById(objId: string, effectType?: string, effectDur?: number): void;
-        setContentNext(effectType?: string, effectDur?: number): void;
-        setContentByIndex(newIndex: number, effectType?: string, effectDur?: number): void;
-        setContentFromString(newContent: string): void;
-        private performTransition(effectNewIndex, effectType, effectDur?);
-        private swapContent();
-        private effectFinished();
-        addCSSRules(styleElement: HTMLStyleElement, cssStyles: any): void;
-        protected addCustomStyles(srcStyle: any, tarStyle: any): void;
-        protected initObjfromHtmlData(objData: any): void;
-        deSerializeObj(objData: any): void;
-    }
-}
-declare module "thermite/THtmlText" {
-    import { TObject } from "thermite/TObject";
-    import { THtmlBase } from "thermite/THtmlBase";
-    import { CEFEvent } from "events/CEFEvent";
-    export class THtmlText extends THtmlBase {
-        SControlContainer: TObject;
-        constructor();
-        THtmlTextInitialize(): void;
-        initialize(): void;
-        private init4();
-        onAddedToStage(evt: CEFEvent): void;
-        deSerializeObj(objData: any): void;
-    }
-}
 declare module "thermite/THtmlButton" {
     import { TButton } from "thermite/TButton";
     import { THtmlText } from "thermite/THtmlText";
@@ -3188,42 +3247,8 @@ declare module "thermite/THtmlTable" {
         highlightCellBorders(color: string, flashCount: number, flashRate: number, left: number, top: number, right: number, bottom: number): void;
         private resolvePlaceHolderElement(selector, cellData);
         private resolveOptionElements(options, cellData);
-        private initElementFromData(rowindex, colindex, element);
+        initElementFromData(rowindex: number, colindex: number, element: any): void;
         deSerializeObj(objData: any): void;
-    }
-}
-declare module "thermite/TNavPanel" {
-    import { TScene } from "thermite/TScene";
-    import { TObject } from "thermite/TObject";
-    export class TNavPanel extends TScene {
-        protected Sbackground: TObject;
-        protected Sback: TObject;
-        protected SbackMask: TObject;
-        protected Snext: TObject;
-        constructor();
-        TNavPanelInitialize(): void;
-        initialize(): void;
-        private init5();
-        Destructor(): void;
-        onCreate(): void;
-        enableNext(enable: boolean): void;
-        enablePrev(enable: boolean): void;
-        connectNavButton(type: string, butComp: string, _once?: boolean): void;
-        disConnectNavButton(type: string, butComp: string): void;
-        showHideNavButton(type: string, show: boolean): void;
-        setNavigationTarget(behavior: string): void;
-    }
-}
-declare module "thermite/TText" {
-    import { TObject } from "thermite/TObject";
-    import { CEFEvent } from "events/CEFEvent";
-    export class TText extends TObject {
-        constructor();
-        TTextInitialize(): void;
-        initialize(): void;
-        private init3();
-        Destructor(): void;
-        onAddedToStage(evt: CEFEvent): void;
     }
 }
 declare module "thermite/TTitleBar" {

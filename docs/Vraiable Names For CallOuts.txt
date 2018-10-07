@@ -1,0 +1,117 @@
+
+
+
+Crystal
+
+ Room temp	
+ Salt	
+ A little
+ Twine
+
+ Hot 	
+ Brown sugar
+ None
+ Yarn
+
+
+
+Balloon
+
+ Light (gray)
+ Full sun	
+ Latex	
+ Wooden
+
+ Dark (black)	
+ shade	
+ Foil	
+ Canvas
+
+
+
+
+Ramps
+
+ Not steep	
+ Yellow	
+ Middle	
+ Rough (friction)
+
+ Steep	
+ Pink	
+ Top	
+ Smooth (no friction)
+
+
+
+
+
+Plant Repo
+
+ Zero	
+ Full sunlight 	
+ None
+ Rain water
+ 
+ a whole hive
+ Partial sunlight 	
+ Some	
+ Tap water
+
+
+
+
+SODA
+
+ Sugar	
+ Some	
+ Smooth 
+ High
+ 
+ Aspartame	
+ none	
+ Rough	
+ Low
+
+
+
+
+Ice Melting
+
+ 0˚C/32F 	
+ cold 	 
+ Striped	
+ Short
+ 
+ -20˚C/-4F	
+ hot 
+ Plain	 
+ Tall
+
+
+
+Sinking
+
+ low (no salt)	
+ Sphere	
+ Small	
+ high (lead)
+ 
+ high (salt added)	
+ Tear-shaped	
+ Large	
+ low (glass)
+
+
+
+Algae
+
+ Room temperature	  
+ Constant music	
+ A lot	 
+ Some 
+ 
+ Warm	 
+ No music	
+ None	
+ None

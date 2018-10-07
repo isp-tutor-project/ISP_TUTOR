@@ -20,9 +20,16 @@ NOTICE: Adobe permits you to use, modify, and distribute this file as stand-alon
  
 var _widgetID = 0;
 
-var EFLoadManager = EFLoadManager || function(){};
+var EFLoadManager  = EFLoadManager  || function(){};
+var EFnativeAudio  = EFnativeAudio  || null;
+var EFnativeSpeech = EFnativeSpeech || null;
 
 EFLoadManager.window = window;
+
+// Attach to platform specific audio engines e.g. Android
+// 
+EFLoadManager.nativeAudio  = EFnativeAudio;
+EFLoadManager.nativeSpeech = EFnativeSpeech;
 
 $ = EFLoadManager;
 
