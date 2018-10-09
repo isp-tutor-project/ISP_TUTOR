@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[918,397,50,50],[886,449,50,50],[353,432,50,50],[834,439,50,50],[938,449,50,50],[970,397,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
+		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[834,439,50,50],[886,449,50,50],[970,397,50,50],[938,449,50,50],[353,432,50,50],[918,397,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
 ];
 
 
@@ -138,6 +138,49 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.IconSignIn, new cjs.Rectangle(-29.5,-29.5,59,59), null);
 
 
+(lib.TC_TVirtual__ExptRgn = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(102,255,255,0.988)").s().dr(-475,-329.5,950,659);
+	this.shape.setTransform(475,329.5);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TVirtual__ExptRgn, new cjs.Rectangle(0,0,950,659), null);
+
+
+(lib.TC_TObject__CondTitle2 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.text = new cjs.Text("Condition #2", "bold 41px 'PT Sans'");
+	this.text.lineHeight = 55;
+	this.text.lineWidth = 244;
+	this.text.parent = this;
+	this.text.setTransform(2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.text).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__CondTitle2, new cjs.Rectangle(0,0,248,59.4), null);
+
+
+(lib.TC_TObject__CondTitle1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.text = new cjs.Text("Condition #1", "bold 41px 'PT Sans'");
+	this.text.lineHeight = 55;
+	this.text.lineWidth = 255;
+	this.text.parent = this;
+	this.text.setTransform(2,2);
+
+	this.timeline.addTween(cjs.Tween.get(this.text).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__CondTitle1, new cjs.Rectangle(0,0,259,61.4), null);
+
+
 (lib.TC_TObject__StudentIcon2 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -162,6 +205,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__StudentIcon1, new cjs.Rectangle(0,0,405.7,536.3), null);
+
+
+(lib.TC_TObject__QuestionBorder = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#00FFFF").ss(3,1,1).rr(-652,-40.05,1304,80.1,10);
+	this.shape.setTransform(652,40.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__QuestionBorder, new cjs.Rectangle(-1.5,-1.5,1307,83.1), null);
 
 
 (lib.TC_TButton__S15VectorB = function(mode,startPosition,loop) {
@@ -969,6 +1025,20 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.listbox, new cjs.Rectangle(-1,-1,102,102), null);
+
+
+(lib.TC_TTEDContainer__AllDomains = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Region
+	this.ScontrolRegion = new lib.TC_TVirtual__ExptRgn();
+	this.ScontrolRegion.name = "ScontrolRegion";
+	this.ScontrolRegion.parent = this;
+	this.ScontrolRegion.setTransform(473.9,328.5,1,1,0,0,0,474.9,329.4);
+
+	this.timeline.addTween(cjs.Tween.get(this.ScontrolRegion).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TTEDContainer__AllDomains, new cjs.Rectangle(-1,-0.9,950,659), null);
 
 
 (lib.TC_TScene__SignIn = function(mode,startPosition,loop) {
@@ -1875,6 +1945,390 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.SControlContainer).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_THtmlList1__CustomList1, new cjs.Rectangle(-0.5,-0.5,101,101), null);
+
+
+(lib.TC_TScene__TEDQuest4B = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,631.5,0.844,0.844,0,0,0,276.2,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,631.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// Layer_4
+	this.instance = new lib.TC_TObject__QuestionBorder();
+	this.instance.parent = this;
+	this.instance.setTransform(960.2,200.9,1.036,2.198,0,0,0,652.1,40.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// Sanswer
+	this.Sanswer = new lib.TC_THtmlList1__CustomList1();
+	this.Sanswer.name = "Sanswer";
+	this.Sanswer.parent = this;
+	this.Sanswer.setTransform(955.3,363.4,15.717,0.794,0,0,0,49.4,50.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
+
+	// Squestion
+	this.Squestion = new lib.TC_THtmlText__Text1();
+	this.Squestion.name = "Squestion";
+	this.Squestion.parent = this;
+	this.Squestion.setTransform(955.8,200.2,13.047,1.363,0,0,0,49.6,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.instance_1 = new lib.TC_TObject__CondTitle2();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(1420,1053.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_2 = new lib.TC_TObject__CondTitle1();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(535.5,1054.4,1,1,0,0,0,129.5,30.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+
+	// TC_TVirtual__SceneRgn
+	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest4B, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__TEDQuest4A = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,601.5,0.844,0.844,0,0,0,276.2,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,601.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// Layer_4
+	this.instance = new lib.TC_TObject__QuestionBorder();
+	this.instance.parent = this;
+	this.instance.setTransform(960.2,200.9,1.036,2.198,0,0,0,652.1,40.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// Squestion
+	this.Squestion = new lib.TC_THtmlText__Text1();
+	this.Squestion.name = "Squestion";
+	this.Squestion.parent = this;
+	this.Squestion.setTransform(955.8,200.2,13.047,1.363,0,0,0,49.6,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
+
+	// Sanswer
+	this.Sanswer = new lib.TC_THtmlList1__CustomList1();
+	this.Sanswer.name = "Sanswer";
+	this.Sanswer.parent = this;
+	this.Sanswer.setTransform(953.1,361.5,9.9,0.68,0,0,0,49.3,50);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.instance_1 = new lib.TC_TObject__CondTitle2();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(1420,1033.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_2 = new lib.TC_TObject__CondTitle1();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(535.5,1034.4,1,1,0,0,0,129.5,30.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+
+	// TC_TVirtual__SceneRgn
+	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest4A, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__TEDQuest4 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,581.5,0.844,0.844,0,0,0,276.2,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,581.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(974.4,240.5,13.121,2.255,0,0,0,50.9,50.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.instance = new lib.TC_TObject__CondTitle2();
+	this.instance.parent = this;
+	this.instance.setTransform(1420,1013.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_1 = new lib.TC_TObject__CondTitle1();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(535.5,1014.4,1,1,0,0,0,129.5,30.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// TC_TVirtual__SceneRgn
+	this.instance_2 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest4, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__TEDQuest1AB = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,631.5,0.844,0.844,0,0,0,276.2,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,631.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(973.7,138.2,16.785,0.988,0,0,0,50.9,50.2);
+	this.Stitle.alpha = 0.789;
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// Layer_5
+	this.instance = new lib.TC_TObject__QuestionBorder();
+	this.instance.parent = this;
+	this.instance.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// Layer_6
+	this.Squestion = new lib.TC_THtmlText__Text1();
+	this.Squestion.name = "Squestion";
+	this.Squestion.parent = this;
+	this.Squestion.setTransform(955.8,253.1,8.473,0.62,0,0,0,49.5,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
+
+	// Sanswer
+	this.Sanswer = new lib.TC_THtmlList1__CustomList1();
+	this.Sanswer.name = "Sanswer";
+	this.Sanswer.parent = this;
+	this.Sanswer.setTransform(955.3,363.4,15.717,0.794,0,0,0,49.4,50.3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.instance_1 = new lib.TC_TObject__CondTitle2();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(1420,1053.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_2 = new lib.TC_TObject__CondTitle1();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(535.5,1054.4,1,1,0,0,0,129.5,30.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+
+	// Layer_1
+	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1AB, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__TEDQuest1 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Stitle
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(973.7,138.2,16.785,0.988,0,0,0,50.9,50.2);
+	this.Stitle.alpha = 0.789;
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// Layer_6
+	this.instance = new lib.TC_TObject__QuestionBorder();
+	this.instance.parent = this;
+	this.instance.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// Layer_9
+	this.Squestion = new lib.TC_THtmlText__Text1();
+	this.Squestion.name = "Squestion";
+	this.Squestion.parent = this;
+	this.Squestion.setTransform(955.8,253.1,8.473,0.62,0,0,0,49.5,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
+
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,591.5,0.844,0.844,0,0,0,276.2,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,591.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// Sanswer
+	this.Sanswer = new lib.TC_THtmlList1__CustomList1();
+	this.Sanswer.name = "Sanswer";
+	this.Sanswer.parent = this;
+	this.Sanswer.setTransform(953.1,344,9.9,0.68,0,0,0,49.3,50);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.instance_1 = new lib.TC_TObject__CondTitle2();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(1420,1003.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_2 = new lib.TC_TObject__CondTitle1();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(535.5,1004.4,1,1,0,0,0,129.5,30.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+
+	// Layer_1
+	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__TEDQ1Intro = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,541.5,0.844,0.844,0,0,0,276.2,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,541.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// Stitle
+	this.Stitle = new lib.TC_THtmlText__Text1();
+	this.Stitle.name = "Stitle";
+	this.Stitle.parent = this;
+	this.Stitle.setTransform(973.7,184.7,16.785,0.988,0,0,0,50.9,50.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.instance = new lib.TC_TObject__CondTitle2();
+	this.instance.parent = this;
+	this.instance.setTransform(1420,982.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_1 = new lib.TC_TObject__CondTitle1();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(525.5,983.4,1,1,0,0,0,129.5,30.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// Layer_1
+	this.instance_2 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQ1Intro, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene17 = function(mode,startPosition,loop) {

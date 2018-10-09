@@ -50,10 +50,11 @@ System.register("managers/CLogManagerType", [], function (exports_5, context_5) 
 System.register("util/CUtil", [], function (exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
-    var TutorEngineOne, CUtil, __global;
+    var TutorEngineOne, CJSEvent, CUtil, __global;
     return {
         setters: [],
         execute: function () {
+            CJSEvent = createjs.Event;
             CUtil = class CUtil extends Object {
                 constructor() {
                     super();
@@ -166,6 +167,14 @@ System.register("util/CUtil", [], function (exports_6, context_6) {
                         strMap.set(k, obj[k]);
                     }
                     return strMap;
+                }
+                static initSceneTick(tarComponent) {
+                    let event = new CJSEvent("tick", false, false);
+                    event.delta = 0;
+                    event.paused = true;
+                    event.time = CUtil.getTimer();
+                    event.runTime = event.time;
+                    tarComponent._tick(event);
                 }
                 static instantiateThermiteObject(_module, _className) {
                     let tarObject;
@@ -1876,8 +1885,8 @@ System.register("core/CEFTransitions", ["thermite/TObject", "thermite/TObjectMas
                     super(null, null, { "useTicks": false, "loop": false, "paused": true }, _tutorDoc);
                     this.currScene = null;
                     this.newScene = null;
-                    this.rTime = 350;
-                    this.tTime = 350;
+                    this.rTime = 2350;
+                    this.tTime = 2350;
                     this.fSingleStep = true;
                     this.activeObjs = {};
                     this.persistObjs = {};
@@ -1955,6 +1964,8 @@ System.register("core/CEFTransitions", ["thermite/TObject", "thermite/TObjectMas
                                         CUtil_11.CUtil.trace("setTransitionOUT: " + this.tutorAutoObj[this.currScene][sceneObj]._instance.name);
                                     targObj = this.tutorAutoObj[this.currScene][sceneObj];
                                     tween = new Tween(targObj._instance).to({ alpha: 0 }, Number(this.rTime), Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + this.currScene + "  named : " + targObj._instance.name + " property: alpha" + " out: " + tween.duration + "msecs");
                                     this.addTween(tween);
                                 }
                             }
@@ -2806,7 +2817,7 @@ System.register("tutorgraph/CTutorScene", [], function (exports_28, context_28) 
 System.register("thermite/TTutorContainer", ["thermite/TRoot", "thermite/TObject", "thermite/TSceneBase", "thermite/TCursorProxy", "thermite/events/TMouseEvent", "core/CEFTimeStamp", "events/CEFEvent", "events/CEFNavEvent", "events/CEFKeyboardEvent", "util/CONST", "util/CUtil"], function (exports_29, context_29) {
     "use strict";
     var __moduleName = context_29 && context_29.id;
-    var TRoot_2, TObject_5, TSceneBase_2, TCursorProxy_1, TMouseEvent_2, CEFTimeStamp_1, CEFEvent_6, CEFNavEvent_1, CEFKeyboardEvent_1, CONST_3, CUtil_14, MovieClip, DisplayObjectContainer, Tween, CJSEvent, Rectangle, Shape, TTutorContainer;
+    var TRoot_2, TObject_5, TSceneBase_2, TCursorProxy_1, TMouseEvent_2, CEFTimeStamp_1, CEFEvent_6, CEFNavEvent_1, CEFKeyboardEvent_1, CONST_3, CUtil_14, MovieClip, DisplayObjectContainer, Tween, Rectangle, Shape, TTutorContainer;
     return {
         setters: [
             function (TRoot_2_1) {
@@ -2847,7 +2858,6 @@ System.register("thermite/TTutorContainer", ["thermite/TRoot", "thermite/TObject
             MovieClip = createjs.MovieClip;
             DisplayObjectContainer = createjs.Container;
             Tween = createjs.Tween;
-            CJSEvent = createjs.Event;
             Rectangle = createjs.Rectangle;
             Shape = createjs.Shape;
             TTutorContainer = class TTutorContainer extends TRoot_2.TRoot {
@@ -2947,8 +2957,8 @@ System.register("thermite/TTutorContainer", ["thermite/TRoot", "thermite/TObject
                     catch (err) {
                         console.log("Error: missing Scene mixin");
                     }
+                    CUtil_14.CUtil.initSceneTick(tarScene);
                     this.addChild(tarScene);
-                    this.initSceneTick(tarScene);
                     tarScene.connectSceneGraph(factory.hostmodule, factory.scenename);
                     tarScene.stop();
                     if (factory.visible) {
@@ -2967,14 +2977,6 @@ System.register("thermite/TTutorContainer", ["thermite/TRoot", "thermite/TObject
                             subScene.gotoAndStop(0);
                     }
                     return tarScene;
-                }
-                initSceneTick(tarScene) {
-                    let event = new CJSEvent("tick", false, false);
-                    event.delta = 0;
-                    event.paused = true;
-                    event.time = CUtil_14.CUtil.getTimer();
-                    event.runTime = event.time;
-                    tarScene._tick(event);
                 }
                 destroyScene(sceneName) {
                     let sceneObj = this.getChildByName(sceneName);
@@ -8815,8 +8817,6 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                 _handleDrawStart(evt) {
                     if (this.fAdded) {
                         if ((this.getStage() == null || this._lastFrame != this.parent.currentFrame)) {
-                            dom_overlay_container.removeChild(this.outerContainer);
-                            this.fAdded = false;
                         }
                     }
                 }
@@ -8842,7 +8842,13 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                         let y = (mat.ty + this.regX * mat.b + this.regY * mat.d - this.regY);
                         let tx = 'matrix(' + mat.a + ',' + mat.b + ',' + mat.c + ',' + mat.d + ',' + x + ',' + y + ')';
                         this.setProperty("visibility", this.visible ? "visible" : "hidden");
-                        this.setProperty("opacity", this.alpha);
+                        let obj = this;
+                        let alpha = this.alpha;
+                        while (obj.parent) {
+                            obj = obj.parent;
+                            alpha = obj.alpha * alpha;
+                        }
+                        this.setProperty("opacity", alpha);
                         this.setProperty("font-size", this.fontSize * sy * this.scaleCompensation + "px");
                         this.setProperty('transform', tx);
                         this.setProperty('width', w + "px");
@@ -10231,7 +10237,13 @@ System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil
                         AnObject.prototype.frameBounds = temp1.frameBounds;
                         AnObject.prototype.tutorDoc = this.tutorDoc;
                         AnObject.prototype.tutorContainer = this.tutorDoc.tutorContainer;
-                        EFLoadManager.classLib[AnModuleName][variant] = AnObject;
+                        if (EFLoadManager.classLib[AnModuleName][variant]) {
+                            console.error(`ERROR: Name Collision: module- ${AnModuleName}  variant- ${variant}`);
+                            throw ("NameCollision");
+                        }
+                        else {
+                            EFLoadManager.classLib[AnModuleName][variant] = AnObject;
+                        }
                     });
                 }
                 mapForeignClasses() {

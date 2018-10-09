@@ -270,6 +270,7 @@ declare module "util/CUtil" {
         static preLoader(show: boolean): void;
         static strMap2Obj(strMap: Map<string, Object>): any;
         static obj2StrMap(obj: any): Map<string, Object>;
+        static initSceneTick(tarComponent: any): void;
         static instantiateThermiteObject(_module: string, _className: string): DisplayObject;
         static getConstructorByName(moduleName: string, className: string): any;
     }
@@ -1031,7 +1032,6 @@ declare module "thermite/TTutorContainer" {
         captureSceneGraph(): void;
         instantiateScenePath(sceneName: string, classPath: string, sceneVisible?: boolean): any;
         instantiateScene(factory: CTutorScene): any;
-        private initSceneTick(tarScene);
         destroyScene(sceneName: string): void;
         automateScene(sceneName: string, sceneObj: any, nameObj?: boolean): void;
         wozReplay(): void;
