@@ -38,6 +38,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TC_TVirtual__ExptRgn, new cjs.Rectangle(0,0,950,659), null);
 
 
+(lib.TC_TObject__HeaterWater = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(153,255,255,0.498)").s().p("ACTFnIgGAAIgDAAIkEgFIgegDIAAgQIAAg2IgBguIADhiQAGibAAhBQAAg2gChEIgEhkIAIgSQAGgKALgLIAMgNIAGgBIgIAKQgJAIgHADQAfgIA1ANQA/AOAYgCQARgBAcgIQAigIAMgCQAIgBAGgEIAAAWIABAVIACAVQACAPACAFIABABIgCFVQAACFACCMIABAAIAAABIgEADg");
+	this.shape.setTransform(15.4,35.9);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__HeaterWater, new cjs.Rectangle(0,0,30.8,71.9), null);
+
+
 (lib.TC_TObject__ArrowHead = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -2138,19 +2151,6 @@ p._updateVisibility = _updateVisibility;
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__Callout3a, new cjs.Rectangle(-1.5,-1.5,145.4,62.6), null);
 
 
-(lib.TC_TObject__Callout1b = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// Layer_1
-	this.instance = new lib.TC_TObject__CalloutLong();
-	this.instance.parent = this;
-	this.instance.setTransform(71.2,54.4,1,1,180,0,0,71.2,1.6);
-
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__Callout1b, new cjs.Rectangle(-1.5,23.2,145.4,62.6), null);
-
-
 (lib.TC_TObject__Callout1a = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -2329,22 +2329,44 @@ p._updateVisibility = _updateVisibility;
 (lib.TC_TObject__CThermometerHot = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// Layer_1
-	this.instance = new lib.squarethermometernumbers();
+	// TC_TObject__HeaterWater
+	this.instance = new lib.TC_TObject__HeaterWater();
 	this.instance.parent = this;
-	this.instance.setTransform(2.2,-3.1);
+	this.instance.setTransform(52.5,-28.8,0.802,0.762,0,0,0,15.4,35.9);
+	this.instance.alpha = 0.801;
 
-	this.instance_1 = new lib.squarethermometercolorhot();
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// Svar1b2
+	this.Svar1b2 = new lib.CFishtank_heater();
+	this.Svar1b2.name = "Svar1b2";
+	this.Svar1b2.parent = this;
+	this.Svar1b2.setTransform(52.6,-50.9,1.007,1.007);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar1b2).wait(1));
+
+	// squarethermometernumbers
+	this.instance_1 = new lib.squarethermometernumbers();
 	this.instance_1.parent = this;
-	this.instance_1.setTransform(0.8,-26.9);
+	this.instance_1.setTransform(2.2,-3.1);
 
-	this.instance_2 = new lib.squarefishtankthermometer();
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+
+	// squarethermometercolorhot
+	this.instance_2 = new lib.squarethermometercolorhot();
 	this.instance_2.parent = this;
-	this.instance_2.setTransform(0,0.1);
+	this.instance_2.setTransform(0.8,-26.9);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_2},{t:this.instance_1},{t:this.instance}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__CThermometerHot, new cjs.Rectangle(-10.8,-42.3,21.7,84.8), null);
+	// squarefishtankthermometer
+	this.instance_3 = new lib.squarefishtankthermometer();
+	this.instance_3.parent = this;
+	this.instance_3.setTransform(0,0.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__CThermometerHot, new cjs.Rectangle(-10.8,-98.7,75.8,141.2), null);
 
 
 (lib.NewCombinedWater = function(mode,startPosition,loop) {
@@ -2553,16 +2575,6 @@ p._updateVisibility = _updateVisibility;
 	this.shape_1.graphics.f("#000000").s().p("AwSDJIJsmRIW5AAIn/GRg");
 	this.shape_1.setTransform(-23.9,-17.9,1.35,1.35);
 
-	this.ScallOut = new lib.TC_TObject__Callout1b();
-	this.ScallOut.name = "ScallOut";
-	this.ScallOut.parent = this;
-	this.ScallOut.setTransform(164.6,44.3,1,1,0,0,0,135.9,42.9);
-
-	this.Svar1b2 = new lib.CFishtank_heater();
-	this.Svar1b2.name = "Svar1b2";
-	this.Svar1b2.parent = this;
-	this.Svar1b2.setTransform(76,27,1.416,1.416);
-
 	this.Shighlight = new lib.TC_TObject__Highlight();
 	this.Shighlight.name = "Shighlight";
 	this.Shighlight.parent = this;
@@ -2573,7 +2585,7 @@ p._updateVisibility = _updateVisibility;
 	this.Svar1b.parent = this;
 	this.Svar1b.setTransform(14.3,101.2,1.39,1.39,0,0,0,0,0.2);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Svar1b},{t:this.Shighlight},{t:this.Svar1b2},{t:this.ScallOut},{t:this.shape_1},{t:this.shape}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Svar1b},{t:this.Shighlight},{t:this.shape_1},{t:this.shape}]}).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__Expt1b, new cjs.Rectangle(-165.6,-46,465.8,206), null);
 
@@ -2908,22 +2920,21 @@ p.nominalBounds = new cjs.Rectangle(-50.9,-32.6,600.9,437.4);
 (lib.CFishTank_water = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// Layer_1
-	this.instance = new lib.squaretintedfishtanklid();
+	// squarefishtank
+	this.instance = new lib.squarefishtank();
 	this.instance.parent = this;
-	this.instance.setTransform(0,-102.2,1.432,1.432);
+	this.instance.setTransform(-0.1,2.2,1.432,1.432);
 
-	this.instance_1 = new lib.squarefishtank();
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// NewCombinedWater
+	this.instance_1 = new lib.NewCombinedWater();
 	this.instance_1.parent = this;
-	this.instance_1.setTransform(-0.1,2.2,1.432,1.432);
+	this.instance_1.setTransform(-0.7,32.8,1.445,1.38);
 
-	this.instance_2 = new lib.NewCombinedWater();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(-0.7,32.8,1.445,1.38);
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_2},{t:this.instance_1},{t:this.instance}]}).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.CFishTank_water, new cjs.Rectangle(-149.9,-131.7,299.9,263.5), null);
+}).prototype = getMCSymbolPrototype(lib.CFishTank_water, new cjs.Rectangle(-144,-127.3,286.6,259.1), null);
 
 
 (lib.TC_TVirtual__SceneRgn = function(mode,startPosition,loop) {
@@ -3425,7 +3436,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_1},{t:this.Shighlight},{t:this.instance}]}).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__Expt3b, new cjs.Rectangle(-0.7,-0.7,342.1,289.2), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Expt3b, new cjs.Rectangle(5.2,3.6,336.2,285), null);
 
 
 (lib.TC_TObject__Expt3a = function(mode,startPosition,loop) {
@@ -3453,33 +3464,54 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Svar3a},{t:this.instance},{t:this.Shighlight},{t:this.ScallOut}]}).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__Expt3a, new cjs.Rectangle(-0.7,-0.7,342.5,287.2), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Expt3a, new cjs.Rectangle(5.2,3.6,336.6,283), null);
 
 
 (lib.TC_TTEDExpt__TEDExpt = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{Svar1a:0,Svar1b:0});
+	this.initialize(mode,startPosition,loop,{Svar1a:0});
+
+	// Layer_4
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#000000").ss(1,1,1).p("AmmjIIW5AAIn+GRI4nAAg");
+	this.shape.setTransform(729.1,273.1,1.35,1.35);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#000000").s().p("AwSDJIJsmRIW5AAIn/GRg");
+	this.shape_1.setTransform(729.1,273.1,1.35,1.35);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
 
 	// TC_TObject__Svar1a
-	this.instance = new lib.TC_TObject__Expt1a();
-	this.instance.parent = this;
-	this.instance.setTransform(902.7,391.1,1,1,0,0,0,150.2,59.6);
+	this.Svar1a = new lib.TC_TObject__Expt1a();
+	this.Svar1a.name = "Svar1a";
+	this.Svar1a.parent = this;
+	this.Svar1a.setTransform(902.7,391.1,1,1,0,0,0,150.2,59.6);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Svar1a).wait(1));
 
-	// TC_TObject__Svar1b
-	this.instance_1 = new lib.TC_TObject__Expt1b();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(903.7,370.8,1,1,0,0,0,150.7,79.8);
+	// TC_TObject__Expt1b
+	this.Svar1b = new lib.TC_TObject__Expt1b();
+	this.Svar1b.name = "Svar1b";
+	this.Svar1b.parent = this;
+	this.Svar1b.setTransform(903.7,370.8,1,1,0,0,0,150.7,79.8);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Svar1b).wait(1));
 
 	// TC_TObject__Svar2a
 	this.Svar2a = new lib.TC_TObject__Expt2a();
 	this.Svar2a.name = "Svar2a";
 	this.Svar2a.parent = this;
-	this.Svar2a.setTransform(433.9,420.7,1,1,0,0,0,104.6,81.8);
+	this.Svar2a.setTransform(427.9,410.7,1,1,0,0,0,104.6,81.8);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar2a).wait(1));
+
+	// TC_TObject__Svar2b
+	this.Svar2b = new lib.TC_TObject__CRadionomusic();
+	this.Svar2b.name = "Svar2b";
+	this.Svar2b.parent = this;
+	this.Svar2b.setTransform(563,496.6,1,1,0,0,0,104.6,81.8);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar2b).wait(1));
 
 	// TC_TObject__Svar3a
 	this.Svar3a = new lib.TC_TObject__Expt3a();
@@ -3566,11 +3598,11 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Shighlight4},{t:this.Stag4}]}).wait(1));
 
 	// Region
-	this.instance_2 = new lib.TC_TVirtual__ExptRgn();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(473.9,328.5,1,1,0,0,0,474.9,329.4);
+	this.instance = new lib.TC_TVirtual__ExptRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(473.9,328.5,1,1,0,0,0,474.9,329.4);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TTEDExpt__TEDExpt, new cjs.Rectangle(-1,-0.9,1054.5,659), null);
 
@@ -3578,15 +3610,14 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 (lib.TC_TObject__Vars = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// Thermometer
-	this.Svar1b = new lib.TC_TObject__CThermometerHot();
-	this.Svar1b.name = "Svar1b";
-	this.Svar1b.parent = this;
-	this.Svar1b.setTransform(462,268.9,1.39,1.39,0,0,0,0,0.2);
+	// Layer_13
+	this.instance = new lib.squaretintedfishtanklid();
+	this.instance.parent = this;
+	this.instance.setTransform(419,150.5,1.432,1.432);
 
-	this.timeline.addTween(cjs.Tween.get(this.Svar1b).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
-	// Thermometer
+	// Svar1a
 	this.Svar1a = new lib.TC_TObject__CThermometerRoomTemp();
 	this.Svar1a.name = "Svar1a";
 	this.Svar1a.parent = this;
@@ -3594,22 +3625,22 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar1a).wait(1));
 
+	// Svar1b
+	this.Svar1b = new lib.TC_TObject__CThermometerHot();
+	this.Svar1b.name = "Svar1b";
+	this.Svar1b.parent = this;
+	this.Svar1b.setTransform(462,268.6,1.39,1.39);
+
+	this.timeline.addTween(cjs.Tween.get(this.Svar1b).wait(1));
+
 	// CFishTank_water
-	this.instance = new lib.CFishTank_water();
-	this.instance.parent = this;
-	this.instance.setTransform(421.4,255.7,0.989,0.989);
+	this.instance_1 = new lib.CFishTank_water();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(421.4,255.7,0.989,0.989);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
-	// CFishtank_heater
-	this.Svar1b2 = new lib.CFishtank_heater();
-	this.Svar1b2.name = "Svar1b2";
-	this.Svar1b2.parent = this;
-	this.Svar1b2.setTransform(535.5,187.7,1.416,1.416);
-
-	this.timeline.addTween(cjs.Tween.get(this.Svar1b2).wait(1));
-
-	// music
+	// Svar2a
 	this.Svar2a = new lib.TC_TObject__CRadio();
 	this.Svar2a.name = "Svar2a";
 	this.Svar2a.parent = this;
@@ -3617,7 +3648,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar2a).wait(1));
 
-	// no music
+	// Svar2b
 	this.Svar2b = new lib.TC_TObject__CRadionomusic();
 	this.Svar2b.name = "Svar2b";
 	this.Svar2b.parent = this;
@@ -3625,7 +3656,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar2b).wait(1));
 
-	// co2
+	// Svar3a
 	this.Svar3a = new lib.TC_TObject__co2machine();
 	this.Svar3a.name = "Svar3a";
 	this.Svar3a.parent = this;
@@ -3633,7 +3664,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar3a).wait(1));
 
-	// noco2
+	// Svar3b
 	this.Svar3b = new lib.TC_TObject__co2machine();
 	this.Svar3b.name = "Svar3b";
 	this.Svar3b.parent = this;
@@ -3642,7 +3673,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar3b).wait(1));
 
-	// Sun
+	// Svar4a
 	this.Svar4a = new lib.TC_TObject__CBackgroundSun();
 	this.Svar4a.name = "Svar4a";
 	this.Svar4a.parent = this;
@@ -3650,7 +3681,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar4a).wait(1));
 
-	// No Sun
+	// Svar4b
 	this.Svar4b = new lib.TC_TObject__Shade();
 	this.Svar4b.name = "Svar4b";
 	this.Svar4b.parent = this;
@@ -3658,12 +3689,12 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar4b).wait(1));
 
-	// Table
-	this.instance_1 = new lib.CTable();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(299.6,364.7,1.089,1.089,0,0,0,275.2,53.7);
+	// CTable
+	this.instance_2 = new lib.CTable();
+	this.instance_2.parent = this;
+	this.instance_2.setTransform(299.6,364.7,1.089,1.089,0,0,0,275.2,53.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__Vars, new cjs.Rectangle(-0.5,0,600.6,422.7), null);
 
@@ -3693,7 +3724,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__Topic, new cjs.Rectangle(-0.7,-0.7,296.7,260.6), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__Topic, new cjs.Rectangle(5.2,3.6,283.5,256.3), null);
 
 
 (lib.TC_TMaterialIcon__tank = function(mode,startPosition,loop) {
@@ -3714,7 +3745,7 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sicon},{t:this.Stitle}]}).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TMaterialIcon__tank, new cjs.Rectangle(107.1,-0.8,348.9,451.6), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TMaterialIcon__tank, new cjs.Rectangle(113.9,4.2,333.5,446.6), null);
 
 
 (lib.TC_TScene__RQmaterials = function(mode,startPosition,loop) {

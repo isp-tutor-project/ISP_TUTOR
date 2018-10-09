@@ -1885,8 +1885,8 @@ System.register("core/CEFTransitions", ["thermite/TObject", "thermite/TObjectMas
                     super(null, null, { "useTicks": false, "loop": false, "paused": true }, _tutorDoc);
                     this.currScene = null;
                     this.newScene = null;
-                    this.rTime = 2350;
-                    this.tTime = 2350;
+                    this.rTime = 350;
+                    this.tTime = 350;
                     this.fSingleStep = true;
                     this.activeObjs = {};
                     this.persistObjs = {};

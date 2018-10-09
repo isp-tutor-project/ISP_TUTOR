@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[834,439,50,50],[886,449,50,50],[970,397,50,50],[938,449,50,50],[353,432,50,50],[918,397,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
+		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[886,449,50,50],[353,432,50,50],[834,439,50,50],[918,397,50,50],[970,397,50,50],[938,449,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
 ];
 
 
@@ -967,7 +967,7 @@ p._updateVisibility = _updateVisibility;
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#FFFFFF").s("#FFFFFF").ss(1,1,1).rc(-866.5,-523.4,1733,1046.8,11.4,11.4,-110,11.4);
+	this.shape.graphics.f("#FFFFFF").s("#FFFFFF").ss(1,1,1).rc(-866.5,-523.4,1733,1046.8,11.4,11.4,-113,11.4);
 	this.shape.setTransform(866.5,523.4);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -980,7 +980,7 @@ p._updateVisibility = _updateVisibility;
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#FFFFFF").s("#FFFFFF").ss(1,1,1).rc(-866.5,-523.4,1733,1046.8,11.4,11.4,-110,-110);
+	this.shape.graphics.f("#FFFFFF").s("#FFFFFF").ss(1,1,1).rc(-866.5,-523.4,1733,1046.8,11.4,11.4,-113,-113);
 	this.shape.setTransform(866.5,523.4);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -2819,7 +2819,7 @@ p.nominalBounds = new cjs.Rectangle(-101,-80.3,231.3,182.6);
 	this.Smask2 = new lib.contentFrame2();
 	this.Smask2.name = "Smask2";
 	this.Smask2.parent = this;
-	this.Smask2.setTransform(960,595.4,1,1,0,0,0,866.5,523.4);
+	this.Smask2.setTransform(960,587.5,1,1,0,0,0,866.5,523.4);
 
 	this.timeline.addTween(cjs.Tween.get(this.Smask2).wait(1));
 
@@ -2895,7 +2895,7 @@ lib.properties = {
 	width: 1920,
 	height: 1200,
 	fps: 24,
-	color: "#FFFFFF",
+	color: "#FFFFCC",
 	opacity: 1.00,
 	manifest: [
 		{src:"images/EFMod_TEDInstr_atlas_.png", id:"EFMod_TEDInstr_atlas_"},
