@@ -1379,11 +1379,13 @@ declare module "scenegraph/CSceneGraph" {
         private _currTrack;
         private _prevTrack;
         _parentScene: TScene;
+        private _volatile;
         _graphFactory: any;
         constructor(_tutorDoc: IEFTutorDoc);
         static factory(_tutorDoc: IEFTutorDoc, parent: TScene, hostModule: string, sceneName: string): CSceneGraph;
         seekRoot(): void;
         sceneInstance: TScene;
+        volatile: boolean;
         queryPFeature(pid: string, size: number, cycle: number): number;
         gotoNextTrack(): CSceneTrack;
         seekToTrack(historyNode: CSceneHistoryNode): any;

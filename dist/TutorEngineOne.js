@@ -4333,6 +4333,7 @@ System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/
                         console.log("Error: Missing scene graph: " + hostModule + ":" + sceneName);
                     }
                     scenegraph.sceneInstance = parent;
+                    scenegraph.volatile = scenegraph._graphFactory.volatile || false;
                     scenegraph.parseNodes();
                     scenegraph.seekRoot();
                     console.log("SCENEGRAPH: State:" + parent.name + ":ROOT");
@@ -4347,6 +4348,12 @@ System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/
                 }
                 set sceneInstance(scene) {
                     this._parentScene = scene;
+                }
+                get volatile() {
+                    return this._volatile;
+                }
+                set volatile(value) {
+                    this._volatile = value;
                 }
                 queryPFeature(pid, size, cycle) {
                     let iter = 0;
@@ -5032,7 +5039,7 @@ System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "sce
                         historyNode = this._history.next();
                         if (historyNode == null) {
                             nextTrack = this.sceneGraph.gotoNextTrack();
-                            if (nextTrack != null) {
+                            if (!this.sceneGraph.volatile && nextTrack != null) {
                                 this._history.push(this.sceneGraph.node, nextTrack);
                             }
                         }
@@ -9197,6 +9204,9 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     this.setNavigationTarget(navTar);
                     switch (modeID) {
                         case CONST_13.CONST.NAVNONE:
+                            this.enableNext(false);
+                            this.enablePrev(false);
+                            this.Smask0.show();
                             break;
                         case CONST_13.CONST.NAVBACK:
                             this.connectNavButton(CONST_13.CONST.PREVSCENE, "Sback");
@@ -9465,7 +9475,6 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                                         this._rootGraph.scene = historyNode.scene;
                                     }
                                     this._xType = "WOZBACK";
-                                    console.log("AUDIO: Remove All Sounds");
                                     this.seekToScene(historyNode.scene);
                                     break;
                                 }
