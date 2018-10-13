@@ -117,6 +117,7 @@ declare module "core/IEFTutorDoc" {
         attachNavPanel(panel: any): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
+        setNavMode(navMode: number, navTarget: string): void;
         assignProperty(root: any, property: string, value: any): any;
         resolveProperty(root: any, property: string): any;
         $preEnterScene(scene: any): void;
@@ -300,6 +301,10 @@ declare module "util/CONST" {
         static readonly MC_NOLOOP: boolean;
         static readonly MC_LOOP: boolean;
         static readonly TUTORCONTAINER: string;
+        static readonly NAVNONE: number;
+        static readonly NAVBACK: number;
+        static readonly NAVNEXT: number;
+        static readonly NAVBOTH: number;
         static readonly ACTION_PFX: string;
         static readonly SCENE_CHOICESET: string;
         static readonly SCENE_TRACK: string;
@@ -375,6 +380,7 @@ declare module "util/CONST" {
         static STATE_DISABLED: string;
         static STATE_HIT: string;
         static readonly BUTTON_TEXT: string;
+        static readonly SIMPLE_BUTTON: string;
         static readonly SHAPE_UP: string;
         static readonly SHAPE_OVER: string;
         static readonly SHAPE_DOWN: string;
@@ -1220,6 +1226,7 @@ declare module "thermite/TSceneBase" {
         protected initUI(): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
+        setNavMode(navMode: number, navTarget: string): void;
         setSceneValue(property: string, value: any): void;
         setModuleValue(property: string, value: any): void;
         setTutorValue(property: string, value: any): void;
@@ -2425,11 +2432,15 @@ declare module "thermite/TNavPanel" {
     import { TObject } from "thermite/TObject";
     import { THtmlText } from "thermite/THtmlText";
     export class TNavPanel extends TScene {
+        protected SbackMask: TObject;
         protected SbreadCrumbs: THtmlText;
         protected Sbackground: TObject;
         protected Sback: TObject;
-        protected SbackMask: TObject;
         protected Snext: TObject;
+        protected Smask0: TObject;
+        protected Smask1: TObject;
+        protected Smask2: TObject;
+        protected Smask3: TObject;
         constructor();
         TNavPanelInitialize(): void;
         initialize(): void;
@@ -2438,11 +2449,13 @@ declare module "thermite/TNavPanel" {
         onCreate(): void;
         enableNext(enable: boolean): void;
         enablePrev(enable: boolean): void;
-        connectNavButton(type: string, butComp: string, _once?: boolean): void;
         setBreadCrumbs(text: string): void;
-        disConnectNavButton(type: string, butComp: string): void;
         showHideNavButton(type: string, show: boolean): void;
+        connectNavButton(type: string, butComp: string, _once?: boolean): void;
+        disConnectNavButton(type: string, butComp: string): void;
         setNavigationTarget(behavior: string): void;
+        private hideAllAssets();
+        setNavMode(modeID: number, navTar: string): void;
     }
 }
 declare module "tutorgraph/CTutorHistoryNode" {
@@ -2582,6 +2595,7 @@ declare module "core/CEFTutorDoc" {
         attachNavPanel(panel: TNavPanel): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
+        setNavMode(navMode: number, navTarget: string): void;
         $preEnterScene(scene: any): void;
         $preExitScene(scene: any): void;
         $nodeConstraint(nodeName: string, edgeConstraint: string): boolean;
@@ -2677,15 +2691,15 @@ declare module "thermite/TButton" {
     import { TObject } from "thermite/TObject";
     import { CEFEvent } from "events/CEFEvent";
     import { TMouseEvent } from "thermite/events/TMouseEvent";
+    import { TEvent } from "thermite/events/TEvent";
     import MovieClip = createjs.MovieClip;
     import Text = createjs.Text;
     export class TButton extends TObject {
-        text: Text;
+        Slabel: Text;
         shape: MovieClip;
         shape_1: MovieClip;
         shape_2: MovieClip;
         shape_3: MovieClip;
-        Label: Text;
         curState: string;
         fPressed: boolean;
         fEnabled: boolean;
@@ -2711,11 +2725,14 @@ declare module "thermite/TButton" {
         muteButton(bMute: boolean): void;
         enable(bFlag: boolean): void;
         doMouseClicked(evt: TMouseEvent): void;
+        protected doClickActions(evt: TEvent): void;
         doMouseOver(evt: TMouseEvent): void;
         doMouseOut(evt: TMouseEvent): void;
         doMouseDown(evt: TMouseEvent): void;
         doMouseUp(evt: TMouseEvent): void;
         showButton(fShow: boolean): void;
+        private addBtnElementsFromData(elementData);
+        private initBtnFromData(btnData);
         deSerializeObj(objData: any): void;
     }
 }
@@ -3018,19 +3035,21 @@ declare module "thermite/TCheckButton" {
     import { TObject } from "thermite/TObject";
     import { TMouseEvent } from "events/CEFMouseEvent";
     import MovieClip = createjs.MovieClip;
-    import Text = createjs.Text;
+    import { CEFEvent } from "events/CEFEvent";
     export class TCheckButton extends TButton {
         Schecked: MovieClip;
-        Slabel: Text;
+        STATE_CHECKED: string;
+        constructor();
+        TCheckButtonInitialize(): void;
+        initialize(): void;
+        private init4();
         protected fChecked: boolean;
         private _ftrChecked;
         private _ftrUnchecked;
-        CheckButton(): void;
         Destructor(): void;
-        highLight(color: number): void;
+        onAddedToStage(evt: CEFEvent): void;
+        highLight(color: string): void;
         label: string;
-        setLabel(newLabel: string): void;
-        getLabel(): string;
         showLabel: boolean;
         captureDefState(TutScene: TObject): void;
         restoreDefState(TutScene: TObject): void;
@@ -3039,13 +3058,14 @@ declare module "thermite/TCheckButton" {
         captureXMLState(): any;
         resetState(): void;
         gotoState(sState: string): void;
-        doMouseClick(evt: TMouseEvent): void;
+        doMouseClicked(evt: TMouseEvent): void;
         setCheck(bCheck: boolean): void;
         getChecked(): boolean;
         assertFeatures(): string;
         retractFeatures(): void;
         loadXML(xmlSrc: any): void;
         saveXML(): any;
+        deSerializeObj(objData: any): void;
     }
 }
 declare module "thermite/events/TButtonEvent" {
@@ -3059,6 +3079,8 @@ declare module "thermite/events/TButtonEvent" {
 declare module "thermite/TButtonGroup" {
     import { TObject } from "thermite/TObject";
     import { TButton } from "thermite/TButton";
+    import { CEFEvent } from "events/CEFEvent";
+    import { TEvent } from "thermite/events/TEvent";
     export class TButtonGroup extends TObject {
         buttons: Array<any>;
         buttonType: Array<string>;
@@ -3067,11 +3089,14 @@ declare module "thermite/TButtonGroup" {
         private onChangeScript;
         static readonly CHECKED: string;
         constructor();
+        TButtonGroupInitialize(): void;
+        initialize(): void;
+        private init3();
+        onAddedToStage(evt: CEFEvent): void;
         addButton(newButton: any, bType?: string): void;
         removeButton(newButton: TButton): void;
-        updateGroupChk(evt: Event): void;
+        updateGroupChk(evt: TEvent): void;
         updateGroupUnChk(evt: Event): void;
-        protected doChangeAction(evt: Event): void;
         radioType: boolean;
         readonly isComplete: string;
         querySelectedValid(): string;
@@ -3090,18 +3115,20 @@ declare module "thermite/TButtonGroup" {
         querylogGroup(): string;
         loadXML(xmlSrc: any): void;
         saveXML(): any;
+        private initGroupFromData(objData);
+        deSerializeObj(objData: any): void;
     }
 }
 declare module "thermite/TRadioButton" {
-    import { TButtonGroup } from "thermite/TButtonGroup";
     import { TCheckButton } from "thermite/TCheckButton";
     import { TMouseEvent } from "thermite/events/TMouseEvent";
     export class TRadioButton extends TCheckButton {
         constructor();
-        attachGroup(butGroup: TButtonGroup): void;
-        doMouseClick(evt: TMouseEvent): void;
+        TRadioButtonInitialize(): void;
+        initialize(): void;
+        private init5();
+        doMouseClicked(evt: TMouseEvent): void;
         setCheck(bCheck: boolean): void;
-        toString(): string;
     }
 }
 declare module "thermite/TCheckBox" {
@@ -3120,6 +3147,22 @@ declare module "thermite/TCheckBox" {
         deepStateCopy(src: any): void;
     }
 }
+declare module "thermite/TClickMask" {
+    import { TObject } from "thermite/TObject";
+    import { CEFEvent } from "events/CEFEvent";
+    import { TMouseEvent } from "thermite/events/TMouseEvent";
+    import MovieClip = createjs.MovieClip;
+    export class TClickMask extends TObject {
+        Smask: MovieClip;
+        constructor();
+        TClickMaskInitialize(): void;
+        initialize(): void;
+        private init3();
+        Destructor(): void;
+        onAddedToStage(evt: CEFEvent): void;
+        doMouseEvent(evt: TMouseEvent): void;
+    }
+}
 declare module "thermite/THtmlButton" {
     import { TButton } from "thermite/TButton";
     import { THtmlText } from "thermite/THtmlText";
@@ -3129,6 +3172,7 @@ declare module "thermite/THtmlButton" {
         protected fAdded: boolean;
         protected _updateVisibilityCbk: any;
         protected _updateComponentCbk: any;
+        constructor();
         THtmlButtonInitialize(): void;
         initialize(): void;
         private init4();
@@ -3223,6 +3267,7 @@ declare module "thermite/THtmlTable" {
         THtmlTableInitialize(): void;
         initialize(): void;
         private init4();
+        Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         getCell(row: number, col: number): any;
         getRows(): number;
@@ -3238,6 +3283,7 @@ declare module "thermite/THtmlTable" {
         private getInnerComponent(cell);
         listenToCells(type: string, left: number, top: number, right: number, bottom: number): void;
         clearListeners(type: string): void;
+        cellsHaveValues(left: number, top: number, right: number, bottom: number): boolean;
         setCellValue(row: number, col: number, value: string): void;
         getCellValue(row: number, col: number): string;
         highlightNone(): void;
@@ -3245,6 +3291,7 @@ declare module "thermite/THtmlTable" {
         highlightRow(bgcolor: string, row: number, flashCount?: number, flashRate?: number): void;
         highlightCells(bgcolor: string, left: number, top: number, right: number, bottom: number, flashCount?: number, flashRate?: number): void;
         highlightCellBorders(color: string, flashCount: number, flashRate: number, left: number, top: number, right: number, bottom: number): void;
+        reifyTable(): void;
         private resolvePlaceHolderElement(selector, cellData);
         private resolveOptionElements(options, cellData);
         initElementFromData(rowindex: number, colindex: number, element: any): void;
@@ -3286,21 +3333,7 @@ declare module "thermite/TTitleBar" {
 declare module "thermite/TVirtual" {
     import { TObject } from "thermite/TObject";
     import { CEFEvent } from "events/CEFEvent";
-    import MovieClip = createjs.MovieClip;
     export class TVirtual extends TObject {
-        shape: MovieClip;
-        shape_1: MovieClip;
-        shape_2: MovieClip;
-        shape_3: MovieClip;
-        curState: string;
-        fPressed: boolean;
-        fEnabled: boolean;
-        fOver: boolean;
-        STATE_UP: string;
-        STATE_OVER: string;
-        STATE_DOWN: string;
-        STATE_DISABLED: string;
-        private onClickScript;
         constructor();
         TVirtualInitialize(): void;
         initialize(): void;

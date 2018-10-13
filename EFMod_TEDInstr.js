@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[886,449,50,50],[353,432,50,50],[834,439,50,50],[918,397,50,50],[970,397,50,50],[938,449,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
+		{name:"EFMod_TEDInstr_atlas_", frames: [[704,0,267,353],[402,0,300,388],[353,390,347,40],[0,302,351,221],[918,397,50,50],[970,397,50,50],[886,449,50,50],[834,439,50,50],[938,449,50,50],[353,432,50,50],[834,355,144,40],[834,397,82,40],[704,355,128,128],[0,0,400,300]]}
 ];
 
 
@@ -220,18 +220,56 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__QuestionBorder, new cjs.Rectangle(-1.5,-1.5,1307,83.1), null);
 
 
+(lib.TC_TButton__S18Vector = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.Slabel = new cjs.Text("TED - POST", "bold 90px 'PT Sans'", "#FFFFFF");
+	this.Slabel.name = "Slabel";
+	this.Slabel.textAlign = "center";
+	this.Slabel.lineHeight = 118;
+	this.Slabel.lineWidth = 447;
+	this.Slabel.parent = this;
+	this.Slabel.setTransform(316.3,27.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Slabel).wait(5));
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#0066FF").s().rr(-316.25,-85.3,632.5,170.6,10);
+	this.shape.setTransform(316.3,85.3);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#7695FC").s().rr(-316.25,-85.3,632.5,170.6,10);
+	this.shape_1.setTransform(316.3,85.3);
+
+	this.shape_2 = new cjs.Shape();
+	this.shape_2.graphics.f("#0000FF").s().rr(-316.25,-85.3,632.5,170.6,10);
+	this.shape_2.setTransform(316.3,85.3);
+
+	this.shape_3 = new cjs.Shape();
+	this.shape_3.graphics.f("#CCCCCC").s().rr(-316.25,-85.3,632.5,170.6,10);
+	this.shape_3.setTransform(316.3,85.3);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape}]}).to({state:[{t:this.shape_1}]},1).to({state:[{t:this.shape_2}]},1).to({state:[{t:this.shape_1}]},1).to({state:[{t:this.shape_3}]},1).wait(1));
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(0,0,632.5,170.6);
+
+
 (lib.TC_TButton__S15VectorB = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_2
-	this.text = new cjs.Text("TED - FFocus2", "bold 90px 'PT Sans'", "#FFFFFF");
-	this.text.textAlign = "center";
-	this.text.lineHeight = 118;
-	this.text.lineWidth = 564;
-	this.text.parent = this;
-	this.text.setTransform(316.3,27.1);
+	this.Slabel = new cjs.Text("TED - FFocus2", "bold 90px 'PT Sans'", "#FFFFFF");
+	this.Slabel.name = "Slabel";
+	this.Slabel.textAlign = "center";
+	this.Slabel.lineHeight = 118;
+	this.Slabel.lineWidth = 564;
+	this.Slabel.parent = this;
+	this.Slabel.setTransform(316.3,27.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.text).wait(4).to({text:"TED - EXP1",color:"#999999",lineWidth:447},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Slabel).wait(4).to({text:"TED - EXP1",color:"#999999",lineWidth:447},0).wait(1));
 
 	// Layer_1
 	this.shape = new cjs.Shape();
@@ -260,14 +298,15 @@ p.nominalBounds = new cjs.Rectangle(0,0,632.5,170.6);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_2
-	this.text = new cjs.Text("TED - FFocus1", "bold 90px 'PT Sans'", "#FFFFFF");
-	this.text.textAlign = "center";
-	this.text.lineHeight = 118;
-	this.text.lineWidth = 564;
-	this.text.parent = this;
-	this.text.setTransform(316.3,27.1);
+	this.Slabel = new cjs.Text("TED - FFocus1", "bold 90px 'PT Sans'", "#FFFFFF");
+	this.Slabel.name = "Slabel";
+	this.Slabel.textAlign = "center";
+	this.Slabel.lineHeight = 118;
+	this.Slabel.lineWidth = 564;
+	this.Slabel.parent = this;
+	this.Slabel.setTransform(316.3,27.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.text).wait(4).to({text:"TED - EXP1",color:"#999999",lineWidth:447},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Slabel).wait(4).to({text:"TED - EXP1",color:"#999999",lineWidth:447},0).wait(1));
 
 	// Layer_1
 	this.shape = new cjs.Shape();
@@ -296,14 +335,15 @@ p.nominalBounds = new cjs.Rectangle(0,0,632.5,170.6);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_2
-	this.text = new cjs.Text("TED - EXP2", "bold 90px 'PT Sans'", "#FFFFFF");
-	this.text.textAlign = "center";
-	this.text.lineHeight = 118;
-	this.text.lineWidth = 447;
-	this.text.parent = this;
-	this.text.setTransform(316.3,27.1);
+	this.Slabel = new cjs.Text("TED - EXP2", "bold 90px 'PT Sans'", "#FFFFFF");
+	this.Slabel.name = "Slabel";
+	this.Slabel.textAlign = "center";
+	this.Slabel.lineHeight = 118;
+	this.Slabel.lineWidth = 447;
+	this.Slabel.parent = this;
+	this.Slabel.setTransform(316.3,27.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.text).wait(4).to({text:"TED - EXP1",color:"#999999"},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Slabel).wait(4).to({text:"TED - EXP1",color:"#999999"},0).wait(1));
 
 	// Layer_1
 	this.shape = new cjs.Shape();
@@ -332,14 +372,15 @@ p.nominalBounds = new cjs.Rectangle(0,0,632.5,170.6);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_2
-	this.text = new cjs.Text("TED - EXP1", "bold 90px 'PT Sans'", "#FFFFFF");
-	this.text.textAlign = "center";
-	this.text.lineHeight = 118;
-	this.text.lineWidth = 447;
-	this.text.parent = this;
-	this.text.setTransform(316.3,27.1);
+	this.Slabel = new cjs.Text("TED - EXP1", "bold 90px 'PT Sans'", "#FFFFFF");
+	this.Slabel.name = "Slabel";
+	this.Slabel.textAlign = "center";
+	this.Slabel.lineHeight = 118;
+	this.Slabel.lineWidth = 447;
+	this.Slabel.parent = this;
+	this.Slabel.setTransform(316.3,27.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.text).wait(5));
+	this.timeline.addTween(cjs.Tween.get(this.Slabel).wait(5));
 
 	// Layer_1
 	this.shape = new cjs.Shape();
@@ -2217,14 +2258,15 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 
-	// Layer_6
-	this.instance = new lib.TC_TObject__QuestionBorder();
-	this.instance.parent = this;
-	this.instance.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
+	// QBorder
+	this.QBorder = new lib.TC_TObject__QuestionBorder();
+	this.QBorder.name = "QBorder";
+	this.QBorder.parent = this;
+	this.QBorder.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.QBorder).wait(1));
 
-	// Layer_9
+	// Squestion
 	this.Squestion = new lib.TC_THtmlText__Text1();
 	this.Squestion.name = "Squestion";
 	this.Squestion.parent = this;
@@ -2257,25 +2299,25 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
 
 	// TC_TObject__CondTitle2
-	this.instance_1 = new lib.TC_TObject__CondTitle2();
+	this.instance = new lib.TC_TObject__CondTitle2();
+	this.instance.parent = this;
+	this.instance.setTransform(1420,1003.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	// TC_TObject__CondTitle1
+	this.instance_1 = new lib.TC_TObject__CondTitle1();
 	this.instance_1.parent = this;
-	this.instance_1.setTransform(1420,1003.4,1,1,0,0,0,124,29.7);
+	this.instance_1.setTransform(535.5,1004.4,1,1,0,0,0,129.5,30.7);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
-	// TC_TObject__CondTitle1
-	this.instance_2 = new lib.TC_TObject__CondTitle1();
+	// Layer_1
+	this.instance_2 = new lib.TC_TVirtual__SceneRgn();
 	this.instance_2.parent = this;
-	this.instance_2.setTransform(535.5,1004.4,1,1,0,0,0,129.5,30.7);
+	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
-
-	// Layer_1
-	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_3.parent = this;
-	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
-
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
@@ -2329,6 +2371,124 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQ1Intro, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__Scene21 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.STextBox1 = new lib.TC_THtmlText__Text1();
+	this.STextBox1.name = "STextBox1";
+	this.STextBox1.parent = this;
+	this.STextBox1.setTransform(957.4,601.5,15.065,8.343,0,0,0,49.8,50.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
+
+	// Layer_1
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene21, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__Scene20 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// STable1
+	this.STable1 = new lib.TC_THtmlTable__Table1();
+	this.STable1.name = "STable1";
+	this.STable1.parent = this;
+	this.STable1.setTransform(546.4,450.6,8.339,3.04,0,0,0,0.4,0);
+
+	this.timeline.addTween(cjs.Tween.get(this.STable1).wait(1));
+
+	// QBorder
+	this.QBorder = new lib.TC_TObject__QuestionBorder();
+	this.QBorder.name = "QBorder";
+	this.QBorder.parent = this;
+	this.QBorder.setTransform(960.1,201,0.892,1.351,0,0,0,652.1,40.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.QBorder).wait(1));
+
+	// Squestion
+	this.Squestion = new lib.TC_THtmlText__Text1();
+	this.Squestion.name = "Squestion";
+	this.Squestion.parent = this;
+	this.Squestion.setTransform(954.3,200.5,11.45,0.838,0,0,0,49.5,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
+
+	// Sanswer
+	this.Sanswer = new lib.TC_THtmlList1__CustomList1();
+	this.Sanswer.name = "Sanswer";
+	this.Sanswer.parent = this;
+	this.Sanswer.setTransform(953.3,336.6,14.826,0.68,0,0,0,49.3,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
+
+	// Layer_1
+	this.SBoundry = new lib.TC_TVirtual__SceneRgn();
+	this.SBoundry.name = "SBoundry";
+	this.SBoundry.parent = this;
+	this.SBoundry.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.SBoundry).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene20, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__Scene19 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// STable1
+	this.STable1 = new lib.TC_THtmlTable__Table1();
+	this.STable1.name = "STable1";
+	this.STable1.parent = this;
+	this.STable1.setTransform(546.4,524,8.339,3.04,0,0,0,0.4,0);
+
+	this.timeline.addTween(cjs.Tween.get(this.STable1).wait(1));
+
+	// STextBox1
+	this.STextBox1 = new lib.TC_THtmlText__Text1();
+	this.STextBox1.name = "STextBox1";
+	this.STextBox1.parent = this;
+	this.STextBox1.setTransform(961.7,300.9,16.439,3.169,0,0,0,50.1,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
+
+	// Layer_1
+	this.SBoundry = new lib.TC_TVirtual__SceneRgn();
+	this.SBoundry.name = "SBoundry";
+	this.SBoundry.parent = this;
+	this.SBoundry.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.SBoundry).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene19, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
+
+
+(lib.TC_TScene__Scene18 = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.STextBox1 = new lib.TC_THtmlText__Text1();
+	this.STextBox1.name = "STextBox1";
+	this.STextBox1.parent = this;
+	this.STextBox1.setTransform(957.2,600.4,14.019,3.589,0,0,0,49.8,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
+
+	// Layer_1
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene18, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene17 = function(mode,startPosition,loop) {
@@ -2409,12 +2569,17 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.STblExp1).wait(1));
 
 	// STextBox1
+	this.Squestion = new lib.TC_THtmlText__Text1();
+	this.Squestion.name = "Squestion";
+	this.Squestion.parent = this;
+	this.Squestion.setTransform(958.1,387.2,16.439,1.7,0,0,0,50.1,50.1);
+
 	this.STextBox1 = new lib.TC_THtmlText__Text1();
 	this.STextBox1.name = "STextBox1";
 	this.STextBox1.parent = this;
-	this.STextBox1.setTransform(958.1,300.9,16.439,3.169,0,0,0,50.1,50.1);
+	this.STextBox1.setTransform(958.1,192.3,16.439,1.7,0,0,0,50.1,50.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.STextBox1).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.STextBox1},{t:this.Squestion}]}).wait(1));
 
 	// Layer_1
 	this.instance = new lib.TC_TVirtual__SceneRgn();
@@ -2561,32 +2726,47 @@ p._updateVisibility = _updateVisibility;
 (lib.TC_TScene__Scene1a = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// Layer_3
+	// Sbutton4
+	this.Sbutton5 = new lib.TC_TButton__S18Vector();
+	this.Sbutton5.name = "Sbutton5";
+	this.Sbutton5.parent = this;
+	this.Sbutton5.setTransform(1157.1,894.8,0.864,0.864);
+	new cjs.ButtonHelper(this.Sbutton5, 0, 1, 2, false, new lib.TC_TButton__S18Vector(), 3);
+
 	this.Sbutton4 = new lib.TC_TButton__S15VectorB();
 	this.Sbutton4.name = "Sbutton4";
 	this.Sbutton4.parent = this;
-	this.Sbutton4.setTransform(1172.1,767.6,0.864,0.864);
+	this.Sbutton4.setTransform(1157.1,707.6,0.864,0.864);
 	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_TButton__S15VectorB(), 3);
 
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sbutton4},{t:this.Sbutton5}]}).wait(1));
+
+	// Sbutton3
 	this.Sbutton3 = new lib.TC_TButton__S15VectorA();
 	this.Sbutton3.name = "Sbutton3";
 	this.Sbutton3.parent = this;
-	this.Sbutton3.setTransform(1172.1,567.5,0.864,0.864);
+	this.Sbutton3.setTransform(1157.1,507.5,0.864,0.864);
 	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_TButton__S15VectorA(), 3);
 
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton3).wait(1));
+
+	// Sbutton2
 	this.Sbutton2 = new lib.TC_TButton__S7VectorB();
 	this.Sbutton2.name = "Sbutton2";
 	this.Sbutton2.parent = this;
-	this.Sbutton2.setTransform(1172.1,367.5,0.864,0.864);
+	this.Sbutton2.setTransform(1157.1,307.5,0.864,0.864);
 	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_TButton__S7VectorB(), 3);
 
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton2).wait(1));
+
+	// Sbutton1
 	this.Sbutton1 = new lib.TC_TButton__S7VectorA();
 	this.Sbutton1.name = "Sbutton1";
 	this.Sbutton1.parent = this;
-	this.Sbutton1.setTransform(1172.1,167.4,0.864,0.864);
+	this.Sbutton1.setTransform(1157.1,107.4,0.864,0.864);
 	new cjs.ButtonHelper(this.Sbutton1, 0, 1, 2, false, new lib.TC_TButton__S7VectorA(), 3);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton1).wait(1));
 
 	// Layer_2
 	this.text = new cjs.Text("Target Variable", "bold 63px 'Arial Black'");
