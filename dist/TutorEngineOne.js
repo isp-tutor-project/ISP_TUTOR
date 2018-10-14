@@ -3547,6 +3547,9 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                 enableNext(fEnable) {
                     this.tutorDoc.enableNext(fEnable);
                 }
+                enableBack(fEnable) {
+                    this.tutorDoc.enableBack(fEnable);
+                }
                 setNavMode(navMode, navTarget) {
                     this.tutorDoc.setNavMode(navMode, navTarget);
                 }
@@ -9130,11 +9133,16 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     super.onCreate();
                     this.tutorDoc.attachNavPanel(this);
                     this.SbreadCrumbs.addHTMLControls();
+                    this.enableNext(false);
+                    this.enablePrev(false);
                 }
                 enableNext(enable) {
                     this.Snext.enable(enable);
                 }
                 enablePrev(enable) {
+                    this.enableBack(enable);
+                }
+                enableBack(enable) {
                     this.Sback.enable(enable);
                 }
                 setBreadCrumbs(text) {
@@ -9158,12 +9166,10 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                         case CONST_13.CONST.NEXTSCENE:
                             this._nextButton = this[butComp].on(CONST_13.CONST.BUTTON_CLICK, this.tutorNavigator.onButtonNext, this.tutorNavigator);
                             this.Snext.hidden = false;
-                            this.Snext.enable(true);
                             break;
                         case CONST_13.CONST.PREVSCENE:
                             this._prevButton = this[butComp].on(CONST_13.CONST.BUTTON_CLICK, this.tutorNavigator.onButtonPrev, this.tutorNavigator);
                             this.Sback.hidden = false;
-                            this.Sback.enable(true);
                             break;
                     }
                 }
@@ -9204,8 +9210,6 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     this.setNavigationTarget(navTar);
                     switch (modeID) {
                         case CONST_13.CONST.NAVNONE:
-                            this.enableNext(false);
-                            this.enablePrev(false);
                             this.Smask0.show();
                             break;
                         case CONST_13.CONST.NAVBACK:
@@ -9663,6 +9667,10 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 enableNext(fEnable) {
                     if (this.SnavPanel)
                         this.SnavPanel.enableNext(fEnable);
+                }
+                enableBack(fEnable) {
+                    if (this.SnavPanel)
+                        this.SnavPanel.enableBack(fEnable);
                 }
                 setNavMode(navMode, navTarget) {
                     if (this.SnavPanel)

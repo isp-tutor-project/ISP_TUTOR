@@ -117,6 +117,7 @@ declare module "core/IEFTutorDoc" {
         attachNavPanel(panel: any): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
+        enableBack(fEnable: boolean): void;
         setNavMode(navMode: number, navTarget: string): void;
         assignProperty(root: any, property: string, value: any): any;
         resolveProperty(root: any, property: string): any;
@@ -1226,6 +1227,7 @@ declare module "thermite/TSceneBase" {
         protected initUI(): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
+        enableBack(fEnable: boolean): void;
         setNavMode(navMode: number, navTarget: string): void;
         setSceneValue(property: string, value: any): void;
         setModuleValue(property: string, value: any): void;
@@ -2451,6 +2453,7 @@ declare module "thermite/TNavPanel" {
         onCreate(): void;
         enableNext(enable: boolean): void;
         enablePrev(enable: boolean): void;
+        enableBack(enable: boolean): void;
         setBreadCrumbs(text: string): void;
         showHideNavButton(type: string, show: boolean): void;
         connectNavButton(type: string, butComp: string, _once?: boolean): void;
@@ -2597,6 +2600,7 @@ declare module "core/CEFTutorDoc" {
         attachNavPanel(panel: TNavPanel): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
+        enableBack(fEnable: boolean): void;
         setNavMode(navMode: number, navTarget: string): void;
         $preEnterScene(scene: any): void;
         $preExitScene(scene: any): void;
