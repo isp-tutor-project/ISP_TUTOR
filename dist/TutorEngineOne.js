@@ -1996,8 +1996,11 @@ System.register("core/CEFTransitions", ["thermite/TObject", "thermite/TObjectMas
                             if (targObj._instance instanceof TObject_4.TObject) {
                                 if (!targObj._instance.isTweenable())
                                     continue;
+                                xname = targObj._instance.xname;
                             }
-                            xname = targObj._instance.xname;
+                            else {
+                                xname = targObj._instance.id;
+                            }
                             if (targObj._instance.hidden)
                                 continue;
                             if (this.tutorAutoObj[this.newScene]._instance.isAnchor)
@@ -4427,6 +4430,10 @@ System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/
                         this._currNode.resetNode();
                     this._currNode = newNode;
                 }
+                resetRoot() {
+                    this._currNode = this._nodes["root"];
+                    this._currNode.resetNode();
+                }
             };
             exports_40("CSceneGraph", CSceneGraph);
         }
@@ -4775,6 +4782,7 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                     switch (this._type) {
                         case CONST_5.CONST.SCENE_ACTION:
                             this.hostScene.$nodeAction(this._actionname);
+                            this.hostScene.$updateNav();
                             this.autoStep();
                             break;
                         case CONST_5.CONST.SCENE_TRACK:
@@ -5089,6 +5097,7 @@ System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "sce
                     if (!historyNode) {
                         this.STrack = this.sceneGraph.rootTrack;
                         this.connectTrack(this.STrack);
+                        this.sceneGraph.resetRoot();
                     }
                     return historyNode;
                 }
@@ -9177,13 +9186,13 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     switch (type) {
                         case CONST_13.CONST.NEXTSCENE:
                             if (this._nextButton) {
-                                this[butComp].off(this._nextButton);
+                                this[butComp].off(CONST_13.CONST.BUTTON_CLICK, this._nextButton);
                                 this._nextButton = null;
                             }
                             break;
                         case CONST_13.CONST.PREVSCENE:
                             if (this._prevButton) {
-                                this[butComp].off(this._prevButton);
+                                this[butComp].off(CONST_13.CONST.BUTTON_CLICK, this._prevButton);
                                 this._prevButton = null;
                             }
                             break;

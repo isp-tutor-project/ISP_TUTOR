@@ -1395,6 +1395,7 @@ declare module "scenegraph/CSceneGraph" {
         findNodeByName(name: string): CSceneNode;
         node: CSceneNode;
         readonly rootTrack: CSceneTrack;
+        resetRoot(): void;
     }
 }
 declare module "scenegraph/CSceneChoiceSet" {
