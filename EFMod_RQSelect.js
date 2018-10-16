@@ -1430,7 +1430,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#005EFF").s("#00CCFF").ss(12.2,1,1).rr(-298.5,-101,597,202,22.8);
+	this.shape.graphics.f("#707F88").s("#FFFF99").ss(12.2,1,1).rr(-298.5,-101,597,202,22.8);
 	this.shape.setTransform(265.5,68.2,0.889,0.675);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -1443,7 +1443,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#666666").s("#999999").ss(9,1,1).rr(-298.5,-101,597,202,22.8);
+	this.shape.graphics.f("#4273F8").s("#999999").ss(9,1,1).rr(-298.5,-101,597,202,22.8);
 	this.shape.setTransform(265.5,68.2,0.889,0.675);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -1469,7 +1469,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#005EFF").s("#00CCFF").ss(10.1,1,1).de(-151,-97.5,302,195);
+	this.shape.graphics.f("#707F88").s("#FFFF99").ss(10.1,1,1).de(-151,-97.5,302,195);
 	this.shape.setTransform(151,97.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -1482,7 +1482,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#666666").s("#999999").ss(10.1,1,1).de(-151,-97.5,302,195);
+	this.shape.graphics.f("#4273F8").s("#999999").ss(10.1,1,1).de(-151,-97.5,302,195);
 	this.shape.setTransform(151,97.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
@@ -1499,7 +1499,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.shape.setTransform(47.9,42.8);
 
 	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#CCCCCC").s().p("AkxApIDtAAQABi+jOg2QhAgQhNgBIhAACIAAkQQGtgBC3EAQA5BQAaBhQANAxABAfID4AAIl6HVg");
+	this.shape_1.graphics.lf(["#000000","#363636","#FFFFFF"],[0,0,1],-47.9,0,47.9,0).s().p("AkxApIDtAAQABi+jOg2QhAgQhNgBIhAACIAAkQQGtgBC3EAQA5BQAaBhQANAxABAfID4AAIl6HVg");
 	this.shape_1.setTransform(47.9,42.8);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));

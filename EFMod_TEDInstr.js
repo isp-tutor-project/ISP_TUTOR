@@ -768,11 +768,11 @@ p._updateVisibility = _updateVisibility;
 	this.SControlContainer = new lib.TextArea();
 	this.SControlContainer.name = "SControlContainer";
 	this.SControlContainer.parent = this;
-	this.SControlContainer.setTransform(45.6,63.5,1.09,1.208,0,0,0,50,50.1);
+	this.SControlContainer.setTransform(50,50,1,1,0,0,0,50,50);
 
 	this.timeline.addTween(cjs.Tween.get(this.SControlContainer).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_THtmlText__Text1, new cjs.Rectangle(-9.5,2.4,110.1,122), null);
+}).prototype = getMCSymbolPrototype(lib.TC_THtmlText__Text1, new cjs.Rectangle(-0.5,-0.5,101,101), null);
 
 
 (lib.TC_THtmlTable__Table1 = function(mode,startPosition,loop) {
@@ -1056,7 +1056,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1AB, new cjs.Rectangle(-40,-1.2,1961.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1AB, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__TEDQuest1 = function(mode,startPosition,loop) {
@@ -1132,7 +1132,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1, new cjs.Rectangle(-40,-1.2,1961.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__TEDQ1Intro = function(mode,startPosition,loop) {
@@ -1183,7 +1183,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQ1Intro, new cjs.Rectangle(-40,-1.2,1961.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQ1Intro, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene21 = function(mode,startPosition,loop) {
@@ -1204,7 +1204,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene21, new cjs.Rectangle(-1.2,-1.2,1922.5,1221.4), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene21, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene20 = function(mode,startPosition,loop) {
@@ -1280,7 +1280,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.SBoundry).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene19, new cjs.Rectangle(-18,-1.2,1939.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene19, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene18 = function(mode,startPosition,loop) {
@@ -1338,7 +1338,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene17, new cjs.Rectangle(-18,-1.2,1939.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene17, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene16 = function(mode,startPosition,loop) {
@@ -1367,7 +1367,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene16, new cjs.Rectangle(-21.6,-1.2,1942.9,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene16, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene15 = function(mode,startPosition,loop) {
@@ -1401,7 +1401,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene15, new cjs.Rectangle(-21.6,-1.2,1942.9,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene15, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene6 = function(mode,startPosition,loop) {
@@ -1533,7 +1533,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene2, new cjs.Rectangle(-18,-1.2,1939.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene2, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__Scene1a = function(mode,startPosition,loop) {
@@ -1654,7 +1654,7 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.SBoundry).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene1, new cjs.Rectangle(-18,-1.2,1939.3,1202.5), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__Scene1, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__EndCloak = function(mode,startPosition,loop) {

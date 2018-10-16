@@ -25,49 +25,6 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	}
 
 
-(lib.TC_TVirtual__ExptRgn = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// Layer_1
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(102,255,255,0.988)").s().dr(-475,-329.5,950,659);
-	this.shape.setTransform(475,329.5);
-
-	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TVirtual__ExptRgn, new cjs.Rectangle(0,0,950,659), null);
-
-
-(lib.TC_TObject__HeaterWater = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// Layer_1
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f("rgba(153,255,255,0.498)").s().p("ACTFnIgGAAIgDAAIkEgFIgegDIAAgQIAAg2IgBguIADhiQAGibAAhBQAAg2gChEIgEhkIAIgSQAGgKALgLIAMgNIAGgBIgIAKQgJAIgHADQAfgIA1ANQA/AOAYgCQARgBAcgIQAigIAMgCQAIgBAGgEIAAAWIABAVIACAVQACAPACAFIABABIgCFVQAACFACCMIABAAIAAABIgEADg");
-	this.shape.setTransform(15.4,35.9);
-
-	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__HeaterWater, new cjs.Rectangle(0,0,30.8,71.9), null);
-
-
-(lib.TC_TObject__ArrowHead = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// Layer_1
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#000000").ss(3,1,1).p("AAuAAIhbEpIAApRg");
-	this.shape.setTransform(5.7,31.3);
-
-	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#000000").s().p("AgtkoIBbEoIhbEpg");
-	this.shape_1.setTransform(5.7,31.3);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__ArrowHead, new cjs.Rectangle(-0.3,0.1,12.2,62.5), null);
-
-
 (lib.TC_TObject__Highlight = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -132,6 +89,19 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 }).prototype = getMCSymbolPrototype(lib.line, new cjs.Rectangle(-6.2,-5,12.5,10), null);
 
 
+(lib.TC_TVirtual__ExptRgn = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(102,255,255,0.988)").s().dr(-475,-329.5,950,659);
+	this.shape.setTransform(475,329.5);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TVirtual__ExptRgn, new cjs.Rectangle(0,0,950,659), null);
+
+
 (lib.TC_TObject__Shade = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -150,6 +120,36 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_2},{t:this.shape_1},{t:this.shape}]}).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__Shade, new cjs.Rectangle(-159.9,-173.1,320,346.2), null);
+
+
+(lib.TC_TObject__HeaterWater = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(153,255,255,0.498)").s().p("ACTFnIgGAAIgDAAIkEgFIgegDIAAgQIAAg2IgBguIADhiQAGibAAhBQAAg2gChEIgEhkIAIgSQAGgKALgLIAMgNIAGgBIgIAKQgJAIgHADQAfgIA1ANQA/AOAYgCQARgBAcgIQAigIAMgCQAIgBAGgEIAAAWIABAVIACAVQACAPACAFIABABIgCFVQAACFACCMIABAAIAAABIgEADg");
+	this.shape.setTransform(15.4,35.9);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__HeaterWater, new cjs.Rectangle(0,0,30.8,71.9), null);
+
+
+(lib.TC_TObject__ArrowHead = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#000000").ss(3,1,1).p("AAuAAIhbEpIAApRg");
+	this.shape.setTransform(5.7,31.3);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#000000").s().p("AgtkoIBbEoIhbEpg");
+	this.shape_1.setTransform(5.7,31.3);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__ArrowHead, new cjs.Rectangle(-0.3,0.1,12.2,62.5), null);
 
 
 (lib.TC_TObject__Arrow = function(mode,startPosition,loop) {
