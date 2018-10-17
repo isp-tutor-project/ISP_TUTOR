@@ -4645,8 +4645,19 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                         }
                         if (this.newSounds.length > 0) {
                             if (EFLoadManager.nativeSpeech) {
+                                this.newSounds.forEach(sound => {
+                                    EFLoadManager.nativeSpeech.registerSounds(sound, this.assetPath);
+                                });
+                                this.hasAudio = true;
+                                this.trackLoaded = true;
                             }
-                            if (EFLoadManager.nativeAudio) {
+                            else if (EFLoadManager.nativeAudio) {
+                                EFLoadManager.nativeAudio.clearAllSounds();
+                                this.newSounds.forEach(sound => {
+                                    EFLoadManager.nativeAudio.registerSounds(sound.src, sound.id, this.assetPath);
+                                });
+                                this.hasAudio = true;
+                                this.trackLoaded = true;
                             }
                             else {
                                 this._soundCount = this.newSounds.length;
@@ -4682,19 +4693,37 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                             else {
                                 console.log("SCENEGRAPH: Loaded Play: " + this._trackname + segment.fileid + " => " + segment.SSML);
                             }
-                            var props = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, volume: segment.volume });
-                            this.trackAudio = this.segSequence[this.segNdx].track = createjs.Sound.play(segment.fileid, props);
-                            if (this.trackAudio.playState === CONST_5.CONST.PLAY_FAILED) {
-                                console.log("SCENEGRAPH: Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
-                                alert("Track Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                            if (EFLoadManager.nativeSpeech) {
                             }
-                            if (segment.trim) {
-                                this._asyncTrimTimer = new CEFTimer_1.CEFTimer(segment.duration + segment.trim);
-                                this._trimHandler = this._asyncTrimTimer.on(CONST_5.CONST.TIMER, this.segmentComplete, this);
-                                this._asyncTrimTimer.start();
+                            else if (EFLoadManager.nativeAudio) {
+                                EFLoadManager.nativeAudio.play(segment.fileid);
+                                if (segment.trim) {
+                                    EFLoadManager.trackOwner = null;
+                                    EFLoadManager.trackEvent = null;
+                                    this._asyncTrimTimer = new CEFTimer_1.CEFTimer(segment.duration + segment.trim);
+                                    this._trimHandler = this._asyncTrimTimer.on(CONST_5.CONST.TIMER, this.segmentComplete, this);
+                                    this._asyncTrimTimer.start();
+                                }
+                                else {
+                                    EFLoadManager.trackOwner = this;
+                                    EFLoadManager.trackEvent = this.segmentComplete;
+                                }
                             }
                             else {
-                                this.trackAudio.on("complete", this.segmentComplete, this);
+                                var props = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, volume: segment.volume });
+                                this.trackAudio = this.segSequence[this.segNdx].track = createjs.Sound.play(segment.fileid, props);
+                                if (this.trackAudio.playState === CONST_5.CONST.PLAY_FAILED) {
+                                    console.log("SCENEGRAPH: Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                                    alert("Track Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                                }
+                                if (segment.trim) {
+                                    this._asyncTrimTimer = new CEFTimer_1.CEFTimer(segment.duration + segment.trim);
+                                    this._trimHandler = this._asyncTrimTimer.on(CONST_5.CONST.TIMER, this.segmentComplete, this);
+                                    this._asyncTrimTimer.start();
+                                }
+                                else {
+                                    this.trackAudio.on("complete", this.segmentComplete, this);
+                                }
                             }
                             this.hostScene.$cuePoints(this._name, CONST_5.CONST.START_CUEPOINT);
                             this.hostScene.$updateNav();
@@ -7554,7 +7583,7 @@ System.register("network/CURLLoader", [], function (exports_65, context_65) {
                         xhr.timeout = 5000;
                         xhr.onload = function (e) {
                             if (xhr.readyState === 4) {
-                                if (xhr.status === 200) {
+                                if (xhr.status === 200 || xhr.status === 0) {
                                     resolve(xhr.response);
                                 }
                                 else {
@@ -10209,6 +10238,9 @@ System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil
                         this.tutorDoc = new CEFTutorDoc_1.CEFTutorDoc();
                         this.tutorDoc.name = this.bootTutor;
                         this.loadBootImage();
+                    }
+                    if (EFLoadManager.NOLOG = true) {
+                        window['console']['log'] = function () { };
                     }
                 }
                 loadBootImage() {

@@ -23,6 +23,7 @@ var _widgetID = 0;
 var EFLoadManager  = EFLoadManager  || function(){};
 var EFnativeAudio  = EFnativeAudio  || null;
 var EFnativeSpeech = EFnativeSpeech || null;
+var EFloginhibit;
 
 EFLoadManager.window = window;
 
@@ -30,7 +31,21 @@ EFLoadManager.window = window;
 // 
 EFLoadManager.nativeAudio  = EFnativeAudio;
 EFLoadManager.nativeSpeech = EFnativeSpeech;
+EFLoadManager.NOLOG        = EFloginhibit? true:false;
 
+// Send media events from the Java Domain to the JS domain
+// trackEvent and trackOwner are initialized by sceneTrack play 
+// for each track segment.
+// 
+var EFSoundEvent = function(evt) {
+
+    if(EFLoadManager.trackEvent)
+        EFLoadManager.trackEvent.call(EFLoadManager.trackOwner, evt);
+}
+
+
+// We impersonate JQuery to get the Adobe loader to call our attach routine.
+// 
 $ = EFLoadManager;
 
 (function (_EFLoadManager) {
