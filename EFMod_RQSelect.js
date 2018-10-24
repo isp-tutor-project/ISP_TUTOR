@@ -1098,7 +1098,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.Stitle = new cjs.Text("Plant Growth", "bold 32px 'PT Sans'", "#333333");
+	this.Stitle = new cjs.Text("Plant Reproduction", "bold 32px 'PT Sans'", "#333333");
 	this.Stitle.name = "Stitle";
 	this.Stitle.textAlign = "center";
 	this.Stitle.lineHeight = 43;
@@ -1115,7 +1115,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.SsubTitle2 = new cjs.Text("Algae Growth", "bold 24px 'PT Sans'", "#333333");
+	this.SsubTitle2 = new cjs.Text("Algae Reproduction", "bold 24px 'PT Sans'", "#333333");
 	this.SsubTitle2.name = "SsubTitle2";
 	this.SsubTitle2.textAlign = "center";
 	this.SsubTitle2.lineHeight = 33;
@@ -1166,7 +1166,7 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.Stitle = new cjs.Text("Forces & motion", "bold 32px 'PT Sans'", "#333333");
+	this.Stitle = new cjs.Text("Forces & Motion", "bold 32px 'PT Sans'", "#333333");
 	this.Stitle.name = "Stitle";
 	this.Stitle.textAlign = "center";
 	this.Stitle.lineHeight = 43;
@@ -2513,7 +2513,7 @@ p.nominalBounds = new cjs.Rectangle(-3.5,-3.5,693.5,382.3);
 	this.Stitle = new lib.TC_THtmlText__Text1();
 	this.Stitle.name = "Stitle";
 	this.Stitle.parent = this;
-	this.Stitle.setTransform(1020.1,469.6,14.364,4.552,0,0,0,49.4,50.3);
+	this.Stitle.setTransform(1020.1,445.8,14.364,5.217,0,0,0,49.4,50.3);
 
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 

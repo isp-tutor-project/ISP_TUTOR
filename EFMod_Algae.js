@@ -69,12 +69,12 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	// Layer_1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#00CCFF").s("#FFFFFF").ss(1,1,1).rr(-105,-50,210,100,15);
-	this.shape.setTransform(105,50);
+	this.shape.graphics.f("#00CCFF").s("#FFFFFF").ss(1,1,1).rr(-120,-50,240,100,15);
+	this.shape.setTransform(120,50);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__CallOutHighlight, new cjs.Rectangle(-1,-1,212,102), null);
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__CallOutHighlight, new cjs.Rectangle(-1,-1,242,102), null);
 
 
 (lib.line = function(mode,startPosition,loop) {
@@ -133,23 +133,6 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TObject__HeaterWater, new cjs.Rectangle(0,0,30.8,71.9), null);
-
-
-(lib.TC_TObject__ArrowHead = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
-
-	// Layer_1
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#000000").ss(3,1,1).p("AAuAAIhbEpIAApRg");
-	this.shape.setTransform(5.7,31.3);
-
-	this.shape_1 = new cjs.Shape();
-	this.shape_1.graphics.f("#000000").s().p("AgtkoIBbEoIhbEpg");
-	this.shape_1.setTransform(5.7,31.3);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
-
-}).prototype = getMCSymbolPrototype(lib.TC_TObject__ArrowHead, new cjs.Rectangle(-0.3,0.1,12.2,62.5), null);
 
 
 (lib.TC_TObject__Arrow = function(mode,startPosition,loop) {
@@ -2516,18 +2499,14 @@ p._updateVisibility = _updateVisibility;
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_1
-	this.instance = new lib.TC_TObject__ArrowHead();
-	this.instance.parent = this;
-	this.instance.setTransform(106.2,19.4);
-
 	this.SControlContainer = new lib.TextArea();
 	this.SControlContainer.name = "SControlContainer";
 	this.SControlContainer.parent = this;
 	this.SControlContainer.setTransform(50,50,1,1,0,0,0,50,50);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.SControlContainer},{t:this.instance}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.SControlContainer).wait(1));
 
-}).prototype = getMCSymbolPrototype(lib.TC_THtmlText__CallOutText, new cjs.Rectangle(-0.5,-0.5,118.5,101), null);
+}).prototype = getMCSymbolPrototype(lib.TC_THtmlText__CallOutText, new cjs.Rectangle(-0.5,-0.5,101,101), null);
 
 
 (lib.TC_TObject__Expt4b = function(mode,startPosition,loop) {
@@ -3545,57 +3524,69 @@ p.nominalBounds = new cjs.Rectangle(-413,-260,825,518.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.Svar4b).wait(1));
 
-	// Shighlight1
+	// Stag1
 	this.Stag1 = new lib.TC_THtmlText__CallOutText();
 	this.Stag1.name = "Stag1";
 	this.Stag1.parent = this;
-	this.Stag1.setTransform(115,130,2.1,1,0,0,0,50,50);
+	this.Stag1.setTransform(130,130,2.4,1,0,0,0,50,50);
 
+	this.timeline.addTween(cjs.Tween.get(this.Stag1).wait(1));
+
+	// Shighlight1
 	this.Shighlight1 = new lib.TC_TObject__CallOutHighlight();
 	this.Shighlight1.name = "Shighlight1";
 	this.Shighlight1.parent = this;
 	this.Shighlight1.setTransform(73.7,105.1,1,1,0,0,0,63.7,25.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Shighlight1},{t:this.Stag1}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Shighlight1).wait(1));
 
-	// Shighlight2
+	// Stag2
 	this.Stag2 = new lib.TC_THtmlText__CallOutText();
 	this.Stag2.name = "Stag2";
 	this.Stag2.parent = this;
-	this.Stag2.setTransform(115,261.8,2.1,1,0,0,0,50,50);
+	this.Stag2.setTransform(130,261.8,2.4,1,0,0,0,50,50);
 
+	this.timeline.addTween(cjs.Tween.get(this.Stag2).wait(1));
+
+	// Shighlight2
 	this.Shighlight2 = new lib.TC_TObject__CallOutHighlight();
 	this.Shighlight2.name = "Shighlight2";
 	this.Shighlight2.parent = this;
 	this.Shighlight2.setTransform(73.7,236.9,1,1,0,0,0,63.7,25.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Shighlight2},{t:this.Stag2}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Shighlight2).wait(1));
 
-	// Shighlight3
+	// Stag3
 	this.Stag3 = new lib.TC_THtmlText__CallOutText();
 	this.Stag3.name = "Stag3";
 	this.Stag3.parent = this;
-	this.Stag3.setTransform(115,393.6,2.1,1,0,0,0,50,50);
+	this.Stag3.setTransform(130,393.6,2.4,1,0,0,0,50,50);
 
+	this.timeline.addTween(cjs.Tween.get(this.Stag3).wait(1));
+
+	// Shighlight3
 	this.Shighlight3 = new lib.TC_TObject__CallOutHighlight();
 	this.Shighlight3.name = "Shighlight3";
 	this.Shighlight3.parent = this;
 	this.Shighlight3.setTransform(73.7,368.7,1,1,0,0,0,63.7,25.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Shighlight3},{t:this.Stag3}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Shighlight3).wait(1));
 
-	// Shighlight4
+	// Stag4
 	this.Stag4 = new lib.TC_THtmlText__CallOutText();
 	this.Stag4.name = "Stag4";
 	this.Stag4.parent = this;
-	this.Stag4.setTransform(115,525.5,2.1,1,0,0,0,50,50);
+	this.Stag4.setTransform(130,525.5,2.4,1,0,0,0,50,50);
 
+	this.timeline.addTween(cjs.Tween.get(this.Stag4).wait(1));
+
+	// Shighlight4
 	this.Shighlight4 = new lib.TC_TObject__CallOutHighlight();
 	this.Shighlight4.name = "Shighlight4";
 	this.Shighlight4.parent = this;
 	this.Shighlight4.setTransform(73.7,500.6,1,1,0,0,0,63.7,25.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Shighlight4},{t:this.Stag4}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Shighlight4).wait(1));
 
 	// Region
 	this.instance = new lib.TC_TVirtual__ExptRgn();

@@ -41,6 +41,20 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	}
 
 
+(lib.TC_TObject__ExptSep = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#333333").ss(9.6,1,1).p("EAAAgrbMAAABW3");
+	this.shape.setTransform(0,278);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = new cjs.Rectangle(-4.7,-4.7,9.5,565.5);
+
+
 (lib.TC_TVirtual__ExptRgn = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -813,12 +827,18 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
 
 	// Sexpt1
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,726.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
 	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt1.name = "Sexpt1";
 	this.Sexpt1.parent = this;
 	this.Sexpt1.setTransform(354.4,631.5,0.844,0.844,0,0,0,276.3,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt1},{t:this.Ssep}]}).wait(1));
 
 	// Layer_4
 	this.instance = new lib.TC_TObject__QuestionBorder();
@@ -871,12 +891,18 @@ p._updateVisibility = _updateVisibility;
 	this.initialize(mode,startPosition,loop,{});
 
 	// Sexpt2
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,696.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
 	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt2.name = "Sexpt2";
 	this.Sexpt2.parent = this;
 	this.Sexpt2.setTransform(1234.4,601.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt2},{t:this.Ssep}]}).wait(1));
 
 	// Sexpt1
 	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
@@ -937,12 +963,18 @@ p._updateVisibility = _updateVisibility;
 	this.initialize(mode,startPosition,loop,{});
 
 	// Sexpt2
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,676.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
 	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt2.name = "Sexpt2";
 	this.Sexpt2.parent = this;
 	this.Sexpt2.setTransform(1234.4,581.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt2},{t:this.Ssep}]}).wait(1));
 
 	// Sexpt1
 	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
@@ -996,12 +1028,18 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
 
 	// Sexpt1
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,726.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
 	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt1.name = "Sexpt1";
 	this.Sexpt1.parent = this;
 	this.Sexpt1.setTransform(354.4,631.5,0.844,0.844,0,0,0,276.3,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt1},{t:this.Ssep}]}).wait(1));
 
 	// Stitle
 	this.Stitle = new lib.TC_THtmlText__Text1();
@@ -1072,12 +1110,18 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 
 	// QBorder
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,686.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
 	this.QBorder = new lib.TC_TObject__QuestionBorder();
 	this.QBorder.name = "QBorder";
 	this.QBorder.parent = this;
 	this.QBorder.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.QBorder).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.QBorder},{t:this.Ssep}]}).wait(1));
 
 	// Squestion
 	this.Squestion = new lib.TC_THtmlText__Text1();
@@ -1139,12 +1183,18 @@ p._updateVisibility = _updateVisibility;
 	this.initialize(mode,startPosition,loop,{});
 
 	// Sexpt2
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,636.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
 	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt2.name = "Sexpt2";
 	this.Sexpt2.parent = this;
 	this.Sexpt2.setTransform(1234.4,541.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt2},{t:this.Ssep}]}).wait(1));
 
 	// Sexpt1
 	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
