@@ -4172,7 +4172,7 @@ System.register("scenegraph/CSceneNode", ["scenegraph/CSceneEdge"], function (ex
                         this._edges.push(CSceneEdge_1.CSceneEdge.factory(this.tutorDoc, parent, edge));
                     }
                 }
-                gotoNextTrack() {
+                gotoNextTrack(bUserEvent = false) {
                     return null;
                 }
                 nextNode() {
@@ -4374,12 +4374,21 @@ System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/
                         this.tutorDoc._pFeatures[pid] = 0;
                     return iter;
                 }
-                gotoNextTrack() {
-                    let nextNode;
+                gotoNextTrack(bUserEvent) {
+                    let inGroup = true;
                     if (this._currNode)
                         do {
-                            this._currTrack = this._currNode.gotoNextTrack();
-                            this._rootTrack = this._rootTrack || this._currTrack;
+                            if (bUserEvent && this._currTrack && this._currTrack.isGroup) {
+                                while (this._currTrack && inGroup) {
+                                    inGroup = this._currTrack.isAutoStep && this._currTrack.isGroup;
+                                    this._currTrack = this._currNode.gotoNextTrack();
+                                    this._rootTrack = this._rootTrack || this._currTrack;
+                                }
+                            }
+                            else {
+                                this._currTrack = this._currNode.gotoNextTrack();
+                                this._rootTrack = this._rootTrack || this._currTrack;
+                            }
                             if (this._currTrack == null) {
                                 this._currNode = this._currNode.nextNode();
                                 if (this._currNode)
@@ -4576,6 +4585,7 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                     this._stepdelay = factory.stepdelay || 0.0;
                     this._odds = factory.odds;
                     this._features = factory.features || "";
+                    this._isgroup = factory.isgroup || false;
                     if (factory.$P != undefined) {
                         this._pid = factory.pid;
                         this._prob = factory.$P.split('|');
@@ -4601,6 +4611,12 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                 }
                 get isHistoric() {
                     return this._enqueue;
+                }
+                get isGroup() {
+                    return this._isgroup;
+                }
+                get isAutoStep() {
+                    return this._autostep;
                 }
                 resolveSegmentKey(selector, templateRef) {
                     if (templateRef) {
@@ -5065,9 +5081,9 @@ System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "sce
                 _asyncNextTrack(evt) {
                     this._asyncGraphTimer.stop();
                     this._asyncGraphTimer.off(CONST_6.CONST.TIMER, this._trackHandler);
-                    this.traceGraphEdge();
+                    this.traceGraphEdge(false);
                 }
-                traceGraphEdge(bNavigating = false) {
+                traceGraphEdge(bUserNavEvent = false) {
                     let historyNode;
                     let nextTrack;
                     console.log("SCENEGRAPH: state change: " + this.changeRequestorTrack);
@@ -5078,7 +5094,7 @@ System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "sce
                         }
                         historyNode = this._history.next();
                         if (historyNode == null) {
-                            nextTrack = this.sceneGraph.gotoNextTrack();
+                            nextTrack = this.sceneGraph.gotoNextTrack(bUserNavEvent);
                             if (!this.sceneGraph.volatile && nextTrack != null) {
                                 this._history.push(this.sceneGraph.node, nextTrack);
                             }
@@ -5092,7 +5108,7 @@ System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "sce
                             if (!this._deferPlay)
                                 this.STrack.play();
                         }
-                        else if (!bNavigating) {
+                        else if (!bUserNavEvent) {
                             this.navigator.gotoNextScene("$endOfTracks");
                         }
                     }
@@ -8800,6 +8816,7 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                         CUtil_39.CUtil.trace("THtmlBase:Constructor");
                     this.on(CEFEvent_11.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
                     this.fAdded = false;
+                    this.fEnabled = true;
                     this.isHTMLControl = true;
                     this.HTMLmute = true;
                     this.cssDirty = {};
@@ -8815,6 +8832,12 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                         this.fAdded = false;
                     }
                     super.Destructor();
+                }
+                enable() {
+                    this.fEnabled = true;
+                }
+                disable() {
+                    this.fEnabled = false;
                 }
                 invertScale() {
                     let mat = this.getMatrix();
@@ -12895,10 +12918,12 @@ System.register("thermite/THtmlList1", ["thermite/THtmlBase", "util/CUtil", "uti
                         this.outerContainer.appendChild(this.efListBox);
                         let host = this;
                         this.efListBox.addEventListener("click", function (e) {
-                            e.stopPropagation();
-                            host.closeAllSelect(this);
-                            host.efListBox.nextElementSibling.classList.toggle("hideoptions");
-                            host.efListBox.classList.toggle("active");
+                            if (host.fEnabled) {
+                                e.stopPropagation();
+                                host.closeAllSelect(this);
+                                host.efListBox.nextElementSibling.classList.toggle("hideoptions");
+                                host.efListBox.classList.toggle("active");
+                            }
                         });
                         this.efListOptions = document.createElement("DIV");
                         this.efListOptions.setAttribute("class", "listoptions color hideoptions");

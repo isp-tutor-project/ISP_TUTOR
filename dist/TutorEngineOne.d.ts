@@ -1338,7 +1338,7 @@ declare module "scenegraph/CSceneNode" {
         protected _edges: Array<any>;
         constructor(_tutorDoc: IEFTutorDoc, target?: EventDispatcher);
         protected nodeFactory(parent: CSceneGraph, id: string, nodefactory: any): void;
-        gotoNextTrack(): CSceneTrack;
+        gotoNextTrack(bUserEvent?: boolean): CSceneTrack;
         nextNode(): CSceneNode;
         seekToTrack(historyNode: CSceneHistoryNode): any;
         readonly name: string;
@@ -1389,7 +1389,7 @@ declare module "scenegraph/CSceneGraph" {
         sceneInstance: TScene;
         volatile: boolean;
         queryPFeature(pid: string, size: number, cycle: number): number;
-        gotoNextTrack(): CSceneTrack;
+        gotoNextTrack(bUserEvent: boolean): CSceneTrack;
         seekToTrack(historyNode: CSceneHistoryNode): any;
         private parseNodes();
         findNodeByName(name: string): CSceneNode;
@@ -1434,6 +1434,7 @@ declare module "scenegraph/CSceneTrack" {
         private _type;
         private _autostep;
         private _stepdelay;
+        private _isgroup;
         private _autoPlayTimer;
         private _autoPlayHandler;
         private _odds;
@@ -1477,6 +1478,8 @@ declare module "scenegraph/CSceneTrack" {
         constructor(_tutorDoc: IEFTutorDoc, factory: any, parent: CSceneGraph);
         resolve(): CSceneTrack;
         readonly isHistoric: boolean;
+        readonly isGroup: boolean;
+        readonly isAutoStep: boolean;
         resolveSegmentKey(selector: string, templateRef: any): string;
         registerTrack(): void;
         onTrackLoaded(event: any): void;
@@ -1558,7 +1561,7 @@ declare module "thermite/TScene" {
         connectSceneGraph(hostModule: string, sceneName: string): void;
         nextTrack(source: string): void;
         private _asyncNextTrack(evt);
-        traceGraphEdge(bNavigating?: boolean): CSceneTrack;
+        traceGraphEdge(bUserNavEvent?: boolean): CSceneTrack;
         traceHistory(): CSceneHistoryNode;
         preEnterScene(lTutor: Object, sceneLabel: string, sceneTitle: string, scenePage: string, Direction: string): string;
         onEnterScene(Direction: string): void;
@@ -2373,6 +2376,7 @@ declare module "thermite/THtmlBase" {
         protected dimContainer: TObject;
         protected scaleCompensation: number;
         protected fAdded: boolean;
+        protected fEnabled: boolean;
         protected isHTMLControl: boolean;
         protected HTMLmute: boolean;
         protected startText: string;
@@ -2392,6 +2396,8 @@ declare module "thermite/THtmlBase" {
         initialize(): void;
         private init3();
         Destructor(): void;
+        enable(): void;
+        disable(): void;
         invertScale(): void;
         onAddedToStage(evt: CEFEvent): void;
         addHTMLControls(): void;

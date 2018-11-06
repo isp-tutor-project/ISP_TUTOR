@@ -818,29 +818,7 @@ p._updateVisibility = _updateVisibility;
 (lib.TC_TScene__TEDQuest4B = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// Sexpt2
-	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt2.name = "Sexpt2";
-	this.Sexpt2.parent = this;
-	this.Sexpt2.setTransform(1234.4,631.5,0.844,0.844,0,0,0,276.2,215.2);
-
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
-
-	// Sexpt1
-	this.Ssep = new lib.TC_TObject__ExptSep();
-	this.Ssep.name = "Ssep";
-	this.Ssep.parent = this;
-	this.Ssep.setTransform(960.9,726.9,1,1,0,0,0,0,277.9);
-	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
-
-	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt1.name = "Sexpt1";
-	this.Sexpt1.parent = this;
-	this.Sexpt1.setTransform(354.4,631.5,0.844,0.844,0,0,0,276.3,215.2);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt1},{t:this.Ssep}]}).wait(1));
-
-	// Layer_4
+	// border
 	this.instance = new lib.TC_TObject__QuestionBorder();
 	this.instance.parent = this;
 	this.instance.setTransform(960.2,200.9,1.036,2.198,0,0,0,652.1,40.1);
@@ -863,54 +841,59 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
 
-	// TC_TObject__CondTitle2
-	this.instance_1 = new lib.TC_TObject__CondTitle2();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(1420,1053.4,1,1,0,0,0,124,29.7);
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,697.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Ssep
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,792.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Ssep).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,697.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.Scond2 = new lib.TC_TObject__CondTitle2();
+	this.Scond2.name = "Scond2";
+	this.Scond2.parent = this;
+	this.Scond2.setTransform(1420,471.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Scond2).wait(1));
 
 	// TC_TObject__CondTitle1
-	this.instance_2 = new lib.TC_TObject__CondTitle1();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(535.5,1054.4,1,1,0,0,0,129.5,30.7);
+	this.Scond1 = new lib.TC_TObject__CondTitle1();
+	this.Scond1.name = "Scond1";
+	this.Scond1.parent = this;
+	this.Scond1.setTransform(535.5,472.4,1,1,0,0,0,129.5,30.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond1).wait(1));
 
 	// TC_TVirtual__SceneRgn
-	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_3.parent = this;
-	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+	this.instance_1 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest4B, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__TEDQuest4A = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
-
-	// Sexpt2
-	this.Ssep = new lib.TC_TObject__ExptSep();
-	this.Ssep.name = "Ssep";
-	this.Ssep.parent = this;
-	this.Ssep.setTransform(960.9,696.9,1,1,0,0,0,0,277.9);
-	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
-
-	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt2.name = "Sexpt2";
-	this.Sexpt2.parent = this;
-	this.Sexpt2.setTransform(1234.4,601.5,0.844,0.844,0,0,0,276.2,215.2);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt2},{t:this.Ssep}]}).wait(1));
-
-	// Sexpt1
-	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt1.name = "Sexpt1";
-	this.Sexpt1.parent = this;
-	this.Sexpt1.setTransform(354.4,601.5,0.844,0.844,0,0,0,276.3,215.2);
-
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
 
 	// Layer_4
 	this.instance = new lib.TC_TObject__QuestionBorder();
@@ -935,54 +918,59 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
 
-	// TC_TObject__CondTitle2
-	this.instance_1 = new lib.TC_TObject__CondTitle2();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(1420,1033.4,1,1,0,0,0,124,29.7);
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,697.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Ssep
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,792.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Ssep).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,697.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.Scond2 = new lib.TC_TObject__CondTitle2();
+	this.Scond2.name = "Scond2";
+	this.Scond2.parent = this;
+	this.Scond2.setTransform(1420,471.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Scond2).wait(1));
 
 	// TC_TObject__CondTitle1
-	this.instance_2 = new lib.TC_TObject__CondTitle1();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(535.5,1034.4,1,1,0,0,0,129.5,30.7);
+	this.Scond1 = new lib.TC_TObject__CondTitle1();
+	this.Scond1.name = "Scond1";
+	this.Scond1.parent = this;
+	this.Scond1.setTransform(535.5,472.4,1,1,0,0,0,129.5,30.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond1).wait(1));
 
 	// TC_TVirtual__SceneRgn
-	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_3.parent = this;
-	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+	this.instance_1 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest4A, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__TEDQuest4 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
-
-	// Sexpt2
-	this.Ssep = new lib.TC_TObject__ExptSep();
-	this.Ssep.name = "Ssep";
-	this.Ssep.parent = this;
-	this.Ssep.setTransform(960.9,676.9,1,1,0,0,0,0,277.9);
-	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
-
-	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt2.name = "Sexpt2";
-	this.Sexpt2.parent = this;
-	this.Sexpt2.setTransform(1234.4,581.5,0.844,0.844,0,0,0,276.2,215.2);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt2},{t:this.Ssep}]}).wait(1));
-
-	// Sexpt1
-	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt1.name = "Sexpt1";
-	this.Sexpt1.parent = this;
-	this.Sexpt1.setTransform(354.4,581.5,0.844,0.844,0,0,0,276.3,215.2);
-
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
 
 	// Stitle
 	this.Stitle = new lib.TC_THtmlText__Text1();
@@ -992,54 +980,59 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 
-	// TC_TObject__CondTitle2
-	this.instance = new lib.TC_TObject__CondTitle2();
-	this.instance.parent = this;
-	this.instance.setTransform(1420,1013.4,1,1,0,0,0,124,29.7);
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,697.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Ssep
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,792.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Ssep).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,697.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.Scond2 = new lib.TC_TObject__CondTitle2();
+	this.Scond2.name = "Scond2";
+	this.Scond2.parent = this;
+	this.Scond2.setTransform(1420,471.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Scond2).wait(1));
 
 	// TC_TObject__CondTitle1
-	this.instance_1 = new lib.TC_TObject__CondTitle1();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(535.5,1014.4,1,1,0,0,0,129.5,30.7);
+	this.Scond1 = new lib.TC_TObject__CondTitle1();
+	this.Scond1.name = "Scond1";
+	this.Scond1.parent = this;
+	this.Scond1.setTransform(535.5,472.4,1,1,0,0,0,129.5,30.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond1).wait(1));
 
 	// TC_TVirtual__SceneRgn
-	this.instance_2 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest4, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
 
 (lib.TC_TScene__TEDQuest1AB = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
-
-	// Sexpt2
-	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt2.name = "Sexpt2";
-	this.Sexpt2.parent = this;
-	this.Sexpt2.setTransform(1234.4,631.5,0.844,0.844,0,0,0,276.2,215.2);
-
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
-
-	// Sexpt1
-	this.Ssep = new lib.TC_TObject__ExptSep();
-	this.Ssep.name = "Ssep";
-	this.Ssep.parent = this;
-	this.Ssep.setTransform(960.9,726.9,1,1,0,0,0,0,277.9);
-	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
-
-	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt1.name = "Sexpt1";
-	this.Sexpt1.parent = this;
-	this.Sexpt1.setTransform(354.4,631.5,0.844,0.844,0,0,0,276.3,215.2);
-
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt1},{t:this.Ssep}]}).wait(1));
 
 	// Stitle
 	this.Stitle = new lib.TC_THtmlText__Text1();
@@ -1049,6 +1042,20 @@ p._updateVisibility = _updateVisibility;
 	this.Stitle.alpha = 0.789;
 
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
+
+	// QBorder
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,794.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
+	this.QBorder = new lib.TC_TObject__QuestionBorder();
+	this.QBorder.name = "QBorder";
+	this.QBorder.parent = this;
+	this.QBorder.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.QBorder},{t:this.Ssep}]}).wait(1));
 
 	// Layer_5
 	this.instance = new lib.TC_TObject__QuestionBorder();
@@ -1073,26 +1080,53 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
 
-	// TC_TObject__CondTitle2
-	this.instance_1 = new lib.TC_TObject__CondTitle2();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(1420,1053.4,1,1,0,0,0,124,29.7);
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,697.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Ssep
+	this.Ssep_1 = new lib.TC_TObject__ExptSep();
+	this.Ssep_1.name = "Ssep_1";
+	this.Ssep_1.parent = this;
+	this.Ssep_1.setTransform(960.9,792.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep_1, 0, 1, 1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Ssep_1).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,697.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.Scond2 = new lib.TC_TObject__CondTitle2();
+	this.Scond2.name = "Scond2";
+	this.Scond2.parent = this;
+	this.Scond2.setTransform(1420,471.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Scond2).wait(1));
 
 	// TC_TObject__CondTitle1
-	this.instance_2 = new lib.TC_TObject__CondTitle1();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(535.5,1054.4,1,1,0,0,0,129.5,30.7);
+	this.Scond1 = new lib.TC_TObject__CondTitle1();
+	this.Scond1.name = "Scond1";
+	this.Scond1.parent = this;
+	this.Scond1.setTransform(535.5,472.4,1,1,0,0,0,129.5,30.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond1).wait(1));
 
 	// Layer_1
-	this.instance_3 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_3.parent = this;
-	this.instance_3.setTransform(960,600,1,1,0,0,0,960,600);
+	this.instance_1 = new lib.TC_TVirtual__SceneRgn();
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1AB, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
@@ -1110,18 +1144,12 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 
 	// QBorder
-	this.Ssep = new lib.TC_TObject__ExptSep();
-	this.Ssep.name = "Ssep";
-	this.Ssep.parent = this;
-	this.Ssep.setTransform(960.9,686.9,1,1,0,0,0,0,277.9);
-	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
-
 	this.QBorder = new lib.TC_TObject__QuestionBorder();
 	this.QBorder.name = "QBorder";
 	this.QBorder.parent = this;
 	this.QBorder.setTransform(960.1,253.4,0.66,1,0,0,0,652,40.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.QBorder},{t:this.Ssep}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.QBorder).wait(1));
 
 	// Squestion
 	this.Squestion = new lib.TC_THtmlText__Text1();
@@ -1131,22 +1159,6 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Squestion).wait(1));
 
-	// Sexpt2
-	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt2.name = "Sexpt2";
-	this.Sexpt2.parent = this;
-	this.Sexpt2.setTransform(1234.4,591.5,0.844,0.844,0,0,0,276.2,215.2);
-
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
-
-	// Sexpt1
-	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
-	this.Sexpt1.name = "Sexpt1";
-	this.Sexpt1.parent = this;
-	this.Sexpt1.setTransform(354.4,591.5,0.844,0.844,0,0,0,276.3,215.2);
-
-	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
-
 	// Sanswer
 	this.Sanswer = new lib.TC_THtmlList1__CustomList1();
 	this.Sanswer.name = "Sanswer";
@@ -1155,26 +1167,53 @@ p._updateVisibility = _updateVisibility;
 
 	this.timeline.addTween(cjs.Tween.get(this.Sanswer).wait(1));
 
-	// TC_TObject__CondTitle2
-	this.instance = new lib.TC_TObject__CondTitle2();
-	this.instance.parent = this;
-	this.instance.setTransform(1420,1003.4,1,1,0,0,0,124,29.7);
+	// Sexpt2
+	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt2.name = "Sexpt2";
+	this.Sexpt2.parent = this;
+	this.Sexpt2.setTransform(1234.4,697.5,0.844,0.844,0,0,0,276.2,215.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt2).wait(1));
+
+	// Ssep
+	this.Ssep = new lib.TC_TObject__ExptSep();
+	this.Ssep.name = "Ssep";
+	this.Ssep.parent = this;
+	this.Ssep.setTransform(960.9,792.9,1,1,0,0,0,0,277.9);
+	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
+
+	this.timeline.addTween(cjs.Tween.get(this.Ssep).wait(1));
+
+	// Sexpt1
+	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
+	this.Sexpt1.name = "Sexpt1";
+	this.Sexpt1.parent = this;
+	this.Sexpt1.setTransform(354.4,697.5,0.844,0.844,0,0,0,276.3,215.2);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
+
+	// TC_TObject__CondTitle2
+	this.Scond2 = new lib.TC_TObject__CondTitle2();
+	this.Scond2.name = "Scond2";
+	this.Scond2.parent = this;
+	this.Scond2.setTransform(1420,471.4,1,1,0,0,0,124,29.7);
+
+	this.timeline.addTween(cjs.Tween.get(this.Scond2).wait(1));
 
 	// TC_TObject__CondTitle1
-	this.instance_1 = new lib.TC_TObject__CondTitle1();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(535.5,1004.4,1,1,0,0,0,129.5,30.7);
+	this.Scond1 = new lib.TC_TObject__CondTitle1();
+	this.Scond1.name = "Scond1";
+	this.Scond1.parent = this;
+	this.Scond1.setTransform(535.5,472.4,1,1,0,0,0,129.5,30.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond1).wait(1));
 
 	// Layer_1
-	this.instance_2 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQuest1, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
@@ -1186,13 +1225,13 @@ p._updateVisibility = _updateVisibility;
 	this.Ssep = new lib.TC_TObject__ExptSep();
 	this.Ssep.name = "Ssep";
 	this.Ssep.parent = this;
-	this.Ssep.setTransform(960.9,636.9,1,1,0,0,0,0,277.9);
+	this.Ssep.setTransform(960,676.3,1,1,0,0,0,0,277.9);
 	new cjs.ButtonHelper(this.Ssep, 0, 1, 1);
 
 	this.Sexpt2 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt2.name = "Sexpt2";
 	this.Sexpt2.parent = this;
-	this.Sexpt2.setTransform(1234.4,541.5,0.844,0.844,0,0,0,276.2,215.2);
+	this.Sexpt2.setTransform(1233.5,580.9,0.844,0.844,0,0,0,276.2,215.2);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Sexpt2},{t:this.Ssep}]}).wait(1));
 
@@ -1200,7 +1239,7 @@ p._updateVisibility = _updateVisibility;
 	this.Sexpt1 = new lib.TC_TTEDContainer__AllDomains();
 	this.Sexpt1.name = "Sexpt1";
 	this.Sexpt1.parent = this;
-	this.Sexpt1.setTransform(354.4,541.5,0.844,0.844,0,0,0,276.3,215.2);
+	this.Sexpt1.setTransform(353.5,580.9,0.844,0.844,0,0,0,276.3,215.2);
 
 	this.timeline.addTween(cjs.Tween.get(this.Sexpt1).wait(1));
 
@@ -1213,25 +1252,27 @@ p._updateVisibility = _updateVisibility;
 	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 
 	// TC_TObject__CondTitle2
-	this.instance = new lib.TC_TObject__CondTitle2();
-	this.instance.parent = this;
-	this.instance.setTransform(1420,982.4,1,1,0,0,0,124,29.7);
+	this.Scond2 = new lib.TC_TObject__CondTitle2();
+	this.Scond2.name = "Scond2";
+	this.Scond2.parent = this;
+	this.Scond2.setTransform(1419.1,355.6,1,1,0,0,0,124,29.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond2).wait(1));
 
 	// TC_TObject__CondTitle1
-	this.instance_1 = new lib.TC_TObject__CondTitle1();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(525.5,983.4,1,1,0,0,0,129.5,30.7);
+	this.Scond1 = new lib.TC_TObject__CondTitle1();
+	this.Scond1.name = "Scond1";
+	this.Scond1.parent = this;
+	this.Scond1.setTransform(524.6,356.6,1,1,0,0,0,129.5,30.7);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Scond1).wait(1));
 
 	// Layer_1
-	this.instance_2 = new lib.TC_TVirtual__SceneRgn();
-	this.instance_2.parent = this;
-	this.instance_2.setTransform(960,600,1,1,0,0,0,960,600);
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__TEDQ1Intro, new cjs.Rectangle(-1.2,-1.2,1922.5,1202.5), null);
 
