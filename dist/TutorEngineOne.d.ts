@@ -352,6 +352,7 @@ declare module "util/CONST" {
         static readonly WAIT: number;
         static readonly DONT_LAUNCH: boolean;
         static readonly LAUNCH: boolean;
+        static readonly END_OF_TUTOR: string;
         static readonly CONTROLCONTAINER_DESIGNHEIGHT: number;
         static readonly EFMODULE_PREFIX: string;
         static readonly THERMITE_PREFIX: string;
@@ -2672,6 +2673,8 @@ declare module "core/CEFTutorDoc" {
         testFeatures(features: string): boolean;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
+        logTutorState(scene: string): void;
+        logTutorProgress(scene: string): void;
     }
 }
 declare module "TutorEngineOne" {

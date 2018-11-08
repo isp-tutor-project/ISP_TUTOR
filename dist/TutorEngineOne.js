@@ -335,6 +335,7 @@ System.register("util/CONST", [], function (exports_8, context_8) {
             CONST.WAIT = 250;
             CONST.DONT_LAUNCH = false;
             CONST.LAUNCH = true;
+            CONST.END_OF_TUTOR = "END_OF_TUTOR";
             CONST.CONTROLCONTAINER_DESIGNHEIGHT = 100;
             CONST.EFMODULE_PREFIX = "EFMod_";
             CONST.THERMITE_PREFIX = "TC_";
@@ -9372,7 +9373,7 @@ System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], fu
 System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "tutorgraph/CTutorHistory", "core/CEFNavigator", "events/CEFEvent", "util/CONST", "util/CUtil", "core/CEFTimer"], function (exports_76, context_76) {
     "use strict";
     var __moduleName = context_76 && context_76.id;
-    var CTutorGraph_1, CTutorHistory_1, CEFNavigator_1, CEFEvent_12, CONST_14, CUtil_42, Event, CEFTimer_4, CTutorGraphNavigator;
+    var CTutorGraph_1, CTutorHistory_1, CEFNavigator_1, CEFEvent_12, CONST_14, CUtil_42, CEFTimer_4, Event, CTutorGraphNavigator;
     return {
         setters: [
             function (CTutorGraph_1_1) {
@@ -9502,6 +9503,10 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                             if (this._currScene != nextScene && nextScene != null) {
                                 this.seekToScene(nextScene);
                             }
+                            else if (nextScene == null) {
+                                this.tutorDoc.logTutorState(this._currScene.scenename);
+                                this.tutorDoc.logTutorProgress(CONST_14.CONST.END_OF_TUTOR);
+                            }
                             else {
                                 this._inNavigation = false;
                             }
@@ -9580,7 +9585,10 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                         this.tutorDoc.log.logNavEvent(logData);
                         if (this._currScene) {
                             this.tutorAutoObj[this._currScene.scenename]._instance.onExitScene();
+                            this.tutorDoc.logTutorState(this._currScene.scenename);
                         }
+                        if (this._nextScene.isCheckPoint)
+                            this.tutorDoc.logTutorProgress(this._nextScene.scenename);
                         if (!this.tutorDoc.log.connectionActive) {
                             this.tutorDoc.dispatchEvent(new Event("CONNECTION_LOST", false, false));
                         }
@@ -10227,6 +10235,21 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 }
                 traceFeatures() {
                     CUtil_43.CUtil.trace(this.fFeatures);
+                }
+                logTutorState(scene) {
+                    if (EFLoadManager.nativeUserMgr) {
+                        EFLoadManager.nativeUserMgr.logState(scene, JSON.stringify(this.sceneState), JSON.stringify(this.moduleState), JSON.stringify(this.tutorState));
+                    }
+                }
+                logTutorProgress(scene) {
+                    if (EFLoadManager.nativeUserMgr) {
+                        if (scene === CONST_15.CONST.END_OF_TUTOR) {
+                            EFLoadManager.nativeUserMgr.tutorComplete();
+                        }
+                        else {
+                            EFLoadManager.nativeUserMgr.updateScene(scene);
+                        }
+                    }
                 }
             };
             exports_77("CEFTutorDoc", CEFTutorDoc);

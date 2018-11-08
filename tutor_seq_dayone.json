@@ -1,0 +1,14 @@
+{
+    "tutors": [
+        {
+            "launcher" : "/mats.html",
+			"logfolder": "MATS_PRE",
+            "features" : "FTR_PRE"
+        },
+        {
+            "launcher": "/dr.html",
+			"logfolder": "DR",
+            "features": ""
+        }
+    ]
+}

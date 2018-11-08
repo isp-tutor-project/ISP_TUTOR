@@ -20,18 +20,22 @@ NOTICE: Adobe permits you to use, modify, and distribute this file as stand-alon
  
 var _widgetID = 0;
 
-var EFLoadManager  = EFLoadManager  || function(){};
-var EFnativeAudio  = EFnativeAudio  || null;
-var EFnativeSpeech = EFnativeSpeech || null;
+var EFLoadManager   = EFLoadManager   || function(){};
+var EFnativeAudio   = EFnativeAudio   || null;
+var EFnativeSpeech  = EFnativeSpeech  || null;
+var EFnativeUserMgr = EFnativeUserMgr || null;
+var EFnativeLogMgr  = EFnativeLogMgr  || null;
 var EFloginhibit;
 
 EFLoadManager.window = window;
 
 // Attach to platform specific audio engines e.g. Android
 // 
-EFLoadManager.nativeAudio  = EFnativeAudio;
-EFLoadManager.nativeSpeech = EFnativeSpeech;
-EFLoadManager.NOLOG        = EFloginhibit? true:false;
+EFLoadManager.nativeAudio   = EFnativeAudio;
+EFLoadManager.nativeSpeech  = EFnativeSpeech;
+EFLoadManager.nativeUserMgr = EFnativeUserMgr;
+EFLoadManager.nativeLogMgr  = EFnativeLogMgr;
+EFLoadManager.NOLOG         = EFloginhibit? true:false;
 
 // Send media events from the Java Domain to the JS domain
 // trackEvent and trackOwner are initialized by sceneTrack play 

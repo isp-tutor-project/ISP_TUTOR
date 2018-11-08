@@ -23,9 +23,10 @@
 	top:0;bottom:0;
   }
 </style>
-<script src="https://code.createjs.com/createjs-2015.11.26.combined.js"></script>
+<!-- <script src="https://code.createjs.com/createjs-2015.11.26.combined.js"></script> -->
+<script src="./dist/createjs-2015.11.26.min.js"></script>
 <script> 
-    var EFRootTutor='EFTED_Mats' 
+    var EFRootTutor='EFTED_Instr' 
 </script>
 <!--script src="https://code.createjs.com/createjs-2015.11.26.combined.js"></script-->
 <!-- Load the SystemJS module loader and the tutor engine module -->
@@ -46,7 +47,6 @@ function init() {
         dom_overlay_container = document.getElementById("dom_overlay_container");
         var comp=AdobeAn.getComposition("52BBDDD43BDBD64499D685AAA6743D14");
         var lib=comp.getLibrary();
-		createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
         var loader = new createjs.LoadQueue(false);
         loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
         var lib=comp.getLibrary();
