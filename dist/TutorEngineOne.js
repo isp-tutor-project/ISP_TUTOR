@@ -16,40 +16,9 @@ System.register("util/IBootLoader", [], function (exports_2, context_2) {
         }
     };
 });
-System.register("core/IEFTutorDoc", [], function (exports_3, context_3) {
+System.register("util/CUtil", [], function (exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    return {
-        setters: [],
-        execute: function () {
-        }
-    };
-});
-System.register("managers/ILogManager", [], function (exports_4, context_4) {
-    "use strict";
-    var __moduleName = context_4 && context_4.id;
-    return {
-        setters: [],
-        execute: function () {
-        }
-    };
-});
-System.register("managers/CLogManagerType", [], function (exports_5, context_5) {
-    "use strict";
-    var __moduleName = context_5 && context_5.id;
-    var CLogManagerType;
-    return {
-        setters: [],
-        execute: function () {
-            CLogManagerType = class CLogManagerType {
-            };
-            exports_5("CLogManagerType", CLogManagerType);
-        }
-    };
-});
-System.register("util/CUtil", [], function (exports_6, context_6) {
-    "use strict";
-    var __moduleName = context_6 && context_6.id;
     var TutorEngineOne, CJSEvent, CUtil, __global;
     return {
         setters: [],
@@ -204,14 +173,14 @@ System.register("util/CUtil", [], function (exports_6, context_6) {
             CUtil.getDefinitionByNameCache = {};
             CUtil.SHOW = true;
             CUtil.HIDE = false;
-            exports_6("CUtil", CUtil);
+            exports_3("CUtil", CUtil);
             __global = this.__global || this;
         }
     };
 });
-System.register("events/CEFEvent", ["util/CUtil"], function (exports_7, context_7) {
+System.register("events/CEFEvent", ["util/CUtil"], function (exports_4, context_4) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_4 && context_4.id;
     var CUtil_1, Event, CEFEvent;
     return {
         setters: [
@@ -269,13 +238,13 @@ System.register("events/CEFEvent", ["util/CUtil"], function (exports_7, context_
             CEFEvent.MOTION_FINISH = "complete";
             CEFEvent.CHANGE = "change";
             CEFEvent.COMPLETE = "complete";
-            exports_7("CEFEvent", CEFEvent);
+            exports_4("CEFEvent", CEFEvent);
         }
     };
 });
-System.register("util/CONST", [], function (exports_8, context_8) {
+System.register("util/CONST", [], function (exports_5, context_5) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
+    var __moduleName = context_5 && context_5.id;
     var CONST;
     return {
         setters: [],
@@ -355,6 +324,8 @@ System.register("util/CONST", [], function (exports_8, context_8) {
             CONST.SCENESTATE = "SCN";
             CONST.MODULESTATE = "MDL";
             CONST.TUTORSTATE = "TUT";
+            CONST.TUTORSTATEVAR = "tutorstatedata.json";
+            CONST.TUTORSTATEFAC = "tutorStateData";
             CONST.TUTOR_VARIABLE = [
                 "tutorconfig.json",
                 "tutorgraph.json"
@@ -478,13 +449,13 @@ System.register("util/CONST", [], function (exports_8, context_8) {
             CONST.GOTONEXTTRACK = "incSceneGraph";
             CONST.TIMER = "timeout";
             CONST.TIMER_COMPLETE = "timercomplete";
-            exports_8("CONST", CONST);
+            exports_5("CONST", CONST);
         }
     };
 });
-System.register("core/CEFTimer", ["events/CEFEvent", "util/CONST", "util/CUtil"], function (exports_9, context_9) {
+System.register("core/CEFTimer", ["events/CEFEvent", "util/CONST", "util/CUtil"], function (exports_6, context_6) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
+    var __moduleName = context_6 && context_6.id;
     var CEFEvent_1, CONST_1, CUtil_2, Ticker, EventDispatcher, CEFTimer;
     return {
         setters: [
@@ -629,660 +600,18 @@ System.register("core/CEFTimer", ["events/CEFEvent", "util/CONST", "util/CUtil"]
                 }
             };
             CEFTimer.activeTimers = new Array();
-            exports_9("CEFTimer", CEFTimer);
+            exports_6("CEFTimer", CEFTimer);
         }
     };
 });
-System.register("thermite/events/TMouseEvent", ["util/CUtil"], function (exports_10, context_10) {
+System.register("events/CEFNavEvent", ["util/CUtil"], function (exports_7, context_7) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
-    var CUtil_3, MouseEvent, TMouseEvent;
+    var __moduleName = context_7 && context_7.id;
+    var CUtil_3, Event, CEFNavEvent;
     return {
         setters: [
             function (CUtil_3_1) {
                 CUtil_3 = CUtil_3_1;
-            }
-        ],
-        execute: function () {
-            MouseEvent = createjs.MouseEvent;
-            TMouseEvent = class TMouseEvent extends MouseEvent {
-                constructor(TarObjID, type, bubbles = false, cancelable = false, stageX = 0, stageY = 0, nativeEvent = null, pointerID = 0, primary = false, rawX = 0, rawY = 0) {
-                    super(type, bubbles, cancelable, stageX, stageY, nativeEvent, pointerID, primary, rawX, rawY);
-                }
-                clone() {
-                    CUtil_3.CUtil.trace("cloning MouseEvent:");
-                    return new TMouseEvent(this.tarObjID, this.type, this.bubbles, this.cancelable, this.stageX, this.stageY, this.nativeEvent, this.pointerID, this.primary, this.rawX, this.rawY);
-                }
-                captureLogState(obj = null) {
-                    obj['event'] = 'TMouseEvent';
-                    obj['tarObjID'] = this.tarObjID;
-                    obj['localX'] = this.localX;
-                    obj['localY'] = this.localY;
-                    return obj;
-                }
-                captureXMLState() {
-                    var eventState = {};
-                    return eventState;
-                }
-                restoreXMLState(xmlState) {
-                }
-                compareXMLState(xmlState) {
-                    var bTest = true;
-                    return bTest;
-                }
-            };
-            TMouseEvent.MOUSE_OVER = "rollover";
-            TMouseEvent.MOUSE_OUT = "rollout";
-            TMouseEvent.MOUSE_DOWN = "mousedown";
-            TMouseEvent.MOUSE_CLICK = "pressup";
-            TMouseEvent.MOUSE_MOVE = "mousemove";
-            TMouseEvent.MOUSE_UP = "mouseup";
-            TMouseEvent.DOUBLE_CLICK = "dblclick";
-            TMouseEvent.CLICK = "click";
-            TMouseEvent.WOZCLICK = "WOZMOUSE_CLICK";
-            TMouseEvent.WOZCLICKED = "WOZMOUSE_CLICKED";
-            TMouseEvent.WOZDBLCLICK = "WOZMOUSE_DBLCLICKED";
-            TMouseEvent.WOZMOVE = "WOZMOUSE_MOVE";
-            TMouseEvent.WOZDOWN = "WOZMOUSE_DOWN";
-            TMouseEvent.WOZUP = "WOZMOUSE_UP";
-            TMouseEvent.WOZOVER = "WOZMOUSE_OVER";
-            TMouseEvent.WOZOUT = "WOZMOUSE_OUT";
-            TMouseEvent.WOZKEYDOWN = "WOZKEY_DOWN";
-            TMouseEvent.WOZKEYUP = "WOZMKEY_UP";
-            TMouseEvent.WOZNULL = "WOZNULL";
-            exports_10("TMouseEvent", TMouseEvent);
-        }
-    };
-});
-System.register("thermite/events/TTextEvent", ["events/CEFEvent", "util/CUtil"], function (exports_11, context_11) {
-    "use strict";
-    var __moduleName = context_11 && context_11.id;
-    var CEFEvent_2, CUtil_4, TTextEvent;
-    return {
-        setters: [
-            function (CEFEvent_2_1) {
-                CEFEvent_2 = CEFEvent_2_1;
-            },
-            function (CUtil_4_1) {
-                CUtil_4 = CUtil_4_1;
-            }
-        ],
-        execute: function () {
-            TTextEvent = class TTextEvent extends CEFEvent_2.CEFEvent {
-                constructor(TarObjID, Type, Index1 = 0, Index2 = 0, TextData = "", Bubbles = false, Cancelable = false) {
-                    super(TarObjID, Type, Bubbles, Cancelable);
-                    this.textdata = TextData;
-                    this.index1 = Index1;
-                    this.index2 = Index2;
-                }
-                clone() {
-                    CUtil_4.CUtil.trace("cloning CEFTextEvent:");
-                    return new TTextEvent(this.tarObjID, this.type, this.index1, this.index2, this.textdata, this.bubbles, this.cancelable);
-                }
-            };
-            TTextEvent.WOZSETSELECTION = "wozSetSelection";
-            TTextEvent.WOZSETSCROLL = "wozSetScroll";
-            TTextEvent.WOZINPUTTEXT = "wozInputText";
-            TTextEvent.WOZCAPTUREFOCUS = "wozCaptureFocus";
-            TTextEvent.WOZRELEASEFOCUS = "wozReleaseFocus";
-            exports_11("TTextEvent", TTextEvent);
-        }
-    };
-});
-System.register("thermite/TCursorProxy", ["thermite/TRoot", "thermite/TObject", "thermite/TSceneBase", "thermite/events/TMouseEvent", "thermite/events/TTextEvent", "util/CUtil"], function (exports_12, context_12) {
-    "use strict";
-    var __moduleName = context_12 && context_12.id;
-    var TRoot_1, TObject_1, TSceneBase_1, TMouseEvent_1, TTextEvent_1, CUtil_5, Point, Tween, Ease, TCursorProxy;
-    return {
-        setters: [
-            function (TRoot_1_1) {
-                TRoot_1 = TRoot_1_1;
-            },
-            function (TObject_1_1) {
-                TObject_1 = TObject_1_1;
-            },
-            function (TSceneBase_1_1) {
-                TSceneBase_1 = TSceneBase_1_1;
-            },
-            function (TMouseEvent_1_1) {
-                TMouseEvent_1 = TMouseEvent_1_1;
-            },
-            function (TTextEvent_1_1) {
-                TTextEvent_1 = TTextEvent_1_1;
-            },
-            function (CUtil_5_1) {
-                CUtil_5 = CUtil_5_1;
-            }
-        ],
-        execute: function () {
-            Point = createjs.Point;
-            Tween = createjs.Tween;
-            Ease = createjs.Ease;
-            TCursorProxy = class TCursorProxy extends TRoot_1.TRoot {
-                constructor() {
-                    super();
-                    this.curObject = null;
-                    this.actObject = null;
-                    this.cLocation = new Point;
-                    this.fSparkler = true;
-                    this.fSparklerTest = false;
-                    this.fSparklerDrag = false;
-                    this.fLiveLog = false;
-                    this.init1();
-                }
-                TCursorProxyInitialize() {
-                    this.TRootInitialize.call(this);
-                    this.init1();
-                }
-                initialize() {
-                    this.TRootInitialize.call(this);
-                    this.init1();
-                }
-                init1() {
-                    this.traceMode = true;
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("CEFCursorProxy:Constructor");
-                    this.name = "WOZvCursor";
-                    this.setCursorStyle("Sstandard");
-                }
-                setCursorStyle(style) {
-                    this.Sstandard.visible = false;
-                    this.Ssmallhand.visible = false;
-                    this.Shand.visible = false;
-                    this.Sautomate.visible = false;
-                    this[style].visible = true;
-                }
-                initWOZCursor(sMode) {
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("Initializing WOZ Cursor Automation:");
-                    this.sAuto = sMode;
-                    if (sMode == TCursorProxy.WOZLIVE) {
-                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.MOUSE_MOVE, this.liveMouseMove);
-                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.MOUSE_DOWN, this.liveMouseDown);
-                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.MOUSE_UP, this.liveMouseUp);
-                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.DOUBLE_CLICK, this.liveMouseDblClick);
-                    }
-                    else if (sMode == TCursorProxy.WOZREPLAY) {
-                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.MOUSE_MOVE, this.liveMouseMove);
-                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.MOUSE_DOWN, this.liveMouseDown);
-                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.MOUSE_UP, this.liveMouseUp);
-                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.DOUBLE_CLICK, this.liveMouseDblClick);
-                    }
-                }
-                decodeTarget(baseObj, objArray) {
-                    let tmpObject = null;
-                    let subObject;
-                    subObject = objArray.shift();
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("decoding: " + subObject);
-                    if ((subObject != "null") && (subObject != "none")) {
-                        tmpObject = baseObj[subObject];
-                        if (objArray.length)
-                            tmpObject = this.decodeTarget(tmpObject, objArray);
-                    }
-                    return tmpObject;
-                }
-                initPlayBack() {
-                    this.lastFrameTime = 0;
-                }
-                playBackAction(wozEvt) {
-                    let traceAction = false;
-                    let tarObject;
-                    let objArray;
-                    if (traceAction)
-                        CUtil_5.CUtil.trace("PlayBack Action: " + wozEvt);
-                    if (wozEvt.CEFMouseEvent != undefined) {
-                        this.x = wozEvt.CEFMouseEvent.localX;
-                        this.y = wozEvt.CEFMouseEvent.localY;
-                        if (this.fSparklerTest) {
-                            this.fSparklerTest = false;
-                            if (wozEvt.CEFMouseEvent.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZMOVE)
-                                this.fSparklerDrag = true;
-                        }
-                        if ((wozEvt.CEFMouseEvent.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZDOWN) && this.fSparkler) {
-                            this.fSparklerDrag = false;
-                            this.fSparklerTest = true;
-                            this.Ssparkle.gotoAndPlay(2);
-                        }
-                        if ((wozEvt.CEFMouseEvent.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZUP) && this.fSparklerDrag)
-                            this.Ssparkle.gotoAndPlay(10);
-                        if (traceAction)
-                            CUtil_5.CUtil.trace("Splitting: " + wozEvt.CEFMouseEvent.CEFEvent.target + " EVT TYPE: " + wozEvt.CEFMouseEvent.CEFEvent.type);
-                        objArray = wozEvt.CEFMouseEvent.CEFEvent.target.split(".");
-                        if (traceAction)
-                            CUtil_5.CUtil.trace("Target Array: " + objArray[0]);
-                        tarObject = this.decodeTarget(this.tutorDoc.tutorContainer, objArray);
-                        if (tarObject) {
-                            if (traceAction)
-                                CUtil_5.CUtil.trace("Automation Target: " + tarObject + " Event: " + wozEvt.CEFMouseEvent.CEFEvent.type);
-                            let evt = new TMouseEvent_1.TMouseEvent(tarObject.objID, wozEvt.CEFMouseEvent.CEFEvent.type, wozEvt.bubbles, wozEvt.cancelable, wozEvt.stageX, wozEvt.stageY, wozEvt.nativeEvent, wozEvt.pointerID, wozEvt.primary, wozEvt.rawX, wozEvt.rawY);
-                            tarObject.dispatchEvent(evt);
-                        }
-                    }
-                    else if (wozEvt.CEFTextEvent != undefined) {
-                        if (traceAction)
-                            CUtil_5.CUtil.trace("Splitting: " + wozEvt.CEFTextEvent.CEFEvent.target + " EVT TYPE: " + wozEvt.CEFTextEvent.CEFEvent.type);
-                        if (wozEvt.CEFTextEvent.CEFEvent.type == TTextEvent_1.TTextEvent.WOZINPUTTEXT) {
-                            objArray = wozEvt.CEFTextEvent.CEFEvent.target.split(".");
-                            if (traceAction)
-                                CUtil_5.CUtil.trace("Target Array: " + objArray[0]);
-                            tarObject = this.decodeTarget(this.tutorDoc.tutorContainer, objArray);
-                            if (tarObject) {
-                                if (traceAction)
-                                    CUtil_5.CUtil.trace("Automation Target: " + tarObject + " Event: " + wozEvt.CEFTextEvent.CEFEvent.type);
-                                let tEvt = new TTextEvent_1.TTextEvent(tarObject.objID, wozEvt.CEFTextEvent.CEFEvent.type, wozEvt.CEFTextEvent.index1, wozEvt.CEFTextEvent.index2, wozEvt.CEFTextEvent.text, true, false);
-                                tarObject.dispatchEvent(tEvt);
-                            }
-                        }
-                    }
-                }
-                playBackMove(nextMove, frameTime) {
-                    let relTime = (frameTime - this.lastFrameTime) / (nextMove.time - this.lastFrameTime);
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("PlayBack Move");
-                    this.x += relTime * (nextMove.CEFMouseEvent.localX - this.x);
-                    this.y += relTime * (nextMove.CEFMouseEvent.localY - this.y);
-                    this.lastFrameTime = frameTime;
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("-- Target X: " + nextMove.CEFMouseEvent.localX + " -- Target Y: " + nextMove.CEFMouseEvent.localY);
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("-- Mouse  X: " + this.x + " -- Mouse  Y: " + this.y);
-                }
-                replayEvent(xEvt) {
-                    let tarObject;
-                    let objArray;
-                    this.x = xEvt.localX;
-                    this.y = xEvt.localY;
-                    if (this.fSparklerTest) {
-                        this.fSparklerTest = false;
-                        if (xEvt.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZMOVE)
-                            this.fSparklerDrag = true;
-                    }
-                    if ((xEvt.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZDOWN) && this.fSparkler) {
-                        this.fSparklerDrag = false;
-                        this.fSparklerTest = true;
-                        this.Ssparkle.gotoAndPlay(2);
-                    }
-                    if ((xEvt.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZUP) && this.fSparklerDrag)
-                        this.Ssparkle.gotoAndPlay(10);
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("Splitting: " + xEvt.CEFEvent.target + " EVT TYPE: " + xEvt.CEFEvent.type);
-                    objArray = xEvt.CEFEvent.target.split(".");
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("Target Array: " + objArray[0]);
-                    tarObject = this.decodeTarget(this.tutorDoc.tutorContainer, objArray);
-                    if (tarObject) {
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("Automation Target: " + tarObject + " Event: " + xEvt.CEFEvent.type);
-                        let evt = new TMouseEvent_1.TMouseEvent(tarObject.objID, xEvt.CEFEvent.type, xEvt.bubbles, xEvt.cancelable, xEvt.stageX, xEvt.stageY, xEvt.nativeEvent, xEvt.pointerID, xEvt.primary, xEvt.rawX, xEvt.rawY);
-                        tarObject.dispatchEvent(evt);
-                    }
-                }
-                replayEventB(xEvt) {
-                    let tarObject;
-                    this.x = xEvt.localX;
-                    this.y = xEvt.localY;
-                    tarObject = this.hitTestCoord(this.x, this.y);
-                    if (tarObject) {
-                        switch (xEvt.CEFEvent.type.toString()) {
-                            case TMouseEvent_1.TMouseEvent.WOZMOVE:
-                                return;
-                            case TMouseEvent_1.TMouseEvent.WOZOUT:
-                                tarObject = this.curObject;
-                                break;
-                            case TMouseEvent_1.TMouseEvent.WOZOVER:
-                                this.curObject = tarObject;
-                                break;
-                            case TMouseEvent_1.TMouseEvent.WOZUP:
-                                tarObject = this.actObject;
-                                break;
-                            case TMouseEvent_1.TMouseEvent.WOZDOWN:
-                                this.actObject = this.curObject;
-                                tarObject = this.curObject;
-                                break;
-                            case TMouseEvent_1.TMouseEvent.WOZCLICKED:
-                                tarObject = this.actObject;
-                                break;
-                            case TMouseEvent_1.TMouseEvent.WOZDBLCLICK:
-                                tarObject = this.actObject;
-                                break;
-                        }
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("Automation Target: " + tarObject + " Event: " + xEvt.CEFEvent.type);
-                        let evt = new TMouseEvent_1.TMouseEvent(tarObject.objID, xEvt.CEFEvent.type, xEvt.bubbles, xEvt.cancelable, xEvt.stageX, xEvt.stageY, xEvt.nativeEvent, xEvt.pointerID, xEvt.primary, xEvt.rawX, xEvt.rawY);
-                        tarObject.dispatchEvent(evt);
-                    }
-                }
-                replayEventAndMove(xEvt, laEvt, l2Evt) {
-                    let tweens;
-                    let easingX;
-                    let easingY;
-                    let v1;
-                    let v2;
-                    let dX;
-                    let dY;
-                    this.replayEvent(xEvt);
-                    let replayTime = (laEvt.CEFEvent.evtTime - xEvt.CEFEvent.evtTime) / 1000;
-                    let replayTim2 = (l2Evt.CEFEvent.evtTime - laEvt.CEFEvent.evtTime) / 1000;
-                    if (replayTime > 0) {
-                        if (l2Evt == null) {
-                            easingX = Ease.cubicOut;
-                            easingY = Ease.cubicOut;
-                        }
-                        else {
-                            dX = Math.abs(laEvt.localX - xEvt.localX);
-                            v1 = dX / replayTime;
-                            v2 = Math.abs(l2Evt.localX - laEvt.localX) / replayTim2;
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("delta T:" + replayTime + " : " + replayTim2);
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("X: v1/v2:  " + (v1 / v2));
-                            if (dX < 10) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.linear");
-                                easingX = Ease.linear;
-                            }
-                            else if ((v1 == 0) || (v2 == 0)) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.linear");
-                                easingX = Ease.linear;
-                            }
-                            else if ((v1 / v2) > 3.5) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.cubicOut");
-                                easingX = Ease.cubicOut;
-                            }
-                            else if ((v1 / v2) < .30) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.cubicIn");
-                                easingX = Ease.cubicIn;
-                            }
-                            else {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.linear");
-                                easingX = Ease.linear;
-                            }
-                            dY = Math.abs(laEvt.localY - xEvt.localY);
-                            v1 = dY / replayTime;
-                            v2 = Math.abs(l2Evt.localY - laEvt.localY) / replayTim2;
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("Y: v1/v2:  " + (v1 / v2));
-                            if (dY < 10) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.linear");
-                                easingY = Ease.linear;
-                            }
-                            else if ((v1 == 0) || (v2 == 0)) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing X: Ease.linear");
-                                easingY = Ease.linear;
-                            }
-                            else if ((v1 / v2) > 3.5) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing Y: Ease.cubicOut");
-                                easingY = Ease.cubicOut;
-                            }
-                            else if ((v1 / v2) < .30) {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing Y: Ease.cubicIn");
-                                easingY = Ease.cubicIn;
-                            }
-                            else {
-                                if (this.traceMode)
-                                    CUtil_5.CUtil.trace("Easing Y: Ease.linear");
-                                easingY = Ease.linear;
-                            }
-                        }
-                        tweens = new Array;
-                        tweens[0] = new Tween(this).to({ x: laEvt.localX }, replayTime, easingX);
-                        tweens[1] = new Tween(this).to({ y: laEvt.localY }, replayTime, easingY);
-                    }
-                    return tweens;
-                }
-                replayMove(oldTime, laEvt) {
-                    let tweens;
-                    let replayTime = (laEvt.CEFEvent.evtTime - oldTime) / 1000;
-                    if (replayTime > 0) {
-                        tweens = new Array;
-                        tweens[0] = new Tween(this).to({ x: laEvt.localX }, replayTime, Ease.cubicInOut);
-                        tweens[1] = new Tween(this).to({ y: laEvt.localY }, replayTime, Ease.cubicInOut);
-                    }
-                    return tweens;
-                }
-                liveMouseMove(evt) {
-                    let evtMove;
-                    let fUpdate = false;
-                    let locX;
-                    let locY;
-                    locX = evt.stageX;
-                    locY = evt.stageY;
-                    if (this.x != locX) {
-                        this.x = locX;
-                        fUpdate = true;
-                    }
-                    if (this.y != locY) {
-                        this.y = locY;
-                        fUpdate = true;
-                    }
-                    if (fUpdate) {
-                        this.hitTestMouse(evt);
-                        if (this.curObject) {
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("CEF Mouse Move : " + this.curObject.objID);
-                            evtMove = new TMouseEvent_1.TMouseEvent("none", TMouseEvent_1.TMouseEvent.WOZMOVE, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                            if (this.fLiveLog)
-                                this.tutorDoc.log.logLiveEvent(evtMove.captureLogState());
-                            this.curObject.dispatchEvent(evtMove);
-                        }
-                        else {
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("NULL Mouse Move : ");
-                            evtMove = new TMouseEvent_1.TMouseEvent("none", TMouseEvent_1.TMouseEvent.WOZMOVE, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                            if (this.fLiveLog)
-                                this.tutorDoc.log.logLiveEvent(evtMove.captureLogState());
-                        }
-                    }
-                }
-                liveMouseDown(evt) {
-                    let locX;
-                    let locY;
-                    locX = evt.stageX;
-                    locY = evt.stageY;
-                    this.hitTestMouse(evt);
-                    if (this.curObject) {
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("CEF Mouse Down : " + this.curObject.objID);
-                        let evtDown = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZDOWN, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                        if (this.fLiveLog)
-                            this.tutorDoc.log.logLiveEvent(evtDown.captureLogState());
-                        this.curObject.dispatchEvent(evtDown);
-                        this.actObject = this.curObject;
-                    }
-                }
-                liveMouseUp(evt) {
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("CEF Mouse Up : " + ((this.curObject) ? this.curObject.objID : "null"));
-                    let locX;
-                    let locY;
-                    if (this.actObject) {
-                        let evtUp = new TMouseEvent_1.TMouseEvent(this.actObject.objID, TMouseEvent_1.TMouseEvent.WOZUP, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                        if (this.fLiveLog)
-                            this.tutorDoc.log.logLiveEvent(evtUp.captureLogState());
-                        this.actObject.dispatchEvent(evtUp);
-                        if (this.actObject == this.curObject) {
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("CEF Mouse Click : " + this.curObject.objID + "  At X:" + locX + "  Y:" + locY);
-                            let evtClicked = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZCLICKED, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                            if (this.fLiveLog)
-                                this.tutorDoc.log.logLiveEvent(evtClicked.captureLogState());
-                            this.curObject.dispatchEvent(evtClicked);
-                        }
-                    }
-                    this.actObject = null;
-                }
-                liveMouseDblClick(evt) {
-                    let locX;
-                    let locY;
-                    if (this.curObject) {
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("CEF Mouse Dbl Clicked: " + this.curObject.objID);
-                        let evtDblClick = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZDBLCLICK, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                        if (this.fLiveLog)
-                            this.tutorDoc.log.logLiveEvent(evtDblClick.captureLogState());
-                        this.curObject.dispatchEvent(evtDblClick);
-                    }
-                }
-                stateHelper(tarObj) {
-                    let fTest = false;
-                    if (this.hitTestCoord(this.x, this.y) == tarObj)
-                        fTest = true;
-                    return fTest;
-                }
-                hitTestCoord(locX, locY) {
-                    let hitSet;
-                    let hitObj;
-                    let wozObj;
-                    this.cLocation.x = locX;
-                    this.cLocation.y = locY;
-                    hitSet = this.stage.getObjectsUnderPoint(locX, locY, 0);
-                    if (this.traceMode)
-                        CUtil_5.CUtil.trace("Hittest results  - cursor name: " + name);
-                    if (hitSet.length) {
-                        hitObj = hitSet[hitSet.length - 1];
-                        wozObj = this.isWOZObject(hitObj);
-                        if (!wozObj && (hitSet.length > 1)) {
-                            hitObj = hitSet[hitSet.length - 2];
-                            wozObj = this.isWOZObject(hitObj);
-                        }
-                    }
-                    if (wozObj)
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("HitTest WozObject Name - " + wozObj.name);
-                    return wozObj;
-                }
-                hitTestMouse(evt) {
-                    let hitObj;
-                    hitObj = this.hitTestCoord(this.x, this.y);
-                    if (hitObj || (!hitObj && (this.actObject == null)))
-                        this.updateCurrentObject(evt, hitObj);
-                }
-                show(bFlag) {
-                    if (bFlag) {
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("Hiding Hardware Mouse : ");
-                        document.getElementById("canvas").style.cursor = "none";
-                        this.visible = true;
-                    }
-                    else {
-                        if (this.traceMode)
-                            CUtil_5.CUtil.trace("Showing Hardware Mouse : ");
-                        document.getElementById("canvas").style.cursor = "none";
-                        this.visible = false;
-                    }
-                }
-                updateCurrentObject(evt, hitObj) {
-                    if (this.traceMode)
-                        (hitObj) ? CUtil_5.CUtil.trace("updateCurrentObject hitObj: " + hitObj.objID) : CUtil_5.CUtil.trace("updateCurrentObject hitObj: null");
-                    let locX;
-                    let locY;
-                    locX = evt.stageX;
-                    locY = evt.stageY;
-                    if (hitObj == this.curObject)
-                        return;
-                    else {
-                        if (this.curObject) {
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("CEF Mouse Out : " + this.curObject.objID);
-                            let evtOut = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZOUT, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                            if (this.fLiveLog)
-                                this.tutorDoc.log.logLiveEvent(evtOut.captureLogState());
-                            this.curObject.dispatchEvent(evtOut);
-                        }
-                        this.curObject = hitObj;
-                        if (this.curObject) {
-                            if (this.traceMode)
-                                CUtil_5.CUtil.trace("CEF Mouse Over: " + this.curObject.objID);
-                            let evtOver = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZOVER, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
-                            if (this.fLiveLog)
-                                this.tutorDoc.log.logLiveEvent(evtOver.captureLogState());
-                            this.curObject.dispatchEvent(evtOver);
-                        }
-                    }
-                }
-                isWOZObject(tObj) {
-                    if (!tObj || tObj instanceof TSceneBase_1.TSceneBase)
-                        return null;
-                    else if (tObj instanceof TObject_1.TObject)
-                        return tObj;
-                    return this.isWOZObject(tObj.parent);
-                }
-            };
-            TCursorProxy.WOZLIVE = "WOZLIVE";
-            TCursorProxy.WOZREPLAY = "WOZREPLAY";
-            exports_12("TCursorProxy", TCursorProxy);
-        }
-    };
-});
-System.register("core/CEFTimeStamp", ["thermite/TObject", "util/CUtil"], function (exports_13, context_13) {
-    "use strict";
-    var __moduleName = context_13 && context_13.id;
-    var TObject_2, CUtil_6, CEFTimeStamp;
-    return {
-        setters: [
-            function (TObject_2_1) {
-                TObject_2 = TObject_2_1;
-            },
-            function (CUtil_6_1) {
-                CUtil_6 = CUtil_6_1;
-            }
-        ],
-        execute: function () {
-            CEFTimeStamp = class CEFTimeStamp extends TObject_2.TObject {
-                constructor() {
-                    if (CEFTimeStamp._baseTime == 0)
-                        CEFTimeStamp._baseTime = Number(CUtil_6.CUtil.getTimer());
-                    super();
-                }
-                getStartTime(objprop) {
-                    var sResult;
-                    var dT;
-                    if (!this.hasOwnProperty(objprop)) {
-                        sResult = 'invalid';
-                    }
-                    else {
-                        dT = (this[objprop] - CEFTimeStamp._baseTime) / 1000;
-                        sResult = dT.toFixed(3);
-                    }
-                    return sResult;
-                }
-                createLogAttr(objprop, restart = false) {
-                    var sResult;
-                    var dT;
-                    if (!this.hasOwnProperty(objprop)) {
-                        this[objprop] = Number(CUtil_6.CUtil.getTimer());
-                        dT = (this[objprop] - CEFTimeStamp._baseTime) / 1000;
-                    }
-                    else {
-                        if (restart)
-                            this[objprop] = Number(CUtil_6.CUtil.getTimer());
-                        dT = (Number(CUtil_6.CUtil.getTimer()) - this[objprop]) / 1000;
-                    }
-                    return sResult = dT.toFixed(3);
-                }
-            };
-            CEFTimeStamp._baseTime = 0;
-            exports_13("CEFTimeStamp", CEFTimeStamp);
-        }
-    };
-});
-System.register("events/CEFNavEvent", ["util/CUtil"], function (exports_14, context_14) {
-    "use strict";
-    var __moduleName = context_14 && context_14.id;
-    var CUtil_7, Event, CEFNavEvent;
-    return {
-        setters: [
-            function (CUtil_7_1) {
-                CUtil_7 = CUtil_7_1;
             }
         ],
         execute: function () {
@@ -1294,7 +623,7 @@ System.register("events/CEFNavEvent", ["util/CUtil"], function (exports_14, cont
                     this.wozFeatures = _featureSet;
                 }
                 clone() {
-                    CUtil_7.CUtil.trace("cloning WOZEvent:");
+                    CUtil_3.CUtil.trace("cloning WOZEvent:");
                     return new CEFNavEvent(this.type, this.wozNavTarget, this.wozFeatures, this.bubbles, this.cancelable);
                 }
             };
@@ -1303,2778 +632,27 @@ System.register("events/CEFNavEvent", ["util/CUtil"], function (exports_14, cont
             CEFNavEvent.WOZNAVTO = "WOZNAVTO";
             CEFNavEvent.WOZNAVINC = "WOZNAVINC";
             CEFNavEvent.WOZNAVREPLAY = "WOZNAVREPLAY";
-            exports_14("CEFNavEvent", CEFNavEvent);
+            exports_7("CEFNavEvent", CEFNavEvent);
         }
     };
 });
-System.register("events/CEFKeyboardEvent", [], function (exports_15, context_15) {
+System.register("scenegraph/IAudioTypes", [], function (exports_8, context_8) {
     "use strict";
-    var __moduleName = context_15 && context_15.id;
-    var Event, CEFKeyboardEvent;
-    return {
-        setters: [],
-        execute: function () {
-            Event = createjs.Event;
-            CEFKeyboardEvent = class CEFKeyboardEvent extends Event {
-                constructor(type, bubbles = false, cancelable = false) {
-                    super(type, bubbles, cancelable);
-                }
-            };
-            CEFKeyboardEvent.KEY_PRESS = "keypress";
-            CEFKeyboardEvent.KEY_DOWN = "keydown";
-            CEFKeyboardEvent.KEY_UP = "keyup";
-            exports_15("CEFKeyboardEvent", CEFKeyboardEvent);
-        }
-    };
-});
-System.register("tutorgraph/CTutorConstraint", ["util/CUtil"], function (exports_16, context_16) {
-    "use strict";
-    var __moduleName = context_16 && context_16.id;
-    var CUtil_8, CTutorConstraint;
-    return {
-        setters: [
-            function (CUtil_8_1) {
-                CUtil_8 = CUtil_8_1;
-            }
-        ],
-        execute: function () {
-            CTutorConstraint = class CTutorConstraint extends Object {
-                constructor(_tutorDoc) {
-                    super();
-                    this.tutorDoc = _tutorDoc;
-                }
-                static factory(_tutorDoc, parent, factory) {
-                    let node = new CTutorConstraint(_tutorDoc);
-                    node._parent = parent;
-                    node._cmd = factory.cmd;
-                    node._code = factory.code;
-                    return node;
-                }
-                execute() {
-                    let result = false;
-                    switch (this._cmd) {
-                        case "test":
-                            result = this.tutorDoc.testFeatureSet(this._code);
-                            break;
-                        case "exec":
-                            try {
-                                result = eval(this._code);
-                            }
-                            catch (err) {
-                                CUtil_8.CUtil.trace("CONST.execute: " + err.toString());
-                                result = false;
-                            }
-                            break;
-                    }
-                    return result;
-                }
-            };
-            exports_16("CTutorConstraint", CTutorConstraint);
-        }
-    };
-});
-System.register("tutorgraph/CTutorEdge", [], function (exports_17, context_17) {
-    "use strict";
-    var __moduleName = context_17 && context_17.id;
-    var CTutorEdge;
-    return {
-        setters: [],
-        execute: function () {
-            CTutorEdge = class CTutorEdge extends Object {
-                constructor(_tutorDoc) {
-                    super();
-                    this.tutorDoc = _tutorDoc;
-                }
-                static factory(_tutorDoc, parent, owner, factory) {
-                    let edge = new CTutorEdge(_tutorDoc);
-                    edge._parent = parent;
-                    edge._edgeOwner = owner;
-                    edge._edgeConst = factory.constraint;
-                    edge._edgeNode = factory.edge;
-                    if (factory.$P != undefined) {
-                        edge._pid = factory.pid;
-                        edge._prob = factory.$P.split('|');
-                        edge._cycle = Number(factory.cycle);
-                    }
-                    return edge;
-                }
-                testPConstraint() {
-                    let result = true;
-                    let iter;
-                    let rand;
-                    if (this._pid != null) {
-                        iter = this._parent.queryPConstraint(this._pid, this._prob.length, this._cycle);
-                        rand = Math.random();
-                        result = (rand < this._prob[iter]);
-                    }
-                    return result;
-                }
-                testConstraint() {
-                    let result = true;
-                    result = (this._edgeConst === "") ? true : this.tutorDoc.$nodeConstraint(this._edgeOwner.id, this._edgeConst);
-                    return result;
-                }
-                followEdge() {
-                    return this._parent.findNodeByName(this._edgeNode);
-                }
-            };
-            exports_17("CTutorEdge", CTutorEdge);
-        }
-    };
-});
-System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (exports_18, context_18) {
-    "use strict";
-    var __moduleName = context_18 && context_18.id;
-    var CTutorEdge_1, EventDispatcher, CTutorNode;
-    return {
-        setters: [
-            function (CTutorEdge_1_1) {
-                CTutorEdge_1 = CTutorEdge_1_1;
-            }
-        ],
-        execute: function () {
-            EventDispatcher = createjs.EventDispatcher;
-            CTutorNode = class CTutorNode extends EventDispatcher {
-                constructor(_tutorDoc) {
-                    super();
-                    this._edges = new Array;
-                    this.tutorDoc = _tutorDoc;
-                }
-                nodeFactory(parent, nodeName, nodefactory) {
-                    this._parent = parent;
-                    this._id = nodefactory.id;
-                    this._type = nodefactory.type;
-                    this._name = nodeName;
-                    this._preEnter = nodefactory.preenter;
-                    this._preExit = nodefactory.preexit;
-                    if (this._preEnter == "")
-                        this._preEnter = null;
-                    if (this._preExit == "")
-                        this._preExit = null;
-                    for (let edge of nodefactory.edges) {
-                        this._edges.push(CTutorEdge_1.CTutorEdge.factory(this.tutorDoc, parent, this, edge));
-                    }
-                }
-                get id() {
-                    return this._id;
-                }
-                get name() {
-                    return this._name;
-                }
-                captureGraph(obj) {
-                    return obj;
-                }
-                restoreGraph(obj) {
-                }
-                nextScene() {
-                    return null;
-                }
-                nextNode() {
-                    let edge;
-                    let node = this;
-                    if (this._preExit != null) {
-                    }
-                    for (let edge of this._edges) {
-                        if (edge.testConstraint() && edge.testPConstraint()) {
-                            node = edge.followEdge();
-                            if (node != null && node._preEnter != null) {
-                                eval(node._preEnter);
-                            }
-                            break;
-                        }
-                    }
-                    if (this._edges.length == 0)
-                        node = null;
-                    return node;
-                }
-                applyNode() {
-                    return false;
-                }
-                seekToScene(seekScene) {
-                    return null;
-                }
-                seekToSceneByName(seekScene) {
-                    return null;
-                }
-                resetNode() {
-                }
-            };
-            exports_18("CTutorNode", CTutorNode);
-        }
-    };
-});
-System.register("tutorgraph/CTutorAction", ["tutorgraph/CTutorNode"], function (exports_19, context_19) {
-    "use strict";
-    var __moduleName = context_19 && context_19.id;
-    var CTutorNode_1, CTutorAction;
-    return {
-        setters: [
-            function (CTutorNode_1_1) {
-                CTutorNode_1 = CTutorNode_1_1;
-            }
-        ],
-        execute: function () {
-            CTutorAction = class CTutorAction extends CTutorNode_1.CTutorNode {
-                constructor(_tutorDoc) {
-                    super(_tutorDoc);
-                }
-                static factory(_tutorDoc, parent, name, factory) {
-                    let nodeFactoryData = factory.CNodes[name];
-                    let node = new CTutorAction(_tutorDoc);
-                    node.nodeFactory(parent, name, nodeFactoryData);
-                    let actObject = factory.CActions[nodeFactoryData.link];
-                    node._cmnd = actObject.cmd;
-                    node._parms = actObject.parms;
-                    return node;
-                }
-                captureGraph(obj) {
-                    return obj;
-                }
-                restoreGraph(obj) {
-                }
-                nextScene() {
-                    return null;
-                }
-                applyNode() {
-                    return false;
-                }
-            };
-            exports_19("CTutorAction", CTutorAction);
-        }
-    };
-});
-System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph/CTutorScene", "util/CUtil"], function (exports_20, context_20) {
-    "use strict";
-    var __moduleName = context_20 && context_20.id;
-    var CTutorNode_2, CTutorScene_1, CUtil_9, CTutorModule;
-    return {
-        setters: [
-            function (CTutorNode_2_1) {
-                CTutorNode_2 = CTutorNode_2_1;
-            },
-            function (CTutorScene_1_1) {
-                CTutorScene_1 = CTutorScene_1_1;
-            },
-            function (CUtil_9_1) {
-                CUtil_9 = CUtil_9_1;
-            }
-        ],
-        execute: function () {
-            CTutorModule = class CTutorModule extends CTutorNode_2.CTutorNode {
-                constructor(_tutorDoc) {
-                    super(_tutorDoc);
-                    this._scenes = new Array;
-                    this._ndx = -1;
-                }
-                static factory(_tutorDoc, parent, id, moduleFactory, factory) {
-                    var moduleFactoryData = factory.CModules[moduleFactory.link];
-                    var node = new CTutorModule(_tutorDoc);
-                    if (moduleFactory.edges)
-                        node.nodeFactory(parent, id, moduleFactory);
-                    node._reuse = moduleFactoryData.reuse;
-                    var sceneList = moduleFactoryData.scenes;
-                    for (var scene of sceneList) {
-                        node._scenes.push(new CTutorScene_1.CTutorScene(_tutorDoc, scene, parent));
-                    }
-                    return node;
-                }
-                captureGraph(obj) {
-                    obj['index'] = this._ndx.toString();
-                    return obj;
-                }
-                restoreGraph(obj) {
-                    this._ndx = Number(obj['index']);
-                    return this._scenes[this._ndx];
-                }
-                nextScene() {
-                    var nextScene = null;
-                    var features;
-                    while (this._ndx < this._scenes.length) {
-                        this._ndx++;
-                        if (this._ndx >= this._scenes.length)
-                            nextScene = null;
-                        else
-                            nextScene = this._scenes[this._ndx];
-                        if (nextScene != null) {
-                            features = nextScene.features;
-                            if (features != "") {
-                                if (this.tutorDoc.testFeatureSet(features)) {
-                                    if (nextScene.hasPFeature) {
-                                        if (nextScene.testPFeature())
-                                            break;
-                                    }
-                                    else
-                                        break;
-                                }
-                                CUtil_9.CUtil.trace("Graph Feature: " + features + " :failed.");
-                            }
-                            else if (nextScene.hasPFeature) {
-                                if (nextScene.testPFeature())
-                                    break;
-                            }
-                            else
-                                break;
-                        }
-                        else
-                            break;
-                    }
-                    if (this._ndx >= this._scenes.length) {
-                        if (this._reuse) {
-                            this.resetNode();
-                        }
-                    }
-                    return nextScene;
-                }
-                applyNode() {
-                    dispatchEvent(new Event("todo"));
-                    return false;
-                }
-                seekToScene(seekScene) {
-                    var scene = null;
-                    var ndx = 0;
-                    for (scene of this._scenes) {
-                        if (seekScene == scene) {
-                            this._ndx = ndx;
-                            break;
-                        }
-                        ndx++;
-                    }
-                    return scene;
-                }
-                resetNode() {
-                    this._ndx = -1;
-                }
-            };
-            exports_20("CTutorModule", CTutorModule);
-        }
-    };
-});
-System.register("tutorgraph/CTutorModuleGroup", ["tutorgraph/CTutorNode", "tutorgraph/CTutorModule"], function (exports_21, context_21) {
-    "use strict";
-    var __moduleName = context_21 && context_21.id;
-    var CTutorNode_3, CTutorModule_1, CTutorModuleGroup;
-    return {
-        setters: [
-            function (CTutorNode_3_1) {
-                CTutorNode_3 = CTutorNode_3_1;
-            },
-            function (CTutorModule_1_1) {
-                CTutorModule_1 = CTutorModule_1_1;
-            }
-        ],
-        execute: function () {
-            CTutorModuleGroup = class CTutorModuleGroup extends CTutorNode_3.CTutorNode {
-                constructor(_tutorDoc) {
-                    super(_tutorDoc);
-                    this._modules = new Array;
-                    this._ndx = -1;
-                    this._moduleShown = false;
-                    this._shownCount = 0;
-                }
-                static factory(_tutorDoc, parent, id, groupFactory, factory) {
-                    let groupFactoryData = factory.CModuleGroups[groupFactory.link];
-                    let node = new CTutorModuleGroup(_tutorDoc);
-                    if (groupFactory.edges)
-                        node.nodeFactory(parent, id, groupFactory);
-                    node.instanceNode = groupFactoryData.instanceNode;
-                    node.type = groupFactoryData.type;
-                    node.start = groupFactoryData.start;
-                    node.show = groupFactoryData.show;
-                    node.reuse = groupFactoryData.reuse;
-                    node.onempty = groupFactoryData.onempty;
-                    let moduleList = groupFactoryData.modules;
-                    for (let moduleDescr of moduleList) {
-                        if (moduleDescr.instanceNode != "") {
-                            node._modules.push(parent.findNodeByName(moduleDescr.instanceNode));
-                        }
-                        else {
-                            node._modules.push(CTutorModule_1.CTutorModule.factory(_tutorDoc, parent, "", moduleDescr, factory));
-                        }
-                    }
-                    return node;
-                }
-                captureGraph(obj) {
-                    obj['index'] = this._ndx.toString();
-                    obj['_moduleShown'] = this._moduleShown.toString();
-                    obj['_shownCount'] = this._shownCount.toString();
-                    obj['moduleNode'] = this._modules[this._ndx].captureGraph({});
-                    return obj;
-                }
-                restoreGraph(obj) {
-                    this._ndx = Number(obj['index']);
-                    this._moduleShown = (obj['_moduleShown'] == 'true') ? true : false;
-                    this._shownCount = Number(obj['_shownCount']);
-                    return this._modules[this._ndx].restoreGraph(obj['moduleNode']);
-                }
-                initialize() {
-                    switch (this.type) {
-                        case CTutorModuleGroup.SEQUENTIAL:
-                            switch (this.start) {
-                                case CTutorModuleGroup.STOCHASTIC:
-                                    break;
-                                default:
-                                    this._ndx = Number(this.start);
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                nextScene() {
-                    let nextScene = null;
-                    if (this._ndx == -1)
-                        this.initialize();
-                    do {
-                        nextScene = this._modules[this._ndx].nextScene();
-                        if (nextScene == null) {
-                            this._ndx++;
-                            this._ndx = this._ndx % this._modules.length;
-                            if (this.show != "all") {
-                                if (this._moduleShown)
-                                    this._shownCount++;
-                                if (this._shownCount == Number(this.show)) {
-                                    this._moduleShown = false;
-                                    this._shownCount = 0;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                            break;
-                    } while (this._ndx < this._modules.length);
-                    if (nextScene != null)
-                        this._moduleShown = true;
-                    return nextScene;
-                }
-                applyNode() {
-                    dispatchEvent(new Event("todo"));
-                    return false;
-                }
-                seekToScene(seekScene) {
-                    let module;
-                    let scene = null;
-                    let ndx = 0;
-                    for (let module of this._modules) {
-                        if (seekScene == module.seekToScene(seekScene)) {
-                            this._ndx = ndx;
-                            break;
-                        }
-                        ndx++;
-                    }
-                    return scene;
-                }
-                resetNode() {
-                    this._ndx = -1;
-                    this._shownCount = 0;
-                    this._moduleShown = false;
-                }
-            };
-            CTutorModuleGroup.SEQUENTIAL = "seqtype";
-            CTutorModuleGroup.STOCHASTIC = "randtype";
-            exports_21("CTutorModuleGroup", CTutorModuleGroup);
-        }
-    };
-});
-System.register("thermite/TObjectMask", ["thermite/TObject"], function (exports_22, context_22) {
-    "use strict";
-    var __moduleName = context_22 && context_22.id;
-    var TObject_3, TObjectMask;
-    return {
-        setters: [
-            function (TObject_3_1) {
-                TObject_3 = TObject_3_1;
-            }
-        ],
-        execute: function () {
-            TObjectMask = class TObjectMask extends TObject_3.TObject {
-                constructor() {
-                    super();
-                }
-            };
-            exports_22("TObjectMask", TObjectMask);
-        }
-    };
-});
-System.register("core/CEFTimeLine", ["events/CEFEvent", "util/CUtil"], function (exports_23, context_23) {
-    "use strict";
-    var __moduleName = context_23 && context_23.id;
-    var CEFEvent_3, CUtil_10, Timeline, CEFTimeLine;
-    return {
-        setters: [
-            function (CEFEvent_3_1) {
-                CEFEvent_3 = CEFEvent_3_1;
-            },
-            function (CUtil_10_1) {
-                CUtil_10 = CUtil_10_1;
-            }
-        ],
-        execute: function () {
-            Timeline = createjs.Timeline;
-            CEFTimeLine = class CEFTimeLine extends Timeline {
-                constructor(tweens, labels, props, _tutorDoc) {
-                    super(tweens, labels, props);
-                    this.traceMode = false;
-                    this.traceMode = true;
-                    this.tutorDoc = _tutorDoc;
-                    this.tutorContainer = _tutorDoc.tutorContainer;
-                    this.tutorAutoObj = _tutorDoc.TutAutomator;
-                    this.targets = new Array();
-                }
-                addTween(...tween) {
-                    super.addTween(...tween);
-                    tween.forEach(tween => this.targets.push(tween.target));
-                }
-                startTransition(xnF = null, scope) {
-                    if (this.traceMode)
-                        CUtil_10.CUtil.trace("startTransition : ");
-                    this.xnFinalize = xnF;
-                    this.xnScope = scope;
-                    this.on(CEFEvent_3.CEFEvent.CHANGE, this.xnChanged, this);
-                    this.gotoAndPlay(0);
-                    if (this.traceMode)
-                        CUtil_10.CUtil.trace("Transition Running: ");
-                }
-                stopTransitions() {
-                    this.setPaused(true);
-                    while (this._tweens.length != 0)
-                        this.removeTween(this._tweens[0]);
-                }
-                xnChanged(evt) {
-                    if (this.traceMode)
-                        CUtil_10.CUtil.trace("xnChanged : ");
-                    if (this.position >= this.duration) {
-                        evt.remove();
-                        this.xnFinished();
-                    }
-                }
-                xnFinished() {
-                    if (this.traceMode)
-                        CUtil_10.CUtil.trace("xnFinished : ");
-                    this.stopTransitions();
-                    for (let tar of this.targets) {
-                    }
-                    this.targets = new Array();
-                    if (this.xnFinalize != null)
-                        this.xnFinalize.call(this.xnScope);
-                    this.tutorDoc.incStateID();
-                }
-            };
-            exports_23("CEFTimeLine", CEFTimeLine);
-        }
-    };
-});
-System.register("core/CEFTransitions", ["thermite/TObject", "thermite/TObjectMask", "core/CEFTimeLine", "events/CEFEvent", "util/CUtil"], function (exports_24, context_24) {
-    "use strict";
-    var __moduleName = context_24 && context_24.id;
-    var TObject_4, TObjectMask_1, CEFTimeLine_1, CEFEvent_4, CUtil_11, Tween, Event, Ease, CEFTransitions;
-    return {
-        setters: [
-            function (TObject_4_1) {
-                TObject_4 = TObject_4_1;
-            },
-            function (TObjectMask_1_1) {
-                TObjectMask_1 = TObjectMask_1_1;
-            },
-            function (CEFTimeLine_1_1) {
-                CEFTimeLine_1 = CEFTimeLine_1_1;
-            },
-            function (CEFEvent_4_1) {
-                CEFEvent_4 = CEFEvent_4_1;
-            },
-            function (CUtil_11_1) {
-                CUtil_11 = CUtil_11_1;
-            }
-        ],
-        execute: function () {
-            Tween = createjs.Tween;
-            Event = createjs.Event;
-            Ease = createjs.Ease;
-            CEFTransitions = class CEFTransitions extends CEFTimeLine_1.CEFTimeLine {
-                constructor(_tutorDoc) {
-                    super(null, null, { "useTicks": false, "loop": false, "paused": true }, _tutorDoc);
-                    this.currScene = null;
-                    this.newScene = null;
-                    this.rTime = 350;
-                    this.tTime = 350;
-                    this.fSingleStep = true;
-                    this.activeObjs = {};
-                    this.persistObjs = {};
-                    this.fSwapObjects = true;
-                    this.traceMode = true;
-                    if (this.traceMode)
-                        CUtil_11.CUtil.trace("CEFTransitions:Constructor");
-                }
-                connectToTutor(parentTutor, autoTutor) {
-                    this.tutorAutoObj = autoTutor;
-                    this.activeObjs = {};
-                }
-                resetTransitions() {
-                    this.activeObjs = {};
-                }
-                walkTweens() {
-                    let i1;
-                    if (this.traceMode)
-                        CUtil_11.CUtil.trace("Tween Enumeration for Scene: ", this.currScene);
-                    for (i1 = 0; i1 < this._tweens.length; i1++) {
-                        if (this.traceMode)
-                            CUtil_11.CUtil.trace("Object Value: ", this.targets[i1].obj);
-                    }
-                }
-                gotoScene(scn) {
-                    if (this.traceMode)
-                        CUtil_11.CUtil.trace("Goto Scene: ", scn);
-                    this.fSingleStep = false;
-                    this.stopTransitions();
-                    this.newScene = scn;
-                    if (this.currScene != null) {
-                        this.setTransitionOUT();
-                        if (this.targets.length) {
-                            this.startTransition(this.outFinished, this);
-                        }
-                        else {
-                            this.setTransitionIN(this.tutorAutoObj, this.newScene);
-                            this.changeScene();
-                            if (this._tweens.length > 0) {
-                                this.startTransition(this.inFinished, this);
-                            }
-                            else
-                                this.inFinished();
-                        }
-                    }
-                    else {
-                        this.setTransitionIN(this.tutorAutoObj, this.newScene);
-                        this.changeScene();
-                        this.startTransition(this.inFinished, this);
-                    }
-                }
-                setTransitionOUT() {
-                    let bMatch;
-                    let targObj;
-                    let tween;
-                    try {
-                        if (this.currScene != null)
-                            for (let sceneObj in this.tutorAutoObj[this.currScene]) {
-                                bMatch = false;
-                                if (sceneObj == "_instance")
-                                    continue;
-                                if (this.newScene != null) {
-                                    if (!this.tutorAutoObj[this.newScene]._instance.isAnchor) {
-                                        if (this.tutorAutoObj[this.newScene][sceneObj] != undefined) {
-                                            if (this.traceMode)
-                                                CUtil_11.CUtil.trace("newObject: " + this.tutorAutoObj[this.newScene][sceneObj]._instance.xname);
-                                            if (this.traceMode)
-                                                CUtil_11.CUtil.trace("oldObject: " + this.tutorAutoObj[this.currScene][sceneObj]._instance.xname);
-                                            if (this.tutorAutoObj[this.newScene][sceneObj]._instance.xname ==
-                                                this.tutorAutoObj[this.currScene][sceneObj]._instance.xname)
-                                                bMatch = true;
-                                        }
-                                    }
-                                }
-                                if (!bMatch) {
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("setTransitionOUT: " + this.tutorAutoObj[this.currScene][sceneObj]._instance.name);
-                                    targObj = this.tutorAutoObj[this.currScene][sceneObj];
-                                    tween = new Tween(targObj._instance).to({ alpha: 0 }, Number(this.rTime), Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + this.currScene + "  named : " + targObj._instance.name + " property: alpha" + " out: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                            }
-                    }
-                    catch (error) {
-                        CUtil_11.CUtil.trace("setTransitionOUT failed: " + error);
-                    }
-                    this.tutorAutoObj[this.currScene]._instance.hideScene();
-                }
-                setTransitionIN(objectList, sceneName) {
-                    let targObj;
-                    let liveObj;
-                    let tween;
-                    let xname;
-                    this.currentObjs = new Array;
-                    for (let namedObj in objectList[sceneName]) {
-                        if (namedObj != "_instance") {
-                            targObj = objectList[sceneName][namedObj];
-                            if (targObj._instance instanceof TObject_4.TObject) {
-                                if (!targObj._instance.isTweenable())
-                                    continue;
-                                xname = targObj._instance.xname;
-                            }
-                            else {
-                                xname = targObj._instance.id;
-                            }
-                            if (targObj._instance.hidden)
-                                continue;
-                            if (this.tutorAutoObj[this.newScene]._instance.isAnchor)
-                                this.activeObjs = {};
-                            if (this.activeObjs[xname] != undefined) {
-                                liveObj = this.activeObjs[xname];
-                                if (this.fSwapObjects) {
-                                    let dO1 = this.tutorAutoObj[this.currScene][namedObj]._instance;
-                                    let dO2 = this.tutorAutoObj[this.newScene][namedObj]._instance;
-                                    let dI1 = this.tutorContainer[this.currScene].getChildIndex(dO1);
-                                    let dI2 = this.tutorContainer[this.newScene].getChildIndex(dO2);
-                                    this.tutorContainer[this.currScene].addChildAt(dO2, dI1);
-                                    this.tutorContainer[this.newScene].addChildAt(dO1, dI2);
-                                    this.tutorAutoObj[this.currScene][namedObj]._instance = dO2;
-                                    this.tutorAutoObj[this.newScene][namedObj]._instance = dO1;
-                                    this.tutorAutoObj[this.currScene]._instance[namedObj] = dO2;
-                                    this.tutorAutoObj[this.newScene]._instance[namedObj] = dO1;
-                                    this.tutorAutoObj[this.newScene]._instance[namedObj].hostScene = this.tutorAutoObj[this.newScene]._instance;
-                                    targObj = objectList[sceneName][namedObj];
-                                }
-                                else {
-                                    if ((liveObj instanceof TObject_4.TObject) && (targObj._instance.tweenID == liveObj.tweenID)) {
-                                        targObj._instance.deepStateCopy(liveObj);
-                                    }
-                                    else
-                                        this.shallowStateCopy(targObj._instance, liveObj);
-                                }
-                                if (targObj.inPlace.x != liveObj.x) {
-                                    tween = new Tween(targObj._instance).to({ x: targObj.inPlace.x }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property:x  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.y != liveObj.y) {
-                                    tween = new Tween(targObj._instance).to({ y: targObj.inPlace.y }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: y  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.scaleX != liveObj.scaleX) {
-                                    tween = new Tween(targObj._instance).to({ scaleX: targObj.inPlace.scaleX }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: scaleX  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.scaleY != liveObj.scaleY) {
-                                    tween = new Tween(targObj._instance).to({ scaleY: targObj.inPlace.scaleY }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: scaleY  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.skewX != liveObj.skewX) {
-                                    tween = new Tween(targObj._instance).to({ skewX: targObj.inPlace.skewX }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: skewX  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.skewY != liveObj.skewY) {
-                                    tween = new Tween(targObj._instance).to({ skewY: targObj.inPlace.skewY }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: skewY  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.regX != liveObj.regX) {
-                                    tween = new Tween(targObj._instance).to({ regX: targObj.inPlace.regX }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: regX  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.regY != liveObj.regY) {
-                                    tween = new Tween(targObj._instance).to({ regY: targObj.inPlace.regY }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: regY  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.rotation != liveObj.rotation) {
-                                    tween = new Tween(targObj._instance).to({ rotation: targObj.inPlace.rotation }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj._instance.name + " property: rotation  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                                if (targObj.inPlace.alpha != liveObj.alpha) {
-                                    tween = new Tween(targObj._instance).to({ alpha: targObj.inPlace.alpha }, this.tTime, Ease.cubicInOut);
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj._instance.name + " property: alpha  in: " + tween.duration + "msecs");
-                                    this.addTween(tween);
-                                }
-                            }
-                            else {
-                                if (targObj._instance.addHTMLControls)
-                                    targObj._instance.addHTMLControls();
-                                if (!(targObj._instance instanceof TObjectMask_1.TObjectMask))
-                                    targObj._instance.alpha = 0;
-                                tween = new Tween(targObj._instance).to({ alpha: targObj.inPlace.alpha }, this.tTime, Ease.cubicInOut);
-                                if (this.traceMode)
-                                    CUtil_11.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj._instance.name + " property: alpha" + " in: " + tween.duration + "msecs");
-                                this.addTween(tween);
-                            }
-                            if (targObj._instance instanceof TObject_4.TObject) {
-                                if (!targObj._instance.hidden)
-                                    targObj._instance.visible = true;
-                                if (targObj._instance.bPersist) {
-                                    this.persistObjs[xname] = targObj._instance;
-                                }
-                                else {
-                                    this.currentObjs.push(new Array(xname, targObj._instance));
-                                }
-                                if (targObj._instance.isSubTweenable()) {
-                                    if (this.traceMode)
-                                        CUtil_11.CUtil.trace("SubTweening : " + targObj._instance.name);
-                                    this.setTransitionIN(objectList[sceneName], namedObj);
-                                }
-                            }
-                            else {
-                                targObj._instance.visible = true;
-                                this.currentObjs.push(new Array(xname, targObj._instance));
-                            }
-                        }
-                    }
-                    this.activeObjs = {};
-                    for (let objRec of this.currentObjs) {
-                        this.activeObjs[objRec[0]] = objRec[1];
-                    }
-                    for (let perObj in this.persistObjs) {
-                        this.activeObjs[this.persistObjs[perObj].xname] = this.persistObjs[perObj];
-                    }
-                    this.tutorAutoObj[this.newScene]._instance.showScene();
-                }
-                changeScene() {
-                    if (this.currScene)
-                        this.tutorAutoObj[this.currScene]._instance.visible = false;
-                    this.tutorAutoObj[this.newScene]._instance.visible = true;
-                    this.currScene = this.newScene;
-                }
-                shallowStateCopy(tar, src) {
-                    tar.x = src.x;
-                    tar.y = src.y;
-                    tar.alpha = src.alpha;
-                }
-                outFinished() {
-                    CUtil_11.CUtil.trace("outFinished");
-                    if (!this.fSingleStep) {
-                        if (this.newScene) {
-                            if (this.tutorAutoObj[this.newScene]._instance.visible == false) {
-                                this.setTransitionIN(this.tutorAutoObj, this.newScene);
-                            }
-                            this.changeScene();
-                            this.startTransition(this.inFinished, this);
-                        }
-                    }
-                    else
-                        this.dispatchEvent(new Event(CEFEvent_4.CEFEvent.CHANGE, false, false));
-                }
-                inFinished() {
-                    CUtil_11.CUtil.trace("inFinished");
-                    this.currScene = this.newScene;
-                    this.dispatchEvent(new Event(CEFEvent_4.CEFEvent.COMPLETE, false, false));
-                }
-            };
-            exports_24("CEFTransitions", CEFTransitions);
-        }
-    };
-});
-System.register("core/CEFNavigator", ["core/CEFTransitions", "events/CEFEvent", "util/CONST", "util/CUtil"], function (exports_25, context_25) {
-    "use strict";
-    var __moduleName = context_25 && context_25.id;
-    var CEFTransitions_1, CEFEvent_5, CONST_2, CUtil_12, Event, EventDispatcher, CEFNavigator;
-    return {
-        setters: [
-            function (CEFTransitions_1_1) {
-                CEFTransitions_1 = CEFTransitions_1_1;
-            },
-            function (CEFEvent_5_1) {
-                CEFEvent_5 = CEFEvent_5_1;
-            },
-            function (CONST_2_1) {
-                CONST_2 = CONST_2_1;
-            },
-            function (CUtil_12_1) {
-                CUtil_12 = CUtil_12_1;
-            }
-        ],
-        execute: function () {
-            Event = createjs.Event;
-            EventDispatcher = createjs.EventDispatcher;
-            CEFNavigator = class CEFNavigator extends EventDispatcher {
-                constructor(_tutorDoc) {
-                    super();
-                    this.traceMode = false;
-                    this.sceneCnt = 0;
-                    this._inNavigation = false;
-                    this.traceMode = true;
-                    this.tutorDoc = _tutorDoc;
-                    this.tutorAutoObj = _tutorDoc.TutAutomator;
-                    this.xitions = new CEFTransitions_1.CEFTransitions(_tutorDoc);
-                }
-                get iteration() {
-                    return "null";
-                }
-                get sceneObj() {
-                    return null;
-                }
-                addScene(SceneTitle, ScenePage, SceneName, SceneClass, ScenePersist, SceneFeatures = "null") {
-                }
-                connectToTutor(parentTutor, autoTutor) {
-                    this.tutorDoc.tutorContainer = parentTutor;
-                    this.tutorDoc.TutAutomator = autoTutor;
-                }
-                get scenePrev() {
-                    return 0;
-                }
-                set scenePrev(scenePrevINT) {
-                }
-                get sceneCurr() {
-                    return 0;
-                }
-                set sceneCurr(sceneCurrINT) {
-                }
-                get sceneCurrINC() {
-                    return 0;
-                }
-                get sceneCurrDEC() {
-                    return 0;
-                }
-                get sceneTitle() {
-                    return new Array();
-                }
-                set sceneTitle(sceneTitleARRAY) {
-                }
-                get sceneSeq() {
-                    return new Array();
-                }
-                set sceneSeq(sceneSeqARRAY) {
-                }
-                get scenePage() {
-                    return new Array();
-                }
-                set scenePage(scenePageARRAY) {
-                }
-                get sceneName() {
-                    return new Array();
-                }
-                set sceneName(sceneSeqARRAY) {
-                }
-                get sceneClass() {
-                    return new Array();
-                }
-                set sceneClass(sceneSeqARRAY) {
-                }
-                get scenePersist() {
-                    return new Array();
-                }
-                set scenePersist(sceneSeqARRAY) {
-                }
-                findSceneOrd(tarScene) {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("findSceneOrd: " + tarScene);
-                    let i1;
-                    let ordScene = 0;
-                    let newScene;
-                    for (i1 = 0; i1 < this.sceneCnt; i1++) {
-                        if (this.sceneSeq[i1] == tarScene) {
-                            ordScene = i1;
-                            break;
-                        }
-                    }
-                    return ordScene;
-                }
-                goToScene(tarScene) {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("Nav To: " + tarScene);
-                    let ordScene = -1;
-                    let newScene = "";
-                    let redScene = "";
-                    if (this._inNavigation)
-                        return;
-                    this._inNavigation = true;
-                    if (this.tutorDoc.fDemo)
-                        this.tutorDoc.fDeferDemoClick = true;
-                    ordScene = this.findSceneOrd(tarScene);
-                    if (ordScene >= 0) {
-                        if (this.traceMode)
-                            CUtil_12.CUtil.trace("Nav GoTo Found: " + tarScene);
-                        this.scenePrev = this.sceneCurr;
-                        if (tarScene == "SdemoScene") {
-                            this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZGOTO", this.sceneCurr);
-                            this.sceneCurr = ordScene;
-                        }
-                        else
-                            switch (redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZGOTO", this.sceneCurr)) {
-                                case CONST_2.CONST.CANCELNAV:
-                                    if (this.tutorDoc.fDemo)
-                                        this.tutorDoc.fDeferDemoClick = false;
-                                    this._inNavigation = false;
-                                    return;
-                                case CONST_2.CONST.OKNAV:
-                                    this.sceneCurr = ordScene;
-                                    break;
-                                default:
-                                    this.sceneCurr = this.findSceneOrd(redScene);
-                            }
-                        for (redScene = this.sceneSeq[this.sceneCurr]; redScene != newScene;) {
-                            if (this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]] == undefined) {
-                                this.tutorDoc.tutorContainer.instantiateScenePath(this.sceneName[this.sceneCurr], this.sceneClass[this.sceneCurr]);
-                            }
-                            newScene = redScene;
-                            redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preEnterScene(this.tutorDoc.tutorContainer, newScene, this.sceneTitle[this.sceneCurr], this.scenePage[this.sceneCurr], "WOZGOTO");
-                            if (redScene == "WOZNEXT") {
-                                this.sceneCurrINC;
-                                redScene = this.sceneSeq[this.sceneCurr];
-                            }
-                            if (redScene == "WOZBACK") {
-                                this.sceneCurrDEC;
-                                redScene = this.sceneSeq[this.sceneCurr];
-                            }
-                            else
-                                this.sceneCurr = this.findSceneOrd(redScene);
-                        }
-                        let logData = { 'navevent': 'navgoto', 'curscene': this.scenePrev, 'newscene': redScene };
-                        this.tutorDoc.log.logNavEvent(logData);
-                        this.tutorDoc.TutAutomator[this.sceneSeq[this.scenePrev]]._instance.onExitScene();
-                        this.tutorDoc.tutorContainer.xitions.addEventListener(CEFEvent_5.CEFEvent.COMPLETE, this.doEnterScene);
-                        this.tutorDoc.tutorContainer.xitions.gotoScene(redScene);
-                    }
-                }
-                onButtonNext(evt) {
-                    this.gotoNextScene("$buttonClick");
-                }
-                recoverState() {
-                }
-                gotoNextScene(source) {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("Nav Next: ");
-                    let newScene;
-                    let redScene = "";
-                    if (this._inNavigation)
-                        return;
-                    this._inNavigation = true;
-                    if (this.tutorDoc.fDemo)
-                        this.tutorDoc.fDeferDemoClick = true;
-                    if (this.sceneCurr < this.sceneCnt) {
-                        if (this.traceMode)
-                            CUtil_12.CUtil.trace("this.scenePrev: " + this.scenePrev + "  - this.sceneCurr: " + this.sceneCurr);
-                        this.scenePrev = this.sceneCurr;
-                        if (this.traceMode)
-                            CUtil_12.CUtil.trace("this.sceneSeq[this.sceneCurr]: " + this.sceneSeq[this.sceneCurr]);
-                        switch (redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZNEXT", this.sceneCurr)) {
-                            case CONST_2.CONST.CANCELNAV:
-                                if (this.tutorDoc.fDemo)
-                                    this.tutorDoc.fDeferDemoClick = false;
-                                this._inNavigation = false;
-                                return;
-                            case CONST_2.CONST.OKNAV:
-                                this.sceneCurrINC;
-                                break;
-                            default:
-                                this.sceneCurr = this.findSceneOrd(redScene);
-                        }
-                        for (redScene = this.sceneSeq[this.sceneCurr]; redScene != newScene;) {
-                            CUtil_12.CUtil.trace(this.sceneSeq[this.sceneCurr]);
-                            CUtil_12.CUtil.trace(this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]);
-                            if (this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]] == undefined) {
-                                this.tutorDoc.tutorContainer.instantiateScenePath(this.sceneName[this.sceneCurr], this.sceneClass[this.sceneCurr]);
-                            }
-                            newScene = redScene;
-                            redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preEnterScene(this.tutorDoc.tutorContainer, newScene, this.sceneTitle[this.sceneCurr], this.scenePage[this.sceneCurr], "WOZNEXT");
-                            if (redScene == "WOZNEXT") {
-                                this.sceneCurrINC;
-                                redScene = this.sceneSeq[this.sceneCurr];
-                            }
-                            if (redScene == "WOZBACK") {
-                                this.sceneCurrDEC;
-                                redScene = this.sceneSeq[this.sceneCurr];
-                            }
-                            else
-                                this.sceneCurr = this.findSceneOrd(redScene);
-                        }
-                        let logData = { 'navevent': 'navnext', 'curscene': this.scenePrev, 'newscene': redScene };
-                        this.tutorDoc.log.logNavEvent(logData);
-                        this.tutorDoc.TutAutomator[this.sceneSeq[this.scenePrev]]._instance.onExitScene();
-                        this.tutorDoc.tutorContainer.xitions.on(CEFEvent_5.CEFEvent.COMPLETE, this.doEnterNext);
-                        this.tutorDoc.tutorContainer.xitions.gotoScene(redScene);
-                    }
-                }
-                onButtonPrev(evt) {
-                    this.gotoPrevScene();
-                }
-                gotoPrevScene() {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("Nav Back: ");
-                    let newScene = "";
-                    let redScene = "";
-                    if (this._inNavigation)
-                        return;
-                    this._inNavigation = true;
-                    if (this.tutorDoc.fDemo)
-                        this.tutorDoc.fDeferDemoClick = true;
-                    if (this.sceneCurr >= 1) {
-                        this.scenePrev = this.sceneCurr;
-                        switch (redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZBACK", this.sceneCurr)) {
-                            case CONST_2.CONST.CANCELNAV:
-                                if (this.tutorDoc.fDemo)
-                                    this.tutorDoc.fDeferDemoClick = false;
-                                this._inNavigation = false;
-                                return;
-                            case CONST_2.CONST.OKNAV:
-                                this.sceneCurrDEC;
-                                break;
-                            default:
-                                this.sceneCurr = this.findSceneOrd(redScene);
-                        }
-                        for (redScene = this.sceneSeq[this.sceneCurr]; redScene != newScene;) {
-                            newScene = redScene;
-                            redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preEnterScene(this.tutorDoc.tutorContainer, newScene, this.sceneTitle[this.sceneCurr], this.scenePage[this.sceneCurr], "WOZBACK");
-                            if (redScene == "WOZNEXT") {
-                                this.sceneCurrINC;
-                                redScene = this.sceneSeq[this.sceneCurr];
-                            }
-                            if (redScene == "WOZBACK") {
-                                this.sceneCurrDEC;
-                                redScene = this.sceneSeq[this.sceneCurr];
-                            }
-                            else
-                                this.sceneCurr = this.findSceneOrd(redScene);
-                        }
-                        let logData = { 'navevent': 'navback', 'curscene': this.scenePrev, 'newscene': redScene };
-                        this.tutorDoc.log.logNavEvent(logData);
-                        this.tutorDoc.TutAutomator[this.sceneSeq[this.scenePrev]]._instance.onExitScene();
-                        this.tutorDoc.tutorContainer.xitions.addEventListener(CEFEvent_5.CEFEvent.COMPLETE, this.doEnterBack);
-                        this.tutorDoc.tutorContainer.xitions.gotoScene(redScene);
-                    }
-                }
-                doEnterNext(evt) {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("this.doEnterNext: ", this.sceneCurr);
-                    this.tutorDoc.tutorContainer.xitions.off(CEFEvent_5.CEFEvent.COMPLETE, this.doEnterNext);
-                    if (!this.scenePersist[this.scenePrev]) {
-                        this.tutorDoc.tutorContainer.destroyScene(this.sceneName[this.scenePrev]);
-                    }
-                    this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.onEnterScene("WOZNEXT");
-                    if (this.tutorDoc.fDemo)
-                        this.tutorDoc.tutorContainer.dispatchEvent(new Event("deferedDemoCheck", false, false));
-                    this._inNavigation = false;
-                }
-                doEnterBack(evt) {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("doEnterBack: ", this.sceneCurr);
-                    this.tutorDoc.tutorContainer.xitions.off(CEFEvent_5.CEFEvent.COMPLETE, this.doEnterBack);
-                    if (!this.scenePersist[this.scenePrev]) {
-                        this.tutorDoc.tutorContainer.destroyScene(this.sceneName[this.scenePrev]);
-                    }
-                    this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.onEnterScene("WOZBACK");
-                    if (this.tutorDoc.fDemo)
-                        this.tutorDoc.tutorContainer.dispatchEvent(new Event("deferedDemoCheck", false, false));
-                    this._inNavigation = false;
-                }
-                doEnterScene(evt) {
-                    if (this.traceMode)
-                        CUtil_12.CUtil.trace("this.doEnterScene: ", this.sceneCurr);
-                    this.tutorDoc.tutorContainer.xitions.off(CEFEvent_5.CEFEvent.COMPLETE, this.doEnterScene);
-                    if (!this.scenePersist[this.scenePrev]) {
-                        this.tutorDoc.tutorContainer.destroyScene(this.sceneName[this.scenePrev]);
-                    }
-                    this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.onEnterScene("WOZGOTO");
-                    if (this.tutorDoc.fDemo)
-                        this.tutorDoc.tutorContainer.dispatchEvent(new Event("deferedDemoCheck", false, false));
-                    this._inNavigation = false;
-                }
-            };
-            exports_25("CEFNavigator", CEFNavigator);
-        }
-    };
-});
-System.register("bkt/CBKTSkill", [], function (exports_26, context_26) {
-    "use strict";
-    var __moduleName = context_26 && context_26.id;
-    var CBKTSkill;
-    return {
-        setters: [],
-        execute: function () {
-            CBKTSkill = class CBKTSkill {
-                constructor(_tutorDoc) {
-                    this.tutorDoc = _tutorDoc;
-                }
-                static factory(_tutorDoc, factory) {
-                    var node = new CBKTSkill(_tutorDoc);
-                    node.Bel = 0;
-                    node.pL = factory.pL;
-                    node.pT = factory.pT;
-                    node.pG = factory.pG;
-                    node.pS = factory.pS;
-                    return node;
-                }
-                updateBelief(ans) {
-                    if (ans == true)
-                        this.Bel = this.calcTRUE();
-                    else
-                        this.Bel = this.calcFALSE();
-                    this.pL = this.updatePrior(this.Bel);
-                }
-                calcTRUE() {
-                    return (this.pL * (1 - this.pS)) / ((this.pL * (1 - this.pS)) + ((1 - this.pL) * this.pG));
-                }
-                calcFALSE() {
-                    return (this.pL * this.pS) / ((this.pL * this.pS) + ((1 - this.pL) * (1 - this.pG)));
-                }
-                updatePrior(Bel) {
-                    return Bel + ((1 - Bel) * this.pT);
-                }
-                queryBelief() {
-                    return this.Bel;
-                }
-            };
-            exports_26("CBKTSkill", CBKTSkill);
-        }
-    };
-});
-System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/CTutorConstraint", "tutorgraph/CTutorAction", "tutorgraph/CTutorModule", "tutorgraph/CTutorModuleGroup", "bkt/CBKTSkill", "util/CUtil"], function (exports_27, context_27) {
-    "use strict";
-    var __moduleName = context_27 && context_27.id;
-    var CTutorNode_4, CTutorConstraint_1, CTutorAction_1, CTutorModule_2, CTutorModuleGroup_1, CBKTSkill_1, CUtil_13, CTutorGraph;
-    return {
-        setters: [
-            function (CTutorNode_4_1) {
-                CTutorNode_4 = CTutorNode_4_1;
-            },
-            function (CTutorConstraint_1_1) {
-                CTutorConstraint_1 = CTutorConstraint_1_1;
-            },
-            function (CTutorAction_1_1) {
-                CTutorAction_1 = CTutorAction_1_1;
-            },
-            function (CTutorModule_2_1) {
-                CTutorModule_2 = CTutorModule_2_1;
-            },
-            function (CTutorModuleGroup_1_1) {
-                CTutorModuleGroup_1 = CTutorModuleGroup_1_1;
-            },
-            function (CBKTSkill_1_1) {
-                CBKTSkill_1 = CBKTSkill_1_1;
-            },
-            function (CUtil_13_1) {
-                CUtil_13 = CUtil_13_1;
-            }
-        ],
-        execute: function () {
-            CTutorGraph = class CTutorGraph extends CTutorNode_4.CTutorNode {
-                constructor(_tutorDoc, factory) {
-                    super(_tutorDoc);
-                    this._nodes = {};
-                    this._modules = {};
-                    this._actions = {};
-                    this._graphs = {};
-                    this._constraints = {};
-                    this._skillSet = {};
-                    this._pFeatures = {};
-                    this._pConstraints = {};
-                    this._factory = factory;
-                }
-                static factory(_tutorDoc, parent, id, factory) {
-                    let tutorgraph = new CTutorGraph(_tutorDoc, factory);
-                    tutorgraph.parseNodes();
-                    tutorgraph.parseConstraints();
-                    tutorgraph.parseSkills();
-                    return tutorgraph;
-                }
-                captureGraph(obj) {
-                    obj['currNodeID'] = this._currNode.id;
-                    obj['currNode'] = this._currNode.captureGraph({});
-                    return obj;
-                }
-                restoreGraph(obj) {
-                    this._currNode = this.findNodeByName(obj['currNodeID']);
-                    this._currScene = this._currNode.restoreGraph(obj['currNode']);
-                    this._prevScene = this._currScene;
-                    return this._currScene;
-                }
-                sceneInstance() {
-                    let objInstance = null;
-                    try {
-                        if (this._currScene) {
-                            objInstance = this.tutorDoc.TutAutomator[this._currScene.scenename]._instance;
-                        }
-                    }
-                    catch (err) {
-                        CUtil_13.CUtil.trace("CONST.sceneInstance: " + err.toString());
-                        objInstance = null;
-                    }
-                    return objInstance;
-                }
-                queryPFeature(pid, size, cycle) {
-                    let iter = 0;
-                    if (this._pFeatures[pid] != undefined) {
-                        iter = this._pFeatures[pid] + 1;
-                        if (iter >= size) {
-                            iter = size - cycle;
-                        }
-                        this._pFeatures[pid] = iter;
-                    }
-                    else
-                        this._pFeatures[pid] = 0;
-                    return iter;
-                }
-                queryPConstraint(pid, size, cycle) {
-                    let iter = 0;
-                    if (this._pConstraints[pid] != undefined) {
-                        iter = this._pConstraints[pid] + 1;
-                        if (iter >= size) {
-                            iter = size - cycle;
-                        }
-                        this._pConstraints[pid] = iter;
-                    }
-                    else
-                        this._pConstraints[pid] = 0;
-                    return iter;
-                }
-                seekTo(nxtScene) {
-                    return null;
-                }
-                seekEnd() {
-                    return null;
-                }
-                applyNode() {
-                    return this._currNode.applyNode();
-                }
-                seekBack() {
-                    return null;
-                }
-                seekRoot() {
-                    this._currNode = this._nodes["root"];
-                }
-                nextScene() {
-                    let nextNode;
-                    if (this._currNode)
-                        do {
-                            this._currScene = this._currNode.nextScene();
-                            if (this._currScene == null) {
-                                nextNode = this._currNode.nextNode();
-                                this._currNode = nextNode;
-                                if (this._currNode != null)
-                                    this._currNode.applyNode();
-                            }
-                            else
-                                this._currScene.incIteration();
-                        } while ((this._currScene == null) && (this._currNode != null));
-                    this._prevScene = this._currScene;
-                    return this._currScene;
-                }
-                parseNodes() {
-                    let nodeList = this._factory.CNodes;
-                    for (let name in nodeList) {
-                        if (!(name.startsWith("COMMENT"))) {
-                            CUtil_13.CUtil.trace("TutorGraph - generating node: " + name);
-                            switch (nodeList[name].type) {
-                                case "action":
-                                    this._nodes[name] = CTutorAction_1.CTutorAction.factory(this.tutorDoc, this, name, this._factory);
-                                    break;
-                                case "module":
-                                    this._nodes[name] = CTutorModule_2.CTutorModule.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
-                                    break;
-                                case "modulegroup":
-                                    this._nodes[name] = CTutorModuleGroup_1.CTutorModuleGroup.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
-                                    break;
-                                case "subgraph":
-                                    break;
-                                case "external":
-                                    break;
-                            }
-                        }
-                    }
-                    return true;
-                }
-                parseConstraints() {
-                    let constFactory = this._factory.CConstraints;
-                    for (let name in constFactory) {
-                        if (!(name.startsWith("COMMENT")))
-                            this._constraints[name] = CTutorConstraint_1.CTutorConstraint.factory(this.tutorDoc, this, constFactory[name]);
-                    }
-                    return true;
-                }
-                recoverSkills(recoveredSkills) {
-                    this._factory.CSkills = recoveredSkills;
-                    return this.parseSkills();
-                }
-                parseSkills() {
-                    let skillsFactory = this._factory.CSkills;
-                    for (let name in skillsFactory) {
-                        if (!(name.startsWith("COMMENT")))
-                            this._skillSet[name] = CBKTSkill_1.CBKTSkill.factory(this.tutorDoc, skillsFactory[name]);
-                    }
-                    this.tutorDoc.ktSkills = this._skillSet;
-                    return true;
-                }
-                findNodeByName(name) {
-                    return this._nodes[name];
-                }
-                findConstraintByName(name) {
-                    return this._constraints[name];
-                }
-                get node() {
-                    return this._currNode;
-                }
-                set node(newNode) {
-                    if (this._currNode != newNode)
-                        this._currNode.resetNode();
-                    this._currNode = newNode;
-                }
-                set scene(seekScene) {
-                    this._currScene = this._currNode.seekToScene(seekScene);
-                }
-            };
-            exports_27("CTutorGraph", CTutorGraph);
-        }
-    };
-});
-System.register("tutorgraph/CTutorScene", [], function (exports_28, context_28) {
-    "use strict";
-    var __moduleName = context_28 && context_28.id;
-    var CTutorScene;
-    return {
-        setters: [],
-        execute: function () {
-            CTutorScene = class CTutorScene {
-                constructor(_tutorDoc, factory, parent) {
-                    this._iteration = 0;
-                    this.tutorDoc = _tutorDoc;
-                    this.tutorContainer = _tutorDoc.tutorContainer;
-                    this._parent = parent;
-                    let namespace = factory.classname.split(".");
-                    this._name = factory.name;
-                    this._classPath = factory.classname;
-                    this._hostModule = factory.hostname || namespace[0];
-                    this._ownerModule = namespace[0];
-                    this._className = namespace[1];
-                    this._title = factory.title;
-                    this._page = factory.page;
-                    this._isAnchor = factory.isanchor || false;
-                    this._copyOf = factory.copyof || "";
-                    this._features = factory.features;
-                    this._enqueue = (factory.enqueue === "true") ? true : false;
-                    this._create = (factory.create === "true") ? true : false;
-                    this._visible = (factory.visible === "true") ? true : false;
-                    this._persist = (factory.persist === "true") ? true : false;
-                    this._checkpnt = (factory.ischeckpnt === "true") ? true : false;
-                    if (factory.$P != undefined) {
-                        this._pid = factory.pid;
-                        this._prob = factory.$P.split('|');
-                        this._cycle = Number(factory.cycle);
-                    }
-                    if (this._create)
-                        this.instantiateScene();
-                }
-                instantiateScene() {
-                    this._scene = this.tutorContainer.instantiateScene(this);
-                    this.features = this._features;
-                }
-                destroyScene() {
-                    this._scene = null;
-                }
-                set features(newFTR) {
-                    this._scene.features = newFTR;
-                }
-                get features() {
-                    if (this._scene != null)
-                        return this._scene.features;
-                    else
-                        return this._features;
-                }
-                get hasPFeature() {
-                    return (this._pid != null);
-                }
-                testPFeature() {
-                    let iter = this._parent.queryPFeature(this._pid, this._prob.length, this._cycle);
-                    let rand = Math.random();
-                    return (rand < this._prob[iter]);
-                }
-                get scenename() {
-                    return this._name;
-                }
-                get classname() {
-                    return this._className;
-                }
-                get classpath() {
-                    return this._classPath;
-                }
-                get ownermodule() {
-                    return this._ownerModule;
-                }
-                get hostmodule() {
-                    return this._hostModule;
-                }
-                get title() {
-                    return this._title;
-                }
-                get isCheckPoint() {
-                    return this._checkpnt;
-                }
-                get page() {
-                    return this._page;
-                }
-                get visible() {
-                    return this._visible;
-                }
-                get isAnchor() {
-                    return this._isAnchor;
-                }
-                get copyOf() {
-                    return this._copyOf;
-                }
-                get persist() {
-                    return this._persist;
-                }
-                get iteration() {
-                    return this._iteration;
-                }
-                incIteration() {
-                    this._iteration++;
-                    return this._iteration;
-                }
-                enumDisplayList() {
-                    this.tutorContainer.enumChildren(this.tutorContainer, 0);
-                }
-            };
-            exports_28("CTutorScene", CTutorScene);
-        }
-    };
-});
-System.register("thermite/TTutorContainer", ["thermite/TRoot", "thermite/TObject", "thermite/TSceneBase", "thermite/TCursorProxy", "thermite/events/TMouseEvent", "core/CEFTimeStamp", "events/CEFEvent", "events/CEFNavEvent", "events/CEFKeyboardEvent", "util/CONST", "util/CUtil"], function (exports_29, context_29) {
-    "use strict";
-    var __moduleName = context_29 && context_29.id;
-    var TRoot_2, TObject_5, TSceneBase_2, TCursorProxy_1, TMouseEvent_2, CEFTimeStamp_1, CEFEvent_6, CEFNavEvent_1, CEFKeyboardEvent_1, CONST_3, CUtil_14, MovieClip, DisplayObjectContainer, Tween, Rectangle, Shape, TTutorContainer;
-    return {
-        setters: [
-            function (TRoot_2_1) {
-                TRoot_2 = TRoot_2_1;
-            },
-            function (TObject_5_1) {
-                TObject_5 = TObject_5_1;
-            },
-            function (TSceneBase_2_1) {
-                TSceneBase_2 = TSceneBase_2_1;
-            },
-            function (TCursorProxy_1_1) {
-                TCursorProxy_1 = TCursorProxy_1_1;
-            },
-            function (TMouseEvent_2_1) {
-                TMouseEvent_2 = TMouseEvent_2_1;
-            },
-            function (CEFTimeStamp_1_1) {
-                CEFTimeStamp_1 = CEFTimeStamp_1_1;
-            },
-            function (CEFEvent_6_1) {
-                CEFEvent_6 = CEFEvent_6_1;
-            },
-            function (CEFNavEvent_1_1) {
-                CEFNavEvent_1 = CEFNavEvent_1_1;
-            },
-            function (CEFKeyboardEvent_1_1) {
-                CEFKeyboardEvent_1 = CEFKeyboardEvent_1_1;
-            },
-            function (CONST_3_1) {
-                CONST_3 = CONST_3_1;
-            },
-            function (CUtil_14_1) {
-                CUtil_14 = CUtil_14_1;
-            }
-        ],
-        execute: function () {
-            MovieClip = createjs.MovieClip;
-            DisplayObjectContainer = createjs.Container;
-            Tween = createjs.Tween;
-            Rectangle = createjs.Rectangle;
-            Shape = createjs.Shape;
-            TTutorContainer = class TTutorContainer extends TRoot_2.TRoot {
-                constructor() {
-                    super();
-                    this.fIntroVideo = false;
-                    this.fCVSIntro = true;
-                    this.fRampsIntro = true;
-                    this.fRampPreTest = false;
-                    this.fFreeResponse = 0;
-                    this.fStepByStep0 = false;
-                    this.fStepByStep1 = false;
-                    this.fEIA = true;
-                    this.fEIB = true;
-                    this.fEIC = true;
-                    this.fSummaryVideo = false;
-                    this.fRampPostTest = true;
-                    this.timeStamp = new CEFTimeStamp_1.CEFTimeStamp;
-                    this.playing = new Array();
-                    this.isPaused = false;
-                    this.scenePtr = new Array;
-                    this.stateStack = new Array();
-                    this.sceneCnt = 0;
-                    this.replayIndex = new Array;
-                    this.replayTime = 0;
-                    this.Running = new Array();
-                    this.runCount = 0;
-                    this.sceneGraph = "<sceneGraph/>";
-                    this.init1();
-                }
-                TTutorContainerInitialize() {
-                    this.TRootInitialize();
-                    this.init1();
-                }
-                initialize() {
-                    this.TRootInitialize();
-                    this.init1();
-                }
-                init1() {
-                    this.traceMode = true;
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("TTutorContainer:Constructor");
-                    this.containerBounds = new Shape();
-                    this.containerBounds.graphics.f("rgba(255,0,0,0)").s("rgba(0,0,0,0)").ss(1, 1, 1).dr(0, 0, 1920, 1200);
-                    this.containerBounds.setTransform(0, 0);
-                    this.timeline.addTween(Tween.get(this.containerBounds).wait(1));
-                    this.nominalBounds = new Rectangle(0, 0, 1920, 1200);
-                }
-                Destructor() {
-                    super.Destructor();
-                }
-                captureLOGState() {
-                    let obj = super.captureLOGState();
-                    return obj;
-                }
-                loadXML(stringSrc) {
-                    super.loadXML(stringSrc);
-                }
-                saveXML() {
-                    let propVector;
-                    return propVector;
-                }
-                captureSceneGraph() {
-                }
-                instantiateScenePath(sceneName, classPath, sceneVisible = false) {
-                    console.error("ERROR: Use of Deprecated Function");
-                    let namespace = classPath.split(".");
-                }
-                instantiateScene(factory) {
-                    let i1;
-                    let tarScene;
-                    let subScene;
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Creating Scene : " + factory.scenename + " : Class : " + factory.classname);
-                    tarScene = CUtil_14.CUtil.instantiateThermiteObject(factory.ownermodule, factory.classname);
-                    tarScene.factory = factory;
-                    tarScene.name = factory.scenename;
-                    tarScene.sceneName = factory.scenename;
-                    tarScene.hostModule = factory.hostmodule;
-                    tarScene.ownerModule = factory.ownermodule;
-                    tarScene.classPath = factory.classname;
-                    tarScene.isAnchor = factory.isAnchor;
-                    tarScene.copyOf = factory.copyOf;
-                    tarScene.navigator = this.tutorDoc.tutorNavigator;
-                    tarScene.tutorDoc = this.tutorDoc;
-                    tarScene.tutorAutoObj = this.tutorAutoObj;
-                    tarScene.visible = false;
-                    try {
-                        CUtil_14.CUtil.mixinCodeSuppliments(tarScene, EFTut_Suppl[factory.hostmodule][CONST_3.CONST.COMMON_CODE], CONST_3.CONST.EXT_SIG);
-                    }
-                    catch (err) {
-                        console.log("Error: missing $Common mixin");
-                    }
-                    try {
-                        CUtil_14.CUtil.mixinCodeSuppliments(tarScene, EFTut_Suppl[factory.hostmodule][factory.scenename], CONST_3.CONST.EXT_SIG);
-                    }
-                    catch (err) {
-                        console.log("Error: missing Scene mixin");
-                    }
-                    CUtil_14.CUtil.initSceneTick(tarScene);
-                    this.addChild(tarScene);
-                    tarScene.connectSceneGraph(factory.hostmodule, factory.scenename);
-                    tarScene.stop();
-                    if (factory.visible) {
-                        this[factory.scenename] = tarScene;
-                        tarScene.visible = true;
-                    }
-                    this.automateScene(factory.scenename, tarScene);
-                    tarScene.addEventListener("Start", this.questionStart);
-                    tarScene.addEventListener("Done", this.questionComplete);
-                    tarScene.addEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVBACK, this.goBackScene);
-                    tarScene.addEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVNEXT, this.goNextScene);
-                    tarScene.addEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVTO, this.goToScene);
-                    for (i1 = 0; i1 < tarScene.numChildren; i1++) {
-                        subScene = tarScene.getChildAt(i1);
-                        if (subScene instanceof MovieClip)
-                            subScene.gotoAndStop(0);
-                    }
-                    return tarScene;
-                }
-                destroyScene(sceneName) {
-                    let sceneObj = this.getChildByName(sceneName);
-                    let wozObj;
-                    if (sceneObj != null) {
-                        sceneObj.removeEventListener("Start", this.questionStart);
-                        sceneObj.removeEventListener("Done", this.questionComplete);
-                        sceneObj.removeEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVBACK, this.goBackScene);
-                        sceneObj.removeEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVNEXT, this.goNextScene);
-                        sceneObj.removeEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVTO, this.goToScene);
-                        if (sceneObj instanceof TObject_5.TObject) {
-                            wozObj = sceneObj;
-                            wozObj.Destructor();
-                        }
-                        this.removeChild(sceneObj);
-                    }
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Destroying Scene : " + sceneName);
-                    if (this.hasOwnProperty(sceneName)) {
-                        this[sceneName] = null;
-                        if (this.tutorAutoObj.hasOwnProperty(sceneName)) {
-                            this.tutorAutoObj[sceneName]._instance = null;
-                            delete this.tutorAutoObj[sceneName];
-                        }
-                    }
-                }
-                automateScene(sceneName, sceneObj, nameObj = true) {
-                    this[sceneName] = sceneObj;
-                    if (nameObj)
-                        this[sceneName].name = sceneName;
-                    this.tutorAutoObj[sceneName] = {};
-                    this.tutorAutoObj[sceneName]._instance = sceneObj;
-                    sceneObj.initAutomation(sceneObj, this.tutorAutoObj[sceneName], "", this.tutorDoc.log, this);
-                    sceneObj.captureDefState(this.tutorAutoObj[sceneName]);
-                    sceneObj.restoreDefState(this.tutorAutoObj[sceneName]);
-                }
-                wozReplay() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace(" wozReplay : ", this.playing.length);
-                    this.wozStopPlay();
-                    dispatchEvent(new Event(CONST_3.CONST.EF_CANCEL));
-                    dispatchEvent(new Event(CONST_3.CONST.EF_REPLAY));
-                }
-                wozStopPlay() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace(" wozStopPlay : ", this.playing.length);
-                    let tCount = this.playing.length;
-                    for (let i1 = 0; i1 < tCount; i1++) {
-                        this.playing.pop();
-                    }
-                }
-                wozPause() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace(" wozPause : ", this.playing.length);
-                    this.isPaused = true;
-                    this.dispatchEvent(new Event(CONST_3.CONST.EF_PAUSING));
-                    for (let i1 = 0; i1 < this.playing.length; i1++) {
-                    }
-                }
-                wozPlay() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace(" wozPlay : ", this.playing.length);
-                    this.isPaused = false;
-                    this.dispatchEvent(new Event(CONST_3.CONST.EF_PLAYING));
-                    for (let i1 = 0; i1 < this.playing.length; i1++) {
-                    }
-                }
-                playRemoveThis(wozObj) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace(" playRemoveThis : ", wozObj.name, this.playing.length);
-                    for (let i1 = 0; i1 < this.playing.length; i1++) {
-                        if (this.playing[i1] == wozObj) {
-                            this.tutorDoc.incStateID();
-                            this.playing.splice(i1, 1);
-                            break;
-                        }
-                    }
-                }
-                playAddThis(wozObj) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace(" playAddThis : ", wozObj.name, this.playing.length);
-                    let fAdd = true;
-                    for (let i1 = 0; i1 < this.playing.length; i1++) {
-                        if (this.playing[i1] == wozObj) {
-                            fAdd = false;
-                            break;
-                        }
-                    }
-                    if (fAdd)
-                        this.playing.push(wozObj);
-                }
-                showPPlay(fShow) {
-                }
-                showReplay(fShow) {
-                }
-                setCursor(sMode) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("switching mouse ownership");
-                    if (this.cCursor) {
-                        this.cCursor.initWOZCursor(sMode);
-                    }
-                }
-                replaceCursor() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Creating Mouse Pointer");
-                    if (!this.cCursor) {
-                        this.cCursor = new TCursorProxy_1.TCursorProxy;
-                        this.cCursor.visible = false;
-                        this.addChild(this.cCursor);
-                    }
-                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZLIVE);
-                    this.cCursor.show(false);
-                }
-                initAutomation() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Init Automation:");
-                    if (this.xitions)
-                        this.xitions.connectToTutor(this, this.tutorAutoObj);
-                }
-                captureDefState(Tutor) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** Start Capture - Walking Scenes***");
-                    for (let scene in Tutor) {
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("\tSCENE : " + scene);
-                        if (scene != "_instance" && Tutor[scene]._instance instanceof TSceneBase_2.TSceneBase) {
-                            Tutor[scene]._instance.captureDefState(Tutor[scene]);
-                        }
-                    }
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** End Capture - Walking Scenes***");
-                }
-                restoreDefState(Tutor) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** Start Restore - Walking Scenes***");
-                    for (let scene in Tutor) {
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("\tSCENE : " + scene);
-                        if (scene != "_instance" && Tutor[scene]._instance instanceof TSceneBase_2.TSceneBase) {
-                            if (this.traceMode)
-                                CUtil_14.CUtil.trace("reseting: " + scene);
-                            Tutor[scene]._instance.restoreDefState(Tutor[scene]);
-                        }
-                    }
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** End Restore - Walking Scenes***");
-                }
-                doPlayBack(pbSource) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** Start - Playback Stream ***");
-                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZREPLAY);
-                    this.cCursor.setCursorStyle("Sautomate");
-                    this.cCursor.setTopMost();
-                    this.cCursor.show(true);
-                    this.cCursor.initPlayBack();
-                    this.stateStack.push(this.baseTime);
-                    this.stateStack.push(this.tutorDoc.stateID);
-                    this.stateStack.push(this.tutorDoc.frameID);
-                    this.stateStack.push(this.tutorDoc.log.fLogging);
-                    this.tutorDoc.log.fLogging = CONST_3.CONST.RECLOGNONE;
-                    this.tutorDoc.log.setPlayBackSource(pbSource);
-                    if (pbSource[0].version == "1") {
-                        this.tutorDoc.log.normalizePlayBackTime();
-                        this.baseTime = CUtil_14.CUtil.getTimer();
-                        addEventListener(CEFEvent_6.CEFEvent.ENTER_FRAME, this.playBackByTime);
-                        if (this.tutorDoc.fDemo) {
-                            this.stage.addEventListener(CEFKeyboardEvent_1.CEFKeyboardEvent.KEY_UP, this.abortPlayBack);
-                            this.stage.addEventListener(TMouseEvent_2.TMouseEvent.CLICK, this.abortPlayBack2);
-                        }
-                    }
-                    else if (pbSource[0].version == "2") {
-                        this.tutorDoc.log.normalizePlayBack();
-                        this.tutorDoc.connectFrameCounter(false);
-                        addEventListener(CEFEvent_6.CEFEvent.ENTER_FRAME, this.playBackByFrame);
-                    }
-                }
-                replayStream(evt) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** Start - Replay Stream ***");
-                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZREPLAY);
-                    this.cCursor.show(true);
-                    this.cCursor.initPlayBack();
-                    this.restoreDefState(this.tutorAutoObj);
-                    this.stateStack.push(this.baseTime);
-                    this.stateStack.push(this.tutorDoc.stateID);
-                    this.stateStack.push(this.tutorDoc.frameID);
-                    this.stateStack.push(this.tutorDoc.log.fLogging);
-                    this.tutorDoc.log.fLogging = CONST_3.CONST.RECLOGNONE;
-                    this.tutorDoc.log.setPlayBackSource(null);
-                    this.tutorDoc.log.normalizePlayBack();
-                    this.tutorDoc.connectFrameCounter(false);
-                    this.SnavPanel.goToScene("Sscene0");
-                    addEventListener(CEFEvent_6.CEFEvent.ENTER_FRAME, this.playBackByFrame);
-                }
-                replayLiveStream() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\t*** Start - Replay Live Stream ***");
-                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZREPLAY);
-                    this.cCursor.setCursorStyle("Sautomate");
-                    this.cCursor.setTopMost();
-                    this.cCursor.show(true);
-                    this.cCursor.initPlayBack();
-                    this.restoreDefState(this.tutorAutoObj);
-                    this.stateStack.push(this.baseTime);
-                    this.stateStack.push(this.tutorDoc.stateID);
-                    this.stateStack.push(this.tutorDoc.frameID);
-                    this.stateStack.push(this.tutorDoc.log.fLogging);
-                    this.tutorDoc.log.fLogging = CONST_3.CONST.RECLOGNONE;
-                    this.tutorDoc.log.setPlayBackSource(null);
-                    this.tutorDoc.log.normalizePlayBack();
-                    this.tutorDoc.connectFrameCounter(false);
-                    this.SnavPanel.goToScene("SstartSplash");
-                    addEventListener(CEFEvent_6.CEFEvent.ENTER_FRAME, this.playBackByFrame);
-                }
-                abortPlayBack(evt) {
-                    this.tutorDoc.log.setPlayBackDone(true);
-                    dispatchEvent(new Event("interruptPlayBack"));
-                }
-                abortPlayBack2(evt) {
-                    this.tutorDoc.log.setPlayBackDone(true);
-                    dispatchEvent(new Event("interruptPlayBack"));
-                }
-                playBackByFrame(evt) {
-                    let wozEvt = null;
-                    let nextEventState;
-                    if (this.tutorDoc.log.playBackDone()) {
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("-- Playback Completed -- ");
-                        removeEventListener(CEFEvent_6.CEFEvent.ENTER_FRAME, this.playBackByFrame);
-                        this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZLIVE);
-                        this.cCursor.setCursorStyle("Sstandard");
-                        this.cCursor.show(false);
-                        dispatchEvent(new Event("endPlayBack"));
-                        this.tutorDoc.log.fLogging = this.stateStack.pop();
-                        this.tutorDoc.frameID = this.stateStack.pop();
-                        this.tutorDoc.stateID = this.stateStack.pop();
-                        this.baseTime = this.stateStack.pop();
-                        this.tutorDoc.connectFrameCounter(true);
-                    }
-                    else {
-                        nextEventState = this.tutorDoc.log.getNextEventState();
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("this.tutorDoc.stateID: " + this.tutorDoc.stateID + "  - nextEventState:" + nextEventState);
-                        {
-                            do {
-                                wozEvt = this.tutorDoc.log.getNextEvent(this.tutorDoc.stateID, this.tutorDoc.frameID);
-                                if (wozEvt != null) {
-                                    if (this.traceMode)
-                                        CUtil_14.CUtil.trace("-- Executing Frame:" + this.tutorDoc.frameID + " -- EVT -- " + wozEvt);
-                                    this.cCursor.playBackAction(wozEvt);
-                                }
-                            } while (wozEvt != null);
-                            this.tutorDoc.incFrameID();
-                        }
-                    }
-                }
-                playBackByTime(evt) {
-                    let frameTime = CUtil_14.CUtil.getTimer() - this.baseTime;
-                    let wozEvt;
-                    do {
-                        wozEvt = this.tutorDoc.log.getActionEvent(frameTime);
-                        if (wozEvt != null) {
-                            this.cCursor.playBackAction(wozEvt);
-                            if (this.traceMode)
-                                CUtil_14.CUtil.trace("-- Executing Frame:" + frameTime + " -- EVT -- " + wozEvt);
-                        }
-                    } while (wozEvt != null);
-                    wozEvt = this.tutorDoc.log.getMoveEvent(frameTime);
-                    if (wozEvt != null)
-                        this.cCursor.playBackMove(wozEvt, frameTime);
-                    if (this.tutorDoc.log.playBackDone()) {
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("-- Playback Completed -- ");
-                        removeEventListener(CEFEvent_6.CEFEvent.ENTER_FRAME, this.playBackByTime);
-                        this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZLIVE);
-                        this.cCursor.setCursorStyle("Sstandard");
-                        this.cCursor.show(false);
-                        dispatchEvent(new Event("endPlayBack"));
-                        this.tutorDoc.log.fLogging = this.stateStack.pop();
-                        this.tutorDoc.frameID = this.stateStack.pop();
-                        this.tutorDoc.stateID = this.stateStack.pop();
-                        this.baseTime = this.stateStack.pop();
-                        this.tutorDoc.connectFrameCounter(true);
-                        if (this.tutorDoc.fDemo) {
-                            this.stage.removeEventListener(CEFKeyboardEvent_1.CEFKeyboardEvent.KEY_UP, this.abortPlayBack);
-                            this.stage.removeEventListener(TMouseEvent_2.TMouseEvent.CLICK, this.abortPlayBack2);
-                        }
-                    }
-                }
-                dumpScenes(Tutor) {
-                    for (let scene in Tutor) {
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("\tSCENE : " + scene);
-                        if (scene != "_instance" && Tutor[scene]._instance instanceof TObject_5.TObject) {
-                            if (this.traceMode)
-                                CUtil_14.CUtil.trace("\tCEF***");
-                            Tutor[scene]._instance.dumpSceneObjs(Tutor[scene]);
-                        }
-                    }
-                }
-                enumScenes() {
-                    let sceneObj;
-                    for (let i1 = 0; i1 < this.numChildren; i1++) {
-                        sceneObj = this.getChildAt(i1);
-                        CUtil_14.CUtil.trace(sceneObj.name + " is visible : " + ((sceneObj.visible) ? " true" : " false"));
-                    }
-                }
-                enumChildren(scene, indentCnt) {
-                    let sceneObj;
-                    let indent = "";
-                    for (let i2 = 0; i2 < indentCnt; i2++)
-                        indent += "\t";
-                    for (let i1 = 0; i1 < scene.numChildren; i1++) {
-                        sceneObj = scene.getChildAt(i1);
-                        CUtil_14.CUtil.trace(indent + sceneObj.name + " is visible : " + ((sceneObj.visible) ? " true" : " false") + " -alpha : " + sceneObj.alpha.toString() + "- x : " + sceneObj.x.toString() + " -y : " + sceneObj.y.toString() + " -width : " + sceneObj.width.toString() + " -height : " + sceneObj.height.toString());
-                        if (sceneObj instanceof DisplayObjectContainer)
-                            this.enumChildren(sceneObj, indentCnt + 1);
-                    }
-                }
-                showNext(fshow) {
-                }
-                enableNext(fEnable) {
-                }
-                enableBack(fEnable) {
-                }
-                questionStart(evt) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Start of Question: ");
-                }
-                questionComplete(evt) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Question Complete: ");
-                }
-                goBackScene(evt) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Force Decrement Question: ");
-                    this.SnavPanel.onButtonPrev(null);
-                }
-                goNextScene(evt) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Force Increment Question: ");
-                    this.SnavPanel.gotoNextScene();
-                }
-                goToScene(evt) {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("Force Increment Question: ");
-                    this.SnavPanel.goToScene(evt.wozNavTarget);
-                }
-                dumpTutors() {
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("\n*** Start root dump ALL tutors ***");
-                    for (let tutor of this.tutorAutoObj) {
-                        if (this.traceMode)
-                            CUtil_14.CUtil.trace("TUTOR : " + tutor);
-                        if (this.tutorAutoObj[tutor]._instance instanceof TTutorContainer) {
-                            if (this.traceMode)
-                                CUtil_14.CUtil.trace("CEF***");
-                            this.tutorAutoObj[tutor]._instance.dumpScenes(this.tutorAutoObj[tutor]);
-                        }
-                    }
-                    if (this.traceMode)
-                        CUtil_14.CUtil.trace("*** End root dump tutor structure ***");
-                }
-            };
-            exports_29("TTutorContainer", TTutorContainer);
-        }
-    };
-});
-System.register("events/CEFActionEvent", [], function (exports_30, context_30) {
-    "use strict";
-    var __moduleName = context_30 && context_30.id;
-    var Event, CEFActionEvent;
-    return {
-        setters: [],
-        execute: function () {
-            Event = createjs.Event;
-            CEFActionEvent = class CEFActionEvent extends Event {
-                constructor(type, Prop1, Prop2 = null, Prop3 = null, Prop4 = null, Prop5 = null, bubbles = false, cancelable = false) {
-                    super(type, bubbles, cancelable);
-                    this.prop1 = Prop1;
-                    this.prop2 = Prop2;
-                    this.prop3 = Prop3;
-                    this.prop4 = Prop4;
-                    this.prop5 = Prop5;
-                }
-                clone() {
-                    return new CEFActionEvent(this.type, this.prop1, this.prop2, this.prop3, this.prop4, this.prop5, this.bubbles, this.cancelable);
-                }
-            };
-            CEFActionEvent.CHKCMD = "chkcmd";
-            CEFActionEvent.STCCMD = "stccmd";
-            CEFActionEvent.INDCMD = "indcmd";
-            CEFActionEvent.RMPCMD = "rmpcmd";
-            CEFActionEvent.PMTCMD = "pmtcmd";
-            CEFActionEvent.NAVCMD = "navcmd";
-            CEFActionEvent.EFFECT = "effect";
-            exports_30("CEFActionEvent", CEFActionEvent);
-        }
-    };
-});
-System.register("events/CEFScriptEvent", [], function (exports_31, context_31) {
-    "use strict";
-    var __moduleName = context_31 && context_31.id;
-    var Event, CEFScriptEvent;
-    return {
-        setters: [],
-        execute: function () {
-            Event = createjs.Event;
-            CEFScriptEvent = class CEFScriptEvent extends Event {
-                constructor(type, _script, bubbles = false, cancelable = false) {
-                    super(type, bubbles, cancelable);
-                    this.script = _script;
-                }
-                clone() {
-                    return new CEFScriptEvent(this.type, this.script, this.bubbles, this.cancelable);
-                }
-            };
-            CEFScriptEvent.SCRIPT = "script";
-            exports_31("CEFScriptEvent", CEFScriptEvent);
-        }
-    };
-});
-System.register("events/CEFSeekEvent", ["util/CUtil"], function (exports_32, context_32) {
-    "use strict";
-    var __moduleName = context_32 && context_32.id;
-    var Event, CUtil_15, CEFSeekEvent;
-    return {
-        setters: [
-            function (CUtil_15_1) {
-                CUtil_15 = CUtil_15_1;
-            }
-        ],
-        execute: function () {
-            Event = createjs.Event;
-            CEFSeekEvent = class CEFSeekEvent extends Event {
-                constructor(type, SeekSeq, bubbles = false, cancelable = false) {
-                    super(type, bubbles, cancelable);
-                    this.wozSeekSeq = SeekSeq;
-                }
-                clone() {
-                    CUtil_15.CUtil.trace("cloning CEFSeekEvent:");
-                    return new CEFSeekEvent(this.type, this.wozSeekSeq, this.bubbles, this.cancelable);
-                }
-            };
-            CEFSeekEvent.SEEKFORWARD = "WOZSEEKF";
-            CEFSeekEvent.SEEKBACKWARD = "WOZSEEKB";
-            exports_32("CEFSeekEvent", CEFSeekEvent);
-        }
-    };
-});
-System.register("scenegraph/IAudioTypes", [], function (exports_33, context_33) {
-    "use strict";
-    var __moduleName = context_33 && context_33.id;
+    var __moduleName = context_8 && context_8.id;
     return {
         setters: [],
         execute: function () {
         }
     };
 });
-System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorContainer", "util/CONST", "util/CUtil"], function (exports_34, context_34) {
+System.register("events/CEFSceneCueEvent", ["util/CUtil"], function (exports_9, context_9) {
     "use strict";
-    var __moduleName = context_34 && context_34.id;
-    var TObject_6, TTutorContainer_1, CONST_4, CUtil_16, DisplayObject, TSceneBase;
+    var __moduleName = context_9 && context_9.id;
+    var Event, CUtil_4, CEFSceneCueEvent;
     return {
         setters: [
-            function (TObject_6_1) {
-                TObject_6 = TObject_6_1;
-            },
-            function (TTutorContainer_1_1) {
-                TTutorContainer_1 = TTutorContainer_1_1;
-            },
-            function (CONST_4_1) {
-                CONST_4 = CONST_4_1;
-            },
-            function (CUtil_16_1) {
-                CUtil_16 = CUtil_16_1;
-            }
-        ],
-        execute: function () {
-            DisplayObject = createjs.DisplayObject;
-            TSceneBase = class TSceneBase extends TObject_6.TObject {
-                constructor() {
-                    super();
-                    this.fComplete = false;
-                    this.sceneAttempt = 1;
-                    this._nextButton = null;
-                    this._prevButton = null;
-                    this.NDX_RAWTEMPLATE = 0;
-                    this.NDX_RAWSELECTOR = 1;
-                    this.NDX_SELECTORSIG = 2;
-                    this.NDX_SELECTOR = 3;
-                    this.NDX_OBJSELECTOR = 4;
-                    this.NDX_PROPSELECTOR = 5;
-                    this.init3();
-                }
-                TSceneBaseInitialize() {
-                    this.TObjectInitialize.call(this);
-                    this.init3();
-                }
-                initialize() {
-                    this.TObjectInitialize.call(this);
-                    this.init3();
-                }
-                init3() {
-                    this.traceMode = true;
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("TSceneBase:Constructor");
-                    this.sceneState = {};
-                    this.RX_SELECTOR = /(\$EF\w*?_)(.*)/;
-                    this.RX_TEMPLATES = /\{\{[^\}]*\}\}/g;
-                    this.RX_TEMPLTAGS = /\{\{|\}\}/g;
-                    this.RX_TEMPLATE = /{{[\$\w\.\?_\|]*}}/;
-                    this.RX_ONTQUERY = /{{\$EFO_([\w\.\?]*\|\w*)}}/;
-                    this.RX_GENSELECTOR = /{{((\$EF\w*?_)(([\w_\.\?]*)(\|?([\w_\?]*))*))}}/g;
-                    this.RX_GENTEMPLATE = /\{\{((\$EF\w*?_)(([\w_\?]*)\|([\w_\?]*)))\}\}/g;
-                    this.NDX_RAWTEMPLATE = 0;
-                    this.NDX_RAWSELECTOR = 1;
-                    this.NDX_SELECTORSIG = 2;
-                    this.NDX_SELECTOR = 3;
-                    this.NDX_OBJSELECTOR = 4;
-                    this.NDX_PROPSELECTOR = 5;
-                }
-                onCreate() {
-                    try {
-                        this.moduleData = this.tutorDoc.moduleData[this.hostModule][CONST_4.CONST.SCENE_DATA];
-                        this.sceneData = this.moduleData[this.sceneName];
-                        this.tutorNavigator = this.tutorDoc.tutorNavigator;
-                        this.tutorDoc.sceneState[this.name] = {};
-                        this.tutorDoc.moduleState[this.hostModule] = this.tutorDoc.moduleState[this.hostModule] || {};
-                        this.tutorDoc.tutorState = this.tutorDoc.tutorState || {};
-                        this.tutorDoc.sceneChange[this.sceneName] = {};
-                        this.tutorDoc.moduleChange[this.hostModule] = this.tutorDoc.moduleChange[this.hostModule] || {};
-                        this.tutorDoc.tutorChange = this.tutorDoc.tutorChange || {};
-                        let dataElement;
-                        this.$preCreateScene();
-                        for (let element in this.sceneData) {
-                            dataElement = this.sceneData[element];
-                            if (this[element] && this[element].deSerializeObj) {
-                                this[element].setContext(this.hostModule, this.ownerModule, this);
-                                this[element].deSerializeObj(dataElement);
-                                this[element].onCreate();
-                            }
-                            else {
-                                console.log(`Error: ObjData mismatch: Module-${this.hostModule}  Scene-${this.sceneName}  Element-${element}`);
-                            }
-                        }
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace(`Error in TSceneBase onCreate: ${this.sceneName} -- ${error}`);
-                    }
-                }
-                initUI() {
-                }
-                setBreadCrumbs(text) {
-                    this.tutorDoc.setBreadCrumbs(text);
-                }
-                enableNext(fEnable) {
-                    this.tutorDoc.enableNext(fEnable);
-                }
-                enableBack(fEnable) {
-                    this.tutorDoc.enableBack(fEnable);
-                }
-                setNavMode(navMode, navTarget) {
-                    this.tutorDoc.setNavMode(navMode, navTarget);
-                }
-                setSceneValue(property, value) {
-                    this.setStateValue(property, value, CONST_4.CONST.SCENESTATE);
-                }
-                setModuleValue(property, value) {
-                    this.setStateValue(property, value, CONST_4.CONST.MODULESTATE);
-                }
-                setTutorValue(property, value) {
-                    this.setStateValue(property, value, CONST_4.CONST.TUTORSTATE);
-                }
-                setStateValue(property, value, target = CONST_4.CONST.MODULESTATE) {
-                    switch (target) {
-                        case CONST_4.CONST.SCENESTATE:
-                            this.tutorDoc.assignProperty(this.tutorDoc.sceneState[this.name], property, value);
-                            this.tutorDoc.sceneChange[this.name][property] = true;
-                            break;
-                        case CONST_4.CONST.MODULESTATE:
-                            this.tutorDoc.assignProperty(this.tutorDoc.moduleState[this.hostModule], property, value);
-                            this.tutorDoc.moduleChange[this.hostModule][property] = true;
-                            break;
-                        case CONST_4.CONST.TUTORSTATE:
-                            this.tutorDoc.assignProperty(this.tutorDoc.tutorState, property, value);
-                            this.tutorDoc.tutorChange[property] = true;
-                            break;
-                    }
-                }
-                getRawSceneValue(property) {
-                    return this.getRawStateValue(property, CONST_4.CONST.SCENESTATE);
-                }
-                getRawModuleValue(property) {
-                    return this.getRawStateValue(property, CONST_4.CONST.MODULESTATE);
-                }
-                getRawTutorValue(property) {
-                    return this.getRawStateValue(property, CONST_4.CONST.TUTORSTATE);
-                }
-                getRawStateValue(property, target = CONST_4.CONST.MODULESTATE) {
-                    let prop;
-                    switch (target) {
-                        case CONST_4.CONST.SCENESTATE:
-                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.sceneState[this.name], property);
-                            break;
-                        case CONST_4.CONST.MODULESTATE:
-                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.moduleState[this.hostModule], property);
-                            break;
-                        case CONST_4.CONST.TUTORSTATE:
-                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.tutorState, property);
-                            break;
-                    }
-                    return prop;
-                }
-                getSceneValue(property) {
-                    return this.getStateValue(property, CONST_4.CONST.SCENESTATE);
-                }
-                getModuleValue(property) {
-                    return this.getStateValue(property, CONST_4.CONST.MODULESTATE);
-                }
-                getTutorValue(property) {
-                    return this.getStateValue(property, CONST_4.CONST.TUTORSTATE);
-                }
-                getStateValue(property, target = CONST_4.CONST.MODULESTATE) {
-                    let prop;
-                    prop = this.getRawStateValue(property, target);
-                    prop = this.resolveTemplates(prop, null);
-                    return prop;
-                }
-                querySceneChange(property) {
-                    return this.queryValueChanged(property, CONST_4.CONST.SCENESTATE);
-                }
-                queryModuleChange(property) {
-                    return this.queryValueChanged(property, CONST_4.CONST.MODULESTATE);
-                }
-                queryTutorChange(property) {
-                    return this.queryValueChanged(property, CONST_4.CONST.TUTORSTATE);
-                }
-                queryValueChanged(property, target = CONST_4.CONST.MODULESTATE) {
-                    let prop;
-                    prop = this.getRawStateValue(property, target);
-                    return prop.changed;
-                }
-                testSceneValue(property, value) {
-                    return this.testStateValue(property, value, CONST_4.CONST.SCENESTATE);
-                }
-                testModuleValue(property, value) {
-                    return this.testStateValue(property, value, CONST_4.CONST.MODULESTATE);
-                }
-                testTutorValue(property, value) {
-                    return this.testStateValue(property, value, CONST_4.CONST.TUTORSTATE);
-                }
-                testStateValue(property, value, target = CONST_4.CONST.MODULESTATE) {
-                    let result = false;
-                    let prop;
-                    prop = this.getRawStateValue(property, target);
-                    result = prop === value;
-                    return result;
-                }
-                querySceneProp(property) {
-                    return this.queryStateProp(property, CONST_4.CONST.SCENESTATE);
-                }
-                queryModuleProp(property) {
-                    return this.queryStateProp(property, CONST_4.CONST.MODULESTATE);
-                }
-                queryTutorProp(property) {
-                    return this.queryStateProp(property, CONST_4.CONST.TUTORSTATE);
-                }
-                queryStateProp(property, target = CONST_4.CONST.MODULESTATE) {
-                    let prop;
-                    let valid = null;
-                    for (let i1 = 0; i1 < property.length; i1++) {
-                        prop = this.getRawStateValue(property[i1], target);
-                        valid = prop;
-                        if (!valid)
-                            break;
-                    }
-                    return valid ? true : false;
-                }
-                resolveTemplates(sourceStr, templateRef) {
-                    let result = sourceStr;
-                    let templArray;
-                    templArray = this.enumerateTemplates(this.RX_GENSELECTOR, sourceStr);
-                    if (templArray.length > 0) {
-                        result = this.composeScript(sourceStr, templArray, templateRef);
-                    }
-                    else {
-                        result = this.resolveSelector(sourceStr, templateRef) || sourceStr;
-                    }
-                    return result;
-                }
-                enumerateTemplates(regex, text) {
-                    let templArray = [];
-                    let templ;
-                    while ((templ = regex.exec(text)) !== null) {
-                        templArray.push(templ);
-                        templ.endIndex = regex.lastIndex;
-                    }
-                    return templArray;
-                }
-                composeScript(inst, templArray, templateRef) {
-                    let start = 0;
-                    let end = inst.length;
-                    let composition = "";
-                    if (templArray.length) {
-                        start = 0;
-                        for (let templ of templArray) {
-                            end = templ.index;
-                            if (start < end) {
-                                if (start > 0)
-                                    composition += " ";
-                                composition += inst.substring(start, end);
-                            }
-                            start = templ.index;
-                            end = templ.endIndex;
-                            if (start > 0)
-                                composition += " ";
-                            composition += this.resolveSelector(templ[this.NDX_RAWSELECTOR], templateRef);
-                            start = end;
-                        }
-                    }
-                    end = inst.length;
-                    if (start < end) {
-                        if (start > 0)
-                            composition += " ";
-                        composition += inst.substring(start, end);
-                    }
-                    return composition;
-                }
-                resolveSelector(selector, templateRef, targetThis = null) {
-                    let result = null;
-                    let selectorVal = this.RX_SELECTOR.exec(selector);
-                    if (selectorVal) {
-                        result = this.resolveRawSelector(selector, templateRef, targetThis);
-                        switch (selectorVal[1]) {
-                            case CONST_4.CONST.SCENESTATE_SELECTOR:
-                            case CONST_4.CONST.MODULESTATE_SELECTOR:
-                            case CONST_4.CONST.TUTORSTATE_SELECTOR:
-                                if (selector !== result)
-                                    result = this.resolveSelector(result, null);
-                                break;
-                        }
-                    }
-                    return result;
-                }
-                resolveRawSelector(selector, templateRef, targetThis = null) {
-                    let dataPath;
-                    let result = null;
-                    let selectorVal = this.RX_SELECTOR.exec(selector);
-                    if (selectorVal) {
-                        switch (selectorVal[1]) {
-                            case CONST_4.CONST.MODULEONTOLOGY_SELECTOR:
-                                result = this.resolveOntologyObject(selectorVal[2], this.tutorDoc.moduleData[this.hostModule][CONST_4.CONST.SCENE_DATA]._ONTOLOGY, templateRef);
-                                break;
-                            case CONST_4.CONST.GLOBALONTOLOGY_SELECTOR:
-                                result = this.resolveOntologyObject(selectorVal[2], this.tutorDoc.globalData._ONTOLOGY, templateRef);
-                                break;
-                            case CONST_4.CONST.TRACK_SELECTOR:
-                                result = targetThis[selectorVal[2]];
-                                break;
-                            case CONST_4.CONST.SCENESTATE_SELECTOR:
-                                result = this.getRawStateValue(selectorVal[2], CONST_4.CONST.SCENESTATE);
-                                break;
-                            case CONST_4.CONST.MODULESTATE_SELECTOR:
-                                result = this.getRawStateValue(selectorVal[2], CONST_4.CONST.MODULESTATE);
-                                break;
-                            case CONST_4.CONST.TUTORSTATE_SELECTOR:
-                                result = this.getRawStateValue(selectorVal[2], CONST_4.CONST.TUTORSTATE);
-                                break;
-                            case CONST_4.CONST.FOREIGNMODULE_SELECTOR:
-                                dataPath = selectorVal[2].split(".");
-                                let forMod = this.tutorDoc.moduleData[dataPath[1]];
-                                if (!forMod) {
-                                    console.log("Error: module for Foreign-Reference missing!");
-                                    throw ("missing module");
-                                }
-                                result = forMod[CONST_4.CONST.SCENE_DATA]._LIBRARY[dataPath[2]][dataPath[3]];
-                                break;
-                            case CONST_4.CONST.MODULELIBRARY_SELECTOR:
-                                result = this.resolveObject(this.tutorDoc.moduleData[this.hostModule][CONST_4.CONST.SCENE_DATA]._LIBRARY, selectorVal[2]);
-                                break;
-                            case CONST_4.CONST.GLOBALLIBRARY_SELECTOR:
-                                break;
-                        }
-                    }
-                    return result;
-                }
-                resolveObject(baseObj, objPath) {
-                    let dataPath = objPath.split(".");
-                    try {
-                        dataPath.forEach((element) => {
-                            baseObj = baseObj[element];
-                        });
-                    }
-                    catch (err) {
-                        console.log("Object Resolution Error: " + err);
-                    }
-                    return baseObj;
-                }
-                resolveOntologyObject(oSelector, ontologyRoot, templateRef) {
-                    let result = oSelector;
-                    let ontologyPath = [];
-                    if (oSelector) {
-                        this.resolveOntologyKey(oSelector, templateRef);
-                        let vArray = oSelector.split("|");
-                        let qArray = vArray[0].split("_");
-                        for (let index = 0; index < qArray.length; index++) {
-                            let pathEl = qArray[index].includes("?") ? this._ontologyKey[index] : qArray[index];
-                            ontologyPath.push(pathEl);
-                            ontologyRoot = ontologyRoot[pathEl];
-                        }
-                        this._ontologyPath = ontologyPath.join("_");
-                        if (vArray[1]) {
-                            result = ontologyRoot[vArray[1]];
-                            this._ontologyPath += "|" + vArray[1];
-                        }
-                        else {
-                            result = ontologyRoot;
-                        }
-                    }
-                    return result;
-                }
-                addFeaturebyQuery(_selector, _name) {
-                    let value = this.resolveOntologyObject(_selector, this.tutorDoc.moduleData[this.hostModule][CONST_4.CONST.SCENE_DATA]._ONTOLOGY, "");
-                    this.addFeature(value, _name);
-                }
-                effectHandler(evt) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Effect Event: " + evt);
-                    this[evt.prop1](evt.prop2, evt.prop3, evt.prop4, evt.prop5);
-                }
-                scriptHandler(evt) {
-                    var fTest = true;
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Effect Event: " + evt);
-                    if (evt.script.features != undefined) {
-                        fTest = this.tutorDoc.tutorContainer.testFeatureSet(String(evt.script.features));
-                    }
-                    if (fTest)
-                        this.parseOBJ(this, evt.script.children(), "script");
-                }
-                logSceneTag() {
-                    return { 'scenetag': this.sceneTag, 'attempt': this.sceneAttempt++ };
-                }
-                initAutomation(_parentScene, sceneAutoObj, ObjIdRef, lLogger, lTutor) {
-                    let propName;
-                    let childName;
-                    let childObj;
-                    let wozObj;
-                    this.onCreate();
-                    let nonTObj = Object.getOwnPropertyNames(_parentScene);
-                    for (propName of nonTObj) {
-                        childObj = _parentScene[propName];
-                        if (childObj instanceof TTutorContainer_1.TTutorContainer)
-                            continue;
-                        if (childObj instanceof TObject_6.TObject) {
-                            childObj.parentScene = _parentScene;
-                            childObj.measure();
-                        }
-                        if (childObj instanceof DisplayObject) {
-                            if (!childObj.xname || childObj.xname.startsWith(CONST_4.CONST.XNAME_SIG)) {
-                                if (this.isAnchor) {
-                                    childObj.xname = this.name + (childObj.name ? childObj.name : childObj.id);
-                                }
-                                else if (this.copyOf && this.copyOf !== "") {
-                                    childObj.xname = this.copyOf + (childObj.name ? childObj.name : childObj.id);
-                                }
-                            }
-                            if (childObj.name)
-                                childName = childObj.name;
-                            else
-                                childName = propName;
-                            sceneAutoObj[childName] = {};
-                            sceneAutoObj[childName]._instance = childObj;
-                            sceneAutoObj[childName].inPlace = childObj._cloneProps({});
-                            if (this.traceMode)
-                                CUtil_16.CUtil.trace("\t\tTScene found subObject named:" + childName + " ... in-place: ");
-                            if (childObj instanceof TObject_6.TObject) {
-                                wozObj = childObj;
-                                wozObj.initAutomation(_parentScene, sceneAutoObj[childName], name + ".", lLogger, lTutor);
-                            }
-                            if (this.traceMode)
-                                for (var id in sceneAutoObj[childName].inPlace) {
-                                    CUtil_16.CUtil.trace("\t\t\t\t" + id + " : " + sceneAutoObj[childName].inPlace[id]);
-                                }
-                        }
-                    }
-                    this.$onCreateScene();
-                    this.$updateNav();
-                }
-                captureDefState(TutScene) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("\t*** Start Capture - Walking Top Level Objects***");
-                    for (var sceneObj in TutScene) {
-                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_6.TObject) {
-                            if (this.traceMode)
-                                CUtil_16.CUtil.trace("capturing: " + TutScene[sceneObj]._instance.name);
-                            TutScene[sceneObj]._instance.captureDefState(TutScene[sceneObj]);
-                        }
-                    }
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("\t*** End Capture - Walking Top Level Objects***");
-                }
-                restoreDefState(TutScene) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("\t*** Start Restore - Walking Top Level Objects***");
-                    for (var sceneObj in TutScene) {
-                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_6.TObject) {
-                            if (this.traceMode)
-                                CUtil_16.CUtil.trace("restoring: " + TutScene[sceneObj]._instance.name);
-                            TutScene[sceneObj]._instance.restoreDefState(TutScene[sceneObj]);
-                        }
-                    }
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("\t*** End Restore - Walking Top Level Objects***");
-                }
-                setObjMode(TutScene, sMode) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("\t*** Start - Walking Top Level Objects***");
-                    for (var sceneObj in TutScene) {
-                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_6.TObject) {
-                            TutScene[sceneObj]._instance.setAutomationMode(TutScene[sceneObj], sMode);
-                        }
-                    }
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("\t*** End - Walking Top Level Objects***");
-                }
-                dumpSceneObjs(TutScene) {
-                    for (var sceneObj in TutScene) {
-                        if (this.traceMode)
-                            CUtil_16.CUtil.trace("\tSceneObj : " + sceneObj);
-                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_6.TObject) {
-                            if (this.traceMode)
-                                CUtil_16.CUtil.trace("\tCEF***");
-                            TutScene[sceneObj]._instance.dumpSubObjs(TutScene[sceneObj], "\t");
-                        }
-                    }
-                }
-                handleEvent(target) {
-                    this.$handleEvent(target);
-                    this.$updateNav();
-                }
-                onSelect(target) {
-                    this.$onSelect(target);
-                    this.$updateNav();
-                }
-                onAction(target, evt) {
-                    this.$onAction(target, evt);
-                    this.$updateNav();
-                }
-                sceneReplay(evt) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("sceneReplay: " + evt);
-                    this.rewindScene();
-                    try {
-                        this.$preEnterScene();
-                        this.tutorDoc.$preEnterScene(this);
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("sceneReplay preenter error on scene: " + this.name + " - " + error);
-                    }
-                    this.trackPlay();
-                }
-                trackPlay() {
-                }
-                rewindScene() {
-                    try {
-                        this.$rewindScene();
-                        this.$demoIinitScene();
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("Error in rewindScene script: ");
-                    }
-                }
-                showScene() {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Base showScene Behavior: " + this.name);
-                    try {
-                        this.$preShowScene();
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("preShowScene error on scene: " + this.name + " - " + error);
-                    }
-                }
-                hideScene() {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Base showScene Behavior: " + this.name);
-                    try {
-                        this.$preHideScene();
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("preHideScene error on scene: " + this.name + " - " + error);
-                    }
-                }
-                preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Base preenter Scene Behavior: " + this.name);
-                    try {
-                        this.$preEnterScene();
-                        this.tutorDoc.$preEnterScene(this);
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("preenter error on scene: " + this.name + " - " + error);
-                    }
-                    return sceneLabel;
-                }
-                onEnterScene(Direction) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Base onenter Scene Behavior:" + this.name);
-                    try {
-                        this.$onEnterScene();
-                        this.$updateNav();
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("onenter error on scene: " + this.name + " - " + error);
-                    }
-                }
-                preExitScene(Direction, sceneCurr) {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Base preexit Scene Behavior:" + this.name);
-                    try {
-                        this.$preExitScene();
-                        this.tutorDoc.$preExitScene(this);
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("preexit error on scene: " + this.name + " - " + error);
-                    }
-                    return (CONST_4.CONST.OKNAV);
-                }
-                onExitScene() {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Base onexit Scene Behavior:" + this.name);
-                    try {
-                        if (this.$terminateScene) {
-                            if (this.tutorDoc.testFeatureSet(this.$features)) {
-                                this.enQueueTerminateEvent();
-                            }
-                            else {
-                                this.enQueueTerminateEvent();
-                            }
-                        }
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("enQueueTerminateEvent error on scene: " + this.name + " - " + error);
-                    }
-                    try {
-                        this.$logScene();
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("logging error on scene: " + this.name + " - " + error);
-                    }
-                    try {
-                        this.$onExitScene();
-                    }
-                    catch (error) {
-                        CUtil_16.CUtil.trace("onexit error on scene: " + this.name + " - " + error);
-                    }
-                }
-                demoBehavior() {
-                    if (this.traceMode)
-                        CUtil_16.CUtil.trace("Default demoBehavior: ");
-                }
-                initSeekArrays() {
-                }
-                doSeekForward(evt) {
-                    switch (evt.wozSeekSeq) {
-                    }
-                }
-                doSeekBackward(evt) {
-                }
-            };
-            exports_34("TSceneBase", TSceneBase);
-        }
-    };
-});
-System.register("events/CEFSceneCueEvent", ["util/CUtil"], function (exports_35, context_35) {
-    "use strict";
-    var __moduleName = context_35 && context_35.id;
-    var Event, CUtil_17, CEFSceneCueEvent;
-    return {
-        setters: [
-            function (CUtil_17_1) {
-                CUtil_17 = CUtil_17_1;
+            function (CUtil_4_1) {
+                CUtil_4 = CUtil_4_1;
             }
         ],
         execute: function () {
@@ -4085,18 +663,18 @@ System.register("events/CEFSceneCueEvent", ["util/CUtil"], function (exports_35,
                     this.cueID = CueID;
                 }
                 clone() {
-                    CUtil_17.CUtil.trace("cloning CEFSceneCueEvent:");
+                    CUtil_4.CUtil.trace("cloning CEFSceneCueEvent:");
                     return new CEFSceneCueEvent(this.type, this.cueID, this.bubbles, this.cancelable);
                 }
             };
             CEFSceneCueEvent.CUEPOINT = "cuePoint";
-            exports_35("CEFSceneCueEvent", CEFSceneCueEvent);
+            exports_9("CEFSceneCueEvent", CEFSceneCueEvent);
         }
     };
 });
-System.register("scenegraph/CSceneHistoryNode", [], function (exports_36, context_36) {
+System.register("scenegraph/CSceneHistoryNode", [], function (exports_10, context_10) {
     "use strict";
-    var __moduleName = context_36 && context_36.id;
+    var __moduleName = context_10 && context_10.id;
     var CSceneHistoryNode;
     return {
         setters: [],
@@ -4109,13 +687,13 @@ System.register("scenegraph/CSceneHistoryNode", [], function (exports_36, contex
                     this.node = _node;
                 }
             };
-            exports_36("CSceneHistoryNode", CSceneHistoryNode);
+            exports_10("CSceneHistoryNode", CSceneHistoryNode);
         }
     };
 });
-System.register("scenegraph/CSceneEdge", [], function (exports_37, context_37) {
+System.register("scenegraph/CSceneEdge", [], function (exports_11, context_11) {
     "use strict";
-    var __moduleName = context_37 && context_37.id;
+    var __moduleName = context_11 && context_11.id;
     var CSceneEdge;
     return {
         setters: [],
@@ -4141,13 +719,13 @@ System.register("scenegraph/CSceneEdge", [], function (exports_37, context_37) {
                     return this._parent.findNodeByName(this._edgeNode);
                 }
             };
-            exports_37("CSceneEdge", CSceneEdge);
+            exports_11("CSceneEdge", CSceneEdge);
         }
     };
 });
-System.register("scenegraph/CSceneNode", ["scenegraph/CSceneEdge"], function (exports_38, context_38) {
+System.register("scenegraph/CSceneNode", ["scenegraph/CSceneEdge"], function (exports_12, context_12) {
     "use strict";
-    var __moduleName = context_38 && context_38.id;
+    var __moduleName = context_12 && context_12.id;
     var CSceneEdge_1, EventDispatcher, CSceneNode;
     return {
         setters: [
@@ -4209,14 +787,14 @@ System.register("scenegraph/CSceneNode", ["scenegraph/CSceneEdge"], function (ex
                 resetNode() {
                 }
             };
-            exports_38("CSceneNode", CSceneNode);
+            exports_12("CSceneNode", CSceneNode);
         }
     };
 });
-System.register("scenegraph/CSceneModule", ["scenegraph/CSceneNode", "scenegraph/CSceneTrack", "util/CUtil"], function (exports_39, context_39) {
+System.register("scenegraph/CSceneModule", ["scenegraph/CSceneNode", "scenegraph/CSceneTrack", "util/CUtil"], function (exports_13, context_13) {
     "use strict";
-    var __moduleName = context_39 && context_39.id;
-    var CSceneNode_1, CSceneTrack_1, CUtil_18, CSceneModule;
+    var __moduleName = context_13 && context_13.id;
+    var CSceneNode_1, CSceneTrack_1, CUtil_5, CSceneModule;
     return {
         setters: [
             function (CSceneNode_1_1) {
@@ -4225,8 +803,8 @@ System.register("scenegraph/CSceneModule", ["scenegraph/CSceneNode", "scenegraph
             function (CSceneTrack_1_1) {
                 CSceneTrack_1 = CSceneTrack_1_1;
             },
-            function (CUtil_18_1) {
-                CUtil_18 = CUtil_18_1;
+            function (CUtil_5_1) {
+                CUtil_5 = CUtil_5_1;
             }
         ],
         execute: function () {
@@ -4274,7 +852,7 @@ System.register("scenegraph/CSceneModule", ["scenegraph/CSceneNode", "scenegraph
                                     featurePass = true;
                             }
                             if (featurePass) {
-                                CUtil_18.CUtil.trace("Track Features: " + features + " passed:" + featurePass);
+                                CUtil_5.CUtil.trace("Track Features: " + features + " passed:" + featurePass);
                                 nextTrack = nextTrack.resolve();
                                 break;
                             }
@@ -4306,13 +884,13 @@ System.register("scenegraph/CSceneModule", ["scenegraph/CSceneNode", "scenegraph
                     this._ndx = -1;
                 }
             };
-            exports_39("CSceneModule", CSceneModule);
+            exports_13("CSceneModule", CSceneModule);
         }
     };
 });
-System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/CSceneModule"], function (exports_40, context_40) {
+System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/CSceneModule"], function (exports_14, context_14) {
     "use strict";
-    var __moduleName = context_40 && context_40.id;
+    var __moduleName = context_14 && context_14.id;
     var CSceneNode_2, CSceneModule_1, CSceneGraph;
     return {
         setters: [
@@ -4445,13 +1023,13 @@ System.register("scenegraph/CSceneGraph", ["scenegraph/CSceneNode", "scenegraph/
                     this._currNode.resetNode();
                 }
             };
-            exports_40("CSceneGraph", CSceneGraph);
+            exports_14("CSceneGraph", CSceneGraph);
         }
     };
 });
-System.register("scenegraph/CSceneChoiceSet", ["scenegraph/CSceneNode", "scenegraph/CSceneTrack"], function (exports_41, context_41) {
+System.register("scenegraph/CSceneChoiceSet", ["scenegraph/CSceneNode", "scenegraph/CSceneTrack"], function (exports_15, context_15) {
     "use strict";
-    var __moduleName = context_41 && context_41.id;
+    var __moduleName = context_15 && context_15.id;
     var CSceneNode_3, CSceneTrack_2, CSceneChoiceSet;
     return {
         setters: [
@@ -4518,1154 +1096,32 @@ System.register("scenegraph/CSceneChoiceSet", ["scenegraph/CSceneNode", "scenegr
                     return nextTrack;
                 }
             };
-            exports_41("CSceneChoiceSet", CSceneChoiceSet);
+            exports_15("CSceneChoiceSet", CSceneChoiceSet);
         }
     };
 });
-System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueEvent", "scenegraph/CSceneChoiceSet", "util/CONST"], function (exports_42, context_42) {
+System.register("thermite/events/TMouseEvent", ["util/CUtil"], function (exports_16, context_16) {
     "use strict";
-    var __moduleName = context_42 && context_42.id;
-    var CEFTimer_1, CEFSceneCueEvent_1, CSceneChoiceSet_1, CONST_5, EventDispatcher, CSceneTrack;
+    var __moduleName = context_16 && context_16.id;
+    var CUtil_6, MouseEvent, TMouseEvent;
     return {
         setters: [
-            function (CEFTimer_1_1) {
-                CEFTimer_1 = CEFTimer_1_1;
-            },
-            function (CEFSceneCueEvent_1_1) {
-                CEFSceneCueEvent_1 = CEFSceneCueEvent_1_1;
-            },
-            function (CSceneChoiceSet_1_1) {
-                CSceneChoiceSet_1 = CSceneChoiceSet_1_1;
-            },
-            function (CONST_5_1) {
-                CONST_5 = CONST_5_1;
-            }
-        ],
-        execute: function () {
-            EventDispatcher = createjs.EventDispatcher;
-            CSceneTrack = class CSceneTrack extends EventDispatcher {
-                constructor(_tutorDoc, factory, parent) {
-                    super();
-                    this._chosen = false;
-                    this.segNdx = 0;
-                    this.trackLoaded = false;
-                    this.hasAudio = false;
-                    this.isPlaying = false;
-                    this.isPaused = false;
-                    this.RX_DELIMITERS = /[_|]/g;
-                    this.assetPath = "";
-                    this.newSounds = [];
-                    this.tutorDoc = _tutorDoc;
-                    this._parent = parent;
-                    this.hostScene = parent.sceneInstance;
-                    this.sceneName = this.hostScene.name;
-                    this.hostModule = this.hostScene.hostModule;
-                    this.ownerModule = this.hostScene.ownerModule;
-                    this.language = this.tutorDoc.language;
-                    this.voice = this.tutorDoc.voice;
-                    if (factory.choiceset != undefined) {
-                        this._type = CONST_5.CONST.SCENE_CHOICESET;
-                        this._name = factory.choiceset;
-                        this._choiceset = CSceneChoiceSet_1.CSceneChoiceSet.factory(_tutorDoc, this._parent, factory.choiceset, this._parent._graphFactory.CChoiceSets[factory.choiceset]);
-                    }
-                    else if (factory.trackname != undefined) {
-                        this._type = CONST_5.CONST.SCENE_TRACK;
-                        this._name = factory.trackname;
-                        this._trackname = factory.trackname;
-                    }
-                    else if (factory.actionname != undefined) {
-                        this._type = CONST_5.CONST.SCENE_ACTION;
-                        this._name = factory.actionname;
-                        this._actionname = factory.actionname;
-                    }
-                    if (factory.enqueue === false) {
-                        console.log("rtest");
-                    }
-                    this._enqueue = typeof factory.enqueue == "undefined" ? true : factory.enqueue;
-                    this._autostep = factory.autostep || false;
-                    this._stepdelay = factory.stepdelay || 0.0;
-                    this._odds = factory.odds;
-                    this._features = factory.features || "";
-                    this._isgroup = factory.isgroup || false;
-                    if (factory.$P != undefined) {
-                        this._pid = factory.pid;
-                        this._prob = factory.$P.split('|');
-                        this._cycle = Number(factory.cycle);
-                    }
-                }
-                resolve() {
-                    let sceneTrack = null;
-                    switch (this._type) {
-                        case CONST_5.CONST.SCENE_ACTION:
-                            sceneTrack = this;
-                            break;
-                        case CONST_5.CONST.SCENE_TRACK:
-                            sceneTrack = this;
-                            this.registerTrack();
-                            break;
-                        case CONST_5.CONST.SCENE_CHOICESET:
-                            sceneTrack = this._choiceset.choose();
-                            sceneTrack.resolve();
-                            break;
-                    }
-                    return sceneTrack;
-                }
-                get isHistoric() {
-                    return this._enqueue;
-                }
-                get isGroup() {
-                    return this._isgroup;
-                }
-                get isAutoStep() {
-                    return this._autostep;
-                }
-                resolveSegmentKey(selector, templateRef) {
-                    if (templateRef) {
-                        let ontologyRef = templateRef[selector] || templateRef["*"];
-                        if (!ontologyRef) {
-                            if (selector.includes("?"))
-                                console.error("SCENETRACK: ERROR: missing Template Reference for:" + selector);
-                        }
-                        else {
-                            this._ontologyRef = this.hostScene.resolveRawSelector(ontologyRef, null);
-                        }
-                    }
-                    this.hostScene.resolveRawSelector(selector, this._ontologyRef);
-                    return this.hostScene.ontologyPath;
-                }
-                registerTrack() {
-                    createjs.Sound.removeAllSounds();
-                    this.assetPath = [this.hostModule] + CONST_5.CONST.TRACKASSETS_FILEPATH + this.language + "/";
-                    this.newSounds = [];
-                    let segvalue;
-                    this.segSequence = [];
-                    try {
-                        Object.assign(this, this.tutorDoc.moduleData[this.hostModule][CONST_5.CONST.TRACK_DATA][this.sceneName].tracks[this._trackname][this.language]);
-                        for (let segment of this.segments) {
-                            let selector = segment.templateVar;
-                            let selectorType = CONST_5.CONST.TRACK_SELECTOR;
-                            switch (selector) {
-                                case CONST_5.CONST.NOVAR:
-                                    segvalue = segment[selector];
-                                    segvalue.filepath = this.sceneName + "/" + this._trackname + CONST_5.CONST.SEGMENT_PREFIX + segvalue.fileid + CONST_5.CONST.VOICE_PREFIX + this.voice + CONST_5.CONST.TYPE_MP3;
-                                    break;
-                                default:
-                                    this._ontologyPath = this.resolveSegmentKey(selector, this.templateRef);
-                                    let selectorTag = this._ontologyPath.replace(this.RX_DELIMITERS, "");
-                                    segvalue = segment[selectorTag];
-                                    segvalue.filepath = CONST_5.CONST.COMMONAUDIO + selectorTag + CONST_5.CONST.VOICE_PREFIX + this.voice + CONST_5.CONST.TYPE_MP3;
-                                    break;
-                            }
-                            console.log("SCENEGRAPH: Loading: " + this._trackname + segvalue.fileid + " => " + segvalue.SSML);
-                            this.newSounds.push({ src: segvalue.filepath, id: segvalue.fileid });
-                            this.segSequence.push(segvalue);
-                        }
-                        if (this.newSounds.length > 0) {
-                            if (EFLoadManager.nativeSpeech) {
-                                this.newSounds.forEach(sound => {
-                                    EFLoadManager.nativeSpeech.registerSounds(sound, this.assetPath);
-                                });
-                                this.hasAudio = true;
-                                this.trackLoaded = true;
-                            }
-                            else if (EFLoadManager.nativeAudio) {
-                                EFLoadManager.nativeAudio.clearAllSounds();
-                                this.newSounds.forEach(sound => {
-                                    EFLoadManager.nativeAudio.registerSounds(sound.src, sound.id, this.assetPath);
-                                });
-                                this.hasAudio = true;
-                                this.trackLoaded = true;
-                            }
-                            else {
-                                this._soundCount = this.newSounds.length;
-                                createjs.Sound.on("fileload", this.onTrackLoaded, this);
-                                createjs.Sound.registerSounds(this.newSounds, this.assetPath);
-                                this.hasAudio = true;
-                                this.trackLoaded = false;
-                            }
-                        }
-                    }
-                    catch (err) {
-                        console.error("SCENETRACK: ERROR: " + err);
-                    }
-                }
-                onTrackLoaded(event) {
-                    this._soundCount--;
-                    console.log("SCENETRACK: Segment Loaded: " + event.id + ": " + event.src);
-                    if (!this._soundCount) {
-                        this.trackLoaded = true;
-                        console.log("SCENETRACK: Track Loaded: ");
-                    }
-                }
-                playTrack() {
-                    if (this.isPlaying) {
-                        let segment = this.segSequence[this.segNdx];
-                        if (this.trackLoaded) {
-                            if (this._asyncPlayTimer) {
-                                this._asyncPlayTimer.stop();
-                                this._asyncPlayTimer.off(CONST_5.CONST.TIMER, this._playHandler);
-                                this._asyncPlayTimer = null;
-                                console.log("SCENEGRAPH: Async Play: " + this._trackname + segment.fileid + " => " + segment.SSML);
-                            }
-                            else {
-                                console.log("SCENEGRAPH: Loaded Play: " + this._trackname + segment.fileid + " => " + segment.SSML);
-                            }
-                            if (EFLoadManager.nativeSpeech) {
-                            }
-                            else if (EFLoadManager.nativeAudio) {
-                                EFLoadManager.nativeAudio.play(segment.fileid);
-                                if (segment.trim) {
-                                    EFLoadManager.trackOwner = null;
-                                    EFLoadManager.trackEvent = null;
-                                    this._asyncTrimTimer = new CEFTimer_1.CEFTimer(segment.duration + segment.trim);
-                                    this._trimHandler = this._asyncTrimTimer.on(CONST_5.CONST.TIMER, this.segmentComplete, this);
-                                    this._asyncTrimTimer.start();
-                                }
-                                else {
-                                    EFLoadManager.trackOwner = this;
-                                    EFLoadManager.trackEvent = this.segmentComplete;
-                                }
-                            }
-                            else {
-                                var props = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, volume: segment.volume });
-                                this.trackAudio = this.segSequence[this.segNdx].track = createjs.Sound.play(segment.fileid, props);
-                                if (this.trackAudio.playState === CONST_5.CONST.PLAY_FAILED) {
-                                    console.log("SCENEGRAPH: Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
-                                    alert("Track Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
-                                }
-                                if (segment.trim) {
-                                    this._asyncTrimTimer = new CEFTimer_1.CEFTimer(segment.duration + segment.trim);
-                                    this._trimHandler = this._asyncTrimTimer.on(CONST_5.CONST.TIMER, this.segmentComplete, this);
-                                    this._asyncTrimTimer.start();
-                                }
-                                else {
-                                    this.trackAudio.on("complete", this.segmentComplete, this);
-                                }
-                            }
-                            this.hostScene.$cuePoints(this._name, CONST_5.CONST.START_CUEPOINT);
-                            this.hostScene.$updateNav();
-                            this.setCuePoints(segment);
-                        }
-                        else {
-                            if (!this._asyncPlayTimer) {
-                                this._asyncPlayTimer = new CEFTimer_1.CEFTimer(0);
-                                this._playHandler = this._asyncPlayTimer.on(CONST_5.CONST.TIMER, this.playTrack, this);
-                                this._asyncPlayTimer.start();
-                            }
-                        }
-                    }
-                }
-                setCuePoints(segment) {
-                    this._cueTimers = new Array();
-                    for (let cue of segment.cues) {
-                        console.log("SCENETRACK: Configure cue: " + cue.name);
-                        this._cueTimers.push(CEFTimer_1.CEFTimer.startTimer(cue.relTime, this.cueHandler, this, new CustomEvent(CEFSceneCueEvent_1.CEFSceneCueEvent.CUEPOINT, { detail: { id: cue.name, track: this._name } })));
-                    }
-                }
-                cueHandler(evt, _timer) {
-                    this.dispatchEvent(evt);
-                    _timer.stop();
-                    let index = this._cueTimers.indexOf(_timer);
-                    this._cueTimers.splice(index, 1);
-                }
-                ensureFireCues() {
-                    if (this._cueTimers) {
-                        this._cueTimers.forEach(timer => {
-                            timer.stop();
-                        });
-                        this._cueTimers.forEach(timer => {
-                            this.dispatchEvent(timer.publicEvent);
-                            let index = this._cueTimers.indexOf(timer);
-                            this._cueTimers.splice(index, 1);
-                        });
-                    }
-                }
-                segmentComplete(event) {
-                    if (this._asyncTrimTimer) {
-                        this._asyncTrimTimer.stop();
-                        this._asyncTrimTimer.off(CONST_5.CONST.TIMER, this._trimHandler);
-                        this._asyncTrimTimer = null;
-                        console.log("SCENETRACK: Async Track Segment Completion: " + this._name);
-                    }
-                    else {
-                        console.log("SCENETRACK: Normal Track Segment Completion: " + this._name);
-                    }
-                    this.segNdx++;
-                    if (this.segNdx < this.segSequence.length) {
-                        this.playTrack();
-                    }
-                    else {
-                        this.segNdx = 0;
-                        this.hostScene.$cuePoints(this._name, CONST_5.CONST.END_CUEPOINT);
-                        this.hostScene.$updateNav();
-                        this.autoStep();
-                    }
-                }
-                autoStep() {
-                    if (this._autostep) {
-                        if (this._stepdelay && this._stepdelay > 0) {
-                            this._autoPlayTimer = new CEFTimer_1.CEFTimer(this._stepdelay);
-                            this._autoPlayHandler = this._autoPlayTimer.on(CONST_5.CONST.TIMER, this._asyncAutoPlay, this);
-                            this._autoPlayTimer.start();
-                        }
-                        else
-                            this.hostScene.nextTrack("$autoPlay");
-                    }
-                }
-                _asyncAutoPlay(evt) {
-                    this.killAutoPlayTimer();
-                    this.hostScene.nextTrack("$asyncAutoPlay");
-                }
-                killAutoPlayTimer() {
-                    if (this._autoPlayTimer) {
-                        this._autoPlayTimer.stop();
-                        this._autoPlayTimer.off(CONST_5.CONST.TIMER, this._autoPlayHandler);
-                        this._autoPlayTimer = null;
-                    }
-                }
-                play() {
-                    this.killAutoPlayTimer();
-                    switch (this._type) {
-                        case CONST_5.CONST.SCENE_ACTION:
-                            this.hostScene.$nodeAction(this._actionname);
-                            this.hostScene.$updateNav();
-                            this.autoStep();
-                            break;
-                        case CONST_5.CONST.SCENE_TRACK:
-                            if (!this.isPlaying) {
-                                if (this.hasAudio) {
-                                    this.isPaused = false;
-                                    this.isPlaying = true;
-                                    this.playTrack();
-                                }
-                                else {
-                                    console.log("SCENETRACK: Null audio track:)");
-                                    this.autoStep();
-                                }
-                            }
-                            break;
-                        case CONST_5.CONST.SCENE_CHOICESET:
-                            break;
-                    }
-                }
-                pause() {
-                    this.isPlaying = false;
-                    this.isPaused = true;
-                    this.trackAudio.paused = true;
-                }
-                stop() {
-                    this.isPlaying = false;
-                    createjs.Sound.stop();
-                    this.killAutoPlayTimer();
-                }
-                gotoAndStop(time) {
-                }
-                bindPlay(container) {
-                    if (this.tutorDoc.tutorContainer)
-                        this.tutorDoc.tutorContainer.playAddThis(this);
-                    this.play();
-                }
-                get trackID() {
-                    return this._name;
-                }
-                testPFeature() {
-                    let iter = this._parent.queryPFeature(this._pid, this._prob.length, this._cycle);
-                    let rand = Math.random();
-                    return (rand < this._prob[iter]);
-                }
-                get hasPFeature() {
-                    return (this._pid != null);
-                }
-                get type() {
-                    return this._type;
-                }
-                set features(newFTR) {
-                    this._features = newFTR;
-                }
-                get features() {
-                    return this._features;
-                }
-                get trackName() {
-                    return this._trackname;
-                }
-                get actionName() {
-                    return this._actionname;
-                }
-                getOdds(ndx) {
-                    let result;
-                    if (this._chosen)
-                        result = 0;
-                    else
-                        result = this._odds[ndx];
-                    return result;
-                }
-                get count() {
-                    return this._odds.length;
-                }
-                replace() {
-                    this._chosen = false;
-                }
-                choose() {
-                    this._chosen = true;
-                }
-            };
-            CSceneTrack.lastLoaded = "";
-            exports_42("CSceneTrack", CSceneTrack);
-        }
-    };
-});
-System.register("scenegraph/CSceneHistory", ["scenegraph/CSceneHistoryNode"], function (exports_43, context_43) {
-    "use strict";
-    var __moduleName = context_43 && context_43.id;
-    var CSceneHistoryNode_1, CSceneHistory;
-    return {
-        setters: [
-            function (CSceneHistoryNode_1_1) {
-                CSceneHistoryNode_1 = CSceneHistoryNode_1_1;
-            }
-        ],
-        execute: function () {
-            CSceneHistory = class CSceneHistory extends Object {
-                constructor(_tutorDoc) {
-                    super();
-                    this._history = new Array();
-                    this._volatile = false;
-                    this.tutorDoc = _tutorDoc;
-                    this._ndx = 0;
-                }
-                push(node, scene) {
-                    if (scene != null) {
-                        this._history.push(new CSceneHistoryNode_1.CSceneHistoryNode(node, scene));
-                        this._ndx = this._history.length;
-                    }
-                }
-                next() {
-                    let next = null;
-                    if (this._ndx < this._history.length) {
-                        this._ndx = this._ndx + 1;
-                        next = this._history[this._ndx - 1];
-                    }
-                    return next;
-                }
-                back() {
-                    let prev = null;
-                    if (this._ndx > 1) {
-                        this._ndx = this._ndx - 1;
-                        if (this._volatile)
-                            this._history.pop();
-                        prev = this._history[this._ndx - 1];
-                    }
-                    return prev;
-                }
-                set volatile(newState) {
-                    this._volatile = newState;
-                }
-                get isVolatile() {
-                    return this._volatile;
-                }
-            };
-            exports_43("CSceneHistory", CSceneHistory);
-        }
-    };
-});
-System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "scenegraph/CSceneGraph", "scenegraph/CSceneHistory", "events/CEFSceneCueEvent", "events/CEFEvent", "util/CUtil", "util/CONST"], function (exports_44, context_44) {
-    "use strict";
-    var __moduleName = context_44 && context_44.id;
-    var TSceneBase_3, CEFTimer_2, CSceneGraph_1, CSceneHistory_1, CEFSceneCueEvent_2, CEFEvent_7, CUtil_19, CONST_6, TScene;
-    return {
-        setters: [
-            function (TSceneBase_3_1) {
-                TSceneBase_3 = TSceneBase_3_1;
-            },
-            function (CEFTimer_2_1) {
-                CEFTimer_2 = CEFTimer_2_1;
-            },
-            function (CSceneGraph_1_1) {
-                CSceneGraph_1 = CSceneGraph_1_1;
-            },
-            function (CSceneHistory_1_1) {
-                CSceneHistory_1 = CSceneHistory_1_1;
-            },
-            function (CEFSceneCueEvent_2_1) {
-                CEFSceneCueEvent_2 = CEFSceneCueEvent_2_1;
-            },
-            function (CEFEvent_7_1) {
-                CEFEvent_7 = CEFEvent_7_1;
-            },
-            function (CUtil_19_1) {
-                CUtil_19 = CUtil_19_1;
-            },
-            function (CONST_6_1) {
-                CONST_6 = CONST_6_1;
-            }
-        ],
-        execute: function () {
-            TScene = class TScene extends TSceneBase_3.TSceneBase {
-                constructor() {
-                    super();
-                    this._interval = TScene.DEFAULT_MONITOR_INTERVAL;
-                    this.cueListener = null;
-                    this.ktUpdated = false;
-                    this.sceneGraph = null;
-                    this.init4();
-                }
-                TSceneInitialize() {
-                    this.TSceneBaseInitialize.call(this);
-                    this.init4();
-                }
-                initialize() {
-                    this.TSceneBaseInitialize.call(this);
-                    this.init4();
-                }
-                init4() {
-                    this.traceMode = true;
-                    this._asyncPlayTimer = new CEFTimer_2.CEFTimer(0);
-                    this._asyncGraphTimer = new CEFTimer_2.CEFTimer(0);
-                    this._history = new CSceneHistory_1.CSceneHistory(this.tutorDoc);
-                    this._deferPlay = false;
-                    if (this.traceMode)
-                        CUtil_19.CUtil.trace("TScene:Constructor");
-                }
-                Destructor() {
-                    this.disConnectTrack(this.STrack);
-                    this._asyncPlayTimer.off("timer", this._playHandler);
-                    this._asyncGraphTimer.off("timer", this._trackHandler);
-                    super.Destructor();
-                }
-                trackPlay() {
-                    this._playHandler = this._asyncPlayTimer.on(CONST_6.CONST.TIMER, this._asyncPlayTrack, this);
-                    this._asyncPlayTimer.start();
-                }
-                _asyncPlayTrack(evt) {
-                    this._asyncPlayTimer.stop();
-                    this._asyncPlayTimer.off(CONST_6.CONST.TIMER, this._playHandler);
-                    this._asyncPlayTimer.reset();
-                    if (this.STrack)
-                        this.STrack.play();
-                }
-                connectTrack(track) {
-                    CUtil_19.CUtil.trace("Connect Audio Cue Behaviors");
-                    this.cueListener = track.on(CEFSceneCueEvent_2.CEFSceneCueEvent.CUEPOINT, this.doSceneCue, this);
-                }
-                disConnectTrack(track) {
-                    CUtil_19.CUtil.trace("Disconnect Audio Cue Behaviors");
-                    if (track) {
-                        track.stop();
-                        track.ensureFireCues();
-                        track.off(CEFSceneCueEvent_2.CEFSceneCueEvent.CUEPOINT, this.cueListener);
-                    }
-                }
-                nextScene(event) {
-                    if (this.traceMode)
-                        CUtil_19.CUtil.trace("navNext: " + event);
-                    this.navigator.gotoNextScene("$scriptAction");
-                }
-                doSceneCue(evt) {
-                    if (this.traceMode)
-                        CUtil_19.CUtil.trace("SceneCue: " + evt.detail.id + " - track: " + evt.detail.track);
-                    this.$cuePoints(evt.detail.track, evt.detail.id);
-                    this.$updateNav();
-                }
-                connectSceneGraph(hostModule, sceneName) {
-                    try {
-                        this.sceneGraph = CSceneGraph_1.CSceneGraph.factory(this.tutorDoc, this, hostModule, sceneName);
-                    }
-                    catch (err) {
-                        console.error("Error: scenegraph connect Failed: " + err);
-                    }
-                }
-                nextTrack(source) {
-                    this.changeRequestorTrack = source;
-                    this._trackHandler = this._asyncGraphTimer.on(CONST_6.CONST.TIMER, this._asyncNextTrack, this);
-                    this._asyncGraphTimer.start();
-                }
-                _asyncNextTrack(evt) {
-                    this._asyncGraphTimer.stop();
-                    this._asyncGraphTimer.off(CONST_6.CONST.TIMER, this._trackHandler);
-                    this.traceGraphEdge(false);
-                }
-                traceGraphEdge(bUserNavEvent = false) {
-                    let historyNode;
-                    let nextTrack;
-                    console.log("SCENEGRAPH: state change: " + this.changeRequestorTrack);
-                    if (this.sceneGraph != null) {
-                        if (this.STrack) {
-                            this.disConnectTrack(this.STrack);
-                            this.STrack = null;
-                        }
-                        historyNode = this._history.next();
-                        if (historyNode == null) {
-                            nextTrack = this.sceneGraph.gotoNextTrack(bUserNavEvent);
-                            if (!this.sceneGraph.volatile && nextTrack != null) {
-                                this._history.push(this.sceneGraph.node, nextTrack);
-                            }
-                        }
-                        else {
-                            nextTrack = this.sceneGraph.seekToTrack(historyNode);
-                        }
-                        if (nextTrack != null) {
-                            this.STrack = nextTrack;
-                            this.connectTrack(nextTrack);
-                            if (!this._deferPlay)
-                                this.STrack.play();
-                        }
-                        else if (!bUserNavEvent) {
-                            this.navigator.gotoNextScene("$endOfTracks");
-                        }
-                    }
-                    return nextTrack;
-                }
-                traceHistory() {
-                    let historyNode;
-                    let features;
-                    if (this.STrack) {
-                        this.disConnectTrack(this.STrack);
-                        this.STrack = null;
-                    }
-                    do {
-                        historyNode = this._history.back();
-                        if (historyNode != null) {
-                            if (!historyNode.track.isHistoric)
-                                continue;
-                            features = historyNode.track.features;
-                            if (features != "") {
-                                if (!this.tutorDoc.testFeatureSet(features)) {
-                                    continue;
-                                }
-                            }
-                            this.STrack = this.sceneGraph.seekToTrack(historyNode);
-                            this.connectTrack(historyNode.track);
-                            if (!this._deferPlay)
-                                this.STrack.play();
-                            break;
-                        }
-                    } while (historyNode != null);
-                    if (!historyNode) {
-                        this.STrack = this.sceneGraph.rootTrack;
-                        this.connectTrack(this.STrack);
-                        this.sceneGraph.resetRoot();
-                    }
-                    return historyNode;
-                }
-                preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction) {
-                    let result;
-                    if (this.traceMode)
-                        CUtil_19.CUtil.trace("TScene preenter Scene Behavior: " + this.name);
-                    result = super.preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction);
-                    this._deferPlay = true;
-                    this.nextTrack("$preEnterScene");
-                    return result;
-                }
-                onEnterScene(Direction) {
-                    if (this.traceMode)
-                        CUtil_19.CUtil.trace("TScene onenter Scene Behavior:" + this.name);
-                    this._deferPlay = false;
-                    this.trackPlay();
-                    super.onEnterScene(Direction);
-                }
-                preExitScene(Direction, sceneCurr) {
-                    return (super.preExitScene(Direction, sceneCurr));
-                }
-                onExitScene() {
-                    if (this.traceMode)
-                        CUtil_19.CUtil.trace("TScene onexit Behavior:" + this.name);
-                    this.disConnectTrack(this.STrack);
-                    this.STrack = null;
-                    this.tutorDoc._sceneData = {};
-                    this.updateKT();
-                    super.onExitScene();
-                }
-                enQueueTerminateEvent() {
-                    addEventListener(CEFEvent_7.CEFEvent.ENTER_FRAME, this._asyncTerminate);
-                }
-                _asyncTerminate(e) {
-                    removeEventListener(CEFEvent_7.CEFEvent.ENTER_FRAME, this._asyncTerminate);
-                    this.tutorDoc.log.logTerminateEvent();
-                }
-                updateKT() {
-                    if (!this.ktUpdated) {
-                        this.ktUpdated = true;
-                    }
-                }
-            };
-            TScene.DEFAULT_MONITOR_INTERVAL = 3000;
-            exports_44("TScene", TScene);
-        }
-    };
-});
-System.register("thermite/TRoot", ["util/CONST", "util/CUtil"], function (exports_45, context_45) {
-    "use strict";
-    var __moduleName = context_45 && context_45.id;
-    var CONST_7, CUtil_20, MovieClip, TRoot;
-    return {
-        setters: [
-            function (CONST_7_1) {
-                CONST_7 = CONST_7_1;
-            },
-            function (CUtil_20_1) {
-                CUtil_20 = CUtil_20_1;
-            }
-        ],
-        execute: function () {
-            MovieClip = createjs.MovieClip;
-            TRoot = class TRoot extends MovieClip {
-                constructor() {
-                    super();
-                    this.init0();
-                }
-                TRootInitialize() {
-                    MovieClip.call(this, MovieClip.INDEPENDENT, 0, CONST_7.CONST.MC_NOLOOP, null);
-                    this.init0();
-                }
-                initialize() {
-                    MovieClip.call(this);
-                    this.init0();
-                }
-                init0() {
-                    this._listenerArr = new Array;
-                    this.traceMode = true;
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace("TRoot:Constructor");
-                    this.xname = this.nextXname();
-                    this.clickBoundListener = this.clickListener.bind(this);
-                    this.changeBoundListener = this.changeListener.bind(this);
-                    this.completeListener = this.completeListener.bind(this);
-                }
-                set hostScene(scene) {
-                    this._hostScene = scene;
-                }
-                get hostScene() {
-                    return this._hostScene;
-                }
-                addListener(target, type) {
-                    let listener;
-                    switch (type) {
-                        case "click":
-                            listener = this.clickBoundListener;
-                            break;
-                        case "change":
-                            listener = this.changeBoundListener;
-                            break;
-                    }
-                    target.addEventListener(type, listener);
-                }
-                removeListener(target, type) {
-                    let listener;
-                    switch (type) {
-                        case "click":
-                            listener = this.clickBoundListener;
-                            break;
-                        case "change":
-                            listener = this.changeBoundListener;
-                            break;
-                    }
-                    target.removeEventListener(type, listener);
-                }
-                clickListener(e) {
-                }
-                changeListener(e) {
-                }
-                completeListener(e) {
-                }
-                nextXname() {
-                    let Xname = CONST_7.CONST.XNAME_SIG + TRoot.xInstID.toString();
-                    TRoot.xInstID++;
-                    return Xname;
-                }
-                Destructor() {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace("TRoot Destructor:");
-                    let subObj;
-                    for (let i1 = 0; i1 < this.numChildren; i1++) {
-                        subObj = this.getChildAt(i1);
-                        if (subObj instanceof TRoot) {
-                            subObj.Destructor();
-                        }
-                    }
-                }
-                testFeatures(features) {
-                    let result = false;
-                    if (features && features !== "")
-                        result = this.tutorDoc.testFeatureSet(features);
-                    return result;
-                }
-                captureXMLStructure(parentXML, iDepth) {
-                    let element;
-                    let elementOBJ = {};
-                    let elClass;
-                    let elxname;
-                    for (let i1 = 0; i1 < this.numChildren; i1++) {
-                        element = this.getChildAt(i1);
-                        if (this.traceMode)
-                            CUtil_20.CUtil.trace("\t\tCEFScene found subObject named:" + element.name + " ... in-place: ");
-                        if (element instanceof TRoot) {
-                            elxname = element.xname;
-                        }
-                        else {
-                            elxname = "null";
-                        }
-                        elementOBJ = new String("<obj " + " class=\"" + elClass + "\" name=\"" + element.name + "\" x=\"" + element.x + "\" y=\"" + element.y + "\" w=\"" + element.width + "\" h=\"" + element.height + "\" r=\"" + element.rotation + "\" a=\"" + element.alpha + "\"/>");
-                        if ((iDepth < 1) && (element instanceof TRoot))
-                            element.captureXMLStructure(elementOBJ, iDepth + 1);
-                    }
-                }
-                resetXML() {
-                }
-                saveXML() {
-                    let stateVector;
-                    return stateVector;
-                }
-                getSymbolClone(_cloneOf, _named) {
-                    let xClone = "";
-                    CUtil_20.CUtil.trace(xClone);
-                    return xClone;
-                }
-                logState() {
-                    return "<null/>";
-                }
-                IsUserDefined() {
-                    let iResult = 0;
-                    return iResult;
-                }
-                get captureLOGString() {
-                    return "";
-                }
-                captureLOGState() {
-                    return "<null />";
-                }
-                isDefined(prop) {
-                    let fResult;
-                    try {
-                        if (this.hasOwnProperty(prop)) {
-                            fResult = true;
-                        }
-                    }
-                    catch (err) {
-                        if (this.traceMode)
-                            CUtil_20.CUtil.trace(prop + " is Undefined");
-                        fResult = false;
-                    }
-                    return fResult;
-                }
-                superPlay() {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " Super Play");
-                    if (this.name == "SgenericPrompt")
-                        CUtil_20.CUtil.trace("SgenericPrompt Play Found in superPlay");
-                    super.play();
-                }
-                superStop() {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " Super Stop");
-                    super.stop();
-                }
-                gotoAndStop(frame) {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " is stopped at : " + frame);
-                    if (this.tutorDoc.tutorContainer)
-                        this.tutorDoc.tutorContainer.playRemoveThis(this);
-                    super.gotoAndStop(frame);
-                }
-                stop() {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " is stopped");
-                    if (this.tutorDoc.tutorContainer)
-                        this.tutorDoc.tutorContainer.playRemoveThis(this);
-                    super.stop();
-                }
-                gotoAndPlay(frame, scene = null) {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " is playing at : " + frame + ":" + scene);
-                    if (this.name == "SgenericPrompt")
-                        CUtil_20.CUtil.trace("SgenericPrompt Play Found in gotoAndPlay");
-                    if (this.tutorDoc.tutorContainer)
-                        this.tutorDoc.tutorContainer.playAddThis(this);
-                    super.gotoAndPlay(frame + ":" + scene);
-                }
-                play() {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " is playing");
-                    if (this.name == "SgenericPrompt")
-                        CUtil_20.CUtil.trace("SgenericPrompt Play Found in Play");
-                    if (this.tutorDoc.tutorContainer)
-                        this.tutorDoc.tutorContainer.playAddThis(this);
-                    super.play();
-                }
-                bindPlay(tutor) {
-                    if (this.traceMode)
-                        CUtil_20.CUtil.trace(this.name + " is playing");
-                    if (this.name == "SgenericPrompt")
-                        CUtil_20.CUtil.trace("SgenericPrompt Play Found in BindPlay");
-                    if (this.tutorDoc.tutorContainer)
-                        this.tutorDoc.tutorContainer.playAddThis(this);
-                    super.play();
-                }
-                setTopMost() {
-                    let topPosition;
-                    try {
-                        if (this.tutorDoc.tutorContainer) {
-                            topPosition = this.tutorDoc.tutorContainer.numChildren - 1;
-                            this.tutorDoc.tutorContainer.setChildIndex(this, topPosition);
-                        }
-                    }
-                    catch (err) {
-                    }
-                }
-                startSession() {
-                    this.tutorDoc.fSessionTime = CUtil_20.CUtil.getTimer();
-                }
-                get sessionTime() {
-                    let curTime;
-                    curTime = (CUtil_20.CUtil.getTimer() - this.tutorDoc.fSessionTime) / 1000.0;
-                    return curTime.toString();
-                }
-                dumpStage(_obj, _path) {
-                    let sceneObj;
-                    for (let i1 = 0; i1 < _obj.numChildren; i1++) {
-                        sceneObj = _obj.getChildAt(i1);
-                        if (sceneObj) {
-                            CUtil_20.CUtil.trace(_path + "." + sceneObj["name"] + " visible : " + ((sceneObj.visible) ? " true" : " false"));
-                            if (sceneObj)
-                                this.dumpStage(sceneObj, _path + "." + sceneObj["name"]);
-                        }
-                    }
-                }
-                initObjfromHtmlData(objData) {
-                }
-                resolveReferences(...dataElement) {
-                    let objData;
-                    dataElement.forEach(datasource => {
-                        objData = this.hostScene.resolveSelector(datasource, this._ontologyKey);
-                        this.deSerializeObj(objData);
-                    });
-                }
-                resetInitState() {
-                    if (this._InitData)
-                        this.deSerializeObj(this._InitData);
-                }
-                initFromDataSource(datasource) {
-                    let data = this.hostScene.resolveSelector(datasource, this._ontologyKey);
-                    this.deSerializeObj(data);
-                }
-                setContext(_hostModule, _ownerModule, _hostScene) {
-                    this.hostModule = _hostModule;
-                    this.ownerModule = _ownerModule;
-                    this.hostScene = _hostScene;
-                }
-                deSerializeObj(objData) {
-                    this._InitData = this._InitData || Object.assign({}, objData);
-                    if (objData.templateRef)
-                        this._templateRef = objData.templateRef;
-                    if (objData.layoutsource) {
-                        this.resolveReferences(objData.layoutsource);
-                    }
-                    if (objData.htmlData) {
-                        this.initObjfromHtmlData(objData);
-                    }
-                    if (objData.datasource) {
-                        if (Array.isArray(objData.datasource)) {
-                            for (let i1 = 0; i1 < objData.datasource.length; i1++) {
-                                if (this.tutorDoc.testFeatureSet(objData.datasource[i1].features)) {
-                                    this.initFromDataSource(objData.datasource[i1].src);
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                            this.initFromDataSource(objData.datasource);
-                    }
-                }
-            };
-            TRoot.xInstID = 1;
-            exports_45("TRoot", TRoot);
-        }
-    };
-});
-System.register("thermite/TObjectDyno", ["thermite/TRoot", "thermite/TObject", "util/CUtil"], function (exports_46, context_46) {
-    "use strict";
-    var __moduleName = context_46 && context_46.id;
-    var TRoot_3, TObject_7, CUtil_21, TObjectDyno;
-    return {
-        setters: [
-            function (TRoot_3_1) {
-                TRoot_3 = TRoot_3_1;
-            },
-            function (TObject_7_1) {
-                TObject_7 = TObject_7_1;
-            },
-            function (CUtil_21_1) {
-                CUtil_21 = CUtil_21_1;
-            }
-        ],
-        execute: function () {
-            TObjectDyno = class TObjectDyno extends TRoot_3.TRoot {
-                constructor() {
-                    super();
-                }
-                TObjectDynoInitialize() {
-                    this.TRootInitialize.call(this);
-                    this.init1();
-                }
-                initialize() {
-                    this.TRootInitialize.call(this);
-                    this.init1();
-                }
-                init1() {
-                }
-                initAutomation(_parentScene, sceneObj, ObjIdRef, lLogger, lTutor) {
-                    if (this.traceMode)
-                        CUtil_21.CUtil.trace("CEFObjectDyno initAutomation:");
-                    var subObj;
-                    var wozObj;
-                    this.objID = ObjIdRef + name;
-                    for (var i1 = 0; i1 < this.numChildren; i1++) {
-                        subObj = this.getChildAt(i1);
-                        if (subObj instanceof TObject_7.TObject || subObj instanceof TObjectDyno) {
-                            subObj.parentScene = _parentScene;
-                        }
-                    }
-                }
-            };
-            exports_46("TObjectDyno", TObjectDyno);
-        }
-    };
-});
-System.register("thermite/TSelector", [], function (exports_47, context_47) {
-    "use strict";
-    var __moduleName = context_47 && context_47.id;
-    var TSelector;
-    return {
-        setters: [],
-        execute: function () {
-            TSelector = class TSelector {
-                constructor(host, selectorStr) {
-                    this.selectors = selectorStr.split("|");
-                    this.regex = [];
-                    this.targets = [];
-                    for (let i1 = 0; i1 < this.selectors.length; i1++) {
-                        let selectorGrp = this.selectors[i1].split(",");
-                        if (selectorGrp.length > 1) {
-                            let regexGrp = [];
-                            for (let i1 = 0; i1 < selectorGrp.length; i1++) {
-                                regexGrp.push(new RegExp(selectorGrp[i1]));
-                            }
-                            this.regex.push(regexGrp);
-                        }
-                        else {
-                            this.regex.push(new RegExp(this.selectors[i1]));
-                        }
-                    }
-                    this.resolveSelectors(host, this.regex);
-                }
-                testSelector(currRegEx, element) {
-                    return currRegEx.test(element);
-                }
-                resolveSelectors(host, regex) {
-                    let currRegEx = regex[0];
-                    if (Array.isArray(currRegEx)) {
-                        currRegEx.forEach(innerRegEx => {
-                            for (let element in host) {
-                                if (innerRegEx.test(element)) {
-                                    if (regex.length > 1) {
-                                        this.resolveSelectors(host[element], regex.slice(1));
-                                    }
-                                    else {
-                                        this.targets.push(host[element]);
-                                    }
-                                }
-                            }
-                        });
-                    }
-                    else
-                        for (let element in host) {
-                            if (currRegEx.test(element)) {
-                                if (regex.length > 1) {
-                                    this.resolveSelectors(host[element], regex.slice(1));
-                                }
-                                else {
-                                    this.targets.push(host[element]);
-                                }
-                            }
-                        }
-                }
-                hide() {
-                    this.targets.forEach(component => {
-                        if (component.hide instanceof Function) {
-                            component.hide();
-                        }
-                    });
-                }
-                hideAll() {
-                    this.targets.forEach(component => {
-                        if (component.hideAll instanceof Function) {
-                            component.hideAll();
-                        }
-                    });
-                }
-                show() {
-                    this.targets.forEach(component => {
-                        if (component.show instanceof Function) {
-                            component.show();
-                        }
-                    });
-                }
-                enable() {
-                    this.targets.forEach(component => {
-                        if (component.enable instanceof Function) {
-                            component.enable(true);
-                        }
-                    });
-                }
-                disable() {
-                    this.targets.forEach(component => {
-                        if (component.enable instanceof Function) {
-                            component.enable(false);
-                        }
-                    });
-                }
-                play() {
-                    this.targets.forEach(component => {
-                        if (component.playMC instanceof Function) {
-                            component.playMC();
-                        }
-                    });
-                }
-                exec(func, ...vars) {
-                    this.targets.forEach(component => {
-                        if (component[func] instanceof Function) {
-                            component[func](vars);
-                        }
-                    });
-                }
-            };
-            exports_47("TSelector", TSelector);
-        }
-    };
-});
-System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_48, context_48) {
-    "use strict";
-    var __moduleName = context_48 && context_48.id;
-    var CUtil_22, MouseEvent, TMouseEvent;
-    return {
-        setters: [
-            function (CUtil_22_1) {
-                CUtil_22 = CUtil_22_1;
+            function (CUtil_6_1) {
+                CUtil_6 = CUtil_6_1;
             }
         ],
         execute: function () {
             MouseEvent = createjs.MouseEvent;
             TMouseEvent = class TMouseEvent extends MouseEvent {
-                constructor(TarObjID, type, bubbles, cancelable, stageX, stageY, nativeEvent, pointerID, primary, rawX, rawY) {
+                constructor(TarObjID, type, bubbles = false, cancelable = false, stageX = 0, stageY = 0, nativeEvent = null, pointerID = 0, primary = false, rawX = 0, rawY = 0) {
                     super(type, bubbles, cancelable, stageX, stageY, nativeEvent, pointerID, primary, rawX, rawY);
-                    this.localX = rawX;
-                    this.localY = rawY;
                 }
                 clone() {
-                    CUtil_22.CUtil.trace("cloning WOZEvent:");
+                    CUtil_6.CUtil.trace("cloning MouseEvent:");
                     return new TMouseEvent(this.tarObjID, this.type, this.bubbles, this.cancelable, this.stageX, this.stageY, this.nativeEvent, this.pointerID, this.primary, this.rawX, this.rawY);
                 }
                 captureLogState(obj = null) {
-                    obj['event'] = 'CEFMouseEvent';
+                    obj['event'] = 'TMouseEvent';
                     obj['tarObjID'] = this.tarObjID;
                     obj['localX'] = this.localX;
                     obj['localY'] = this.localY;
@@ -5682,10 +1138,12 @@ System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_48, co
                     return bTest;
                 }
             };
-            TMouseEvent.MOUSE_MOVE = "mousemove";
+            TMouseEvent.MOUSE_OVER = "rollover";
+            TMouseEvent.MOUSE_OUT = "rollout";
             TMouseEvent.MOUSE_DOWN = "mousedown";
+            TMouseEvent.MOUSE_CLICK = "pressup";
+            TMouseEvent.MOUSE_MOVE = "mousemove";
             TMouseEvent.MOUSE_UP = "mouseup";
-            TMouseEvent.MOUSE_CLICK = "click";
             TMouseEvent.DOUBLE_CLICK = "dblclick";
             TMouseEvent.CLICK = "click";
             TMouseEvent.WOZCLICK = "WOZMOUSE_CLICK";
@@ -5699,849 +1157,1088 @@ System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_48, co
             TMouseEvent.WOZKEYDOWN = "WOZKEY_DOWN";
             TMouseEvent.WOZKEYUP = "WOZMKEY_UP";
             TMouseEvent.WOZNULL = "WOZNULL";
-            exports_48("TMouseEvent", TMouseEvent);
+            exports_16("TMouseEvent", TMouseEvent);
         }
     };
 });
-System.register("thermite/events/TEvent", [], function (exports_49, context_49) {
+System.register("thermite/events/TTextEvent", ["events/CEFEvent", "util/CUtil"], function (exports_17, context_17) {
     "use strict";
-    var __moduleName = context_49 && context_49.id;
-    var Event, TEvent;
-    return {
-        setters: [],
-        execute: function () {
-            Event = createjs.Event;
-            TEvent = class TEvent extends Event {
-                constructor(type, bubbles = false, cancelable = false) {
-                    super(type, bubbles, cancelable);
-                }
-            };
-            exports_49("TEvent", TEvent);
-        }
-    };
-});
-System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "thermite/TSelector", "events/CEFEvent", "util/CONST", "util/CUtil", "thermite/events/TEvent"], function (exports_50, context_50) {
-    "use strict";
-    var __moduleName = context_50 && context_50.id;
-    var TRoot_4, TObjectDyno_1, TSelector_1, CEFEvent_8, CONST_8, CUtil_23, Tween, ColorMatrixFilter, BlurFilter, Ease, TEvent_1, TObject;
+    var __moduleName = context_17 && context_17.id;
+    var CEFEvent_2, CUtil_7, TTextEvent;
     return {
         setters: [
-            function (TRoot_4_1) {
-                TRoot_4 = TRoot_4_1;
+            function (CEFEvent_2_1) {
+                CEFEvent_2 = CEFEvent_2_1;
             },
-            function (TObjectDyno_1_1) {
-                TObjectDyno_1 = TObjectDyno_1_1;
-            },
-            function (TSelector_1_1) {
-                TSelector_1 = TSelector_1_1;
-            },
-            function (CEFEvent_8_1) {
-                CEFEvent_8 = CEFEvent_8_1;
-            },
-            function (CONST_8_1) {
-                CONST_8 = CONST_8_1;
-            },
-            function (CUtil_23_1) {
-                CUtil_23 = CUtil_23_1;
-            },
-            function (TEvent_1_1) {
-                TEvent_1 = TEvent_1_1;
+            function (CUtil_7_1) {
+                CUtil_7 = CUtil_7_1;
             }
         ],
         execute: function () {
+            TTextEvent = class TTextEvent extends CEFEvent_2.CEFEvent {
+                constructor(TarObjID, Type, Index1 = 0, Index2 = 0, TextData = "", Bubbles = false, Cancelable = false) {
+                    super(TarObjID, Type, Bubbles, Cancelable);
+                    this.textdata = TextData;
+                    this.index1 = Index1;
+                    this.index2 = Index2;
+                }
+                clone() {
+                    CUtil_7.CUtil.trace("cloning CEFTextEvent:");
+                    return new TTextEvent(this.tarObjID, this.type, this.index1, this.index2, this.textdata, this.bubbles, this.cancelable);
+                }
+            };
+            TTextEvent.WOZSETSELECTION = "wozSetSelection";
+            TTextEvent.WOZSETSCROLL = "wozSetScroll";
+            TTextEvent.WOZINPUTTEXT = "wozInputText";
+            TTextEvent.WOZCAPTUREFOCUS = "wozCaptureFocus";
+            TTextEvent.WOZRELEASEFOCUS = "wozReleaseFocus";
+            exports_17("TTextEvent", TTextEvent);
+        }
+    };
+});
+System.register("thermite/TCursorProxy", ["thermite/TRoot", "thermite/TObject", "thermite/TSceneBase", "thermite/events/TMouseEvent", "thermite/events/TTextEvent", "util/CUtil"], function (exports_18, context_18) {
+    "use strict";
+    var __moduleName = context_18 && context_18.id;
+    var TRoot_1, TObject_1, TSceneBase_1, TMouseEvent_1, TTextEvent_1, CUtil_8, Point, Tween, Ease, TCursorProxy;
+    return {
+        setters: [
+            function (TRoot_1_1) {
+                TRoot_1 = TRoot_1_1;
+            },
+            function (TObject_1_1) {
+                TObject_1 = TObject_1_1;
+            },
+            function (TSceneBase_1_1) {
+                TSceneBase_1 = TSceneBase_1_1;
+            },
+            function (TMouseEvent_1_1) {
+                TMouseEvent_1 = TMouseEvent_1_1;
+            },
+            function (TTextEvent_1_1) {
+                TTextEvent_1 = TTextEvent_1_1;
+            },
+            function (CUtil_8_1) {
+                CUtil_8 = CUtil_8_1;
+            }
+        ],
+        execute: function () {
+            Point = createjs.Point;
             Tween = createjs.Tween;
-            ColorMatrixFilter = createjs.ColorMatrixFilter;
-            BlurFilter = createjs.BlurFilter;
             Ease = createjs.Ease;
-            TObject = class TObject extends TRoot_4.TRoot {
+            TCursorProxy = class TCursorProxy extends TRoot_1.TRoot {
                 constructor() {
                     super();
-                    this.sAuto = "UNKNOWN";
-                    this.satFrames = 8;
-                    this.satIncrement = 1 / this.satFrames;
-                    this.curSat = 1.0;
-                    this.curBlur = 1.0;
-                    this.blurFrames = 8;
-                    this.blurIncrement = 1 / this.blurFrames;
-                    this.curGlow = 1.0;
-                    this.glowFrames = 8;
-                    this.glowIncrement = 1 / this.glowFrames;
-                    this._isvalid = "false";
-                    this._ischecked = "false";
-                    this._activeFeature = "";
-                    this._validFeature = "";
-                    this._invalidFeature = "";
-                    this._hasClickMask = false;
-                    this.init2();
+                    this.curObject = null;
+                    this.actObject = null;
+                    this.cLocation = new Point;
+                    this.fSparkler = true;
+                    this.fSparklerTest = false;
+                    this.fSparklerDrag = false;
+                    this.fLiveLog = false;
+                    this.init1();
                 }
-                TObjectInitialize() {
+                TCursorProxyInitialize() {
                     this.TRootInitialize.call(this);
-                    this.init2();
+                    this.init1();
                 }
                 initialize() {
                     this.TRootInitialize.call(this);
-                    this.init2();
+                    this.init1();
                 }
-                init2() {
+                init1() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_23.CUtil.trace("TObject:Constructor");
-                    this.tweenID = 1;
-                    this.bTweenable = true;
-                    this.bSubTweenable = false;
-                    this.bPersist = false;
+                        CUtil_8.CUtil.trace("CEFCursorProxy:Constructor");
+                    this.name = "WOZvCursor";
+                    this.setCursorStyle("Sstandard");
                 }
-                onCreate() {
+                setCursorStyle(style) {
+                    this.Sstandard.visible = false;
+                    this.Ssmallhand.visible = false;
+                    this.Shand.visible = false;
+                    this.Sautomate.visible = false;
+                    this[style].visible = true;
                 }
-                Destructor() {
-                    this.off(CEFEvent_8.CEFEvent.COMPLETE, this.doAction);
-                    super.Destructor();
-                }
-                get ontologyPath() {
-                    return this._ontologyPath;
-                }
-                addHTMLControls() { }
-                playMC() {
-                    this.timeline.on(CEFEvent_8.CEFEvent.CHANGE, this.checkMCcomplete, this);
-                    this.gotoAndPlay(0);
-                }
-                checkMCcomplete(evt) {
-                    if (this.timeline.position >= this.timeline.duration) {
-                        this.timeline.off(CEFEvent_8.CEFEvent.CHANGE, this.checkMCcomplete);
-                        this.doAction(new TEvent_1.TEvent("complete"));
-                    }
-                }
-                doAction(evt) {
-                    try {
-                        if (this.hostScene)
-                            this.hostScene.onAction(this.name, evt.type);
-                    }
-                    catch (e) {
-                        CUtil_23.CUtil.trace("Error in onClick script: " + e);
-                    }
-                }
-                set hidden(hide) {
-                    if (this._hidden !== hide) {
-                        this._hidden = hide;
-                        if (this._hidden) {
-                            this._shownVisibility = this.visible;
-                            this._shownAlpha = this.alpha;
-                            this.visible = false;
-                            this.alpha = 0;
-                        }
-                        else {
-                            this.visible = this._shownVisibility || this.visible;
-                            this.alpha = this._shownAlpha || this.alpha;
-                        }
-                    }
-                }
-                get hidden() {
-                    return this._hidden;
-                }
-                hide() {
-                    this.hidden = true;
-                }
-                show() {
-                    this.hidden = false;
-                }
-                set features(newFTR) {
-                    this._features = newFTR;
-                }
-                get features() {
-                    return this._features;
-                }
-                setANDFeature(newFTR) {
-                    if (this._features.length != 0)
-                        this._features += ",";
-                    this._features += newFTR;
-                }
-                setORFeature(newFTR) {
-                    if (this._features.length != 0)
-                        this._features += ":";
-                    this._features += newFTR;
-                }
-                unSetFeature(ftr) {
-                    let feature;
-                    let featArray = new Array;
-                    let updatedFTRset = "";
-                    if (this._features.length > 0)
-                        featArray = this._features.split(":");
-                    for (let feature of featArray) {
-                        if (feature != ftr) {
-                            if (updatedFTRset.length != 0)
-                                updatedFTRset += ":";
-                            updatedFTRset += ftr;
-                        }
-                    }
-                    this._features = updatedFTRset;
-                }
-                resolveOntologyKey(selector, templateRef) {
-                    if (templateRef) {
-                        if (typeof templateRef === 'string') {
-                            this._ontologyRef = templateRef;
-                        }
-                        else {
-                            let ontologyRef = templateRef[selector] || templateRef["*"];
-                            if (!ontologyRef) {
-                                if (selector.includes("?"))
-                                    console.error("SELECTOR ERROR: missing Template Reference for:" + selector);
-                            }
-                            else {
-                                this._ontologyRef = this.resolveRawSelector(ontologyRef, null);
-                            }
-                        }
-                        if (this._ontologyRef) {
-                            let objSelector = this._ontologyRef.split("|");
-                            this._ontologyKey = objSelector[0].split("_");
-                        }
-                        else {
-                            this._ontologyKey = [];
-                        }
-                    }
-                }
-                buildObject(hostModule, objectClass, objectName) {
-                    let newObject;
-                    let maskDim;
-                    console.error("Error: Use of incomplete Function");
-                    newObject = CUtil_23.CUtil.instantiateThermiteObject(hostModule, objectClass);
-                    newObject.name = objectName;
-                    newObject.onCreate();
-                    this.addChild(newObject);
-                    if (newObject._hasClickMask) {
-                        maskDim = newObject.globalToLocal(0, 0);
-                        newObject.SclickMask.x = maskDim.x;
-                        newObject.SclickMask.y = maskDim.y;
-                        newObject.SclickMask.graphics.setStrokeStyle(0);
-                        newObject.SclickMask.graphics.beginFill(newObject._maskColor);
-                        newObject.SclickMask.graphics.drawRect(0, 0, this.tutorDoc.STAGEWIDTH, this.tutorDoc.STAGEHEIGHT);
-                        newObject.SclickMask.graphics.endFill();
-                    }
-                    return newObject;
-                }
-                buildMask() {
-                }
-                get activeFeature() {
-                    return "";
-                }
-                set activeFeature(value) {
-                }
-                clearAllEffects(fHide = true) {
-                    this.stopTransitions();
-                    removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.saturationTimer);
-                    removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.blurTimer);
-                    removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.flashTimer);
-                    this.filters = null;
-                    if (fHide)
-                        this.alpha = 0;
-                }
-                moveChild(tarObj, moveX, moveY, duration = "0.5") {
-                    if (moveX != "")
-                        this.Running.push(new Tween(this[tarObj]).to({ x: moveX }, Number(duration), Ease.cubicInOut));
-                    if (moveY != "")
-                        this.Running.push(new Tween(this[tarObj]).to({ y: moveY }, Number(duration), Ease.cubicInOut));
-                }
-                moveOriginChild(tarObj, regx, regy, duration = "0.5") {
-                    if (regx != "")
-                        this.Running.push(new Tween(this[tarObj]).to({ regX: regx }, Number(duration), Ease.cubicInOut));
-                    if (regy != "")
-                        this.Running.push(new Tween(this[tarObj]).to({ regY: regy }, Number(duration), Ease.cubicInOut));
-                }
-                scaleChild(tarObj, scalex, scaley, duration = "0.5") {
-                    if (scalex != "")
-                        this.Running.push(new Tween(this[tarObj]).to({ scaleX: scalex }, Number(duration), Ease.cubicInOut));
-                    if (scaley != "")
-                        this.Running.push(new Tween(this[tarObj]).to({ scaleY: scaley }, Number(duration), Ease.cubicInOut));
-                }
-                saturateChild(tarObj, newState, duration = "0.08") {
-                    this[tarObj].saturateObj(newState, duration);
-                }
-                saturateChildTo(tarObj, newSat, duration = "0.08") {
-                    this[tarObj].saturateObjTo(newSat, duration);
-                }
-                saturateObj(newState, duration = "0.08") {
-                    this.newSaturation = newState;
-                    if (this.newSaturation == "mono") {
-                        this.curSat = 1.0;
-                        this.newSat = 0.0;
-                    }
-                    else {
-                        this.curSat = 0.0;
-                        this.newSat = 1.0;
-                    }
-                    this.satIncrement = 1.0 / 12;
-                    addEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.saturationTimer);
-                }
-                saturateObjTo(_newSat, duration = "0.08") {
-                    let dynRange;
-                    if (_newSat > this.curSat) {
-                        this.newSaturation = "color";
-                    }
-                    else {
-                        this.newSaturation = "mono";
-                    }
-                    this.newSat = _newSat;
-                    dynRange = Math.abs(_newSat - this.curSat);
-                    this.satIncrement = dynRange / 12;
-                    addEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.saturationTimer);
-                }
-                saturationTimer(evt) {
-                    if (this.newSaturation == "color") {
-                        this.curSat += this.satIncrement;
-                        if (this.curSat >= this.newSat) {
-                            this.curSat = this.newSat;
-                            removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.saturationTimer);
-                        }
-                    }
-                    else if (this.newSaturation == "mono") {
-                        this.curSat -= this.satIncrement;
-                        if (this.curSat <= this.newSat) {
-                            this.curSat = this.newSat;
-                            removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.saturationTimer);
-                        }
-                    }
-                    else {
-                        this.curSat = 1.0;
-                        removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.saturationTimer);
-                    }
-                    this.filters = new Array(this.adjustSaturation(Number(this.curSat)));
-                }
-                adjustSaturation(s = 1) {
-                    let sInv;
-                    let irlum;
-                    let iglum;
-                    let iblum;
-                    sInv = (1 - s);
-                    irlum = (sInv * CONST_8.CONST.LUMA_R);
-                    iglum = (sInv * CONST_8.CONST.LUMA_G);
-                    iblum = (sInv * CONST_8.CONST.LUMA_B);
-                    return new ColorMatrixFilter([(irlum + s), iglum, iblum, 0, 0,
-                        irlum, (iglum + s), iblum, 0, 0,
-                        irlum, iglum, (iblum + s), 0, 0,
-                        0, 0, 0, 1, 0]);
-                }
-                blurChild(tarObj, duration = "12") {
-                    this[tarObj].blurObj(duration);
-                }
-                blurObj(duration = "12") {
-                    this.blurIncrement = 255.0 / Number(duration);
-                    this.curBlur = 0;
-                    addEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.blurTimer);
-                }
-                blurTimer(evt) {
-                    this.curBlur += this.blurIncrement;
-                    if (this.curBlur >= 255) {
-                        removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.blurTimer);
-                        dispatchEvent(new Event("blur_complete"));
-                        this.filters = null;
-                        this.alpha = 0;
-                    }
-                    else
-                        this.filters = new Array(new BlurFilter(this.curBlur, this.curBlur));
-                }
-                flashChild(tarObj, _glowColor, duration = "8") {
-                    this[tarObj].flashObj(_glowColor, duration);
-                }
-                flashObj(_glowColor, duration = "8") {
-                    this.glowStage = "color";
-                    this.glowColor = _glowColor;
-                    this.glowStrength = 2.0;
-                    this.glowAlpha = 1.0;
-                    this.glowIncrement = 175.0 / Number(duration);
-                    this.curGlow = 0;
+                initWOZCursor(sMode) {
                     if (this.traceMode)
-                        CUtil_23.CUtil.trace("start Object Flash");
-                    addEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.flashTimer);
-                }
-                flashTimer(evt) {
-                    if (this.glowStage == "color") {
-                        this.curGlow += this.glowIncrement;
-                        this.glowStrength += .1;
-                        if (this.curGlow >= 175) {
-                            this.glowStage = "alpha";
-                        }
-                    }
-                    else if (this.glowStage == "alpha") {
-                        if (this.glowAlpha <= 0.0) {
-                            if (this.traceMode)
-                                CUtil_23.CUtil.trace("end Object Flash");
-                            removeEventListener(CEFEvent_8.CEFEvent.ENTER_FRAME, this.flashTimer);
-                            dispatchEvent(new Event("glow_complete"));
-                            this.glowStage = "done";
-                            this.filters = null;
-                        }
-                        this.glowAlpha -= .05;
-                    }
-                }
-                showChild(tarObj, alphaTo = -1, autoStart = false) {
-                    this[tarObj].visible = true;
-                    if (alphaTo != -1)
-                        this[tarObj].alpha = alphaTo;
-                }
-                hideChild(tarObj) {
-                    this[tarObj].visible = false;
-                }
-                fadeChildOff(tarObj, autoStart = false, duration = "0.5") {
-                    this._tarObj = tarObj;
-                    this.Running.push(new Tween(this[tarObj]).to({ alpha: 0 }, Number(duration), Ease.cubicInOut));
-                    if (autoStart)
-                        this.startTransition(this.hideDone);
-                }
-                hideDone() {
-                    this[this._tarObj].visible = false;
-                }
-                fadeChild(tarObj, alphaTo, autoStart = false, duration = "0.5") {
-                    this[tarObj].visible = true;
-                    switch (alphaTo) {
-                        case "off":
-                        case "on":
-                            if (this.traceMode)
-                                CUtil_23.CUtil.trace("Fading : ", tarObj, alphaTo);
-                            this.Running.push(new Tween(this[tarObj]).to({ alpha: (alphaTo == "on") ? 1 : 0 }, Number(duration), Ease.cubicInOut));
-                            if (autoStart == true)
-                                this.startTransition(this.twnDone);
-                            break;
-                        default:
-                            if (this.traceMode)
-                                CUtil_23.CUtil.trace("fadeChild: Parameter error - should be 'on' or 'off' - is: ", alphaTo);
-                            break;
-                    }
-                }
-                fadeChildTo(tarObj, alphaTo, autoStart = false, duration = "0.5") {
-                    this[tarObj].visible = true;
-                    if (this.traceMode)
-                        CUtil_23.CUtil.trace("Fading To: ", tarObj, alphaTo);
-                    this.Running.push(new Tween(this[tarObj]).to({ alpha: alphaTo }, Number(duration), Ease.cubicInOut));
-                    if (autoStart == true)
-                        this.startTransition(this.twnDone);
-                }
-                twnDone() {
-                }
-                startTween(xnF = this.twnDone) {
-                    if (this.Running.length > 0)
-                        this.startTransition((xnF == null) ? this.twnDone : xnF);
-                }
-                deepStateCopy(src) {
-                    this.rotation = src.rotation;
-                    this.x = src.x;
-                    this.y = src.y;
-                    this.scaleX = src.scaleX;
-                    this.scaleY = src.scaleY;
-                    this.alpha = src.alpha;
-                    this.visible = src.visible;
-                    this.bPersist = src.bPersist;
-                    this.activeFeature = src.activeFeature;
-                }
-                shallowStateCopy(tar, src) {
-                    tar.rotation = src.rotation;
-                    tar.x = src.x;
-                    tar.y = src.y;
-                    tar.scaleX = src.scaleX;
-                    tar.scaleY = src.scaleY;
-                    tar.alpha = src.alpha;
-                    tar.visible = src.visible;
-                }
-                captureDefState(tutObject) {
-                    this.defRot = this.rotation;
-                    this.defX = this.x;
-                    this.defY = this.y;
-                    this.defWidth = this.scaleX;
-                    this.defHeight = this.scaleY;
-                    this.defAlpha = this.alpha;
-                    for (let subObject in tutObject) {
-                        if (subObject != "_instance" && tutObject[subObject]._instance instanceof TObject) {
-                            if (this.traceMode)
-                                CUtil_23.CUtil.trace("capturing: " + tutObject[subObject]._instance.name);
-                            tutObject[subObject]._instance.captureDefState(tutObject[subObject]);
-                        }
-                    }
-                }
-                restoreDefState(tutObject) {
-                    this.rotation = this.defRot;
-                    this.scaleX = this.defWidth;
-                    this.scaleY = this.defHeight;
-                    this.x = this.defX;
-                    this.y = this.defY;
-                    this.alpha = this.defAlpha;
-                    for (let subObject in tutObject) {
-                        if (subObject != "_instance" && tutObject[subObject]._instance instanceof TObject) {
-                            if (this.traceMode)
-                                CUtil_23.CUtil.trace("restoring: " + tutObject[subObject]._instance.name);
-                            tutObject[subObject]._instance.restoreDefState(tutObject[subObject]);
-                        }
-                    }
-                }
-                isTweenable() {
-                    return this.bTweenable;
-                }
-                isSubTweenable() {
-                    return this.bSubTweenable;
-                }
-                captureLogState(obj = null) {
-                    if (obj == null)
-                        obj = {};
-                    return obj;
-                }
-                captureXMLState() {
-                    let nullXML = '<null/>';
-                    return nullXML;
-                }
-                restoreXMLState(xmlState) {
-                }
-                compareXMLState(xmlState) {
-                    return false;
-                }
-                createLogAttr(objprop, restart = false) {
-                    let sResult;
-                    if (!this.hasOwnProperty(objprop))
-                        sResult = "undefined";
-                    else
-                        sResult = this[objprop];
-                    return sResult;
-                }
-                measure() {
-                }
-                initAutomation(_parentScene, sceneObj, ObjIdRef, lLogger, lTutor) {
-                    if (this.traceMode)
-                        CUtil_23.CUtil.trace("TObject initAutomation:");
-                    let subObj;
-                    let wozObj;
-                    this.objID = ObjIdRef + name;
-                    for (let i1 = 0; i1 < this.numChildren; i1++) {
-                        subObj = this.getChildAt(i1);
-                        sceneObj[subObj.name] = {};
-                        sceneObj[subObj.name]._instance = subObj;
-                        if (subObj instanceof TObject || subObj instanceof TObjectDyno_1.TObjectDyno) {
-                            subObj.parentScene = _parentScene;
-                            if (subObj instanceof TObject)
-                                subObj.measure();
-                        }
-                        sceneObj[subObj.name]['inPlace'] = { X: subObj.x, Y: subObj.y, Width: subObj.scaleX, Height: subObj.scaleY, Alpha: subObj.alpha };
-                        if (this.traceMode)
-                            CUtil_23.CUtil.trace("\t\tTObject found subObject named:" + subObj.name);
-                        if (subObj instanceof TObject) {
-                            wozObj = subObj;
-                            wozObj.initAutomation(_parentScene, sceneObj[subObj.name], this.objID + ".", lLogger, lTutor);
-                        }
-                        if (subObj instanceof TObjectDyno_1.TObjectDyno) {
-                            let wozDynoObj = subObj;
-                            wozDynoObj.initAutomation(_parentScene, sceneObj[subObj.name], this.objID + ".", lLogger, lTutor);
-                        }
-                    }
-                }
-                setAutomationMode(sceneObj, sMode) {
+                        CUtil_8.CUtil.trace("Initializing WOZ Cursor Automation:");
                     this.sAuto = sMode;
-                    for (let subObj in sceneObj) {
-                        if (subObj != "_instance" && sceneObj[subObj]._instance instanceof TObject) {
-                            sceneObj[subObj]._instance.setAutomationMode(sceneObj[subObj], sMode);
-                        }
+                    if (sMode == TCursorProxy.WOZLIVE) {
+                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.MOUSE_MOVE, this.liveMouseMove);
+                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.MOUSE_DOWN, this.liveMouseDown);
+                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.MOUSE_UP, this.liveMouseUp);
+                        this.stage.addEventListener(TMouseEvent_1.TMouseEvent.DOUBLE_CLICK, this.liveMouseDblClick);
                     }
-                }
-                dumpSubObjs(sceneObj, Indent) {
-                    for (let subObj in sceneObj) {
-                        if (this.traceMode)
-                            CUtil_23.CUtil.trace(Indent + "\tsubObj : " + subObj);
-                        if (subObj != "_instance") {
-                            let ObjData = sceneObj[subObj];
-                            if (sceneObj[subObj]._instance instanceof TObject) {
-                                if (this.traceMode)
-                                    CUtil_23.CUtil.trace(Indent + "\t");
-                                let wozObj = sceneObj[subObj]._instance;
-                                if (ObjData['inPlace'] != undefined) {
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace(Indent + "\tCEF* Object: " + " x: " + wozObj.x + " y: " + wozObj.y + " width: " + wozObj.scaleX + " height: " + wozObj.scaleY + " alpha: " + wozObj.alpha + " visible: " + wozObj.visible + " name: " + wozObj.name);
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace(Indent + "\tIn-Place Pos: " + " X: " + ObjData['inPlace'].X + " Y: " + ObjData['inPlace'].Y + " Width: " + ObjData['inPlace'].scaleX + " Height: " + ObjData['inPlace'].scaleY + " Alpha: " + ObjData['inPlace'].Alpha);
-                                }
-                                sceneObj[subObj]._instance.dumpSubObjs(sceneObj[subObj], Indent + "\t");
-                            }
-                            else {
-                                let disObj = sceneObj[subObj]._instance;
-                                if (ObjData['inPlace'] != undefined) {
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace(Indent + "\tFlash Object: " + " x: " + disObj.x + " y: " + disObj.y + " width: " + disObj.scaleX + " height: " + disObj.scaleY + " alpha: " + disObj.alpha + " visible: " + disObj.visible + " name: " + disObj.name);
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace(Indent + "\tIn-Place Pos: " + " X: " + ObjData['inPlace'].X + " Y: " + ObjData['inPlace'].Y + " Width: " + ObjData['inPlace'].scaleX + " Height: " + ObjData['inPlace'].scaleY + " Alpha: " + ObjData['inPlace'].Alpha);
-                                }
-                            }
-                        }
-                        else {
-                            if (this.traceMode)
-                                CUtil_23.CUtil.trace(Indent + "Parent Object : " + sceneObj + " visible: " + sceneObj[subObj].visible);
-                        }
+                    else if (sMode == TCursorProxy.WOZREPLAY) {
+                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.MOUSE_MOVE, this.liveMouseMove);
+                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.MOUSE_DOWN, this.liveMouseDown);
+                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.MOUSE_UP, this.liveMouseUp);
+                        this.stage.removeEventListener(TMouseEvent_1.TMouseEvent.DOUBLE_CLICK, this.liveMouseDblClick);
                     }
-                }
-                set isChecked(sval) {
-                    this._ischecked = sval;
-                }
-                get isChecked() {
-                    return this._ischecked;
-                }
-                set checked(bval) {
-                    this._ischecked = (bval) ? "true" : "false";
-                }
-                get checked() {
-                    return (this._ischecked == "true") ? true : false;
-                }
-                set isValid(sval) {
-                    this._isvalid = sval;
-                }
-                get isValid() {
-                    return this._isvalid;
-                }
-                assertFeatures() {
-                    return "";
-                }
-                retractFeatures() {
-                }
-                get tallyValid() {
-                    return "0";
-                }
-                addFeature(_feature, _name) {
-                    this.assertFeature(_feature, _name);
-                }
-                delFeature(_feature, _name) {
-                    this.retractFeature(_feature, _name);
-                }
-                assertFeature(_feature, _name) {
-                    this.tutorDoc.addFeature(_feature, _name);
-                }
-                retractFeature(_feature, _name) {
-                    this.tutorDoc.delFeature(_feature, _name);
-                }
-                set valid(bval) {
-                    this._isvalid = (bval) ? "true" : "false";
-                }
-                get valid() {
-                    return (this._isvalid == "true") ? true : false;
-                }
-                wozMouseClick(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozMouseMove(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozMouseDown(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozMouseUp(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozMouseOver(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozMouseOut(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozKeyDown(evt) {
-                    this.dispatchEvent(evt);
-                }
-                wozKeyUp(evt) {
-                    this.dispatchEvent(evt);
                 }
                 decodeTarget(baseObj, objArray) {
-                    let tmpObject = baseObj;
+                    let tmpObject = null;
                     let subObject;
                     subObject = objArray.shift();
                     if (this.traceMode)
-                        CUtil_23.CUtil.trace("decoding: " + subObject);
-                    if (subObject != "this") {
+                        CUtil_8.CUtil.trace("decoding: " + subObject);
+                    if ((subObject != "null") && (subObject != "none")) {
                         tmpObject = baseObj[subObject];
                         if (objArray.length)
                             tmpObject = this.decodeTarget(tmpObject, objArray);
                     }
                     return tmpObject;
                 }
-                parseOBJLog(tarObj, element) {
+                initPlayBack() {
+                    this.lastFrameTime = 0;
+                }
+                playBackAction(wozEvt) {
+                    let traceAction = false;
+                    let tarObject;
                     let objArray;
-                    let dataStr;
-                    let attrName;
-                    if (this.traceMode)
-                        CUtil_23.CUtil.trace("Processing: " + element.localName() + " - named: " + element.named);
-                    objArray = element.objname.split(".");
-                    if (this.traceMode)
-                        CUtil_23.CUtil.trace("Target Array: " + objArray[0]);
-                    if (objArray.length)
-                        tarObj = this.decodeTarget(tarObj, objArray);
-                    if (element.objprop != undefined) {
-                        dataStr = tarObj.createLogAttr(element.objprop);
+                    if (traceAction)
+                        CUtil_8.CUtil.trace("PlayBack Action: " + wozEvt);
+                    if (wozEvt.CEFMouseEvent != undefined) {
+                        this.x = wozEvt.CEFMouseEvent.localX;
+                        this.y = wozEvt.CEFMouseEvent.localY;
+                        if (this.fSparklerTest) {
+                            this.fSparklerTest = false;
+                            if (wozEvt.CEFMouseEvent.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZMOVE)
+                                this.fSparklerDrag = true;
+                        }
+                        if ((wozEvt.CEFMouseEvent.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZDOWN) && this.fSparkler) {
+                            this.fSparklerDrag = false;
+                            this.fSparklerTest = true;
+                            this.Ssparkle.gotoAndPlay(2);
+                        }
+                        if ((wozEvt.CEFMouseEvent.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZUP) && this.fSparklerDrag)
+                            this.Ssparkle.gotoAndPlay(10);
+                        if (traceAction)
+                            CUtil_8.CUtil.trace("Splitting: " + wozEvt.CEFMouseEvent.CEFEvent.target + " EVT TYPE: " + wozEvt.CEFMouseEvent.CEFEvent.type);
+                        objArray = wozEvt.CEFMouseEvent.CEFEvent.target.split(".");
+                        if (traceAction)
+                            CUtil_8.CUtil.trace("Target Array: " + objArray[0]);
+                        tarObject = this.decodeTarget(this.tutorDoc.tutorContainer, objArray);
+                        if (tarObject) {
+                            if (traceAction)
+                                CUtil_8.CUtil.trace("Automation Target: " + tarObject + " Event: " + wozEvt.CEFMouseEvent.CEFEvent.type);
+                            let evt = new TMouseEvent_1.TMouseEvent(tarObject.objID, wozEvt.CEFMouseEvent.CEFEvent.type, wozEvt.bubbles, wozEvt.cancelable, wozEvt.stageX, wozEvt.stageY, wozEvt.nativeEvent, wozEvt.pointerID, wozEvt.primary, wozEvt.rawX, wozEvt.rawY);
+                            tarObject.dispatchEvent(evt);
+                        }
                     }
-                    else if (element.objmethod != undefined) {
-                        dataStr = tarObj.runXMLFunction(tarObj, element);
+                    else if (wozEvt.CEFTextEvent != undefined) {
+                        if (traceAction)
+                            CUtil_8.CUtil.trace("Splitting: " + wozEvt.CEFTextEvent.CEFEvent.target + " EVT TYPE: " + wozEvt.CEFTextEvent.CEFEvent.type);
+                        if (wozEvt.CEFTextEvent.CEFEvent.type == TTextEvent_1.TTextEvent.WOZINPUTTEXT) {
+                            objArray = wozEvt.CEFTextEvent.CEFEvent.target.split(".");
+                            if (traceAction)
+                                CUtil_8.CUtil.trace("Target Array: " + objArray[0]);
+                            tarObject = this.decodeTarget(this.tutorDoc.tutorContainer, objArray);
+                            if (tarObject) {
+                                if (traceAction)
+                                    CUtil_8.CUtil.trace("Automation Target: " + tarObject + " Event: " + wozEvt.CEFTextEvent.CEFEvent.type);
+                                let tEvt = new TTextEvent_1.TTextEvent(tarObject.objID, wozEvt.CEFTextEvent.CEFEvent.type, wozEvt.CEFTextEvent.index1, wozEvt.CEFTextEvent.index2, wozEvt.CEFTextEvent.text, true, false);
+                                tarObject.dispatchEvent(tEvt);
+                            }
+                        }
                     }
-                    attrName = this.constructLogName(element.logattr);
-                    this.tutorDoc._phaseData[attrName] = {};
-                    this.tutorDoc._phaseData[attrName]['value'] = dataStr;
-                    this.tutorDoc._phaseData[attrName]["start"] = this.tutorDoc.tutorContainer.timeStamp.getStartTime("dur_" + name);
-                    this.tutorDoc._phaseData[attrName]["duration"] = this.tutorDoc.tutorContainer.timeStamp.createLogAttr("dur_" + name);
-                    this.tutorDoc._sceneData[element.logattr] = dataStr;
-                    this.tutorDoc._sceneData['phasename'] = element.logid.toString();
-                    try {
-                        this.tutorDoc._sceneData['Rule0'] = this.tutorDoc.tutorContainer.ktSkills['rule0'].queryBelief();
-                        this.tutorDoc._sceneData['Rule1'] = this.tutorDoc.tutorContainer.ktSkills['rule1'].queryBelief();
-                        this.tutorDoc._sceneData['Rule2'] = this.tutorDoc.tutorContainer.ktSkills['rule2'].queryBelief();
-                    }
-                    catch (err) {
-                        CUtil_23.CUtil.trace("Error - CVS Skills not defined:" + err);
-                    }
-                    return;
                 }
-                constructLogName(attr) {
-                    let attrName = "L00000";
-                    let frame;
-                    frame = this.tutorDoc._framendx.toString();
-                    attrName = name + "_" + attr + "_" + this.tutorDoc.tutorContainer.gNavigator.iteration.toString();
-                    return attrName;
-                }
-                setXMLProperty(tarObj, tarXML) {
+                playBackMove(nextMove, frameTime) {
+                    let relTime = (frameTime - this.lastFrameTime) / (nextMove.time - this.lastFrameTime);
                     if (this.traceMode)
-                        CUtil_23.CUtil.trace("Processing: " + tarXML.localName() + " - named: " + tarXML.named + "- value: " + tarXML.value);
-                    if (tarObj.hasOwnProperty(tarXML.prop)) {
-                        let parmDef = tarXML.value.split(":");
-                        if (parmDef[1] != "null") {
-                            if (parmDef[1] == "Array") {
-                                tarObj[tarXML.prop] = parmDef[0].split(",");
+                        CUtil_8.CUtil.trace("PlayBack Move");
+                    this.x += relTime * (nextMove.CEFMouseEvent.localX - this.x);
+                    this.y += relTime * (nextMove.CEFMouseEvent.localY - this.y);
+                    this.lastFrameTime = frameTime;
+                    if (this.traceMode)
+                        CUtil_8.CUtil.trace("-- Target X: " + nextMove.CEFMouseEvent.localX + " -- Target Y: " + nextMove.CEFMouseEvent.localY);
+                    if (this.traceMode)
+                        CUtil_8.CUtil.trace("-- Mouse  X: " + this.x + " -- Mouse  Y: " + this.y);
+                }
+                replayEvent(xEvt) {
+                    let tarObject;
+                    let objArray;
+                    this.x = xEvt.localX;
+                    this.y = xEvt.localY;
+                    if (this.fSparklerTest) {
+                        this.fSparklerTest = false;
+                        if (xEvt.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZMOVE)
+                            this.fSparklerDrag = true;
+                    }
+                    if ((xEvt.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZDOWN) && this.fSparkler) {
+                        this.fSparklerDrag = false;
+                        this.fSparklerTest = true;
+                        this.Ssparkle.gotoAndPlay(2);
+                    }
+                    if ((xEvt.CEFEvent.type.toString() == TMouseEvent_1.TMouseEvent.WOZUP) && this.fSparklerDrag)
+                        this.Ssparkle.gotoAndPlay(10);
+                    if (this.traceMode)
+                        CUtil_8.CUtil.trace("Splitting: " + xEvt.CEFEvent.target + " EVT TYPE: " + xEvt.CEFEvent.type);
+                    objArray = xEvt.CEFEvent.target.split(".");
+                    if (this.traceMode)
+                        CUtil_8.CUtil.trace("Target Array: " + objArray[0]);
+                    tarObject = this.decodeTarget(this.tutorDoc.tutorContainer, objArray);
+                    if (tarObject) {
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("Automation Target: " + tarObject + " Event: " + xEvt.CEFEvent.type);
+                        let evt = new TMouseEvent_1.TMouseEvent(tarObject.objID, xEvt.CEFEvent.type, xEvt.bubbles, xEvt.cancelable, xEvt.stageX, xEvt.stageY, xEvt.nativeEvent, xEvt.pointerID, xEvt.primary, xEvt.rawX, xEvt.rawY);
+                        tarObject.dispatchEvent(evt);
+                    }
+                }
+                replayEventB(xEvt) {
+                    let tarObject;
+                    this.x = xEvt.localX;
+                    this.y = xEvt.localY;
+                    tarObject = this.hitTestCoord(this.x, this.y);
+                    if (tarObject) {
+                        switch (xEvt.CEFEvent.type.toString()) {
+                            case TMouseEvent_1.TMouseEvent.WOZMOVE:
+                                return;
+                            case TMouseEvent_1.TMouseEvent.WOZOUT:
+                                tarObject = this.curObject;
+                                break;
+                            case TMouseEvent_1.TMouseEvent.WOZOVER:
+                                this.curObject = tarObject;
+                                break;
+                            case TMouseEvent_1.TMouseEvent.WOZUP:
+                                tarObject = this.actObject;
+                                break;
+                            case TMouseEvent_1.TMouseEvent.WOZDOWN:
+                                this.actObject = this.curObject;
+                                tarObject = this.curObject;
+                                break;
+                            case TMouseEvent_1.TMouseEvent.WOZCLICKED:
+                                tarObject = this.actObject;
+                                break;
+                            case TMouseEvent_1.TMouseEvent.WOZDBLCLICK:
+                                tarObject = this.actObject;
+                                break;
+                        }
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("Automation Target: " + tarObject + " Event: " + xEvt.CEFEvent.type);
+                        let evt = new TMouseEvent_1.TMouseEvent(tarObject.objID, xEvt.CEFEvent.type, xEvt.bubbles, xEvt.cancelable, xEvt.stageX, xEvt.stageY, xEvt.nativeEvent, xEvt.pointerID, xEvt.primary, xEvt.rawX, xEvt.rawY);
+                        tarObject.dispatchEvent(evt);
+                    }
+                }
+                replayEventAndMove(xEvt, laEvt, l2Evt) {
+                    let tweens;
+                    let easingX;
+                    let easingY;
+                    let v1;
+                    let v2;
+                    let dX;
+                    let dY;
+                    this.replayEvent(xEvt);
+                    let replayTime = (laEvt.CEFEvent.evtTime - xEvt.CEFEvent.evtTime) / 1000;
+                    let replayTim2 = (l2Evt.CEFEvent.evtTime - laEvt.CEFEvent.evtTime) / 1000;
+                    if (replayTime > 0) {
+                        if (l2Evt == null) {
+                            easingX = Ease.cubicOut;
+                            easingY = Ease.cubicOut;
+                        }
+                        else {
+                            dX = Math.abs(laEvt.localX - xEvt.localX);
+                            v1 = dX / replayTime;
+                            v2 = Math.abs(l2Evt.localX - laEvt.localX) / replayTim2;
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("delta T:" + replayTime + " : " + replayTim2);
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("X: v1/v2:  " + (v1 / v2));
+                            if (dX < 10) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.linear");
+                                easingX = Ease.linear;
+                            }
+                            else if ((v1 == 0) || (v2 == 0)) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.linear");
+                                easingX = Ease.linear;
+                            }
+                            else if ((v1 / v2) > 3.5) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.cubicOut");
+                                easingX = Ease.cubicOut;
+                            }
+                            else if ((v1 / v2) < .30) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.cubicIn");
+                                easingX = Ease.cubicIn;
                             }
                             else {
-                                let tClass = CUtil_23.CUtil.getConstructorByName("moduleName", parmDef[1]);
-                                let value = parmDef[0];
-                                tarObj[tarXML.prop] = new tClass(value);
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.linear");
+                                easingX = Ease.linear;
+                            }
+                            dY = Math.abs(laEvt.localY - xEvt.localY);
+                            v1 = dY / replayTime;
+                            v2 = Math.abs(l2Evt.localY - laEvt.localY) / replayTim2;
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("Y: v1/v2:  " + (v1 / v2));
+                            if (dY < 10) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.linear");
+                                easingY = Ease.linear;
+                            }
+                            else if ((v1 == 0) || (v2 == 0)) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing X: Ease.linear");
+                                easingY = Ease.linear;
+                            }
+                            else if ((v1 / v2) > 3.5) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing Y: Ease.cubicOut");
+                                easingY = Ease.cubicOut;
+                            }
+                            else if ((v1 / v2) < .30) {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing Y: Ease.cubicIn");
+                                easingY = Ease.cubicIn;
+                            }
+                            else {
+                                if (this.traceMode)
+                                    CUtil_8.CUtil.trace("Easing Y: Ease.linear");
+                                easingY = Ease.linear;
                             }
                         }
-                        else
-                            tarObj[tarXML.prop] = null;
+                        tweens = new Array;
+                        tweens[0] = new Tween(this).to({ x: laEvt.localX }, replayTime, easingX);
+                        tweens[1] = new Tween(this).to({ y: laEvt.localY }, replayTime, easingY);
                     }
+                    return tweens;
                 }
-                runXMLFunction(tarObj, tarXML) {
-                    let i1 = 1;
-                    let tClass;
-                    let value;
-                    let objArray;
-                    let parmDef;
-                    let parms = new Array;
-                    while (tarXML["parm" + i1] != undefined) {
-                        parmDef = tarXML["parm" + i1].split(":");
-                        if (parmDef[1] == "symbol") {
-                            objArray = parmDef[0].split(".");
-                            if (objArray.length)
-                                parms.push(this.decodeTarget(tarObj, objArray));
-                        }
-                        else if (parmDef[1] != "null") {
-                            tClass = CUtil_23.CUtil.getConstructorByName("moduleName", parmDef[1]);
-                            value = parmDef[0];
-                            parms.push(new tClass(value));
-                        }
-                        else
-                            parms.push(null);
-                        i1++;
+                replayMove(oldTime, laEvt) {
+                    let tweens;
+                    let replayTime = (laEvt.CEFEvent.evtTime - oldTime) / 1000;
+                    if (replayTime > 0) {
+                        tweens = new Array;
+                        tweens[0] = new Tween(this).to({ x: laEvt.localX }, replayTime, Ease.cubicInOut);
+                        tweens[1] = new Tween(this).to({ y: laEvt.localY }, replayTime, Ease.cubicInOut);
                     }
-                    if (tarXML.cmnd != undefined)
-                        return tarObj[tarXML.cmnd].apply(tarObj, (parms));
-                    if (tarXML.objmethod != undefined)
-                        return tarObj[tarXML.objmethod].apply(tarObj, (parms));
+                    return tweens;
                 }
-                parseOBJ(tarObj, factoryOBJ, factoryType) {
-                    let tarObject;
-                    let childList;
-                    let objArray;
-                    let propName;
-                    for (propName in factoryOBJ) {
-                        tarObject = tarObj;
-                        if (factoryOBJ[propName].features != undefined) {
-                            if (!this.tutorDoc.tutorContainer.testFeatureSet(factoryOBJ[propName].features))
-                                continue;
+                liveMouseMove(evt) {
+                    let evtMove;
+                    let fUpdate = false;
+                    let locX;
+                    let locY;
+                    locX = evt.stageX;
+                    locY = evt.stageY;
+                    if (this.x != locX) {
+                        this.x = locX;
+                        fUpdate = true;
+                    }
+                    if (this.y != locY) {
+                        this.y = locY;
+                        fUpdate = true;
+                    }
+                    if (fUpdate) {
+                        this.hitTestMouse(evt);
+                        if (this.curObject) {
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("CEF Mouse Move : " + this.curObject.objID);
+                            evtMove = new TMouseEvent_1.TMouseEvent("none", TMouseEvent_1.TMouseEvent.WOZMOVE, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                            if (this.fLiveLog)
+                                this.tutorDoc.log.logLiveEvent(evtMove.captureLogState());
+                            this.curObject.dispatchEvent(evtMove);
                         }
-                        try {
-                            switch (propName) {
-                                case "common":
-                                    break;
-                                case "log":
-                                    this.parseOBJLog(tarObject, propName);
-                                    break;
-                                case "obj":
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace("Processing: " + propName + " - named: " + propName.named);
-                                    try {
-                                        objArray = propName.named.split(".");
-                                        if (this.traceMode)
-                                            CUtil_23.CUtil.trace("Target Array: " + objArray[0]);
-                                        if (objArray.length)
-                                            tarObject = this.decodeTarget(tarObject, objArray);
-                                        childList = propName.children();
-                                        if (childList.length > 0)
-                                            this.parseOBJ(tarObject, childList, "obj");
-                                        if (propName.prop != undefined) {
-                                            this.setXMLProperty(tarObject, propName);
-                                        }
-                                        else if (propName.cmnd != undefined) {
-                                            this.runXMLFunction(tarObject, propName);
-                                        }
-                                    }
-                                    catch (err) {
-                                        if (this.traceMode)
-                                            CUtil_23.CUtil.trace("Invalid 'obj' target");
-                                    }
-                                    break;
-                                case "props":
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace("Processing: " + propName + " - named: " + propName.named + "- value: " + propName.value);
-                                    this.setXMLProperty(tarObject, propName);
-                                    break;
-                                case "cmnds":
-                                    if (this.traceMode)
-                                        CUtil_23.CUtil.trace("Processing: " + propName + " - named: " + propName.named + "- value: " + propName.value);
-                                    this.runXMLFunction(tarObject, propName);
-                                    break;
-                                case "symbol":
-                                    try {
-                                        objArray = propName.named.split(".");
-                                        if (this.traceMode)
-                                            CUtil_23.CUtil.trace("Target Array: " + objArray[0]);
-                                        if (objArray.length)
-                                            tarObject = this.decodeTarget(tarObject, objArray);
-                                    }
-                                    catch (err) {
-                                        CUtil_23.CUtil.trace("ParseXML Symbol named: " + propName.named + " not found.");
-                                        tarObject = null;
-                                    }
-                                    if (tarObject != null) {
-                                        tarObject.loadXML(propName);
-                                    }
-                                    break;
-                                case "object":
-                                    break;
-                                case "initself":
-                                    this.loadXML(propName);
-                                    break;
-                            }
-                        }
-                        catch (err) {
-                            CUtil_23.CUtil.trace("TObject:parseXML: " + err);
+                        else {
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("NULL Mouse Move : ");
+                            evtMove = new TMouseEvent_1.TMouseEvent("none", TMouseEvent_1.TMouseEvent.WOZMOVE, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                            if (this.fLiveLog)
+                                this.tutorDoc.log.logLiveEvent(evtMove.captureLogState());
                         }
                     }
                 }
-                $(selector) {
-                    return new TSelector_1.TSelector(this, selector);
-                }
-                deSerializeObj(objData) {
-                    super.deSerializeObj(objData);
-                    this.xname = objData.xname || this.xname;
-                    this.x = objData.x || this.x;
-                    this.y = objData.y || this.y;
-                    this.visible = objData.visible || this.visible;
-                    this.alpha = objData.alpha || this.alpha;
-                    if (objData.mask != undefined) {
-                        this._hasClickMask = true;
-                        this.addChildAt(this.SclickMask, 0);
+                liveMouseDown(evt) {
+                    let locX;
+                    let locY;
+                    locX = evt.stageX;
+                    locY = evt.stageY;
+                    this.hitTestMouse(evt);
+                    if (this.curObject) {
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("CEF Mouse Down : " + this.curObject.objID);
+                        let evtDown = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZDOWN, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                        if (this.fLiveLog)
+                            this.tutorDoc.log.logLiveEvent(evtDown.captureLogState());
+                        this.curObject.dispatchEvent(evtDown);
+                        this.actObject = this.curObject;
                     }
+                }
+                liveMouseUp(evt) {
+                    if (this.traceMode)
+                        CUtil_8.CUtil.trace("CEF Mouse Up : " + ((this.curObject) ? this.curObject.objID : "null"));
+                    let locX;
+                    let locY;
+                    if (this.actObject) {
+                        let evtUp = new TMouseEvent_1.TMouseEvent(this.actObject.objID, TMouseEvent_1.TMouseEvent.WOZUP, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                        if (this.fLiveLog)
+                            this.tutorDoc.log.logLiveEvent(evtUp.captureLogState());
+                        this.actObject.dispatchEvent(evtUp);
+                        if (this.actObject == this.curObject) {
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("CEF Mouse Click : " + this.curObject.objID + "  At X:" + locX + "  Y:" + locY);
+                            let evtClicked = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZCLICKED, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                            if (this.fLiveLog)
+                                this.tutorDoc.log.logLiveEvent(evtClicked.captureLogState());
+                            this.curObject.dispatchEvent(evtClicked);
+                        }
+                    }
+                    this.actObject = null;
+                }
+                liveMouseDblClick(evt) {
+                    let locX;
+                    let locY;
+                    if (this.curObject) {
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("CEF Mouse Dbl Clicked: " + this.curObject.objID);
+                        let evtDblClick = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZDBLCLICK, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                        if (this.fLiveLog)
+                            this.tutorDoc.log.logLiveEvent(evtDblClick.captureLogState());
+                        this.curObject.dispatchEvent(evtDblClick);
+                    }
+                }
+                stateHelper(tarObj) {
+                    let fTest = false;
+                    if (this.hitTestCoord(this.x, this.y) == tarObj)
+                        fTest = true;
+                    return fTest;
+                }
+                hitTestCoord(locX, locY) {
+                    let hitSet;
+                    let hitObj;
+                    let wozObj;
+                    this.cLocation.x = locX;
+                    this.cLocation.y = locY;
+                    hitSet = this.stage.getObjectsUnderPoint(locX, locY, 0);
+                    if (this.traceMode)
+                        CUtil_8.CUtil.trace("Hittest results  - cursor name: " + name);
+                    if (hitSet.length) {
+                        hitObj = hitSet[hitSet.length - 1];
+                        wozObj = this.isWOZObject(hitObj);
+                        if (!wozObj && (hitSet.length > 1)) {
+                            hitObj = hitSet[hitSet.length - 2];
+                            wozObj = this.isWOZObject(hitObj);
+                        }
+                    }
+                    if (wozObj)
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("HitTest WozObject Name - " + wozObj.name);
+                    return wozObj;
+                }
+                hitTestMouse(evt) {
+                    let hitObj;
+                    hitObj = this.hitTestCoord(this.x, this.y);
+                    if (hitObj || (!hitObj && (this.actObject == null)))
+                        this.updateCurrentObject(evt, hitObj);
+                }
+                show(bFlag) {
+                    if (bFlag) {
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("Hiding Hardware Mouse : ");
+                        document.getElementById("canvas").style.cursor = "none";
+                        this.visible = true;
+                    }
+                    else {
+                        if (this.traceMode)
+                            CUtil_8.CUtil.trace("Showing Hardware Mouse : ");
+                        document.getElementById("canvas").style.cursor = "none";
+                        this.visible = false;
+                    }
+                }
+                updateCurrentObject(evt, hitObj) {
+                    if (this.traceMode)
+                        (hitObj) ? CUtil_8.CUtil.trace("updateCurrentObject hitObj: " + hitObj.objID) : CUtil_8.CUtil.trace("updateCurrentObject hitObj: null");
+                    let locX;
+                    let locY;
+                    locX = evt.stageX;
+                    locY = evt.stageY;
+                    if (hitObj == this.curObject)
+                        return;
+                    else {
+                        if (this.curObject) {
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("CEF Mouse Out : " + this.curObject.objID);
+                            let evtOut = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZOUT, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                            if (this.fLiveLog)
+                                this.tutorDoc.log.logLiveEvent(evtOut.captureLogState());
+                            this.curObject.dispatchEvent(evtOut);
+                        }
+                        this.curObject = hitObj;
+                        if (this.curObject) {
+                            if (this.traceMode)
+                                CUtil_8.CUtil.trace("CEF Mouse Over: " + this.curObject.objID);
+                            let evtOver = new TMouseEvent_1.TMouseEvent(this.curObject.objID, TMouseEvent_1.TMouseEvent.WOZOVER, evt.bubbles, evt.cancelable, evt.stageX, evt.stageY, evt.nativeEvent, evt.pointerID, evt.primary, evt.rawX, evt.rawY);
+                            if (this.fLiveLog)
+                                this.tutorDoc.log.logLiveEvent(evtOver.captureLogState());
+                            this.curObject.dispatchEvent(evtOver);
+                        }
+                    }
+                }
+                isWOZObject(tObj) {
+                    if (!tObj || tObj instanceof TSceneBase_1.TSceneBase)
+                        return null;
+                    else if (tObj instanceof TObject_1.TObject)
+                        return tObj;
+                    return this.isWOZObject(tObj.parent);
                 }
             };
-            exports_50("TObject", TObject);
+            TCursorProxy.WOZLIVE = "WOZLIVE";
+            TCursorProxy.WOZREPLAY = "WOZREPLAY";
+            exports_18("TCursorProxy", TCursorProxy);
         }
     };
 });
-System.register("mongo/MObject", [], function (exports_51, context_51) {
+System.register("core/CEFTimeStamp", ["thermite/TObject", "util/CUtil"], function (exports_19, context_19) {
     "use strict";
-    var __moduleName = context_51 && context_51.id;
+    var __moduleName = context_19 && context_19.id;
+    var TObject_2, CUtil_9, CEFTimeStamp;
+    return {
+        setters: [
+            function (TObject_2_1) {
+                TObject_2 = TObject_2_1;
+            },
+            function (CUtil_9_1) {
+                CUtil_9 = CUtil_9_1;
+            }
+        ],
+        execute: function () {
+            CEFTimeStamp = class CEFTimeStamp extends TObject_2.TObject {
+                constructor() {
+                    if (CEFTimeStamp._baseTime == 0)
+                        CEFTimeStamp._baseTime = Number(CUtil_9.CUtil.getTimer());
+                    super();
+                }
+                getStartTime(objprop) {
+                    var sResult;
+                    var dT;
+                    if (!this.hasOwnProperty(objprop)) {
+                        sResult = 'invalid';
+                    }
+                    else {
+                        dT = (this[objprop] - CEFTimeStamp._baseTime) / 1000;
+                        sResult = dT.toFixed(3);
+                    }
+                    return sResult;
+                }
+                createLogAttr(objprop, restart = false) {
+                    var sResult;
+                    var dT;
+                    if (!this.hasOwnProperty(objprop)) {
+                        this[objprop] = Number(CUtil_9.CUtil.getTimer());
+                        dT = (this[objprop] - CEFTimeStamp._baseTime) / 1000;
+                    }
+                    else {
+                        if (restart)
+                            this[objprop] = Number(CUtil_9.CUtil.getTimer());
+                        dT = (Number(CUtil_9.CUtil.getTimer()) - this[objprop]) / 1000;
+                    }
+                    return sResult = dT.toFixed(3);
+                }
+            };
+            CEFTimeStamp._baseTime = 0;
+            exports_19("CEFTimeStamp", CEFTimeStamp);
+        }
+    };
+});
+System.register("events/CEFKeyboardEvent", [], function (exports_20, context_20) {
+    "use strict";
+    var __moduleName = context_20 && context_20.id;
+    var Event, CEFKeyboardEvent;
+    return {
+        setters: [],
+        execute: function () {
+            Event = createjs.Event;
+            CEFKeyboardEvent = class CEFKeyboardEvent extends Event {
+                constructor(type, bubbles = false, cancelable = false) {
+                    super(type, bubbles, cancelable);
+                }
+            };
+            CEFKeyboardEvent.KEY_PRESS = "keypress";
+            CEFKeyboardEvent.KEY_DOWN = "keydown";
+            CEFKeyboardEvent.KEY_UP = "keyup";
+            exports_20("CEFKeyboardEvent", CEFKeyboardEvent);
+        }
+    };
+});
+System.register("tutorgraph/CTutorConstraint", ["util/CUtil"], function (exports_21, context_21) {
+    "use strict";
+    var __moduleName = context_21 && context_21.id;
+    var CUtil_10, CTutorConstraint;
+    return {
+        setters: [
+            function (CUtil_10_1) {
+                CUtil_10 = CUtil_10_1;
+            }
+        ],
+        execute: function () {
+            CTutorConstraint = class CTutorConstraint extends Object {
+                constructor(_tutorDoc) {
+                    super();
+                    this.tutorDoc = _tutorDoc;
+                }
+                static factory(_tutorDoc, parent, factory) {
+                    let node = new CTutorConstraint(_tutorDoc);
+                    node._parent = parent;
+                    node._cmd = factory.cmd;
+                    node._code = factory.code;
+                    return node;
+                }
+                execute() {
+                    let result = false;
+                    switch (this._cmd) {
+                        case "test":
+                            result = this.tutorDoc.testFeatureSet(this._code);
+                            break;
+                        case "exec":
+                            try {
+                                result = eval(this._code);
+                            }
+                            catch (err) {
+                                CUtil_10.CUtil.trace("CONST.execute: " + err.toString());
+                                result = false;
+                            }
+                            break;
+                    }
+                    return result;
+                }
+            };
+            exports_21("CTutorConstraint", CTutorConstraint);
+        }
+    };
+});
+System.register("tutorgraph/CTutorEdge", [], function (exports_22, context_22) {
+    "use strict";
+    var __moduleName = context_22 && context_22.id;
+    var CTutorEdge;
+    return {
+        setters: [],
+        execute: function () {
+            CTutorEdge = class CTutorEdge extends Object {
+                constructor(_tutorDoc) {
+                    super();
+                    this.tutorDoc = _tutorDoc;
+                }
+                static factory(_tutorDoc, parent, owner, factory) {
+                    let edge = new CTutorEdge(_tutorDoc);
+                    edge._parent = parent;
+                    edge._edgeOwner = owner;
+                    edge._edgeConst = factory.constraint;
+                    edge._edgeNode = factory.edge;
+                    if (factory.$P != undefined) {
+                        edge._pid = factory.pid;
+                        edge._prob = factory.$P.split('|');
+                        edge._cycle = Number(factory.cycle);
+                    }
+                    return edge;
+                }
+                testPConstraint() {
+                    let result = true;
+                    let iter;
+                    let rand;
+                    if (this._pid != null) {
+                        iter = this._parent.queryPConstraint(this._pid, this._prob.length, this._cycle);
+                        rand = Math.random();
+                        result = (rand < this._prob[iter]);
+                    }
+                    return result;
+                }
+                testConstraint() {
+                    let result = true;
+                    if (this._edgeConst.startsWith("FTR_")) {
+                        result = this.tutorDoc.testFeatureSet(this._edgeConst);
+                    }
+                    else {
+                        result = (this._edgeConst === "") ? true : this.tutorDoc.$nodeConstraint(this._edgeOwner.id, this._edgeConst);
+                    }
+                    return result;
+                }
+                followEdge() {
+                    return this._parent.findNodeByName(this._edgeNode);
+                }
+            };
+            exports_22("CTutorEdge", CTutorEdge);
+        }
+    };
+});
+System.register("tutorgraph/CTutorNode", ["tutorgraph/CTutorEdge"], function (exports_23, context_23) {
+    "use strict";
+    var __moduleName = context_23 && context_23.id;
+    var CTutorEdge_1, EventDispatcher, CTutorNode;
+    return {
+        setters: [
+            function (CTutorEdge_1_1) {
+                CTutorEdge_1 = CTutorEdge_1_1;
+            }
+        ],
+        execute: function () {
+            EventDispatcher = createjs.EventDispatcher;
+            CTutorNode = class CTutorNode extends EventDispatcher {
+                constructor(_tutorDoc) {
+                    super();
+                    this._edges = new Array;
+                    this.tutorDoc = _tutorDoc;
+                }
+                nodeFactory(parent, nodeName, nodefactory) {
+                    this._parent = parent;
+                    this._id = nodefactory.id;
+                    this._type = nodefactory.type;
+                    this._name = nodeName;
+                    this._preEnter = nodefactory.preenter;
+                    this._preExit = nodefactory.preexit;
+                    if (this._preEnter == "")
+                        this._preEnter = null;
+                    if (this._preExit == "")
+                        this._preExit = null;
+                    for (let edge of nodefactory.edges) {
+                        this._edges.push(CTutorEdge_1.CTutorEdge.factory(this.tutorDoc, parent, this, edge));
+                    }
+                }
+                get id() {
+                    return this._id;
+                }
+                get name() {
+                    return this._name;
+                }
+                captureGraph(obj) {
+                    return obj;
+                }
+                restoreGraph(obj) {
+                }
+                nextScene() {
+                    return null;
+                }
+                nextNode() {
+                    let edge;
+                    let node = this;
+                    if (this._preExit != null) {
+                    }
+                    for (let edge of this._edges) {
+                        if (edge.testConstraint() && edge.testPConstraint()) {
+                            node = edge.followEdge();
+                            if (node != null && node._preEnter != null) {
+                                eval(node._preEnter);
+                            }
+                            break;
+                        }
+                    }
+                    if (this._edges.length == 0)
+                        node = null;
+                    return node;
+                }
+                applyNode() {
+                    return false;
+                }
+                seekToScene(seekScene) {
+                    return null;
+                }
+                seekToSceneByName(seekScene) {
+                    return null;
+                }
+                resetNode() {
+                }
+            };
+            exports_23("CTutorNode", CTutorNode);
+        }
+    };
+});
+System.register("tutorgraph/CTutorAction", ["tutorgraph/CTutorNode"], function (exports_24, context_24) {
+    "use strict";
+    var __moduleName = context_24 && context_24.id;
+    var CTutorNode_1, CTutorAction;
+    return {
+        setters: [
+            function (CTutorNode_1_1) {
+                CTutorNode_1 = CTutorNode_1_1;
+            }
+        ],
+        execute: function () {
+            CTutorAction = class CTutorAction extends CTutorNode_1.CTutorNode {
+                constructor(_tutorDoc) {
+                    super(_tutorDoc);
+                }
+                static factory(_tutorDoc, parent, name, factory) {
+                    let nodeFactoryData = factory.CNodes[name];
+                    let node = new CTutorAction(_tutorDoc);
+                    node.nodeFactory(parent, name, nodeFactoryData);
+                    let actObject = factory.CActions[nodeFactoryData.link];
+                    node._cmnd = actObject.cmd;
+                    node._parms = actObject.parms;
+                    return node;
+                }
+                captureGraph(obj) {
+                    return obj;
+                }
+                restoreGraph(obj) {
+                }
+                nextScene() {
+                    return null;
+                }
+                applyNode() {
+                    return false;
+                }
+            };
+            exports_24("CTutorAction", CTutorAction);
+        }
+    };
+});
+System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph/CTutorScene", "util/CUtil"], function (exports_25, context_25) {
+    "use strict";
+    var __moduleName = context_25 && context_25.id;
+    var CTutorNode_2, CTutorScene_1, CUtil_11, CTutorModule;
+    return {
+        setters: [
+            function (CTutorNode_2_1) {
+                CTutorNode_2 = CTutorNode_2_1;
+            },
+            function (CTutorScene_1_1) {
+                CTutorScene_1 = CTutorScene_1_1;
+            },
+            function (CUtil_11_1) {
+                CUtil_11 = CUtil_11_1;
+            }
+        ],
+        execute: function () {
+            CTutorModule = class CTutorModule extends CTutorNode_2.CTutorNode {
+                constructor(_tutorDoc) {
+                    super(_tutorDoc);
+                    this._scenes = new Array;
+                    this._ndx = -1;
+                }
+                static factory(_tutorDoc, parent, id, moduleFactory, factory) {
+                    var moduleFactoryData = factory.CModules[moduleFactory.link];
+                    var node = new CTutorModule(_tutorDoc);
+                    if (moduleFactory.edges)
+                        node.nodeFactory(parent, id, moduleFactory);
+                    node._reuse = moduleFactoryData.reuse;
+                    var sceneList = moduleFactoryData.scenes;
+                    for (var scene of sceneList) {
+                        node._scenes.push(new CTutorScene_1.CTutorScene(_tutorDoc, scene, parent));
+                    }
+                    return node;
+                }
+                captureGraph(obj) {
+                    obj['index'] = this._ndx.toString();
+                    return obj;
+                }
+                restoreGraph(obj) {
+                    this._ndx = Number(obj['index']);
+                    return this._scenes[this._ndx];
+                }
+                nextScene() {
+                    var nextScene = null;
+                    var features;
+                    while (this._ndx < this._scenes.length) {
+                        this._ndx++;
+                        if (this._ndx >= this._scenes.length)
+                            nextScene = null;
+                        else
+                            nextScene = this._scenes[this._ndx];
+                        if (nextScene != null) {
+                            features = nextScene.features;
+                            if (features != "") {
+                                if (this.tutorDoc.testFeatureSet(features)) {
+                                    if (nextScene.hasPFeature) {
+                                        if (nextScene.testPFeature())
+                                            break;
+                                    }
+                                    else
+                                        break;
+                                }
+                                CUtil_11.CUtil.trace("Graph Feature: " + features + " :failed.");
+                            }
+                            else if (nextScene.hasPFeature) {
+                                if (nextScene.testPFeature())
+                                    break;
+                            }
+                            else
+                                break;
+                        }
+                        else
+                            break;
+                    }
+                    if (this._ndx >= this._scenes.length) {
+                        if (this._reuse) {
+                            this.resetNode();
+                        }
+                    }
+                    return nextScene;
+                }
+                applyNode() {
+                    dispatchEvent(new Event("todo"));
+                    return false;
+                }
+                seekToScene(seekScene) {
+                    var scene = null;
+                    var ndx = 0;
+                    for (scene of this._scenes) {
+                        if (seekScene == scene) {
+                            this._ndx = ndx;
+                            break;
+                        }
+                        ndx++;
+                    }
+                    return scene;
+                }
+                resetNode() {
+                    this._ndx = -1;
+                }
+            };
+            exports_25("CTutorModule", CTutorModule);
+        }
+    };
+});
+System.register("tutorgraph/CTutorModuleGroup", ["tutorgraph/CTutorNode", "tutorgraph/CTutorModule"], function (exports_26, context_26) {
+    "use strict";
+    var __moduleName = context_26 && context_26.id;
+    var CTutorNode_3, CTutorModule_1, CTutorModuleGroup;
+    return {
+        setters: [
+            function (CTutorNode_3_1) {
+                CTutorNode_3 = CTutorNode_3_1;
+            },
+            function (CTutorModule_1_1) {
+                CTutorModule_1 = CTutorModule_1_1;
+            }
+        ],
+        execute: function () {
+            CTutorModuleGroup = class CTutorModuleGroup extends CTutorNode_3.CTutorNode {
+                constructor(_tutorDoc) {
+                    super(_tutorDoc);
+                    this._modules = new Array;
+                    this._ndx = -1;
+                    this._moduleShown = false;
+                    this._shownCount = 0;
+                }
+                static factory(_tutorDoc, parent, id, groupFactory, factory) {
+                    let groupFactoryData = factory.CModuleGroups[groupFactory.link];
+                    let node = new CTutorModuleGroup(_tutorDoc);
+                    if (groupFactory.edges)
+                        node.nodeFactory(parent, id, groupFactory);
+                    node.instanceNode = groupFactoryData.instanceNode;
+                    node.type = groupFactoryData.type;
+                    node.start = groupFactoryData.start;
+                    node.show = groupFactoryData.show;
+                    node.reuse = groupFactoryData.reuse;
+                    node.onempty = groupFactoryData.onempty;
+                    let moduleList = groupFactoryData.modules;
+                    for (let moduleDescr of moduleList) {
+                        if (moduleDescr.instanceNode != "") {
+                            node._modules.push(parent.findNodeByName(moduleDescr.instanceNode));
+                        }
+                        else {
+                            node._modules.push(CTutorModule_1.CTutorModule.factory(_tutorDoc, parent, "", moduleDescr, factory));
+                        }
+                    }
+                    return node;
+                }
+                captureGraph(obj) {
+                    obj['index'] = this._ndx.toString();
+                    obj['_moduleShown'] = this._moduleShown.toString();
+                    obj['_shownCount'] = this._shownCount.toString();
+                    obj['moduleNode'] = this._modules[this._ndx].captureGraph({});
+                    return obj;
+                }
+                restoreGraph(obj) {
+                    this._ndx = Number(obj['index']);
+                    this._moduleShown = (obj['_moduleShown'] == 'true') ? true : false;
+                    this._shownCount = Number(obj['_shownCount']);
+                    return this._modules[this._ndx].restoreGraph(obj['moduleNode']);
+                }
+                initialize() {
+                    switch (this.type) {
+                        case CTutorModuleGroup.SEQUENTIAL:
+                            switch (this.start) {
+                                case CTutorModuleGroup.STOCHASTIC:
+                                    break;
+                                default:
+                                    this._ndx = Number(this.start);
+                                    break;
+                            }
+                            break;
+                    }
+                }
+                nextScene() {
+                    let nextScene = null;
+                    if (this._ndx == -1)
+                        this.initialize();
+                    do {
+                        nextScene = this._modules[this._ndx].nextScene();
+                        if (nextScene == null) {
+                            this._ndx++;
+                            this._ndx = this._ndx % this._modules.length;
+                            if (this.show != "all") {
+                                if (this._moduleShown)
+                                    this._shownCount++;
+                                if (this._shownCount == Number(this.show)) {
+                                    this._moduleShown = false;
+                                    this._shownCount = 0;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                            break;
+                    } while (this._ndx < this._modules.length);
+                    if (nextScene != null)
+                        this._moduleShown = true;
+                    return nextScene;
+                }
+                applyNode() {
+                    dispatchEvent(new Event("todo"));
+                    return false;
+                }
+                seekToScene(seekScene) {
+                    let module;
+                    let scene = null;
+                    let ndx = 0;
+                    for (let module of this._modules) {
+                        if (seekScene == module.seekToScene(seekScene)) {
+                            this._ndx = ndx;
+                            break;
+                        }
+                        ndx++;
+                    }
+                    return scene;
+                }
+                resetNode() {
+                    this._ndx = -1;
+                    this._shownCount = 0;
+                    this._moduleShown = false;
+                }
+            };
+            CTutorModuleGroup.SEQUENTIAL = "seqtype";
+            CTutorModuleGroup.STOCHASTIC = "randtype";
+            exports_26("CTutorModuleGroup", CTutorModuleGroup);
+        }
+    };
+});
+System.register("managers/ILogManager", [], function (exports_27, context_27) {
+    "use strict";
+    var __moduleName = context_27 && context_27.id;
+    return {
+        setters: [],
+        execute: function () {
+        }
+    };
+});
+System.register("managers/CLogManagerType", [], function (exports_28, context_28) {
+    "use strict";
+    var __moduleName = context_28 && context_28.id;
+    var CLogManagerType;
+    return {
+        setters: [],
+        execute: function () {
+            CLogManagerType = class CLogManagerType {
+            };
+            exports_28("CLogManagerType", CLogManagerType);
+        }
+    };
+});
+System.register("mongo/MObject", [], function (exports_29, context_29) {
+    "use strict";
+    var __moduleName = context_29 && context_29.id;
     var MObject;
     return {
         setters: [],
@@ -6551,13 +2248,13 @@ System.register("mongo/MObject", [], function (exports_51, context_51) {
                     super();
                 }
             };
-            exports_51("MObject", MObject);
+            exports_29("MObject", MObject);
         }
     };
 });
-System.register("mongo/CObject", ["mongo/MObject"], function (exports_52, context_52) {
+System.register("mongo/CObject", ["mongo/MObject"], function (exports_30, context_30) {
     "use strict";
-    var __moduleName = context_52 && context_52.id;
+    var __moduleName = context_30 && context_30.id;
     var MObject_1, CObject;
     return {
         setters: [
@@ -6597,18 +2294,18 @@ System.register("mongo/CObject", ["mongo/MObject"], function (exports_52, contex
                     dataObj[objPath.shift()] = value;
                 }
             };
-            exports_52("CObject", CObject);
+            exports_30("CObject", CObject);
         }
     };
 });
-System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"], function (exports_53, context_53) {
+System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"], function (exports_31, context_31) {
     "use strict";
-    var __moduleName = context_53 && context_53.id;
-    var CUtil_24, MObject_2, CObject_1, CMongo;
+    var __moduleName = context_31 && context_31.id;
+    var CUtil_12, MObject_2, CObject_1, CMongo;
     return {
         setters: [
-            function (CUtil_24_1) {
-                CUtil_24 = CUtil_24_1;
+            function (CUtil_12_1) {
+                CUtil_12 = CUtil_12_1;
             },
             function (MObject_2_1) {
                 MObject_2 = MObject_2_1;
@@ -6631,7 +2328,7 @@ System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"]
                         if (multi)
                             packet += ',';
                         packet += '"' + item + '":';
-                        type = CUtil_24.CUtil.getQualifiedClassName(_query[item]);
+                        type = CUtil_12.CUtil.getQualifiedClassName(_query[item]);
                         switch (type) {
                             case "string":
                                 packet += '"' + _query[item] + '"';
@@ -6656,7 +2353,7 @@ System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"]
                         if (multi)
                             packet += ',';
                         packet += '"' + item + '":';
-                        type = CUtil_24.CUtil.getQualifiedClassName(_query[item]);
+                        type = CUtil_12.CUtil.getQualifiedClassName(_query[item]);
                         switch (type) {
                             case "string":
                                 packet += '"' + _query[item] + '"';
@@ -6672,7 +2369,7 @@ System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"]
                         if (multilimit)
                             packet += ',';
                         packet += '"' + item + '":';
-                        type = CUtil_24.CUtil.getQualifiedClassName(_limit[item]);
+                        type = CUtil_12.CUtil.getQualifiedClassName(_limit[item]);
                         switch (type) {
                             case "string":
                                 packet += '"' + _limit[item] + '"';
@@ -6746,9 +2443,9 @@ System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"]
                     let className;
                     let fieldMark = false;
                     for (let value in node) {
-                        className = CUtil_24.CUtil.getQualifiedClassName(node[value]);
+                        className = CUtil_12.CUtil.getQualifiedClassName(node[value]);
                         if (className == "Object") {
-                            CUtil_24.CUtil.trace("type Error: parseUpdateFields");
+                            CUtil_12.CUtil.trace("type Error: parseUpdateFields");
                             throw (new Error("type Error: parseUpdateFields"));
                         }
                         if (node[value] instanceof CObject_1.CObject) {
@@ -6824,18 +2521,18 @@ System.register("mongo/CMongo", ["util/CUtil", "mongo/MObject", "mongo/CObject"]
                     dataObj[objPath.shift()] = value;
                 }
             };
-            exports_53("CMongo", CMongo);
+            exports_31("CMongo", CMongo);
         }
     };
 });
-System.register("events/CDataEvent", ["util/CUtil"], function (exports_54, context_54) {
+System.register("events/CDataEvent", ["util/CUtil"], function (exports_32, context_32) {
     "use strict";
-    var __moduleName = context_54 && context_54.id;
-    var CUtil_25, Event, CDataEvent;
+    var __moduleName = context_32 && context_32.id;
+    var CUtil_13, Event, CDataEvent;
     return {
         setters: [
-            function (CUtil_25_1) {
-                CUtil_25 = CUtil_25_1;
+            function (CUtil_13_1) {
+                CUtil_13 = CUtil_13_1;
             }
         ],
         execute: function () {
@@ -6847,24 +2544,24 @@ System.register("events/CDataEvent", ["util/CUtil"], function (exports_54, conte
                 }
                 clone() {
                     if (this.traceMode)
-                        CUtil_25.CUtil.trace("cloning CDataEvent:");
+                        CUtil_13.CUtil.trace("cloning CDataEvent:");
                     return new CDataEvent(this.type, this.bubbles, this.cancelable);
                 }
             };
             CDataEvent.DATA = "data";
             CDataEvent.UPLOAD_COMPLETE_DATA = "uploadCompleteData";
-            exports_54("CDataEvent", CDataEvent);
+            exports_32("CDataEvent", CDataEvent);
         }
     };
 });
-System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_55, context_55) {
+System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_33, context_33) {
     "use strict";
-    var __moduleName = context_55 && context_55.id;
-    var CUtil_26, Event, CIOErrorEvent;
+    var __moduleName = context_33 && context_33.id;
+    var CUtil_14, Event, CIOErrorEvent;
     return {
         setters: [
-            function (CUtil_26_1) {
-                CUtil_26 = CUtil_26_1;
+            function (CUtil_14_1) {
+                CUtil_14 = CUtil_14_1;
             }
         ],
         execute: function () {
@@ -6875,7 +2572,7 @@ System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_55, co
                     this.error = _error;
                 }
                 clone() {
-                    CUtil_26.CUtil.trace("cloning CIOErrorEvent:");
+                    CUtil_14.CUtil.trace("cloning CIOErrorEvent:");
                     return new CIOErrorEvent(this.type, this.error, this.bubbles, this.cancelable);
                 }
             };
@@ -6883,18 +2580,18 @@ System.register("events/CIOErrorEvent", ["util/CUtil"], function (exports_55, co
             CIOErrorEvent.STANDARD_ERROR_IO_ERROR = "standardErrorIoError";
             CIOErrorEvent.STANDARD_INPUT_IO_ERROR = "standardInputIoError";
             CIOErrorEvent.STANDARD_OUTPUT_IO_ERROR = "standardOutputIoError";
-            exports_55("CIOErrorEvent", CIOErrorEvent);
+            exports_33("CIOErrorEvent", CIOErrorEvent);
         }
     };
 });
-System.register("events/CTextEvent", ["util/CUtil"], function (exports_56, context_56) {
+System.register("events/CTextEvent", ["util/CUtil"], function (exports_34, context_34) {
     "use strict";
-    var __moduleName = context_56 && context_56.id;
-    var CUtil_27, Event, CTextEvent;
+    var __moduleName = context_34 && context_34.id;
+    var CUtil_15, Event, CTextEvent;
     return {
         setters: [
-            function (CUtil_27_1) {
-                CUtil_27 = CUtil_27_1;
+            function (CUtil_15_1) {
+                CUtil_15 = CUtil_15_1;
             }
         ],
         execute: function () {
@@ -6905,27 +2602,27 @@ System.register("events/CTextEvent", ["util/CUtil"], function (exports_56, conte
                     this.text = _text;
                 }
                 clone() {
-                    CUtil_27.CUtil.trace("cloning CTextEvent:");
+                    CUtil_15.CUtil.trace("cloning CTextEvent:");
                     return new CTextEvent(this.type, this.text, this.bubbles, this.cancelable);
                 }
             };
             CTextEvent.COMPLETE = "dnscomplete";
             CTextEvent.FAILED = "dnsfailed";
-            exports_56("CTextEvent", CTextEvent);
+            exports_34("CTextEvent", CTextEvent);
         }
     };
 });
-System.register("events/CErrorEvent", ["events/CTextEvent", "util/CUtil"], function (exports_57, context_57) {
+System.register("events/CErrorEvent", ["events/CTextEvent", "util/CUtil"], function (exports_35, context_35) {
     "use strict";
-    var __moduleName = context_57 && context_57.id;
-    var CTextEvent_1, CUtil_28, CErrorEvent;
+    var __moduleName = context_35 && context_35.id;
+    var CTextEvent_1, CUtil_16, CErrorEvent;
     return {
         setters: [
             function (CTextEvent_1_1) {
                 CTextEvent_1 = CTextEvent_1_1;
             },
-            function (CUtil_28_1) {
-                CUtil_28 = CUtil_28_1;
+            function (CUtil_16_1) {
+                CUtil_16 = CUtil_16_1;
             }
         ],
         execute: function () {
@@ -6935,26 +2632,26 @@ System.register("events/CErrorEvent", ["events/CTextEvent", "util/CUtil"], funct
                     this.errorID = _errorID;
                 }
                 clone() {
-                    CUtil_28.CUtil.trace("cloning CErrorEvent:");
+                    CUtil_16.CUtil.trace("cloning CErrorEvent:");
                     return new CErrorEvent(this.type, this.text, this.errorID, this.bubbles, this.cancelable);
                 }
             };
             CErrorEvent.ERROR = "error";
-            exports_57("CErrorEvent", CErrorEvent);
+            exports_35("CErrorEvent", CErrorEvent);
         }
     };
 });
-System.register("events/CSecurityErrorEvent", ["events/CErrorEvent", "util/CUtil"], function (exports_58, context_58) {
+System.register("events/CSecurityErrorEvent", ["events/CErrorEvent", "util/CUtil"], function (exports_36, context_36) {
     "use strict";
-    var __moduleName = context_58 && context_58.id;
-    var CErrorEvent_1, CUtil_29, CSecurityErrorEvent;
+    var __moduleName = context_36 && context_36.id;
+    var CErrorEvent_1, CUtil_17, CSecurityErrorEvent;
     return {
         setters: [
             function (CErrorEvent_1_1) {
                 CErrorEvent_1 = CErrorEvent_1_1;
             },
-            function (CUtil_29_1) {
-                CUtil_29 = CUtil_29_1;
+            function (CUtil_17_1) {
+                CUtil_17 = CUtil_17_1;
             }
         ],
         execute: function () {
@@ -6963,23 +2660,23 @@ System.register("events/CSecurityErrorEvent", ["events/CErrorEvent", "util/CUtil
                     super(type, _text, _errorID, bubbles, cancelable);
                 }
                 clone() {
-                    CUtil_29.CUtil.trace("cloning CSecurityErrorEvent:");
+                    CUtil_17.CUtil.trace("cloning CSecurityErrorEvent:");
                     return new CSecurityErrorEvent(this.type, this.text, this.errorID, this.bubbles, this.cancelable);
                 }
             };
             CSecurityErrorEvent.SECURITY_ERROR = "securityError";
-            exports_58("CSecurityErrorEvent", CSecurityErrorEvent);
+            exports_36("CSecurityErrorEvent", CSecurityErrorEvent);
         }
     };
 });
-System.register("network/CSocket", ["util/CUtil"], function (exports_59, context_59) {
+System.register("network/CSocket", ["util/CUtil"], function (exports_37, context_37) {
     "use strict";
-    var __moduleName = context_59 && context_59.id;
-    var CUtil_30, CSocket;
+    var __moduleName = context_37 && context_37.id;
+    var CUtil_18, CSocket;
     return {
         setters: [
-            function (CUtil_30_1) {
-                CUtil_30 = CUtil_30_1;
+            function (CUtil_18_1) {
+                CUtil_18 = CUtil_18_1;
             }
         ],
         execute: function () {
@@ -6988,12 +2685,12 @@ System.register("network/CSocket", ["util/CUtil"], function (exports_59, context
                     this.connecting = false;
                 }
                 openSocket(hostName, port) {
-                    CUtil_30.CUtil.trace("CSocket: openSocket - " + hostName + " port:" + port);
+                    CUtil_18.CUtil.trace("CSocket: openSocket - " + hostName + " port:" + port);
                     this._host = hostName;
                     this._port = port.toString();
                 }
                 closeSocket() {
-                    CUtil_30.CUtil.trace("CSocket: closeSocket - " + this._host + " port:" + this._port);
+                    CUtil_18.CUtil.trace("CSocket: closeSocket - " + this._host + " port:" + this._port);
                 }
                 sendData(data) {
                     let fResult = true;
@@ -7002,41 +2699,41 @@ System.register("network/CSocket", ["util/CUtil"], function (exports_59, context
                 configureListeners(connect = true) {
                 }
                 connectHandler(event) {
-                    CUtil_30.CUtil.trace("CSocket connectHandler: " + event);
+                    CUtil_18.CUtil.trace("CSocket connectHandler: " + event);
                 }
                 closeHandler(event) {
-                    CUtil_30.CUtil.trace("CSocket closeHandler: " + event);
+                    CUtil_18.CUtil.trace("CSocket closeHandler: " + event);
                 }
                 dataHandler(event) {
                 }
                 ioErrorHandler(event) {
-                    CUtil_30.CUtil.trace("CSocket ioErrorHandler: " + event);
+                    CUtil_18.CUtil.trace("CSocket ioErrorHandler: " + event);
                 }
                 progressHandler(event) {
-                    CUtil_30.CUtil.trace("CSocket progressHandler loaded:" + event.loaded + " total: " + event.total);
+                    CUtil_18.CUtil.trace("CSocket progressHandler loaded:" + event.loaded + " total: " + event.total);
                 }
                 securityErrorHandler(event) {
-                    CUtil_30.CUtil.trace("CSocket securityErrorHandler: " + event);
+                    CUtil_18.CUtil.trace("CSocket securityErrorHandler: " + event);
                 }
                 configureAbandonListeners(connect = true) {
                 }
                 abandonConnectHandler(event) {
-                    CUtil_30.CUtil.trace("Abandoned Socket connectHandler - Now Closing: " + event);
+                    CUtil_18.CUtil.trace("Abandoned Socket connectHandler - Now Closing: " + event);
                 }
                 abandonCloseHandler(event) {
-                    CUtil_30.CUtil.trace("Abandoned Socket CloseHandler - Socket Released: " + event);
+                    CUtil_18.CUtil.trace("Abandoned Socket CloseHandler - Socket Released: " + event);
                 }
                 abandonDataHandler(event) {
-                    CUtil_30.CUtil.trace("Abandoned Socket DataHandler: " + event);
+                    CUtil_18.CUtil.trace("Abandoned Socket DataHandler: " + event);
                 }
                 abandonIoErrorHandler(event) {
-                    CUtil_30.CUtil.trace("Abandoned Socket ioErrorHandler: " + event);
+                    CUtil_18.CUtil.trace("Abandoned Socket ioErrorHandler: " + event);
                 }
                 abandonProgressHandler(event) {
-                    CUtil_30.CUtil.trace("Abandoned Socket ProgressHandler: " + event);
+                    CUtil_18.CUtil.trace("Abandoned Socket ProgressHandler: " + event);
                 }
                 abandonSecurityErrorHandler(event) {
-                    CUtil_30.CUtil.trace("Abandoned Socket SecurityErrorHandler: " + event);
+                    CUtil_18.CUtil.trace("Abandoned Socket SecurityErrorHandler: " + event);
                 }
             };
             CSocket.PORT_NTP = 12000;
@@ -7085,18 +2782,18 @@ System.register("network/CSocket", ["util/CUtil"], function (exports_59, context
             CSocket.xmlSQLERROR = "sqlerror";
             CSocket.xmlInvalidUsername = "INVALID_USERNAME";
             CSocket.xmlInvalidPassword = "INVALID_PASSWORD";
-            exports_59("CSocket", CSocket);
+            exports_37("CSocket", CSocket);
         }
     };
 });
-System.register("events/CLogEvent", ["util/CUtil"], function (exports_60, context_60) {
+System.register("events/CLogEvent", ["util/CUtil"], function (exports_38, context_38) {
     "use strict";
-    var __moduleName = context_60 && context_60.id;
-    var CUtil_31, Event, CLogEvent;
+    var __moduleName = context_38 && context_38.id;
+    var CUtil_19, Event, CLogEvent;
     return {
         setters: [
-            function (CUtil_31_1) {
-                CUtil_31 = CUtil_31_1;
+            function (CUtil_19_1) {
+                CUtil_19 = CUtil_19_1;
             }
         ],
         execute: function () {
@@ -7112,7 +2809,7 @@ System.register("events/CLogEvent", ["util/CUtil"], function (exports_60, contex
                 }
                 clone() {
                     if (this.traceMode)
-                        CUtil_31.CUtil.trace("cloning CLogEvent:");
+                        CUtil_19.CUtil.trace("cloning CLogEvent:");
                     return new CLogEvent(this.type, this.subType, this.logNdx, this.logTtl, this.dataPacket, this.bubbles, this.cancelable);
                 }
             };
@@ -7157,18 +2854,18 @@ System.register("events/CLogEvent", ["util/CUtil"], function (exports_60, contex
             CLogEvent.QUERY_SUCCESS = "Query Success";
             CLogEvent.QUERY_FAILED = "Query failed";
             CLogEvent.PACKET_DATA = "Packet Data";
-            exports_60("CLogEvent", CLogEvent);
+            exports_38("CLogEvent", CLogEvent);
         }
     };
 });
-System.register("events/CProgressEvent", ["util/CUtil"], function (exports_61, context_61) {
+System.register("events/CProgressEvent", ["util/CUtil"], function (exports_39, context_39) {
     "use strict";
-    var __moduleName = context_61 && context_61.id;
-    var CUtil_32, Event, CProgressEvent;
+    var __moduleName = context_39 && context_39.id;
+    var CUtil_20, Event, CProgressEvent;
     return {
         setters: [
-            function (CUtil_32_1) {
-                CUtil_32 = CUtil_32_1;
+            function (CUtil_20_1) {
+                CUtil_20 = CUtil_20_1;
             }
         ],
         execute: function () {
@@ -7182,7 +2879,7 @@ System.register("events/CProgressEvent", ["util/CUtil"], function (exports_61, c
                 }
                 clone() {
                     if (this.traceMode)
-                        CUtil_32.CUtil.trace("cloning CProgressEvent:");
+                        CUtil_20.CUtil.trace("cloning CProgressEvent:");
                     return new CProgressEvent(this.type, this.loaded, this.total, this.bubbles, this.cancelable);
                 }
             };
@@ -7190,13 +2887,13 @@ System.register("events/CProgressEvent", ["util/CUtil"], function (exports_61, c
             CProgressEvent.STANDARD_ERROR_DATA = "standardErrorData";
             CProgressEvent.STANDARD_INPUT_PROGRESS = "standardInputProgress";
             CProgressEvent.STANDARD_OUTPUT_DATA = "standardOutputData";
-            exports_61("CProgressEvent", CProgressEvent);
+            exports_39("CProgressEvent", CProgressEvent);
         }
     };
 });
-System.register("network/CLogSocket", ["events/CLogEvent"], function (exports_62, context_62) {
+System.register("network/CLogSocket", ["events/CLogEvent"], function (exports_40, context_40) {
     "use strict";
-    var __moduleName = context_62 && context_62.id;
+    var __moduleName = context_40 && context_40.id;
     var CLogEvent_1, EventDispatcher, CLogSocket;
     return {
         setters: [
@@ -7239,24 +2936,24 @@ System.register("network/CLogSocket", ["events/CLogEvent"], function (exports_62
                     this.dispatchEvent(new CLogEvent_1.CLogEvent(CLogEvent_1.CLogEvent.CONNECT_STATUS, CLogEvent_1.CLogEvent.SOCKET_SECERR));
                 }
             };
-            exports_62("CLogSocket", CLogSocket);
+            exports_40("CLogSocket", CLogSocket);
         }
     };
 });
-System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CUtil"], function (exports_63, context_63) {
+System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CUtil"], function (exports_41, context_41) {
     "use strict";
-    var __moduleName = context_63 && context_63.id;
-    var CLogEvent_2, CONST_9, CUtil_33, EventDispatcher, CLogQueue;
+    var __moduleName = context_41 && context_41.id;
+    var CLogEvent_2, CONST_2, CUtil_21, EventDispatcher, CLogQueue;
     return {
         setters: [
             function (CLogEvent_2_1) {
                 CLogEvent_2 = CLogEvent_2_1;
             },
-            function (CONST_9_1) {
-                CONST_9 = CONST_9_1;
+            function (CONST_2_1) {
+                CONST_2 = CONST_2_1;
             },
-            function (CUtil_33_1) {
-                CUtil_33 = CUtil_33_1;
+            function (CUtil_21_1) {
+                CUtil_21 = CUtil_21_1;
             }
         ],
         execute: function () {
@@ -7271,12 +2968,12 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     this.jsonEvents = new Array();
                     this._queueOpen = false;
                     this._queueStreaming = false;
-                    this._queueMode = CONST_9.CONST.MODE_JSON;
+                    this._queueMode = CONST_2.CONST.MODE_JSON;
                 }
                 CLogQueue() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_33.CUtil.trace("CLogQueue:Constructor");
+                        CUtil_21.CUtil.trace("CLogQueue:Constructor");
                     this.resetQueue();
                 }
                 get queueMode() {
@@ -7343,7 +3040,7 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     return fEmpty;
                 }
                 nextPacket() {
-                    if (this._queueMode == CONST_9.CONST.MODE_JSON)
+                    if (this._queueMode == CONST_2.CONST.MODE_JSON)
                         return this.jsonEvents[this.logAckIndex + 1];
                     else
                         return this.logEvents.children()[this.logAckIndex + 1];
@@ -7354,7 +3051,7 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                 logEvent(dataEvt) {
                     if (this._queueOpen) {
                         this.logEvtIndex++;
-                        if (this._queueMode == CONST_9.CONST.MODE_JSON)
+                        if (this._queueMode == CONST_2.CONST.MODE_JSON)
                             this.jsonEvents.push(dataEvt);
                         else
                             this.logEvents.appendChild(dataEvt);
@@ -7369,7 +3066,7 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     let fResult = false;
                     if (seqID == this.logAckIndex + 1) {
                         if (this.traceMode)
-                            CUtil_33.CUtil.trace("@@@@@@@  PACKET ACK: " + (this.logAckIndex + 1));
+                            CUtil_21.CUtil.trace("@@@@@@@  PACKET ACK: " + (this.logAckIndex + 1));
                         if (!reSend) {
                             this.logAckIndex++;
                             this.emitProgress();
@@ -7393,7 +3090,7 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                         this.xmlEvents = this.LogSource;
                         this.playBackSiz = this.LogSource.length;
                         if (this.logTrace)
-                            CUtil_33.CUtil.trace("this.playBackSiz: " + this.playBackSiz);
+                            CUtil_21.CUtil.trace("this.playBackSiz: " + this.playBackSiz);
                     }
                     this.fPlayBackDone = false;
                     this.playBackNdx = 0;
@@ -7446,7 +3143,7 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     let xmlEvent;
                     let xResult = null;
                     if (this.logTrace)
-                        CUtil_33.CUtil.trace("getEvent for State: " + stateID + " : Frame : " + frameID);
+                        CUtil_21.CUtil.trace("getEvent for State: " + stateID + " : Frame : " + frameID);
                     for (; this.playBackNdx < this.playBackSiz; this.playBackNdx++) {
                         xmlEvent = this.xmlEvents[this.playBackNdx];
                         if (xmlEvent.type != "WOZevent")
@@ -7477,7 +3174,7 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     let xResult = null;
                     let nAction;
                     if (this.logTrace)
-                        CUtil_33.CUtil.trace("getActionEvent: " + frameTime);
+                        CUtil_21.CUtil.trace("getActionEvent: " + frameTime);
                     for (nAction = this.lastAction + 1; nAction < this.playBackSiz; nAction++) {
                         if (this.xmlEvents[nAction].type != "WOZevent")
                             continue;
@@ -7528,13 +3225,13 @@ System.register("network/CLogQueue", ["events/CLogEvent", "util/CONST", "util/CU
                     return xResult;
                 }
             };
-            exports_63("CLogQueue", CLogQueue);
+            exports_41("CLogQueue", CLogQueue);
         }
     };
 });
-System.register("network/CURLRequest", [], function (exports_64, context_64) {
+System.register("network/CURLRequest", [], function (exports_42, context_42) {
     "use strict";
-    var __moduleName = context_64 && context_64.id;
+    var __moduleName = context_42 && context_42.id;
     var CURLRequest;
     return {
         setters: [],
@@ -7559,13 +3256,13 @@ System.register("network/CURLRequest", [], function (exports_64, context_64) {
             CURLRequest.MIME_JS = "application/javascript";
             CURLRequest.MIME_ES = "application/ecmascript";
             CURLRequest.MIME_OCTET = "application/octet-stream";
-            exports_64("CURLRequest", CURLRequest);
+            exports_42("CURLRequest", CURLRequest);
         }
     };
 });
-System.register("network/CURLLoader", [], function (exports_65, context_65) {
+System.register("network/CURLLoader", [], function (exports_43, context_43) {
     "use strict";
-    var __moduleName = context_65 && context_65.id;
+    var __moduleName = context_43 && context_43.id;
     var EventDispatcher, CURLLoader;
     return {
         setters: [],
@@ -7622,18 +3319,18 @@ System.register("network/CURLLoader", [], function (exports_65, context_65) {
                     return requestPromise;
                 }
             };
-            exports_65("CURLLoader", CURLLoader);
+            exports_43("CURLLoader", CURLLoader);
         }
     };
 });
-System.register("events/CDnsEvent", ["util/CUtil"], function (exports_66, context_66) {
+System.register("events/CDnsEvent", ["util/CUtil"], function (exports_44, context_44) {
     "use strict";
-    var __moduleName = context_66 && context_66.id;
-    var CUtil_34, Event, CDnsEvent;
+    var __moduleName = context_44 && context_44.id;
+    var CUtil_22, Event, CDnsEvent;
     return {
         setters: [
-            function (CUtil_34_1) {
-                CUtil_34 = CUtil_34_1;
+            function (CUtil_22_1) {
+                CUtil_22 = CUtil_22_1;
             }
         ],
         execute: function () {
@@ -7644,20 +3341,20 @@ System.register("events/CDnsEvent", ["util/CUtil"], function (exports_66, contex
                     this.dnsData = _dnsData;
                 }
                 clone() {
-                    CUtil_34.CUtil.trace("cloning CDnsEvent:");
+                    CUtil_22.CUtil.trace("cloning CDnsEvent:");
                     return new CDnsEvent(this.type, this.dnsData, this.bubbles, this.cancelable);
                 }
             };
             CDnsEvent.COMPLETE = "dnscomplete";
             CDnsEvent.FAILED = "dnsfailed";
-            exports_66("CDnsEvent", CDnsEvent);
+            exports_44("CDnsEvent", CDnsEvent);
         }
     };
 });
-System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent", "events/CIOErrorEvent", "events/CSecurityErrorEvent", "events/CEFEvent", "events/CProgressEvent", "util/CUtil", "network/CURLRequest"], function (exports_67, context_67) {
+System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent", "events/CIOErrorEvent", "events/CSecurityErrorEvent", "events/CEFEvent", "events/CProgressEvent", "util/CUtil", "network/CURLRequest"], function (exports_45, context_45) {
     "use strict";
-    var __moduleName = context_67 && context_67.id;
-    var CURLLoader_1, CDnsEvent_1, CIOErrorEvent_1, CSecurityErrorEvent_1, CEFEvent_9, CProgressEvent_1, CUtil_35, CURLRequest_1, CDDnsLoader;
+    var __moduleName = context_45 && context_45.id;
+    var CURLLoader_1, CDnsEvent_1, CIOErrorEvent_1, CSecurityErrorEvent_1, CEFEvent_3, CProgressEvent_1, CUtil_23, CURLRequest_1, CDDnsLoader;
     return {
         setters: [
             function (CURLLoader_1_1) {
@@ -7672,14 +3369,14 @@ System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent"
             function (CSecurityErrorEvent_1_1) {
                 CSecurityErrorEvent_1 = CSecurityErrorEvent_1_1;
             },
-            function (CEFEvent_9_1) {
-                CEFEvent_9 = CEFEvent_9_1;
+            function (CEFEvent_3_1) {
+                CEFEvent_3 = CEFEvent_3_1;
             },
             function (CProgressEvent_1_1) {
                 CProgressEvent_1 = CProgressEvent_1_1;
             },
-            function (CUtil_35_1) {
-                CUtil_35 = CUtil_35_1;
+            function (CUtil_23_1) {
+                CUtil_23 = CUtil_23_1;
             },
             function (CURLRequest_1_1) {
                 CURLRequest_1 = CURLRequest_1_1;
@@ -7697,28 +3394,28 @@ System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent"
                     this.configureDDNSListeners(true);
                     try {
                         this.load(request);
-                        CUtil_35.CUtil.trace("Document load requested: " + this.source);
+                        CUtil_23.CUtil.trace("Document load requested: " + this.source);
                     }
                     catch (error) {
-                        CUtil_35.CUtil.trace("Error loading requested document: " + this.source);
+                        CUtil_23.CUtil.trace("Error loading requested document: " + this.source);
                     }
                 }
                 configureDDNSListeners(fAdd) {
                     if (fAdd) {
-                        this.addEventListener(CEFEvent_9.CEFEvent.COMPLETE, this.completeHandlerDDNS);
+                        this.addEventListener(CEFEvent_3.CEFEvent.COMPLETE, this.completeHandlerDDNS);
                         this.addEventListener(CProgressEvent_1.CProgressEvent.PROGRESS, this.progressHandlerDDNS);
                         this.addEventListener(CSecurityErrorEvent_1.CSecurityErrorEvent.SECURITY_ERROR, this.securityErrorHandlerDDNS);
                         this.addEventListener(CIOErrorEvent_1.CIOErrorEvent.IO_ERROR, this.ioErrorHandlerDDNS);
                     }
                     else {
-                        this.removeEventListener(CEFEvent_9.CEFEvent.COMPLETE, this.completeHandlerDDNS);
+                        this.removeEventListener(CEFEvent_3.CEFEvent.COMPLETE, this.completeHandlerDDNS);
                         this.removeEventListener(CProgressEvent_1.CProgressEvent.PROGRESS, this.progressHandlerDDNS);
                         this.removeEventListener(CSecurityErrorEvent_1.CSecurityErrorEvent.SECURITY_ERROR, this.securityErrorHandlerDDNS);
                         this.removeEventListener(CIOErrorEvent_1.CIOErrorEvent.IO_ERROR, this.ioErrorHandlerDDNS);
                     }
                 }
                 completeHandlerDDNS(evt) {
-                    CUtil_35.CUtil.trace("DDNS Load Successful:");
+                    CUtil_23.CUtil.trace("DDNS Load Successful:");
                     let server;
                     let ipAddress = "";
                     let _logManager;
@@ -7734,12 +3431,12 @@ System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent"
                         }
                     }
                     catch (err) {
-                        CUtil_35.CUtil.trace('Invalid DDNS.JSON specification');
+                        CUtil_23.CUtil.trace('Invalid DDNS.JSON specification');
                     }
                     this.dispatchEvent(new CDnsEvent_1.CDnsEvent(CDnsEvent_1.CDnsEvent.COMPLETE, server.ipAddress));
                 }
                 progressHandlerDDNS(evt) {
-                    CUtil_35.CUtil.trace("DDNS progressHandler loaded:" + evt.loaded + " total: " + evt.total);
+                    CUtil_23.CUtil.trace("DDNS progressHandler loaded:" + evt.loaded + " total: " + evt.total);
                 }
                 securityErrorHandlerDDNS(evt) {
                     this.configureDDNSListeners(false);
@@ -7750,18 +3447,18 @@ System.register("network/CDDnsLoader", ["network/CURLLoader", "events/CDnsEvent"
                     this.dispatchEvent(new CDnsEvent_1.CDnsEvent(CDnsEvent_1.CDnsEvent.FAILED, evt.toString()));
                 }
             };
-            exports_67("CDDnsLoader", CDDnsLoader);
+            exports_45("CDDnsLoader", CDDnsLoader);
         }
     };
 });
-System.register("events/CTimerEvent", ["util/CUtil"], function (exports_68, context_68) {
+System.register("events/CTimerEvent", ["util/CUtil"], function (exports_46, context_46) {
     "use strict";
-    var __moduleName = context_68 && context_68.id;
-    var CUtil_36, Event, CTimerEvent;
+    var __moduleName = context_46 && context_46.id;
+    var CUtil_24, Event, CTimerEvent;
     return {
         setters: [
-            function (CUtil_36_1) {
-                CUtil_36 = CUtil_36_1;
+            function (CUtil_24_1) {
+                CUtil_24 = CUtil_24_1;
             }
         ],
         execute: function () {
@@ -7773,24 +3470,24 @@ System.register("events/CTimerEvent", ["util/CUtil"], function (exports_68, cont
                 }
                 clone() {
                     if (this.traceMode)
-                        CUtil_36.CUtil.trace("cloning CTimerEvent:");
+                        CUtil_24.CUtil.trace("cloning CTimerEvent:");
                     return new CTimerEvent(this.type, this.bubbles, this.cancelable);
                 }
             };
             CTimerEvent.TIMER = "timer";
             CTimerEvent.TIMER_COMPLETE = "timer_complete";
-            exports_68("CTimerEvent", CTimerEvent);
+            exports_46("CTimerEvent", CTimerEvent);
         }
     };
 });
-System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo/CObject", "network/CSocket", "network/CLogSocket", "network/CLogQueue", "network/CDDnsLoader", "events/CLogEvent", "events/CTimerEvent", "events/CDataEvent", "events/CDnsEvent", "util/CONST", "util/CUtil"], function (exports_69, context_69) {
+System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo/CObject", "network/CSocket", "network/CLogSocket", "network/CLogQueue", "network/CDDnsLoader", "events/CLogEvent", "events/CTimerEvent", "events/CDataEvent", "events/CDnsEvent", "util/CONST", "util/CUtil"], function (exports_47, context_47) {
     "use strict";
-    var __moduleName = context_69 && context_69.id;
-    var CEFTimer_3, CMongo_1, CObject_2, CSocket_1, CLogSocket_1, CLogQueue_1, CDDnsLoader_1, CLogEvent_3, CTimerEvent_1, CDataEvent_1, CDnsEvent_2, CONST_10, CUtil_37, EventDispatcher, CLogManager, SingletonObj;
+    var __moduleName = context_47 && context_47.id;
+    var CEFTimer_1, CMongo_1, CObject_2, CSocket_1, CLogSocket_1, CLogQueue_1, CDDnsLoader_1, CLogEvent_3, CTimerEvent_1, CDataEvent_1, CDnsEvent_2, CONST_3, CUtil_25, EventDispatcher, CLogManager, SingletonObj;
     return {
         setters: [
-            function (CEFTimer_3_1) {
-                CEFTimer_3 = CEFTimer_3_1;
+            function (CEFTimer_1_1) {
+                CEFTimer_1 = CEFTimer_1_1;
             },
             function (CMongo_1_1) {
                 CMongo_1 = CMongo_1_1;
@@ -7822,11 +3519,11 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
             function (CDnsEvent_2_1) {
                 CDnsEvent_2 = CDnsEvent_2_1;
             },
-            function (CONST_10_1) {
-                CONST_10 = CONST_10_1;
+            function (CONST_3_1) {
+                CONST_3 = CONST_3_1;
             },
-            function (CUtil_37_1) {
-                CUtil_37 = CUtil_37_1;
+            function (CUtil_25_1) {
+                CUtil_25 = CUtil_25_1;
             }
         ],
         execute: function () {
@@ -7847,9 +3544,9 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     this._isConnected = false;
                     this._sessionActive = false;
                     this._sessionID = "";
-                    this._sessionStatus = CONST_10.CONST.SESSION_START;
-                    this.logEventTimer = new CEFTimer_3.CEFTimer(60);
-                    this.logTimeout = new CEFTimer_3.CEFTimer(10000, 1);
+                    this._sessionStatus = CONST_3.CONST.SESSION_START;
+                    this.logEventTimer = new CEFTimer_1.CEFTimer(60);
+                    this.logTimeout = new CEFTimer_1.CEFTimer(10000, 1);
                     this._useQueue = true;
                     this._fTutorPart = "test";
                     if (enforcer && enforcer instanceof SingletonObj) {
@@ -7881,7 +3578,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 set fLogging(newVal) {
                     this._fLogging = newVal;
-                    if (this._fLogging & CONST_10.CONST.RECORDEVENTS)
+                    if (this._fLogging & CONST_3.CONST.RECORDEVENTS)
                         CLogManager._logQueue.openQueue();
                     else
                         CLogManager._logQueue.closeQueue();
@@ -7896,13 +3593,13 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     this._fTutorPart = newVal;
                 }
                 setQueueStreamState(startQueue) {
-                    if (startQueue && (this._fLogging & CONST_10.CONST.LOGEVENTS)) {
+                    if (startQueue && (this._fLogging & CONST_3.CONST.LOGEVENTS)) {
                         this.startQueuedStream();
-                        CUtil_37.CUtil.trace('Stream now Open');
+                        CUtil_25.CUtil.trace('Stream now Open');
                     }
                     else {
                         this.stopQueuedStream();
-                        CUtil_37.CUtil.trace('Stream now Closed');
+                        CUtil_25.CUtil.trace('Stream now Closed');
                     }
                 }
                 getQueueStreamState() {
@@ -7968,12 +3665,12 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     try {
                         if (this.fdebugMode) {
                             this._logHostAddress = "127.0.0.1";
-                            this._logHostPort = CONST_10.CONST.PORT_LOGGER;
+                            this._logHostPort = CONST_3.CONST.PORT_LOGGER;
                         }
                         this.logSocket.openSocket(this._logHostAddress, this._logHostPort);
                     }
                     catch (error) {
-                        CUtil_37.CUtil.trace("catch all" + error);
+                        CUtil_25.CUtil.trace("catch all" + error);
                     }
                 }
                 get connectionActive() {
@@ -8015,17 +3712,17 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 get sessionStatus() {
                     return this._sessionStatus;
                 }
-                abandonSession(abandonData = false, newStatus = CONST_10.CONST.SESSION_START) {
+                abandonSession(abandonData = false, newStatus = CONST_3.CONST.SESSION_START) {
                     this._sessionActive = false;
                     this._sessionStatus = newStatus;
                     this._sessionID = "";
                     this._sessionTime = 0;
-                    this.fLogging = CONST_10.CONST.RECLOGNONE;
+                    this.fLogging = CONST_3.CONST.RECLOGNONE;
                     this.abandonSocket(abandonData);
                 }
                 abandonSocket(abandonData = false) {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ ABANDON SOCKET @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ ABANDON SOCKET @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                     if (this.logSocket) {
                         if (this.logSocket.connected) {
                         }
@@ -8046,11 +3743,11 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     }
                 }
                 timeStampSession() {
-                    this._sessionTime = CUtil_37.CUtil.getTimer();
+                    this._sessionTime = CUtil_25.CUtil.getTimer();
                 }
                 get sessionTime() {
                     let curTime;
-                    curTime = (CUtil_37.CUtil.getTimer() - this._sessionTime) / 1000.0;
+                    curTime = (CUtil_25.CUtil.getTimer() - this._sessionTime) / 1000.0;
                     return curTime.toString();
                 }
                 submitAuthentication(logData) {
@@ -8071,7 +3768,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                         logData['version'] = '1.0';
                         logData['time'] = this.sessionTime;
                         logData['seqid'] = CLogManager._logQueue.nextNdx;
-                        logData = CMongo_1.CMongo.insertPacket('logmanager', CONST_10.CONST.LOG_PACKET, 'unused', logData);
+                        logData = CMongo_1.CMongo.insertPacket('logmanager', CONST_3.CONST.LOG_PACKET, 'unused', logData);
                         logData = logData.replace("{", '{"seqid":' + CLogManager._logQueue.nextNdx + ',');
                     }
                     catch (error) {
@@ -8106,7 +3803,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     CLogManager._logQueue.logEvent(logData);
                 }
                 logProgressEvent(logData) {
-                    logData = CMongo_1.CMongo.updatePacket('logManager', CONST_10.CONST.LOG_PROGRESS, 'unused', { "_id": this._sessionAccount.userData._id }, logData['reify']);
+                    logData = CMongo_1.CMongo.updatePacket('logManager', CONST_3.CONST.LOG_PROGRESS, 'unused', { "_id": this._sessionAccount.userData._id }, logData['reify']);
                     logData = logData.replace("{", '{"seqid":' + CLogManager._logQueue.nextNdx + ',');
                     CLogManager._logQueue.logEvent(logData);
                 }
@@ -8115,11 +3812,11 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     let profileNdx = this._sessionAccount.session.profile_Index;
                     termMsg['phases'] = new CObject_2.CObject;
                     termMsg['phases'][profileNdx] = new CObject_2.CObject;
-                    termMsg['phases'][profileNdx]['progress'] = CONST_10.CONST._COMPLETE;
-                    termMsg = CMongo_1.CMongo.updatePacket('logManager', CONST_10.CONST.LOG_TERMINATE, 'unused', { "_id": this._sessionAccount.userData._id }, termMsg);
+                    termMsg['phases'][profileNdx]['progress'] = CONST_3.CONST._COMPLETE;
+                    termMsg = CMongo_1.CMongo.updatePacket('logManager', CONST_3.CONST.LOG_TERMINATE, 'unused', { "_id": this._sessionAccount.userData._id }, termMsg);
                     CLogManager._logQueue.logEvent(termMsg);
                     CLogManager._logQueue.closeQueue();
-                    if (this._fLogging & CONST_10.CONST.LOGEVENTS) {
+                    if (this._fLogging & CONST_3.CONST.LOGEVENTS) {
                         if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                             this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.SESSION_TERMINATED));
                     }
@@ -8141,14 +3838,14 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 sendXMLPacket(packet) {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@  QUEUEING XML PACKET: \n", packet);
+                        CUtil_25.CUtil.trace("@@@@@@@  QUEUEING XML PACKET: \n", packet);
                     let packetStr;
                     let fResult = false;
                     if (this._isConnected) {
                         packetStr = packet;
                         if (!this.logSocket.sendData(packetStr)) {
                             if (this.traceMode)
-                                CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET OFFLINE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                                CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET OFFLINE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         }
                         else {
                             fResult = true;
@@ -8162,7 +3859,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 sendJSONPacket(packet) {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@  SENDING JSON LOG PACKET: \n", packet);
+                        CUtil_25.CUtil.trace("@@@@@@@  SENDING JSON LOG PACKET: \n", packet);
                     let packetStr;
                     let fResult = false;
                     if (this._isConnected) {
@@ -8172,13 +3869,13 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                             packetStr = JSON.stringify(packet);
                         if (!this.logSocket.sendData(packetStr)) {
                             if (this.traceMode)
-                                CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET OFFLINE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                                CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET OFFLINE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         }
                         else {
                             this.logTimeout.reset();
                             this.logTimeout.addEventListener(CTimerEvent_1.CTimerEvent.TIMER_COMPLETE, this.socketTimeout);
                             this.logTimeout.start();
-                            CUtil_37.CUtil.trace("created Timer : " + this.logTimeout);
+                            CUtil_25.CUtil.trace("created Timer : " + this.logTimeout);
                             fResult = true;
                         }
                     }
@@ -8186,13 +3883,13 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 resetSendTimer() {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("SOCKET TIMER - Cleaned up ");
+                        CUtil_25.CUtil.trace("SOCKET TIMER - Cleaned up ");
                     this.logTimeout.reset();
                     this.logTimeout.removeEventListener(CTimerEvent_1.CTimerEvent.TIMER_COMPLETE, this.socketTimeout);
                 }
                 socketTimeout(e) {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET TIMEOUT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET TIMEOUT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                     this.resetSendTimer();
                     this.recycleConnection(false);
                 }
@@ -8273,12 +3970,12 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     }
                 }
                 startQueueing() {
-                    CUtil_37.CUtil.trace("start queueing");
+                    CUtil_25.CUtil.trace("start queueing");
                     this.logEventTimer.addEventListener(CTimerEvent_1.CTimerEvent.TIMER, this.queueCallBack);
                     this.logEventTimer.start();
                 }
                 stopQueueing() {
-                    CUtil_37.CUtil.trace("stop queueing");
+                    CUtil_25.CUtil.trace("stop queueing");
                     this.logEventTimer.stop();
                     this.logEventTimer.removeEventListener(CTimerEvent_1.CTimerEvent.TIMER, this.queueCallBack);
                 }
@@ -8286,7 +3983,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     let logData = { 'event': 'noop' };
                     this.logDebugEvent(logData);
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace(".");
+                        CUtil_25.CUtil.trace(".");
                 }
                 get isDataStreaming() {
                     return this._DataStreaming;
@@ -8312,18 +4009,18 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                         this._isConnecting = false;
                         this._isConnected = true;
                         if (this.traceMode)
-                            CUtil_37.CUtil.trace("############ this.logSocket Connected");
+                            CUtil_25.CUtil.trace("############ this.logSocket Connected");
                         if (this.hasEventListener(CLogEvent_3.CLogEvent.CONNECT_STATUS))
                             this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.CONNECT_STATUS, CLogEvent_3.CLogEvent.CONNECTION_OPEN));
                     }
                     else {
-                        if (this._sessionStatus == CONST_10.CONST.SESSION_RUNNING)
-                            this._sessionStatus = CONST_10.CONST.SESSION_INTERRUPTED;
+                        if (this._sessionStatus == CONST_3.CONST.SESSION_RUNNING)
+                            this._sessionStatus = CONST_3.CONST.SESSION_INTERRUPTED;
                         if (!this.logSocket.connected) {
                             this.logSocket.removeEventListener(CLogEvent_3.CLogEvent.CONNECT_STATUS, this.socketConnectionHdlr);
                             this.logSocket.removeEventListener(CDataEvent_1.CDataEvent.DATA, this.protocolHandlerLGR);
                             if (this.traceMode)
-                                CUtil_37.CUtil.trace("############ this.logSocket Disconnected - allow GC");
+                                CUtil_25.CUtil.trace("############ this.logSocket Disconnected - allow GC");
                             this.logSocket = null;
                             this._isConnected = false;
                             this._authenticating = false;
@@ -8343,14 +4040,14 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 createSocket() {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET CREATION @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET CREATION @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                     this.logSocket = new CLogSocket_1.CLogSocket(null, 0, this.tracer);
                     this.logSocket.addEventListener(CLogEvent_3.CLogEvent.CONNECT_STATUS, this.socketConnectionHdlr);
                     this.logSocket.addEventListener(CDataEvent_1.CDataEvent.DATA, this.protocolHandlerLGR);
                 }
                 cleanupSocket() {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET CLEANUP @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ SOCKET CLEANUP @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                     this.resetSendTimer();
                     if (this.logSocket) {
                         if (this.logSocket.connected) {
@@ -8367,7 +4064,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 recycleConnection(fRestart) {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ CONNECTION RECYCLING @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ CONNECTION RECYCLING @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                     this.cleanupSocket();
                     if (fRestart)
                         CLogManager._logQueue.restartQueue();
@@ -8384,12 +4081,12 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     try {
                         if (this.fdebugMode) {
                             this._logHostAddress = "127.0.0.1";
-                            this._logHostPort = CONST_10.CONST.PORT_LOGGER;
+                            this._logHostPort = CONST_3.CONST.PORT_LOGGER;
                         }
                         this.logSocket.openSocket(this._logHostAddress, this._logHostPort);
                     }
                     catch (error) {
-                        CUtil_37.CUtil.trace("catch all" + error);
+                        CUtil_25.CUtil.trace("catch all" + error);
                     }
                     this.cleanupDNSLoader();
                 }
@@ -8405,14 +4102,14 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     let servermessage;
                     let dataPacket;
                     let seqID;
-                    if (CLogManager._logQueue.queueMode == CONST_10.CONST.MODE_JSON) {
+                    if (CLogManager._logQueue.queueMode == CONST_3.CONST.MODE_JSON) {
                         try {
                             dataPacket = JSON.parse(evt.data);
                             switch (dataPacket.command) {
-                                case CONST_10.CONST.ACKLOG_PACKET:
-                                case CONST_10.CONST.ACKLOG_PROGRESS:
+                                case CONST_3.CONST.ACKLOG_PACKET:
+                                case CONST_3.CONST.ACKLOG_PROGRESS:
                                     if (this.traceMode)
-                                        CUtil_37.CUtil.trace("@@@@@@@  JSON LOG PACKET ACKNOWLEDGED:");
+                                        CUtil_25.CUtil.trace("@@@@@@@  JSON LOG PACKET ACKNOWLEDGED:");
                                     this.resetSendTimer();
                                     if (!CLogManager._logQueue.ackPacket(dataPacket.seqid)) {
                                         break;
@@ -8435,7 +4132,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                                             this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.QUEUE_STATUS, CLogEvent_3.CLogEvent.QUEUE_WAITING));
                                     }
                                     break;
-                                case CONST_10.CONST.ACKLOG_NAK:
+                                case CONST_3.CONST.ACKLOG_NAK:
                                     this.resetSendTimer();
                                     let packet = CLogManager._logQueue.nextPacket();
                                     if (packet != null) {
@@ -8444,11 +4141,11 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                                     else {
                                     }
                                     break;
-                                case CONST_10.CONST.ACKLOG_TERMINATE:
+                                case CONST_3.CONST.ACKLOG_TERMINATE:
                                     this.resetSendTimer();
                                     if (this.traceMode)
-                                        CUtil_37.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ CONST.ACKLOG_TERMINATE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                                    this.abandonSession(false, CONST_10.CONST.SESSION_COMPLETE);
+                                        CUtil_25.CUtil.trace("@@@@@@@@@@@@@@@@@@@@@@ CONST.ACKLOG_TERMINATE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                                    this.abandonSession(false, CONST_3.CONST.SESSION_COMPLETE);
                                     if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                                         this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.SESSION_FLUSHED));
                                     break;
@@ -8459,7 +4156,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                             }
                         }
                         catch (err) {
-                            CUtil_37.CUtil.trace("protocolHandlerLGR - Message Format Error: " + err.tostring());
+                            CUtil_25.CUtil.trace("protocolHandlerLGR - Message Format Error: " + err.tostring());
                             this._authenticating = false;
                             if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                                 this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.AUTH_FAILED));
@@ -8468,41 +4165,41 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     else {
                         servermessage = evt.data;
                         if (this.traceMode)
-                            CUtil_37.CUtil.trace("Logger Responded: " + servermessage.name() + "\n\nFull Packet: \n" + servermessage);
+                            CUtil_25.CUtil.trace("Logger Responded: " + servermessage.name() + "\n\nFull Packet: \n" + servermessage);
                         if (servermessage.name() == CSocket_1.CSocket.xmlSERVER_MESSAGE) {
                             let msgClass;
                             for (msgClass in servermessage.children()) {
                                 switch (msgClass.name().tostring()) {
                                     case CSocket_1.CSocket.xmlACKAUTH:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("Authentication success: " + msgClass.type);
+                                            CUtil_25.CUtil.trace("Authentication success: " + msgClass.type);
                                         this._authenticating = false;
                                         this._sessionActive = true;
-                                        this._sessionStatus = CONST_10.CONST.SESSION_RUNNING;
+                                        this._sessionStatus = CONST_3.CONST.SESSION_RUNNING;
                                         this._sessionID = msgClass.type;
                                         if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                                             this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.AUTH_SUCCESS, 0, 0, msgClass.type));
                                         break;
                                     case CSocket_1.CSocket.xmlNAKAUTH:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("Authentication failed: " + msgClass.type);
+                                            CUtil_25.CUtil.trace("Authentication failed: " + msgClass.type);
                                         this._authenticating = false;
                                         if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                                             this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.AUTH_FAILED));
                                         break;
                                     case CSocket_1.CSocket.xmlSQLERROR:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("Server failure: " + msgClass.type + " " + msgClass.message);
+                                            CUtil_25.CUtil.trace("Server failure: " + msgClass.type + " " + msgClass.message);
                                         this._authenticating = false;
                                         if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                                             this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.AUTH_FAILED));
                                         break;
                                     case CSocket_1.CSocket.xmlACKATTACH:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("@@@@@@@  SESSION REATTACH ACK: ");
+                                            CUtil_25.CUtil.trace("@@@@@@@  SESSION REATTACH ACK: ");
                                         this._authenticating = false;
                                         this._sessionID = msgClass.type;
-                                        this._sessionStatus = CONST_10.CONST.SESSION_RUNNING;
+                                        this._sessionStatus = CONST_3.CONST.SESSION_RUNNING;
                                         if (this.sessionID.charAt(0) == '#') {
                                             if (this.hasEventListener(CLogEvent_3.CLogEvent.SESSION_STATUS))
                                                 this.dispatchEvent(new CLogEvent_3.CLogEvent(CLogEvent_3.CLogEvent.SESSION_STATUS, CLogEvent_3.CLogEvent.AUTH_FAILED));
@@ -8514,11 +4211,11 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                                         break;
                                     case CSocket_1.CSocket.xmlACK:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("@@@@@@@  SIMPLE PACKET ACK: ");
+                                            CUtil_25.CUtil.trace("@@@@@@@  SIMPLE PACKET ACK: ");
                                         break;
                                     case CSocket_1.CSocket.xmlACKSESSION:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("@@@@@@@  SESSION PACKET ACK: ");
+                                            CUtil_25.CUtil.trace("@@@@@@@  SESSION PACKET ACK: ");
                                         this._sessionID = msgClass.type;
                                         if (this._sessionID.charAt(0) == '#') {
                                             this.cleanupSocket();
@@ -8552,7 +4249,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                                         break;
                                     default:
                                         if (this.traceMode)
-                                            CUtil_37.CUtil.trace("Protocol Error");
+                                            CUtil_25.CUtil.trace("Protocol Error");
                                         break;
                                 }
                             }
@@ -8561,16 +4258,16 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                 }
                 activateSession(sessionID = null) {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("Authentication success: " + sessionID);
+                        CUtil_25.CUtil.trace("Authentication success: " + sessionID);
                     this._authenticating = false;
                     this._sessionActive = true;
-                    this._sessionStatus = CONST_10.CONST.SESSION_RUNNING;
+                    this._sessionStatus = CONST_3.CONST.SESSION_RUNNING;
                     if (sessionID != null)
                         this._sessionID = sessionID;
                 }
                 failSession() {
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("Authentication failed: ");
+                        CUtil_25.CUtil.trace("Authentication failed: ");
                     this._authenticating = false;
                 }
                 setPlayBackSource(logSource) {
@@ -8583,7 +4280,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                         this.JSONEvents = logSource;
                         this.playBackSiz = logSource.length();
                         if (this.traceMode)
-                            CUtil_37.CUtil.trace("playBackSiz: " + this.playBackSiz);
+                            CUtil_25.CUtil.trace("playBackSiz: " + this.playBackSiz);
                     }
                     this.fPlayBackDone = false;
                     this.playBackNdx = 0;
@@ -8635,7 +4332,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     let xmlEvent;
                     let xResult = null;
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("getEvent for State: " + stateID + " : Frame : " + frameID);
+                        CUtil_25.CUtil.trace("getEvent for State: " + stateID + " : Frame : " + frameID);
                     for (; this.playBackNdx < this.playBackSiz; this.playBackNdx++) {
                         xmlEvent = this.JSONEvents[this.playBackNdx];
                         if (xmlEvent.type != "WOZevent")
@@ -8666,7 +4363,7 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     let xResult = null;
                     let nAction;
                     if (this.traceMode)
-                        CUtil_37.CUtil.trace("getActionEvent: " + frameTime);
+                        CUtil_25.CUtil.trace("getActionEvent: " + frameTime);
                     for (nAction = this.lastAction + 1; nAction < this.playBackSiz; nAction++) {
                         if (this.JSONEvents[nAction].type != "WOZevent")
                             continue;
@@ -8717,31 +4414,85 @@ System.register("managers/CLogManager", ["core/CEFTimer", "mongo/CMongo", "mongo
                     return xResult;
                 }
             };
-            exports_69("CLogManager", CLogManager);
+            exports_47("CLogManager", CLogManager);
             SingletonObj = class SingletonObj {
             };
-            exports_69("SingletonObj", SingletonObj);
+            exports_47("SingletonObj", SingletonObj);
         }
     };
 });
-System.register("thermite/TText", ["thermite/TObject", "events/CEFEvent", "util/CUtil"], function (exports_70, context_70) {
+System.register("scenegraph/CSceneHistory", ["scenegraph/CSceneHistoryNode"], function (exports_48, context_48) {
     "use strict";
-    var __moduleName = context_70 && context_70.id;
-    var TObject_8, CEFEvent_10, CUtil_38, TText;
+    var __moduleName = context_48 && context_48.id;
+    var CSceneHistoryNode_1, CSceneHistory;
     return {
         setters: [
-            function (TObject_8_1) {
-                TObject_8 = TObject_8_1;
-            },
-            function (CEFEvent_10_1) {
-                CEFEvent_10 = CEFEvent_10_1;
-            },
-            function (CUtil_38_1) {
-                CUtil_38 = CUtil_38_1;
+            function (CSceneHistoryNode_1_1) {
+                CSceneHistoryNode_1 = CSceneHistoryNode_1_1;
             }
         ],
         execute: function () {
-            TText = class TText extends TObject_8.TObject {
+            CSceneHistory = class CSceneHistory extends Object {
+                constructor(_tutorDoc) {
+                    super();
+                    this._history = new Array();
+                    this._volatile = false;
+                    this.tutorDoc = _tutorDoc;
+                    this._ndx = 0;
+                }
+                push(node, scene) {
+                    if (scene != null) {
+                        this._history.push(new CSceneHistoryNode_1.CSceneHistoryNode(node, scene));
+                        this._ndx = this._history.length;
+                    }
+                }
+                next() {
+                    let next = null;
+                    if (this._ndx < this._history.length) {
+                        this._ndx = this._ndx + 1;
+                        next = this._history[this._ndx - 1];
+                    }
+                    return next;
+                }
+                back() {
+                    let prev = null;
+                    if (this._ndx > 1) {
+                        this._ndx = this._ndx - 1;
+                        if (this._volatile)
+                            this._history.pop();
+                        prev = this._history[this._ndx - 1];
+                    }
+                    return prev;
+                }
+                set volatile(newState) {
+                    this._volatile = newState;
+                }
+                get isVolatile() {
+                    return this._volatile;
+                }
+            };
+            exports_48("CSceneHistory", CSceneHistory);
+        }
+    };
+});
+System.register("thermite/TText", ["thermite/TObject", "events/CEFEvent", "util/CUtil"], function (exports_49, context_49) {
+    "use strict";
+    var __moduleName = context_49 && context_49.id;
+    var TObject_3, CEFEvent_4, CUtil_26, TText;
+    return {
+        setters: [
+            function (TObject_3_1) {
+                TObject_3 = TObject_3_1;
+            },
+            function (CEFEvent_4_1) {
+                CEFEvent_4 = CEFEvent_4_1;
+            },
+            function (CUtil_26_1) {
+                CUtil_26 = CUtil_26_1;
+            }
+        ],
+        execute: function () {
+            TText = class TText extends TObject_3.TObject {
                 constructor() {
                     super();
                     this.init3();
@@ -8757,8 +4508,8 @@ System.register("thermite/TText", ["thermite/TObject", "events/CEFEvent", "util/
                 init3() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_38.CUtil.trace("TText:Constructor");
-                    this.on(CEFEvent_10.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
+                        CUtil_26.CUtil.trace("TText:Constructor");
+                    this.on(CEFEvent_4.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
                 }
                 Destructor() {
                 }
@@ -8766,40 +4517,169 @@ System.register("thermite/TText", ["thermite/TObject", "events/CEFEvent", "util/
                     console.log("Text On Stage");
                 }
             };
-            exports_70("TText", TText);
+            exports_49("TText", TText);
         }
     };
 });
-System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "events/CEFEvent", "events/CEFMouseEvent", "util/CUtil", "util/CONST"], function (exports_71, context_71) {
+System.register("core/CEFTimeLine", ["events/CEFEvent", "util/CUtil"], function (exports_50, context_50) {
     "use strict";
-    var __moduleName = context_71 && context_71.id;
-    var TObject_9, CEFTimeLine_2, CEFEvent_11, CEFMouseEvent_1, CUtil_39, CONST_11, Tween, Event, Ease, THtmlBase;
+    var __moduleName = context_50 && context_50.id;
+    var CEFEvent_5, CUtil_27, Timeline, CEFTimeLine;
     return {
         setters: [
-            function (TObject_9_1) {
-                TObject_9 = TObject_9_1;
+            function (CEFEvent_5_1) {
+                CEFEvent_5 = CEFEvent_5_1;
             },
-            function (CEFTimeLine_2_1) {
-                CEFTimeLine_2 = CEFTimeLine_2_1;
+            function (CUtil_27_1) {
+                CUtil_27 = CUtil_27_1;
+            }
+        ],
+        execute: function () {
+            Timeline = createjs.Timeline;
+            CEFTimeLine = class CEFTimeLine extends Timeline {
+                constructor(tweens, labels, props, _tutorDoc) {
+                    super(tweens, labels, props);
+                    this.traceMode = false;
+                    this.traceMode = true;
+                    this.tutorDoc = _tutorDoc;
+                    this.tutorContainer = _tutorDoc.tutorContainer;
+                    this.tutorAutoObj = _tutorDoc.TutAutomator;
+                    this.targets = new Array();
+                }
+                addTween(...tween) {
+                    super.addTween(...tween);
+                    tween.forEach(tween => this.targets.push(tween.target));
+                }
+                startTransition(xnF = null, scope) {
+                    if (this.traceMode)
+                        CUtil_27.CUtil.trace("startTransition : ");
+                    this.xnFinalize = xnF;
+                    this.xnScope = scope;
+                    this.on(CEFEvent_5.CEFEvent.CHANGE, this.xnChanged, this);
+                    this.gotoAndPlay(0);
+                    if (this.traceMode)
+                        CUtil_27.CUtil.trace("Transition Running: ");
+                }
+                stopTransitions() {
+                    this.setPaused(true);
+                    while (this._tweens.length != 0)
+                        this.removeTween(this._tweens[0]);
+                }
+                xnChanged(evt) {
+                    if (this.traceMode)
+                        CUtil_27.CUtil.trace("xnChanged : ");
+                    if (this.position >= this.duration) {
+                        evt.remove();
+                        this.xnFinished();
+                    }
+                }
+                xnFinished() {
+                    if (this.traceMode)
+                        CUtil_27.CUtil.trace("xnFinished : ");
+                    this.stopTransitions();
+                    for (let tar of this.targets) {
+                    }
+                    this.targets = new Array();
+                    if (this.xnFinalize != null)
+                        this.xnFinalize.call(this.xnScope);
+                    this.tutorDoc.incStateID();
+                }
+            };
+            exports_50("CEFTimeLine", CEFTimeLine);
+        }
+    };
+});
+System.register("events/CEFMouseEvent", ["util/CUtil"], function (exports_51, context_51) {
+    "use strict";
+    var __moduleName = context_51 && context_51.id;
+    var CUtil_28, MouseEvent, TMouseEvent;
+    return {
+        setters: [
+            function (CUtil_28_1) {
+                CUtil_28 = CUtil_28_1;
+            }
+        ],
+        execute: function () {
+            MouseEvent = createjs.MouseEvent;
+            TMouseEvent = class TMouseEvent extends MouseEvent {
+                constructor(TarObjID, type, bubbles, cancelable, stageX, stageY, nativeEvent, pointerID, primary, rawX, rawY) {
+                    super(type, bubbles, cancelable, stageX, stageY, nativeEvent, pointerID, primary, rawX, rawY);
+                    this.localX = rawX;
+                    this.localY = rawY;
+                }
+                clone() {
+                    CUtil_28.CUtil.trace("cloning WOZEvent:");
+                    return new TMouseEvent(this.tarObjID, this.type, this.bubbles, this.cancelable, this.stageX, this.stageY, this.nativeEvent, this.pointerID, this.primary, this.rawX, this.rawY);
+                }
+                captureLogState(obj = null) {
+                    obj['event'] = 'CEFMouseEvent';
+                    obj['tarObjID'] = this.tarObjID;
+                    obj['localX'] = this.localX;
+                    obj['localY'] = this.localY;
+                    return obj;
+                }
+                captureXMLState() {
+                    var eventState = {};
+                    return eventState;
+                }
+                restoreXMLState(xmlState) {
+                }
+                compareXMLState(xmlState) {
+                    var bTest = true;
+                    return bTest;
+                }
+            };
+            TMouseEvent.MOUSE_MOVE = "mousemove";
+            TMouseEvent.MOUSE_DOWN = "mousedown";
+            TMouseEvent.MOUSE_UP = "mouseup";
+            TMouseEvent.MOUSE_CLICK = "click";
+            TMouseEvent.DOUBLE_CLICK = "dblclick";
+            TMouseEvent.CLICK = "click";
+            TMouseEvent.WOZCLICK = "WOZMOUSE_CLICK";
+            TMouseEvent.WOZCLICKED = "WOZMOUSE_CLICKED";
+            TMouseEvent.WOZDBLCLICK = "WOZMOUSE_DBLCLICKED";
+            TMouseEvent.WOZMOVE = "WOZMOUSE_MOVE";
+            TMouseEvent.WOZDOWN = "WOZMOUSE_DOWN";
+            TMouseEvent.WOZUP = "WOZMOUSE_UP";
+            TMouseEvent.WOZOVER = "WOZMOUSE_OVER";
+            TMouseEvent.WOZOUT = "WOZMOUSE_OUT";
+            TMouseEvent.WOZKEYDOWN = "WOZKEY_DOWN";
+            TMouseEvent.WOZKEYUP = "WOZMKEY_UP";
+            TMouseEvent.WOZNULL = "WOZNULL";
+            exports_51("TMouseEvent", TMouseEvent);
+        }
+    };
+});
+System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "events/CEFEvent", "events/CEFMouseEvent", "util/CUtil", "util/CONST"], function (exports_52, context_52) {
+    "use strict";
+    var __moduleName = context_52 && context_52.id;
+    var TObject_4, CEFTimeLine_1, CEFEvent_6, CEFMouseEvent_1, CUtil_29, CONST_4, Tween, Event, Ease, THtmlBase;
+    return {
+        setters: [
+            function (TObject_4_1) {
+                TObject_4 = TObject_4_1;
             },
-            function (CEFEvent_11_1) {
-                CEFEvent_11 = CEFEvent_11_1;
+            function (CEFTimeLine_1_1) {
+                CEFTimeLine_1 = CEFTimeLine_1_1;
+            },
+            function (CEFEvent_6_1) {
+                CEFEvent_6 = CEFEvent_6_1;
             },
             function (CEFMouseEvent_1_1) {
                 CEFMouseEvent_1 = CEFMouseEvent_1_1;
             },
-            function (CUtil_39_1) {
-                CUtil_39 = CUtil_39_1;
+            function (CUtil_29_1) {
+                CUtil_29 = CUtil_29_1;
             },
-            function (CONST_11_1) {
-                CONST_11 = CONST_11_1;
+            function (CONST_4_1) {
+                CONST_4 = CONST_4_1;
             }
         ],
         execute: function () {
             Tween = createjs.Tween;
             Event = createjs.Event;
             Ease = createjs.Ease;
-            THtmlBase = class THtmlBase extends TObject_9.TObject {
+            THtmlBase = class THtmlBase extends TObject_4.TObject {
                 constructor() {
                     super();
                 }
@@ -8814,8 +4694,8 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                 init3() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_39.CUtil.trace("THtmlBase:Constructor");
-                    this.on(CEFEvent_11.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
+                        CUtil_29.CUtil.trace("THtmlBase:Constructor");
+                    this.on(CEFEvent_6.CEFEvent.ADDED_TO_STAGE, this.onAddedToStage);
                     this.fAdded = false;
                     this.fEnabled = true;
                     this.isHTMLControl = true;
@@ -8847,14 +4727,14 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     let sy = tx1.scaleY;
                     let w = this.dimContainer.nominalBounds.width * sx;
                     let h = this.dimContainer.nominalBounds.height * sy;
-                    this.scaleCompensation = CONST_11.CONST.CONTROLCONTAINER_DESIGNHEIGHT / h;
+                    this.scaleCompensation = CONST_4.CONST.CONTROLCONTAINER_DESIGNHEIGHT / h;
                     console.log("Scaled Height: " + h);
                     console.log("Scaled Compensation: " + this.scaleCompensation);
                 }
                 onAddedToStage(evt) {
                     this._lastFrame = this.parent.currentFrame;
                     if (!this.fAdded) {
-                        this.effectTimeLine = new CEFTimeLine_2.CEFTimeLine(null, null, { "useTicks": false, "loop": false, "paused": true }, this.tutorDoc);
+                        this.effectTimeLine = new CEFTimeLine_1.CEFTimeLine(null, null, { "useTicks": false, "loop": false, "paused": true }, this.tutorDoc);
                         this.effectTweens = new Array();
                         this.styleElement = document.createElement('style');
                         this.styleElement.type = 'text/css';
@@ -8961,7 +4841,7 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     super.hide();
                     this.outerContainer.style.visibility = "hidden";
                 }
-                setContentById(objId, effectType = CONST_11.CONST.EFFECT_FADE, effectDur = 500) {
+                setContentById(objId, effectType = CONST_4.CONST.EFFECT_FADE, effectDur = 500) {
                     for (let i1 = 0; i1 < this._objDataArray.length; i1++) {
                         if (this._objDataArray[i1].Id === objId) {
                             this.effectNewIndex = i1;
@@ -8970,11 +4850,11 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                         }
                     }
                 }
-                setContentNext(effectType = CONST_11.CONST.EFFECT_FADE, effectDur = 500) {
+                setContentNext(effectType = CONST_4.CONST.EFFECT_FADE, effectDur = 500) {
                     this.effectNewIndex = (this._currObjNdx + 1) % this._objDataArray.length;
                     this.performTransition(this.effectNewIndex, effectType, effectDur);
                 }
-                setContentByIndex(newIndex, effectType = CONST_11.CONST.EFFECT_FADE, effectDur = 500) {
+                setContentByIndex(newIndex, effectType = CONST_4.CONST.EFFECT_FADE, effectDur = 500) {
                     let zeroBase = newIndex - 1;
                     this.performTransition(zeroBase, effectType, effectDur);
                 }
@@ -8992,12 +4872,12 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                         this.effectType = effectType;
                         this.effectTimeMS = effectDur;
                         switch (effectType) {
-                            case CONST_11.CONST.EFFECT_FADE:
+                            case CONST_4.CONST.EFFECT_FADE:
                                 this.effectTweens.push(new Tween(this).to({ alpha: 0 }, effectDur / 2, Ease.cubicInOut));
                                 this.effectTimeLine.addTween(...this.effectTweens);
                                 this.effectTimeLine.startTransition(this.swapContent, this);
                                 break;
-                            case CONST_11.CONST.EFFECT_SWAP:
+                            case CONST_4.CONST.EFFECT_SWAP:
                                 this.swapContent();
                                 break;
                         }
@@ -9012,18 +4892,18 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     catch (err) {
                     }
                     switch (this.effectType) {
-                        case CONST_11.CONST.EFFECT_FADE:
+                        case CONST_4.CONST.EFFECT_FADE:
                             this.effectTweens.push(new Tween(this).to({ alpha: this.effectAlpha }, this.effectTimeMS / 2, Ease.cubicInOut));
                             this.effectTimeLine.addTween(...this.effectTweens);
                             this.effectTimeLine.startTransition(this.effectFinished, this);
                             break;
-                        case CONST_11.CONST.EFFECT_SWAP:
+                        case CONST_4.CONST.EFFECT_SWAP:
                             break;
                     }
                 }
                 effectFinished() {
                     this.effectTimeLine.removeTween(...this.effectTweens);
-                    this.dispatchEvent(new Event(CEFEvent_11.CEFEvent.COMPLETE, false, false));
+                    this.dispatchEvent(new Event(CEFEvent_6.CEFEvent.COMPLETE, false, false));
                 }
                 addCSSRules(styleElement, cssStyles) {
                     let sheet = styleElement.sheet;
@@ -9074,24 +4954,24 @@ System.register("thermite/THtmlBase", ["thermite/TObject", "core/CEFTimeLine", "
                     }
                 }
             };
-            exports_71("THtmlBase", THtmlBase);
+            exports_52("THtmlBase", THtmlBase);
         }
     };
 });
-System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_72, context_72) {
+System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util/CONST"], function (exports_53, context_53) {
     "use strict";
-    var __moduleName = context_72 && context_72.id;
-    var THtmlBase_1, CUtil_40, CONST_12, THtmlText;
+    var __moduleName = context_53 && context_53.id;
+    var THtmlBase_1, CUtil_30, CONST_5, THtmlText;
     return {
         setters: [
             function (THtmlBase_1_1) {
                 THtmlBase_1 = THtmlBase_1_1;
             },
-            function (CUtil_40_1) {
-                CUtil_40 = CUtil_40_1;
+            function (CUtil_30_1) {
+                CUtil_30 = CUtil_30_1;
             },
-            function (CONST_12_1) {
-                CONST_12 = CONST_12_1;
+            function (CONST_5_1) {
+                CONST_5 = CONST_5_1;
             }
         ],
         execute: function () {
@@ -9110,7 +4990,7 @@ System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util
                 init4() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_40.CUtil.trace("THtmlText:Constructor");
+                        CUtil_30.CUtil.trace("THtmlText:Constructor");
                     this.cssSheet = {
                         "[eftext].outerContainer": {
                             "display": "block",
@@ -9136,7 +5016,7 @@ System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util
                         this.SControlContainer.visible = false;
                         this.outerContainer = document.createElement("div");
                         this.outerContainer.className = "outerContainer";
-                        this.outerContainer.setAttribute(CONST_12.CONST.EFTEXT_TYPE, "");
+                        this.outerContainer.setAttribute(CONST_5.CONST.EFTEXT_TYPE, "");
                         this.outerContainer.setAttribute(this.name, "");
                         this.controlContainer = document.createElement("div");
                         this.controlContainer.className = "tablecell";
@@ -9149,21 +5029,21 @@ System.register("thermite/THtmlText", ["thermite/THtmlBase", "util/CUtil", "util
                     console.log("deserializing: Text Control");
                 }
             };
-            exports_72("THtmlText", THtmlText);
+            exports_53("THtmlText", THtmlText);
         }
     };
 });
-System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TScene"], function (exports_73, context_73) {
+System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TScene"], function (exports_54, context_54) {
     "use strict";
-    var __moduleName = context_73 && context_73.id;
-    var CUtil_41, CONST_13, TScene_1, TNavPanel;
+    var __moduleName = context_54 && context_54.id;
+    var CUtil_31, CONST_6, TScene_1, TNavPanel;
     return {
         setters: [
-            function (CUtil_41_1) {
-                CUtil_41 = CUtil_41_1;
+            function (CUtil_31_1) {
+                CUtil_31 = CUtil_31_1;
             },
-            function (CONST_13_1) {
-                CONST_13 = CONST_13_1;
+            function (CONST_6_1) {
+                CONST_6 = CONST_6_1;
             },
             function (TScene_1_1) {
                 TScene_1 = TScene_1_1;
@@ -9186,7 +5066,7 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                 init5() {
                     this.traceMode = true;
                     if (this.traceMode)
-                        CUtil_41.CUtil.trace("TNavPanel:Constructor");
+                        CUtil_31.CUtil.trace("TNavPanel:Constructor");
                 }
                 Destructor() {
                     super.Destructor();
@@ -9197,6 +5077,10 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     this.SbreadCrumbs.addHTMLControls();
                     this.enableNext(false);
                     this.enablePrev(false);
+                    if (this.SbackDev)
+                        this.SbackDev.hidden = true;
+                    if (this.SnextDev)
+                        this.SnextDev.hidden = true;
                 }
                 enableNext(enable) {
                     this.Snext.enable(enable);
@@ -9212,11 +5096,11 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                 }
                 showHideNavButton(type, show) {
                     switch (type) {
-                        case CONST_13.CONST.NEXTSCENE:
+                        case CONST_6.CONST.NEXTSCENE:
                             this.Snext.hidden = !show;
                             this.Snext.enable(show);
                             break;
-                        case CONST_13.CONST.PREVSCENE:
+                        case CONST_6.CONST.PREVSCENE:
                             this.Sback.hidden = !show;
                             this.Sback.enable(show);
                             break;
@@ -9225,27 +5109,27 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                 connectNavButton(type, butComp, _once = true) {
                     this.disConnectNavButton(type, butComp);
                     switch (type) {
-                        case CONST_13.CONST.NEXTSCENE:
-                            this._nextButton = this[butComp].on(CONST_13.CONST.BUTTON_CLICK, this.tutorNavigator.onButtonNext, this.tutorNavigator);
+                        case CONST_6.CONST.NEXTSCENE:
+                            this._nextButton = this[butComp].on(CONST_6.CONST.BUTTON_CLICK, this.tutorNavigator.onButtonNext, this.tutorNavigator);
                             this.Snext.hidden = false;
                             break;
-                        case CONST_13.CONST.PREVSCENE:
-                            this._prevButton = this[butComp].on(CONST_13.CONST.BUTTON_CLICK, this.tutorNavigator.onButtonPrev, this.tutorNavigator);
+                        case CONST_6.CONST.PREVSCENE:
+                            this._prevButton = this[butComp].on(CONST_6.CONST.BUTTON_CLICK, this.tutorNavigator.onButtonPrev, this.tutorNavigator);
                             this.Sback.hidden = false;
                             break;
                     }
                 }
                 disConnectNavButton(type, butComp) {
                     switch (type) {
-                        case CONST_13.CONST.NEXTSCENE:
+                        case CONST_6.CONST.NEXTSCENE:
                             if (this._nextButton) {
-                                this[butComp].off(CONST_13.CONST.BUTTON_CLICK, this._nextButton);
+                                this[butComp].off(CONST_6.CONST.BUTTON_CLICK, this._nextButton);
                                 this._nextButton = null;
                             }
                             break;
-                        case CONST_13.CONST.PREVSCENE:
+                        case CONST_6.CONST.PREVSCENE:
                             if (this._prevButton) {
-                                this[butComp].off(CONST_13.CONST.BUTTON_CLICK, this._prevButton);
+                                this[butComp].off(CONST_6.CONST.BUTTON_CLICK, this._prevButton);
                                 this._prevButton = null;
                             }
                             break;
@@ -9253,15 +5137,15 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                 }
                 setNavigationTarget(behavior) {
                     if (behavior.toUpperCase() === "TUTOR")
-                        this.tutorNavigator.buttonBehavior = CONST_13.CONST.GOTONEXTSCENE;
+                        this.tutorNavigator.buttonBehavior = CONST_6.CONST.GOTONEXTSCENE;
                     else
-                        this.tutorNavigator.buttonBehavior = CONST_13.CONST.GOTONEXTTRACK;
+                        this.tutorNavigator.buttonBehavior = CONST_6.CONST.GOTONEXTTRACK;
                 }
                 hideAllAssets() {
-                    this.disConnectNavButton(CONST_13.CONST.NEXTSCENE, "Snext");
-                    this.disConnectNavButton(CONST_13.CONST.PREVSCENE, "Sback");
-                    this.showHideNavButton(CONST_13.CONST.NEXTSCENE, false);
-                    this.showHideNavButton(CONST_13.CONST.PREVSCENE, false);
+                    this.disConnectNavButton(CONST_6.CONST.NEXTSCENE, "Snext");
+                    this.disConnectNavButton(CONST_6.CONST.PREVSCENE, "Sback");
+                    this.showHideNavButton(CONST_6.CONST.NEXTSCENE, false);
+                    this.showHideNavButton(CONST_6.CONST.PREVSCENE, false);
                     this.Smask0.hide();
                     this.Smask1.hide();
                     this.Smask2.hide();
@@ -9271,22 +5155,22 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     this.hideAllAssets();
                     this.setNavigationTarget(navTar);
                     switch (modeID) {
-                        case CONST_13.CONST.NAVNONE:
+                        case CONST_6.CONST.NAVNONE:
                             this.Smask0.show();
                             break;
-                        case CONST_13.CONST.NAVBACK:
-                            this.connectNavButton(CONST_13.CONST.PREVSCENE, "Sback");
+                        case CONST_6.CONST.NAVBACK:
+                            this.connectNavButton(CONST_6.CONST.PREVSCENE, "Sback");
                             this.Sback.show();
                             this.Smask1.show();
                             break;
-                        case CONST_13.CONST.NAVNEXT:
-                            this.connectNavButton(CONST_13.CONST.NEXTSCENE, "Snext");
+                        case CONST_6.CONST.NAVNEXT:
+                            this.connectNavButton(CONST_6.CONST.NEXTSCENE, "Snext");
                             this.Snext.show();
                             this.Smask2.show();
                             break;
-                        case CONST_13.CONST.NAVBOTH:
-                            this.connectNavButton(CONST_13.CONST.NEXTSCENE, "Snext");
-                            this.connectNavButton(CONST_13.CONST.PREVSCENE, "Sback");
+                        case CONST_6.CONST.NAVBOTH:
+                            this.connectNavButton(CONST_6.CONST.NEXTSCENE, "Snext");
+                            this.connectNavButton(CONST_6.CONST.PREVSCENE, "Sback");
                             this.Sback.show();
                             this.Snext.show();
                             this.Smask3.show();
@@ -9294,13 +5178,13 @@ System.register("thermite/TNavPanel", ["util/CUtil", "util/CONST", "thermite/TSc
                     }
                 }
             };
-            exports_73("TNavPanel", TNavPanel);
+            exports_54("TNavPanel", TNavPanel);
         }
     };
 });
-System.register("tutorgraph/CTutorHistoryNode", [], function (exports_74, context_74) {
+System.register("tutorgraph/CTutorHistoryNode", [], function (exports_55, context_55) {
     "use strict";
-    var __moduleName = context_74 && context_74.id;
+    var __moduleName = context_55 && context_55.id;
     var CTutorHistoryNode;
     return {
         setters: [],
@@ -9312,13 +5196,13 @@ System.register("tutorgraph/CTutorHistoryNode", [], function (exports_74, contex
                     this.scene = _scene;
                 }
             };
-            exports_74("CTutorHistoryNode", CTutorHistoryNode);
+            exports_55("CTutorHistoryNode", CTutorHistoryNode);
         }
     };
 });
-System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], function (exports_75, context_75) {
+System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], function (exports_56, context_56) {
     "use strict";
-    var __moduleName = context_75 && context_75.id;
+    var __moduleName = context_56 && context_56.id;
     var CTutorHistoryNode_1, CTutorHistory;
     return {
         setters: [
@@ -9366,14 +5250,14 @@ System.register("tutorgraph/CTutorHistory", ["tutorgraph/CTutorHistoryNode"], fu
                     return this._volatile;
                 }
             };
-            exports_75("CTutorHistory", CTutorHistory);
+            exports_56("CTutorHistory", CTutorHistory);
         }
     };
 });
-System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "tutorgraph/CTutorHistory", "core/CEFNavigator", "events/CEFEvent", "util/CONST", "util/CUtil", "core/CEFTimer"], function (exports_76, context_76) {
+System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "tutorgraph/CTutorHistory", "core/CEFNavigator", "events/CEFEvent", "util/CONST", "util/CUtil", "core/CEFTimer"], function (exports_57, context_57) {
     "use strict";
-    var __moduleName = context_76 && context_76.id;
-    var CTutorGraph_1, CTutorHistory_1, CEFNavigator_1, CEFEvent_12, CONST_14, CUtil_42, CEFTimer_4, Event, CTutorGraphNavigator;
+    var __moduleName = context_57 && context_57.id;
+    var CTutorGraph_1, CTutorHistory_1, CEFNavigator_1, CEFEvent_7, CONST_7, CUtil_32, CEFTimer_2, Event, CTutorGraphNavigator;
     return {
         setters: [
             function (CTutorGraph_1_1) {
@@ -9385,17 +5269,17 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
             function (CEFNavigator_1_1) {
                 CEFNavigator_1 = CEFNavigator_1_1;
             },
-            function (CEFEvent_12_1) {
-                CEFEvent_12 = CEFEvent_12_1;
+            function (CEFEvent_7_1) {
+                CEFEvent_7 = CEFEvent_7_1;
             },
-            function (CONST_14_1) {
-                CONST_14 = CONST_14_1;
+            function (CONST_7_1) {
+                CONST_7 = CONST_7_1;
             },
-            function (CUtil_42_1) {
-                CUtil_42 = CUtil_42_1;
+            function (CUtil_32_1) {
+                CUtil_32 = CUtil_32_1;
             },
-            function (CEFTimer_4_1) {
-                CEFTimer_4 = CEFTimer_4_1;
+            function (CEFTimer_2_1) {
+                CEFTimer_2 = CEFTimer_2_1;
             }
         ],
         execute: function () {
@@ -9405,7 +5289,7 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                     super(_tutorDoc);
                     this._fTutorGraph = true;
                     this._iterations = {};
-                    this._asyncTimer = new CEFTimer_4.CEFTimer(0);
+                    this._asyncTimer = new CEFTimer_2.CEFTimer(0);
                 }
                 get sceneObj() {
                     return this._rootGraph.sceneInstance();
@@ -9441,16 +5325,16 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                     return tutorNav;
                 }
                 set buttonBehavior(action) {
-                    if (action == CONST_14.CONST.GOTONEXTSCENE)
+                    if (action == CONST_7.CONST.GOTONEXTSCENE)
                         this._fTutorGraph = true;
                     else
                         this._fTutorGraph = false;
                 }
                 enQueueTerminateEvent() {
-                    this.on(CEFEvent_12.CEFEvent.ENTER_FRAME, this._asyncTerminate);
+                    this.on(CEFEvent_7.CEFEvent.ENTER_FRAME, this._asyncTerminate);
                 }
                 _asyncTerminate(e) {
-                    this.off(CEFEvent_12.CEFEvent.ENTER_FRAME, this._asyncTerminate);
+                    this.off(CEFEvent_7.CEFEvent.ENTER_FRAME, this._asyncTerminate);
                     this.tutorDoc.log.logTerminateEvent();
                 }
                 recoverState() {
@@ -9463,12 +5347,12 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                 }
                 gotoNextScene(source) {
                     this.changeRequestorScene = source;
-                    this._tickHandler = this._asyncTimer.on(CONST_14.CONST.TIMER, this._asyncNextScene, this);
+                    this._tickHandler = this._asyncTimer.on(CONST_7.CONST.TIMER, this._asyncNextScene, this);
                     this._asyncTimer.start();
                 }
                 _asyncNextScene(evt) {
                     this._asyncTimer.stop();
-                    this._asyncTimer.off(CONST_14.CONST.TIMER, this._tickHandler);
+                    this._asyncTimer.off(CONST_7.CONST.TIMER, this._tickHandler);
                     this.traceGraphEdge();
                 }
                 onButtonNext(evt) {
@@ -9504,8 +5388,9 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                                 this.seekToScene(nextScene);
                             }
                             else if (nextScene == null) {
-                                this.tutorDoc.logTutorState(this._currScene.scenename);
-                                this.tutorDoc.logTutorProgress(CONST_14.CONST.END_OF_TUTOR);
+                                let curScene = this.tutorAutoObj[this._currScene.scenename]._instance;
+                                this.tutorDoc.logTutorState(curScene);
+                                this.tutorDoc.logTutorProgress(CONST_7.CONST.END_OF_TUTOR);
                             }
                             else {
                                 this._inNavigation = false;
@@ -9517,7 +5402,7 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                     }
                     catch (err) {
                         this._inNavigation = false;
-                        CUtil_42.CUtil.trace("CONST.traceGraphEdge: " + err.toString());
+                        CUtil_32.CUtil.trace("CONST.traceGraphEdge: " + err.toString());
                         let logData = { 'location': 'traceGraphEdge', 'message': err.toString() };
                         this.tutorDoc.log.logErrorEvent(logData);
                     }
@@ -9559,7 +5444,7 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                         }
                     }
                     catch (err) {
-                        CUtil_42.CUtil.trace("CONST.onButtonPrev: " + err.toString());
+                        CUtil_32.CUtil.trace("CONST.onButtonPrev: " + err.toString());
                         let logData = { 'location': 'onButtonPrev', 'message': err.toString() };
                         this.tutorDoc.log.logErrorEvent(logData);
                     }
@@ -9584,8 +5469,9 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                             logData = { 'curscene': 'null', 'newscene': this._nextScene.scenename };
                         this.tutorDoc.log.logNavEvent(logData);
                         if (this._currScene) {
-                            this.tutorAutoObj[this._currScene.scenename]._instance.onExitScene();
-                            this.tutorDoc.logTutorState(this._currScene.scenename);
+                            let curScene = this.tutorAutoObj[this._currScene.scenename]._instance;
+                            curScene.onExitScene();
+                            this.tutorDoc.logTutorState(curScene);
                         }
                         if (this._nextScene.isCheckPoint)
                             this.tutorDoc.logTutorProgress(this._nextScene.scenename);
@@ -9594,11 +5480,11 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                         }
                         this._currScene = this._nextScene;
                         this.updateSceneIteration();
-                        this.xitions.on(CEFEvent_12.CEFEvent.COMPLETE, this.doEnterScene, this);
+                        this.xitions.on(CEFEvent_7.CEFEvent.COMPLETE, this.doEnterScene, this);
                         this.xitions.gotoScene(this._nextScene.scenename);
                     }
                     catch (err) {
-                        CUtil_42.CUtil.trace("CONST.seekToScene: " + err.toString());
+                        CUtil_32.CUtil.trace("CONST.seekToScene: " + err.toString());
                         let logData = { 'location': 'seekToScene', 'message': err.toString() };
                         this.tutorDoc.log.logErrorEvent(logData);
                     }
@@ -9606,7 +5492,7 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                 doEnterScene(evt) {
                     try {
                         if (this.traceMode)
-                            CUtil_42.CUtil.trace("doEnterScene: ", this._currScene._name);
+                            CUtil_32.CUtil.trace("doEnterScene: ", this._currScene._name);
                         evt.remove();
                         this.tutorDoc.incFrameNdx();
                         if (this._prevScene && !this._prevScene.persist) {
@@ -9618,20 +5504,20 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                         this._inNavigation = false;
                     }
                     catch (err) {
-                        CUtil_42.CUtil.trace("doEnterScene: " + err.toString());
+                        CUtil_32.CUtil.trace("doEnterScene: " + err.toString());
                         let logData = { 'location': 'doEnterScene', 'message': err.toString() };
                         this.tutorDoc.log.logErrorEvent(logData);
                     }
                 }
             };
-            exports_76("CTutorGraphNavigator", CTutorGraphNavigator);
+            exports_57("CTutorGraphNavigator", CTutorGraphNavigator);
         }
     };
 });
-System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader", "network/CURLRequest", "thermite/TTutorContainer", "events/CEFEvent", "tutorgraph/CTutorGraphNavigator", "util/CONST", "util/CUtil"], function (exports_77, context_77) {
+System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader", "network/CURLRequest", "thermite/TTutorContainer", "events/CEFEvent", "tutorgraph/CTutorGraphNavigator", "util/CONST", "util/CUtil"], function (exports_58, context_58) {
     "use strict";
-    var __moduleName = context_77 && context_77.id;
-    var CLogManager_1, CURLLoader_2, CURLRequest_2, TTutorContainer_2, CEFEvent_13, CTutorGraphNavigator_1, CONST_15, CUtil_43, EventDispatcher, CEFTutorDoc;
+    var __moduleName = context_58 && context_58.id;
+    var CLogManager_1, CURLLoader_2, CURLRequest_2, TTutorContainer_1, CEFEvent_8, CTutorGraphNavigator_1, CONST_8, CUtil_33, EventDispatcher, CEFTutorDoc;
     return {
         setters: [
             function (CLogManager_1_1) {
@@ -9643,20 +5529,20 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
             function (CURLRequest_2_1) {
                 CURLRequest_2 = CURLRequest_2_1;
             },
-            function (TTutorContainer_2_1) {
-                TTutorContainer_2 = TTutorContainer_2_1;
+            function (TTutorContainer_1_1) {
+                TTutorContainer_1 = TTutorContainer_1_1;
             },
-            function (CEFEvent_13_1) {
-                CEFEvent_13 = CEFEvent_13_1;
+            function (CEFEvent_8_1) {
+                CEFEvent_8 = CEFEvent_8_1;
             },
             function (CTutorGraphNavigator_1_1) {
                 CTutorGraphNavigator_1 = CTutorGraphNavigator_1_1;
             },
-            function (CONST_15_1) {
-                CONST_15 = CONST_15_1;
+            function (CONST_8_1) {
+                CONST_8 = CONST_8_1;
             },
-            function (CUtil_43_1) {
-                CUtil_43 = CUtil_43_1;
+            function (CUtil_33_1) {
+                CUtil_33 = CUtil_33_1;
             }
         ],
         execute: function () {
@@ -9666,6 +5552,8 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     super();
                     this.logFrameID = 0;
                     this.logStateID = 0;
+                    this.userStateData = null;
+                    this.dataInitialized = false;
                     this.language = "en";
                     this.voice = "F0";
                     this._tutorFeatures = "";
@@ -9703,7 +5591,7 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     this.fFeatures = {};
                     this.featureID = {};
                     this.fDefaults = {};
-                    CUtil_43.CUtil.trace("CEFTutorDoc:Constructor");
+                    CUtil_33.CUtil.trace("CEFTutorDoc:Constructor");
                     this.initGlobals();
                     this.isDebug = true;
                     this.sceneGraph = {};
@@ -9711,10 +5599,10 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     this.moduleData = {};
                     this.globalData = {};
                     this.connectFrameCounter(true);
-                    this.tutorContainer = new TTutorContainer_2.TTutorContainer();
+                    this.tutorContainer = new TTutorContainer_1.TTutorContainer();
                     this.tutorContainer.tutorDoc = this;
                     this.tutorContainer.tutorAutoObj = this.TutAutomator;
-                    this.tutorContainer.name = CONST_15.CONST.TUTORCONTAINER;
+                    this.tutorContainer.name = CONST_8.CONST.TUTORCONTAINER;
                     EFLoadManager.efStage.addChild(this.tutorContainer);
                     this.setTutorDefaults(this._tutorFeatures);
                     this.setTutorFeatures("");
@@ -9724,7 +5612,59 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     this.hostModule = this.tutorGraph.hostModule;
                     CTutorGraphNavigator_1.CTutorGraphNavigator.rootFactory(this, this.tutorGraph);
                     this.tutorContainer.initAutomation();
+                    if (EFLoadManager.nativeUserMgr) {
+                        this.hostFeatures = EFLoadManager.nativeUserMgr.getFeatures();
+                        this.hostTutorData = EFLoadManager.nativeUserMgr.getTutorState();
+                    }
+                    else if (EFLoadManager.efFeatures) {
+                        this.setTutorFeatures(EFLoadManager.efFeatures);
+                    }
                     this.launchTutor();
+                }
+                initializeStateData(scene, name, sceneName, hostModule) {
+                    if (name !== sceneName) {
+                        alert("TutorDoc Scene name Mismatch: " + name + " != " + sceneName);
+                    }
+                    this.sceneState[name] = {};
+                    this.moduleState[hostModule] = this.moduleState[hostModule] || {};
+                    this.tutorState = this.tutorState || {};
+                    this.sceneChange[sceneName] = {};
+                    this.moduleChange[hostModule] = this.moduleChange[hostModule] || {};
+                    this.tutorChange = this.tutorChange || {};
+                    if (!this.dataInitialized) {
+                        this.dataInitialized = true;
+                        if (EFLoadManager.nativeUserMgr) {
+                            this.userID = EFLoadManager.nativeUserMgr.getUserId();
+                        }
+                        else {
+                            this.userID = "KEVINWI_DEC_27";
+                        }
+                        if (this.tutorStateData) {
+                            this.normalizeStateData();
+                            for (let element of this.tutorStateData.users) {
+                                if (element.userName === this.userID) {
+                                    this.userStateData = element;
+                                    break;
+                                }
+                            }
+                            if (this.userStateData) {
+                                for (let key in this.userStateData.tutorState) {
+                                    scene.setTutorValue(key, this.userStateData.tutorState[key]);
+                                }
+                                for (let key in this.userStateData.moduleState) {
+                                    scene.setModuleValue(key, this.userStateData.moduleState[key]);
+                                }
+                                for (let value of this.userStateData.features) {
+                                    this.addFeature(value, null);
+                                }
+                            }
+                        }
+                    }
+                }
+                normalizeStateData() {
+                    for (let element of this.tutorStateData.users) {
+                        element.userName = element.userName.replace("-", "_").toUpperCase();
+                    }
                 }
                 attachNavPanel(panel) {
                     this.SnavPanel = panel;
@@ -9752,29 +5692,29 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 $nodeConstraint(nodeName, edgeConstraint) { return false; }
                 ;
                 getSceneValue(property) {
-                    return this.getStateValue(property, CONST_15.CONST.SCENESTATE);
+                    return this.getStateValue(property, CONST_8.CONST.SCENESTATE);
                 }
                 getModuleValue(property) {
-                    return this.getStateValue(property, CONST_15.CONST.MODULESTATE);
+                    return this.getStateValue(property, CONST_8.CONST.MODULESTATE);
                 }
                 getTutorValue(property) {
-                    return this.getStateValue(property, CONST_15.CONST.TUTORSTATE);
+                    return this.getStateValue(property, CONST_8.CONST.TUTORSTATE);
                 }
-                getStateValue(property, target = CONST_15.CONST.MODULESTATE) {
+                getStateValue(property, target = CONST_8.CONST.MODULESTATE) {
                     let prop;
                     prop = this.getRawStateValue(property, target);
                     return prop;
                 }
-                getRawStateValue(property, target = CONST_15.CONST.MODULESTATE) {
+                getRawStateValue(property, target = CONST_8.CONST.MODULESTATE) {
                     let prop;
                     switch (target) {
-                        case CONST_15.CONST.SCENESTATE:
+                        case CONST_8.CONST.SCENESTATE:
                             prop = this.resolveProperty(this.sceneState[this.name], property);
                             break;
-                        case CONST_15.CONST.MODULESTATE:
+                        case CONST_8.CONST.MODULESTATE:
                             prop = this.resolveProperty(this.moduleState[this.hostModule], property);
                             break;
-                        case CONST_15.CONST.TUTORSTATE:
+                        case CONST_8.CONST.TUTORSTATE:
                             prop = this.resolveProperty(this.tutorState, property);
                             break;
                     }
@@ -9805,6 +5745,14 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     if (value === undefined)
                         value = null;
                     return value;
+                }
+                pushEvent(root, property, value) {
+                    root["$seq"] = root["$seq"] || [];
+                    root["$seq"].push({
+                        "prop": property,
+                        "value": value,
+                        "time": Date.now()
+                    });
                 }
                 set extAccount(Obj) {
                     this.sessionAccount = Obj;
@@ -9911,15 +5859,15 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 }
                 incStateID() {
                     if (this.traceMode)
-                        CUtil_43.CUtil.trace("@@@@@@@@@ logStateID Update : " + this.logStateID);
+                        CUtil_33.CUtil.trace("@@@@@@@@@ logStateID Update : " + this.logStateID);
                     this.logStateID++;
                     this.frameID = 0;
                 }
                 connectFrameCounter(fCon) {
                     if (fCon)
-                        this.on(CEFEvent_13.CEFEvent.ENTER_FRAME, this.doEnterFrame);
+                        this.on(CEFEvent_8.CEFEvent.ENTER_FRAME, this.doEnterFrame);
                     else
-                        this.off(CEFEvent_13.CEFEvent.ENTER_FRAME, this.doEnterFrame);
+                        this.off(CEFEvent_8.CEFEvent.ENTER_FRAME, this.doEnterFrame);
                 }
                 doEnterFrame(evt) {
                     this.incFrameID();
@@ -9954,41 +5902,48 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 }
                 setNavButtonBehavior(behavior) {
                     if (behavior == "incrScene")
-                        this.tutorNavigator.buttonBehavior = CONST_15.CONST.GOTONEXTSCENE;
+                        this.tutorNavigator.buttonBehavior = CONST_8.CONST.GOTONEXTSCENE;
                     else
-                        this.tutorNavigator.buttonBehavior = CONST_15.CONST.GOTONEXTTRACK;
+                        this.tutorNavigator.buttonBehavior = CONST_8.CONST.GOTONEXTTRACK;
                 }
                 buildBootSet(targetTutor) {
                     this.loaderData = [];
-                    for (let i1 = 0; i1 < CONST_15.CONST.TUTOR_VARIABLE.length; i1++) {
+                    this.loaderData.push({
+                        type: CONST_8.CONST.TUTORSTATEVAR,
+                        filePath: CONST_8.CONST.TUTOR_COMMONPATH + CONST_8.CONST.TUTORSTATEVAR,
+                        onLoad: this.onLoadJson.bind(this),
+                        fileName: CONST_8.CONST.TUTORSTATEVAR,
+                        varName: CONST_8.CONST.TUTORSTATEFAC
+                    });
+                    for (let i1 = 0; i1 < CONST_8.CONST.TUTOR_VARIABLE.length; i1++) {
                         this.loaderData.push({
-                            type: CONST_15.CONST.TUTOR_VARIABLE[i1],
-                            filePath: CONST_15.CONST.TUTOR_COMMONPATH + targetTutor + "/" + CONST_15.CONST.TUTOR_VARIABLE[i1],
+                            type: CONST_8.CONST.TUTOR_VARIABLE[i1],
+                            filePath: CONST_8.CONST.TUTOR_COMMONPATH + targetTutor + "/" + CONST_8.CONST.TUTOR_VARIABLE[i1],
                             onLoad: this.onLoadJson.bind(this),
-                            fileName: CONST_15.CONST.TUTOR_VARIABLE[i1],
-                            varName: CONST_15.CONST.TUTOR_FACTORIES[i1]
+                            fileName: CONST_8.CONST.TUTOR_VARIABLE[i1],
+                            varName: CONST_8.CONST.TUTOR_FACTORIES[i1]
                         });
                     }
                     this.loaderData.push({
-                        type: CONST_15.CONST.TUTOR_GLOBALCODE,
-                        filePath: CONST_15.CONST.TUTOR_COMMONPATH + targetTutor + CONST_15.CONST.GLOBALS_FILEPATH,
+                        type: CONST_8.CONST.TUTOR_GLOBALCODE,
+                        filePath: CONST_8.CONST.TUTOR_COMMONPATH + targetTutor + CONST_8.CONST.GLOBALS_FILEPATH,
                         onLoad: this.onLoadCode.bind(this),
-                        modName: CONST_15.CONST.TUTOR_EXT,
-                        debugPath: this.isDebug ? "ISP_Tutor/EFbuild/TUTORCODE" + CONST_15.CONST.GLOBALS_FILEPATH : null
+                        modName: CONST_8.CONST.TUTOR_EXT,
+                        debugPath: this.isDebug ? "ISP_Tutor/EFbuild/TUTORCODE" + CONST_8.CONST.GLOBALS_FILEPATH : null
                     });
                     this.loaderData.push({
-                        type: CONST_15.CONST.TUTOR_GLOBALDATA,
-                        filePath: CONST_15.CONST.TUTOR_COMMONPATH + targetTutor + CONST_15.CONST.GDATA_FILEPATH,
+                        type: CONST_8.CONST.TUTOR_GLOBALDATA,
+                        filePath: CONST_8.CONST.TUTOR_COMMONPATH + targetTutor + CONST_8.CONST.GDATA_FILEPATH,
                         onLoad: this.onLoadData.bind(this),
-                        modName: CONST_15.CONST.TUTOR_GLOBALDATA,
-                        debugPath: this.isDebug ? "ISP_Tutor/EFbuild/TUTORDATA" + CONST_15.CONST.GDATA_FILEPATH : null
+                        modName: CONST_8.CONST.TUTOR_GLOBALDATA,
+                        debugPath: this.isDebug ? "ISP_Tutor/EFbuild/TUTORDATA" + CONST_8.CONST.GDATA_FILEPATH : null
                     });
                     this.loaderData.push({
-                        type: CONST_15.CONST.TUTOR_GLOBALDATA,
-                        filePath: CONST_15.CONST.TUTOR_COMMONPATH + targetTutor + CONST_15.CONST.GLIBR_FILEPATH,
+                        type: CONST_8.CONST.TUTOR_GLOBALDATA,
+                        filePath: CONST_8.CONST.TUTOR_COMMONPATH + targetTutor + CONST_8.CONST.GLIBR_FILEPATH,
                         onLoad: this.onLoadData.bind(this),
-                        modName: CONST_15.CONST.TUTOR_GLOBALDATA,
-                        debugPath: this.isDebug ? "ISP_Tutor/EFbuild/TUTORDATA" + CONST_15.CONST.GLIBR_FILEPATH : null
+                        modName: CONST_8.CONST.TUTOR_GLOBALDATA,
+                        debugPath: this.isDebug ? "ISP_Tutor/EFbuild/TUTORDATA" + CONST_8.CONST.GLIBR_FILEPATH : null
                     });
                 }
                 buildTutorSet() {
@@ -9997,57 +5952,57 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                         let moduleNameCS = moduleName;
                         this.loaderData.push({
                             type: "ModuleID",
-                            filePath: moduleName + CONST_15.CONST.MODID_FILEPATH,
+                            filePath: moduleName + CONST_8.CONST.MODID_FILEPATH,
                             onLoad: this.onLoadModID.bind(this),
                             modName: moduleNameCS
                         });
                         this.loaderData.push({
                             type: "Scene Graph",
-                            filePath: moduleName + CONST_15.CONST.GRAPH_FILEPATH,
+                            filePath: moduleName + CONST_8.CONST.GRAPH_FILEPATH,
                             onLoad: this.onLoadSceneGraphs.bind(this),
                             modName: moduleNameCS
                         });
                         this.loaderData.push({
                             type: "Class Extensions",
-                            filePath: moduleName + CONST_15.CONST.EXTS_FILEPATH,
+                            filePath: moduleName + CONST_8.CONST.EXTS_FILEPATH,
                             onLoad: this.onLoadCode.bind(this),
                             modName: moduleNameCS,
                             debugPath: this.isDebug ? "ISP_Tutor/EFbuild/" + moduleName + "/exts.js" : null
                         });
                         this.loaderData.push({
                             type: "Scene Mixins",
-                            filePath: moduleName + CONST_15.CONST.MIXINS_FILEPATH,
+                            filePath: moduleName + CONST_8.CONST.MIXINS_FILEPATH,
                             onLoad: this.onLoadCode.bind(this),
                             modName: moduleNameCS,
                             debugPath: this.isDebug ? "ISP_Tutor/EFbuild/" + moduleName + "/mixins.js" : null
                         });
                         this.loaderData.push({
                             type: "Fonts",
-                            filePath: moduleName + CONST_15.CONST.FONTFACE_FILEPATH,
+                            filePath: moduleName + CONST_8.CONST.FONTFACE_FILEPATH,
                             onLoad: this.onLoadFonts.bind(this),
                             modName: moduleNameCS,
                         });
                         this.loaderData.push({
-                            type: CONST_15.CONST.SCENE_DATA,
-                            filePath: moduleName + CONST_15.CONST.DATA_FILEPATH,
+                            type: CONST_8.CONST.SCENE_DATA,
+                            filePath: moduleName + CONST_8.CONST.DATA_FILEPATH,
                             onLoad: this.onLoadData.bind(this),
                             modName: moduleNameCS,
                         });
                         this.loaderData.push({
-                            type: CONST_15.CONST.SCENE_DATA,
-                            filePath: moduleName + CONST_15.CONST.LIBR_FILEPATH,
+                            type: CONST_8.CONST.SCENE_DATA,
+                            filePath: moduleName + CONST_8.CONST.LIBR_FILEPATH,
                             onLoad: this.onLoadData.bind(this),
                             modName: moduleNameCS,
                         });
                         this.loaderData.push({
-                            type: CONST_15.CONST.TRACK_DATA,
-                            filePath: moduleName + CONST_15.CONST.TRACKDATA_FILEPATH,
+                            type: CONST_8.CONST.TRACK_DATA,
+                            filePath: moduleName + CONST_8.CONST.TRACKDATA_FILEPATH,
                             onLoad: this.onLoadData.bind(this),
                             modName: moduleNameCS,
                         });
                         this.loaderData.push({
                             type: "AnimateCC",
-                            filePath: moduleName + CONST_15.CONST.ANMODULE_FILEPATH,
+                            filePath: moduleName + CONST_8.CONST.ANMODULE_FILEPATH,
                             onLoad: this.onLoadCode.bind(this),
                             modName: moduleNameCS,
                             debugPath: this.isDebug ? moduleName + ".js" : null
@@ -10125,14 +6080,14 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     try {
                         console.log("Data:" + fileLoader.type + " Loaded: " + fileLoader.modName);
                         let data = JSON.parse(filedata);
-                        if (fileLoader.type === CONST_15.CONST.TUTOR_GLOBALDATA) {
+                        if (fileLoader.type === CONST_8.CONST.TUTOR_GLOBALDATA) {
                             this.globalData = this.globalData || {};
-                            CUtil_43.CUtil.mixinDataObject(this.globalData, data);
+                            CUtil_33.CUtil.mixinDataObject(this.globalData, data);
                         }
                         else {
                             this.moduleData[fileLoader.modName] = this.moduleData[fileLoader.modName] || {};
                             this.moduleData[fileLoader.modName][fileLoader.type] = this.moduleData[fileLoader.modName][fileLoader.type] || {};
-                            CUtil_43.CUtil.mixinDataObject(this.moduleData[fileLoader.modName][fileLoader.type], data);
+                            CUtil_33.CUtil.mixinDataObject(this.moduleData[fileLoader.modName][fileLoader.type], data);
                         }
                     }
                     catch (error) {
@@ -10140,24 +6095,22 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     }
                 }
                 setTutorDefaults(featSet) {
-                    let feature;
                     let featArray = featSet.split(":");
-                    this.fDefaults = new Array();
-                    for (let feature of featArray) {
-                        this.fDefaults.push(feature);
+                    this.fDefaults = {};
+                    for (let feature in featArray) {
+                        this.fDefaults[feature] = true;
                     }
                 }
                 setTutorFeatures(featSet) {
-                    let feature;
                     let featArray = new Array;
                     if (featSet.length > 0)
                         featArray = featSet.split(":");
-                    this.fFeatures = new Array();
-                    for (let feature of this.fDefaults) {
-                        this.fFeatures.push(feature);
+                    this.fFeatures = {};
+                    for (let feature in this.fDefaults) {
+                        this.addFeature(feature, null);
                     }
                     for (let feature of featArray) {
-                        this.fFeatures.push(feature);
+                        this.addFeature(feature, null);
                     }
                 }
                 get features() {
@@ -10192,6 +6145,16 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     else if (_feature && this.fFeatures[_feature]) {
                         delete this.fFeatures[_feature];
                     }
+                }
+                includes(ftrObj, ftr) {
+                    let result = false;
+                    for (let fElement in ftrObj) {
+                        if (fElement === ftr) {
+                            result = true;
+                            break;
+                        }
+                    }
+                    return result;
                 }
                 testFeature(element, index, arr) {
                     let testElement = element;
@@ -10234,17 +6197,49 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     return false;
                 }
                 traceFeatures() {
-                    CUtil_43.CUtil.trace(this.fFeatures);
+                    CUtil_33.CUtil.trace(this.fFeatures);
                 }
                 logTutorState(scene) {
                     if (EFLoadManager.nativeUserMgr) {
-                        EFLoadManager.nativeUserMgr.logState(scene, JSON.stringify(this.sceneState), JSON.stringify(this.moduleState), JSON.stringify(this.tutorState));
+                        EFLoadManager.nativeUserMgr.logState(scene.sceneLogName, JSON.stringify(this.sceneState), JSON.stringify(this.moduleState), JSON.stringify(this.tutorState));
+                        if (this.hostModule.toUpperCase() === "EFMOD_RQSELECT") {
+                            if (this.userStateData) {
+                                for (let key in this.userStateData.tutorState) {
+                                    this.userStateData.tutorState[key] = scene.getTutorValue(this.userStateData.tutorState[key]);
+                                }
+                                for (let key in this.userStateData.moduleState) {
+                                    this.userStateData.moduleState[key] = scene.getModuleValue(this.userStateData.moduleState[key]);
+                                }
+                                if (this.userStateData.features.length < 2) {
+                                    let feature = scene.getModuleValue("selectedTopic.ontologyKey|features");
+                                    if (feature != null) {
+                                        this.userStateData.features.push(feature);
+                                    }
+                                }
+                            }
+                            EFLoadManager.nativeUserMgr.updateTutorState(JSON.stringify(this.tutorStateData));
+                        }
+                    }
+                }
+                Kludge_TranslateKeys() {
+                    if (this.hostModule.toUpperCase() === "EFMOD_RQSELECT") {
+                        if (this.userStateData) {
+                            for (let key in this.userStateData.moduleState) {
+                                if (key.endsWith("ontologyKey")) {
+                                    let value = this.userStateData.moduleState[key];
+                                    value = value.slice(0, 1) + "TBL" + value.slice(1);
+                                    this.userStateData.moduleState[key] = value;
+                                }
+                            }
+                            EFLoadManager.nativeUserMgr.updateTutorState(JSON.stringify(this.tutorStateData));
+                        }
                     }
                 }
                 logTutorProgress(scene) {
                     if (EFLoadManager.nativeUserMgr) {
-                        if (scene === CONST_15.CONST.END_OF_TUTOR) {
+                        if (scene === CONST_8.CONST.END_OF_TUTOR) {
                             EFLoadManager.nativeUserMgr.tutorComplete();
+                            this.Kludge_TranslateKeys();
                         }
                         else {
                             EFLoadManager.nativeUserMgr.updateScene(scene);
@@ -10252,7 +6247,4147 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     }
                 }
             };
-            exports_77("CEFTutorDoc", CEFTutorDoc);
+            exports_58("CEFTutorDoc", CEFTutorDoc);
+        }
+    };
+});
+System.register("thermite/TObjectMask", ["thermite/TObject"], function (exports_59, context_59) {
+    "use strict";
+    var __moduleName = context_59 && context_59.id;
+    var TObject_5, TObjectMask;
+    return {
+        setters: [
+            function (TObject_5_1) {
+                TObject_5 = TObject_5_1;
+            }
+        ],
+        execute: function () {
+            TObjectMask = class TObjectMask extends TObject_5.TObject {
+                constructor() {
+                    super();
+                }
+            };
+            exports_59("TObjectMask", TObjectMask);
+        }
+    };
+});
+System.register("core/CEFTransitions", ["thermite/TObject", "thermite/TObjectMask", "core/CEFTimeLine", "events/CEFEvent", "util/CUtil"], function (exports_60, context_60) {
+    "use strict";
+    var __moduleName = context_60 && context_60.id;
+    var TObject_6, TObjectMask_1, CEFTimeLine_2, CEFEvent_9, CUtil_34, Tween, Event, Ease, CEFTransitions;
+    return {
+        setters: [
+            function (TObject_6_1) {
+                TObject_6 = TObject_6_1;
+            },
+            function (TObjectMask_1_1) {
+                TObjectMask_1 = TObjectMask_1_1;
+            },
+            function (CEFTimeLine_2_1) {
+                CEFTimeLine_2 = CEFTimeLine_2_1;
+            },
+            function (CEFEvent_9_1) {
+                CEFEvent_9 = CEFEvent_9_1;
+            },
+            function (CUtil_34_1) {
+                CUtil_34 = CUtil_34_1;
+            }
+        ],
+        execute: function () {
+            Tween = createjs.Tween;
+            Event = createjs.Event;
+            Ease = createjs.Ease;
+            CEFTransitions = class CEFTransitions extends CEFTimeLine_2.CEFTimeLine {
+                constructor(_tutorDoc) {
+                    super(null, null, { "useTicks": false, "loop": false, "paused": true }, _tutorDoc);
+                    this.currScene = null;
+                    this.newScene = null;
+                    this.rTime = 350;
+                    this.tTime = 350;
+                    this.fSingleStep = true;
+                    this.activeObjs = {};
+                    this.persistObjs = {};
+                    this.fSwapObjects = true;
+                    this.traceMode = true;
+                    if (this.traceMode)
+                        CUtil_34.CUtil.trace("CEFTransitions:Constructor");
+                }
+                connectToTutor(parentTutor, autoTutor) {
+                    this.tutorAutoObj = autoTutor;
+                    this.activeObjs = {};
+                }
+                resetTransitions() {
+                    this.activeObjs = {};
+                }
+                walkTweens() {
+                    let i1;
+                    if (this.traceMode)
+                        CUtil_34.CUtil.trace("Tween Enumeration for Scene: ", this.currScene);
+                    for (i1 = 0; i1 < this._tweens.length; i1++) {
+                        if (this.traceMode)
+                            CUtil_34.CUtil.trace("Object Value: ", this.targets[i1].obj);
+                    }
+                }
+                gotoScene(scn) {
+                    if (this.traceMode)
+                        CUtil_34.CUtil.trace("Goto Scene: ", scn);
+                    this.fSingleStep = false;
+                    this.stopTransitions();
+                    this.newScene = scn;
+                    if (this.currScene != null) {
+                        this.setTransitionOUT();
+                        if (this.targets.length) {
+                            this.startTransition(this.outFinished, this);
+                        }
+                        else {
+                            this.setTransitionIN(this.tutorAutoObj, this.newScene);
+                            this.changeScene();
+                            if (this._tweens.length > 0) {
+                                this.startTransition(this.inFinished, this);
+                            }
+                            else
+                                this.inFinished();
+                        }
+                    }
+                    else {
+                        this.setTransitionIN(this.tutorAutoObj, this.newScene);
+                        this.changeScene();
+                        this.startTransition(this.inFinished, this);
+                    }
+                }
+                setTransitionOUT() {
+                    let bMatch;
+                    let targObj;
+                    let tween;
+                    try {
+                        if (this.currScene != null)
+                            for (let sceneObj in this.tutorAutoObj[this.currScene]) {
+                                bMatch = false;
+                                if (sceneObj == "_instance")
+                                    continue;
+                                if (this.newScene != null) {
+                                    if (!this.tutorAutoObj[this.newScene]._instance.isAnchor) {
+                                        if (this.tutorAutoObj[this.newScene][sceneObj] != undefined) {
+                                            if (this.traceMode)
+                                                CUtil_34.CUtil.trace("newObject: " + this.tutorAutoObj[this.newScene][sceneObj]._instance.xname);
+                                            if (this.traceMode)
+                                                CUtil_34.CUtil.trace("oldObject: " + this.tutorAutoObj[this.currScene][sceneObj]._instance.xname);
+                                            if (this.tutorAutoObj[this.newScene][sceneObj]._instance.xname ==
+                                                this.tutorAutoObj[this.currScene][sceneObj]._instance.xname)
+                                                bMatch = true;
+                                        }
+                                    }
+                                }
+                                if (!bMatch) {
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("setTransitionOUT: " + this.tutorAutoObj[this.currScene][sceneObj]._instance.name);
+                                    targObj = this.tutorAutoObj[this.currScene][sceneObj];
+                                    tween = new Tween(targObj._instance).to({ alpha: 0 }, Number(this.rTime), Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + this.currScene + "  named : " + targObj._instance.name + " property: alpha" + " out: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                            }
+                    }
+                    catch (error) {
+                        CUtil_34.CUtil.trace("setTransitionOUT failed: " + error);
+                    }
+                    this.tutorAutoObj[this.currScene]._instance.hideScene();
+                }
+                setTransitionIN(objectList, sceneName) {
+                    let targObj;
+                    let liveObj;
+                    let tween;
+                    let xname;
+                    this.currentObjs = new Array;
+                    for (let namedObj in objectList[sceneName]) {
+                        if (namedObj != "_instance") {
+                            targObj = objectList[sceneName][namedObj];
+                            if (targObj._instance instanceof TObject_6.TObject) {
+                                if (!targObj._instance.isTweenable())
+                                    continue;
+                                xname = targObj._instance.xname;
+                            }
+                            else {
+                                xname = targObj._instance.id;
+                            }
+                            if (targObj._instance.hidden)
+                                continue;
+                            if (this.tutorAutoObj[this.newScene]._instance.isAnchor)
+                                this.activeObjs = {};
+                            if (this.activeObjs[xname] != undefined) {
+                                liveObj = this.activeObjs[xname];
+                                if (this.fSwapObjects) {
+                                    let dO1 = this.tutorAutoObj[this.currScene][namedObj]._instance;
+                                    let dO2 = this.tutorAutoObj[this.newScene][namedObj]._instance;
+                                    let dI1 = this.tutorContainer[this.currScene].getChildIndex(dO1);
+                                    let dI2 = this.tutorContainer[this.newScene].getChildIndex(dO2);
+                                    this.tutorContainer[this.currScene].addChildAt(dO2, dI1);
+                                    this.tutorContainer[this.newScene].addChildAt(dO1, dI2);
+                                    this.tutorAutoObj[this.currScene][namedObj]._instance = dO2;
+                                    this.tutorAutoObj[this.newScene][namedObj]._instance = dO1;
+                                    this.tutorAutoObj[this.currScene]._instance[namedObj] = dO2;
+                                    this.tutorAutoObj[this.newScene]._instance[namedObj] = dO1;
+                                    this.tutorAutoObj[this.newScene]._instance[namedObj].hostScene = this.tutorAutoObj[this.newScene]._instance;
+                                    targObj = objectList[sceneName][namedObj];
+                                }
+                                else {
+                                    if ((liveObj instanceof TObject_6.TObject) && (targObj._instance.tweenID == liveObj.tweenID)) {
+                                        targObj._instance.deepStateCopy(liveObj);
+                                    }
+                                    else
+                                        this.shallowStateCopy(targObj._instance, liveObj);
+                                }
+                                if (targObj.inPlace.x != liveObj.x) {
+                                    tween = new Tween(targObj._instance).to({ x: targObj.inPlace.x }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property:x  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.y != liveObj.y) {
+                                    tween = new Tween(targObj._instance).to({ y: targObj.inPlace.y }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: y  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.scaleX != liveObj.scaleX) {
+                                    tween = new Tween(targObj._instance).to({ scaleX: targObj.inPlace.scaleX }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: scaleX  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.scaleY != liveObj.scaleY) {
+                                    tween = new Tween(targObj._instance).to({ scaleY: targObj.inPlace.scaleY }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: scaleY  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.skewX != liveObj.skewX) {
+                                    tween = new Tween(targObj._instance).to({ skewX: targObj.inPlace.skewX }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: skewX  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.skewY != liveObj.skewY) {
+                                    tween = new Tween(targObj._instance).to({ skewY: targObj.inPlace.skewY }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: skewY  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.regX != liveObj.regX) {
+                                    tween = new Tween(targObj._instance).to({ regX: targObj.inPlace.regX }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: regX  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.regY != liveObj.regY) {
+                                    tween = new Tween(targObj._instance).to({ regY: targObj.inPlace.regY }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj.name + " property: regY  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.rotation != liveObj.rotation) {
+                                    tween = new Tween(targObj._instance).to({ rotation: targObj.inPlace.rotation }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj._instance.name + " property: rotation  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                                if (targObj.inPlace.alpha != liveObj.alpha) {
+                                    tween = new Tween(targObj._instance).to({ alpha: targObj.inPlace.alpha }, this.tTime, Ease.cubicInOut);
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj._instance.name + " property: alpha  in: " + tween.duration + "msecs");
+                                    this.addTween(tween);
+                                }
+                            }
+                            else {
+                                if (targObj._instance.addHTMLControls)
+                                    targObj._instance.addHTMLControls();
+                                if (!(targObj._instance instanceof TObjectMask_1.TObjectMask))
+                                    targObj._instance.alpha = 0;
+                                tween = new Tween(targObj._instance).to({ alpha: targObj.inPlace.alpha }, this.tTime, Ease.cubicInOut);
+                                if (this.traceMode)
+                                    CUtil_34.CUtil.trace("Tweening obj in scene: " + sceneName + "  named : " + targObj._instance.name + " property: alpha" + " in: " + tween.duration + "msecs");
+                                this.addTween(tween);
+                            }
+                            if (targObj._instance instanceof TObject_6.TObject) {
+                                if (!targObj._instance.hidden)
+                                    targObj._instance.visible = true;
+                                if (targObj._instance.bPersist) {
+                                    this.persistObjs[xname] = targObj._instance;
+                                }
+                                else {
+                                    this.currentObjs.push(new Array(xname, targObj._instance));
+                                }
+                                if (targObj._instance.isSubTweenable()) {
+                                    if (this.traceMode)
+                                        CUtil_34.CUtil.trace("SubTweening : " + targObj._instance.name);
+                                    this.setTransitionIN(objectList[sceneName], namedObj);
+                                }
+                            }
+                            else {
+                                targObj._instance.visible = true;
+                                this.currentObjs.push(new Array(xname, targObj._instance));
+                            }
+                        }
+                    }
+                    this.activeObjs = {};
+                    for (let objRec of this.currentObjs) {
+                        this.activeObjs[objRec[0]] = objRec[1];
+                    }
+                    for (let perObj in this.persistObjs) {
+                        this.activeObjs[this.persistObjs[perObj].xname] = this.persistObjs[perObj];
+                    }
+                    this.tutorAutoObj[this.newScene]._instance.showScene();
+                }
+                changeScene() {
+                    if (this.currScene)
+                        this.tutorAutoObj[this.currScene]._instance.visible = false;
+                    this.tutorAutoObj[this.newScene]._instance.visible = true;
+                    this.currScene = this.newScene;
+                }
+                shallowStateCopy(tar, src) {
+                    tar.x = src.x;
+                    tar.y = src.y;
+                    tar.alpha = src.alpha;
+                }
+                outFinished() {
+                    CUtil_34.CUtil.trace("outFinished");
+                    if (!this.fSingleStep) {
+                        if (this.newScene) {
+                            if (this.tutorAutoObj[this.newScene]._instance.visible == false) {
+                                this.setTransitionIN(this.tutorAutoObj, this.newScene);
+                            }
+                            this.changeScene();
+                            this.startTransition(this.inFinished, this);
+                        }
+                    }
+                    else
+                        this.dispatchEvent(new Event(CEFEvent_9.CEFEvent.CHANGE, false, false));
+                }
+                inFinished() {
+                    CUtil_34.CUtil.trace("inFinished");
+                    this.currScene = this.newScene;
+                    this.dispatchEvent(new Event(CEFEvent_9.CEFEvent.COMPLETE, false, false));
+                }
+            };
+            exports_60("CEFTransitions", CEFTransitions);
+        }
+    };
+});
+System.register("core/CEFNavigator", ["core/CEFTransitions", "events/CEFEvent", "util/CONST", "util/CUtil"], function (exports_61, context_61) {
+    "use strict";
+    var __moduleName = context_61 && context_61.id;
+    var CEFTransitions_1, CEFEvent_10, CONST_9, CUtil_35, Event, EventDispatcher, CEFNavigator;
+    return {
+        setters: [
+            function (CEFTransitions_1_1) {
+                CEFTransitions_1 = CEFTransitions_1_1;
+            },
+            function (CEFEvent_10_1) {
+                CEFEvent_10 = CEFEvent_10_1;
+            },
+            function (CONST_9_1) {
+                CONST_9 = CONST_9_1;
+            },
+            function (CUtil_35_1) {
+                CUtil_35 = CUtil_35_1;
+            }
+        ],
+        execute: function () {
+            Event = createjs.Event;
+            EventDispatcher = createjs.EventDispatcher;
+            CEFNavigator = class CEFNavigator extends EventDispatcher {
+                constructor(_tutorDoc) {
+                    super();
+                    this.traceMode = false;
+                    this.sceneCnt = 0;
+                    this._inNavigation = false;
+                    this.traceMode = true;
+                    this.tutorDoc = _tutorDoc;
+                    this.tutorAutoObj = _tutorDoc.TutAutomator;
+                    this.xitions = new CEFTransitions_1.CEFTransitions(_tutorDoc);
+                }
+                get iteration() {
+                    return "null";
+                }
+                get sceneObj() {
+                    return null;
+                }
+                addScene(SceneTitle, ScenePage, SceneName, SceneClass, ScenePersist, SceneFeatures = "null") {
+                }
+                connectToTutor(parentTutor, autoTutor) {
+                    this.tutorDoc.tutorContainer = parentTutor;
+                    this.tutorDoc.TutAutomator = autoTutor;
+                }
+                get scenePrev() {
+                    return 0;
+                }
+                set scenePrev(scenePrevINT) {
+                }
+                get sceneCurr() {
+                    return 0;
+                }
+                set sceneCurr(sceneCurrINT) {
+                }
+                get sceneCurrINC() {
+                    return 0;
+                }
+                get sceneCurrDEC() {
+                    return 0;
+                }
+                get sceneTitle() {
+                    return new Array();
+                }
+                set sceneTitle(sceneTitleARRAY) {
+                }
+                get sceneSeq() {
+                    return new Array();
+                }
+                set sceneSeq(sceneSeqARRAY) {
+                }
+                get scenePage() {
+                    return new Array();
+                }
+                set scenePage(scenePageARRAY) {
+                }
+                get sceneName() {
+                    return new Array();
+                }
+                set sceneName(sceneSeqARRAY) {
+                }
+                get sceneClass() {
+                    return new Array();
+                }
+                set sceneClass(sceneSeqARRAY) {
+                }
+                get scenePersist() {
+                    return new Array();
+                }
+                set scenePersist(sceneSeqARRAY) {
+                }
+                findSceneOrd(tarScene) {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("findSceneOrd: " + tarScene);
+                    let i1;
+                    let ordScene = 0;
+                    let newScene;
+                    for (i1 = 0; i1 < this.sceneCnt; i1++) {
+                        if (this.sceneSeq[i1] == tarScene) {
+                            ordScene = i1;
+                            break;
+                        }
+                    }
+                    return ordScene;
+                }
+                goToScene(tarScene) {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("Nav To: " + tarScene);
+                    let ordScene = -1;
+                    let newScene = "";
+                    let redScene = "";
+                    if (this._inNavigation)
+                        return;
+                    this._inNavigation = true;
+                    if (this.tutorDoc.fDemo)
+                        this.tutorDoc.fDeferDemoClick = true;
+                    ordScene = this.findSceneOrd(tarScene);
+                    if (ordScene >= 0) {
+                        if (this.traceMode)
+                            CUtil_35.CUtil.trace("Nav GoTo Found: " + tarScene);
+                        this.scenePrev = this.sceneCurr;
+                        if (tarScene == "SdemoScene") {
+                            this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZGOTO", this.sceneCurr);
+                            this.sceneCurr = ordScene;
+                        }
+                        else
+                            switch (redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZGOTO", this.sceneCurr)) {
+                                case CONST_9.CONST.CANCELNAV:
+                                    if (this.tutorDoc.fDemo)
+                                        this.tutorDoc.fDeferDemoClick = false;
+                                    this._inNavigation = false;
+                                    return;
+                                case CONST_9.CONST.OKNAV:
+                                    this.sceneCurr = ordScene;
+                                    break;
+                                default:
+                                    this.sceneCurr = this.findSceneOrd(redScene);
+                            }
+                        for (redScene = this.sceneSeq[this.sceneCurr]; redScene != newScene;) {
+                            if (this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]] == undefined) {
+                                this.tutorDoc.tutorContainer.instantiateScenePath(this.sceneName[this.sceneCurr], this.sceneClass[this.sceneCurr]);
+                            }
+                            newScene = redScene;
+                            redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preEnterScene(this.tutorDoc.tutorContainer, newScene, this.sceneTitle[this.sceneCurr], this.scenePage[this.sceneCurr], "WOZGOTO");
+                            if (redScene == "WOZNEXT") {
+                                this.sceneCurrINC;
+                                redScene = this.sceneSeq[this.sceneCurr];
+                            }
+                            if (redScene == "WOZBACK") {
+                                this.sceneCurrDEC;
+                                redScene = this.sceneSeq[this.sceneCurr];
+                            }
+                            else
+                                this.sceneCurr = this.findSceneOrd(redScene);
+                        }
+                        let logData = { 'navevent': 'navgoto', 'curscene': this.scenePrev, 'newscene': redScene };
+                        this.tutorDoc.log.logNavEvent(logData);
+                        this.tutorDoc.TutAutomator[this.sceneSeq[this.scenePrev]]._instance.onExitScene();
+                        this.tutorDoc.tutorContainer.xitions.addEventListener(CEFEvent_10.CEFEvent.COMPLETE, this.doEnterScene);
+                        this.tutorDoc.tutorContainer.xitions.gotoScene(redScene);
+                    }
+                }
+                onButtonNext(evt) {
+                    this.gotoNextScene("$buttonClick");
+                }
+                recoverState() {
+                }
+                gotoNextScene(source) {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("Nav Next: ");
+                    let newScene;
+                    let redScene = "";
+                    if (this._inNavigation)
+                        return;
+                    this._inNavigation = true;
+                    if (this.tutorDoc.fDemo)
+                        this.tutorDoc.fDeferDemoClick = true;
+                    if (this.sceneCurr < this.sceneCnt) {
+                        if (this.traceMode)
+                            CUtil_35.CUtil.trace("this.scenePrev: " + this.scenePrev + "  - this.sceneCurr: " + this.sceneCurr);
+                        this.scenePrev = this.sceneCurr;
+                        if (this.traceMode)
+                            CUtil_35.CUtil.trace("this.sceneSeq[this.sceneCurr]: " + this.sceneSeq[this.sceneCurr]);
+                        switch (redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZNEXT", this.sceneCurr)) {
+                            case CONST_9.CONST.CANCELNAV:
+                                if (this.tutorDoc.fDemo)
+                                    this.tutorDoc.fDeferDemoClick = false;
+                                this._inNavigation = false;
+                                return;
+                            case CONST_9.CONST.OKNAV:
+                                this.sceneCurrINC;
+                                break;
+                            default:
+                                this.sceneCurr = this.findSceneOrd(redScene);
+                        }
+                        for (redScene = this.sceneSeq[this.sceneCurr]; redScene != newScene;) {
+                            CUtil_35.CUtil.trace(this.sceneSeq[this.sceneCurr]);
+                            CUtil_35.CUtil.trace(this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]);
+                            if (this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]] == undefined) {
+                                this.tutorDoc.tutorContainer.instantiateScenePath(this.sceneName[this.sceneCurr], this.sceneClass[this.sceneCurr]);
+                            }
+                            newScene = redScene;
+                            redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preEnterScene(this.tutorDoc.tutorContainer, newScene, this.sceneTitle[this.sceneCurr], this.scenePage[this.sceneCurr], "WOZNEXT");
+                            if (redScene == "WOZNEXT") {
+                                this.sceneCurrINC;
+                                redScene = this.sceneSeq[this.sceneCurr];
+                            }
+                            if (redScene == "WOZBACK") {
+                                this.sceneCurrDEC;
+                                redScene = this.sceneSeq[this.sceneCurr];
+                            }
+                            else
+                                this.sceneCurr = this.findSceneOrd(redScene);
+                        }
+                        let logData = { 'navevent': 'navnext', 'curscene': this.scenePrev, 'newscene': redScene };
+                        this.tutorDoc.log.logNavEvent(logData);
+                        this.tutorDoc.TutAutomator[this.sceneSeq[this.scenePrev]]._instance.onExitScene();
+                        this.tutorDoc.tutorContainer.xitions.on(CEFEvent_10.CEFEvent.COMPLETE, this.doEnterNext);
+                        this.tutorDoc.tutorContainer.xitions.gotoScene(redScene);
+                    }
+                }
+                onButtonPrev(evt) {
+                    this.gotoPrevScene();
+                }
+                gotoPrevScene() {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("Nav Back: ");
+                    let newScene = "";
+                    let redScene = "";
+                    if (this._inNavigation)
+                        return;
+                    this._inNavigation = true;
+                    if (this.tutorDoc.fDemo)
+                        this.tutorDoc.fDeferDemoClick = true;
+                    if (this.sceneCurr >= 1) {
+                        this.scenePrev = this.sceneCurr;
+                        switch (redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preExitScene("WOZBACK", this.sceneCurr)) {
+                            case CONST_9.CONST.CANCELNAV:
+                                if (this.tutorDoc.fDemo)
+                                    this.tutorDoc.fDeferDemoClick = false;
+                                this._inNavigation = false;
+                                return;
+                            case CONST_9.CONST.OKNAV:
+                                this.sceneCurrDEC;
+                                break;
+                            default:
+                                this.sceneCurr = this.findSceneOrd(redScene);
+                        }
+                        for (redScene = this.sceneSeq[this.sceneCurr]; redScene != newScene;) {
+                            newScene = redScene;
+                            redScene = this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.preEnterScene(this.tutorDoc.tutorContainer, newScene, this.sceneTitle[this.sceneCurr], this.scenePage[this.sceneCurr], "WOZBACK");
+                            if (redScene == "WOZNEXT") {
+                                this.sceneCurrINC;
+                                redScene = this.sceneSeq[this.sceneCurr];
+                            }
+                            if (redScene == "WOZBACK") {
+                                this.sceneCurrDEC;
+                                redScene = this.sceneSeq[this.sceneCurr];
+                            }
+                            else
+                                this.sceneCurr = this.findSceneOrd(redScene);
+                        }
+                        let logData = { 'navevent': 'navback', 'curscene': this.scenePrev, 'newscene': redScene };
+                        this.tutorDoc.log.logNavEvent(logData);
+                        this.tutorDoc.TutAutomator[this.sceneSeq[this.scenePrev]]._instance.onExitScene();
+                        this.tutorDoc.tutorContainer.xitions.addEventListener(CEFEvent_10.CEFEvent.COMPLETE, this.doEnterBack);
+                        this.tutorDoc.tutorContainer.xitions.gotoScene(redScene);
+                    }
+                }
+                doEnterNext(evt) {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("this.doEnterNext: ", this.sceneCurr);
+                    this.tutorDoc.tutorContainer.xitions.off(CEFEvent_10.CEFEvent.COMPLETE, this.doEnterNext);
+                    if (!this.scenePersist[this.scenePrev]) {
+                        this.tutorDoc.tutorContainer.destroyScene(this.sceneName[this.scenePrev]);
+                    }
+                    this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.onEnterScene("WOZNEXT");
+                    if (this.tutorDoc.fDemo)
+                        this.tutorDoc.tutorContainer.dispatchEvent(new Event("deferedDemoCheck", false, false));
+                    this._inNavigation = false;
+                }
+                doEnterBack(evt) {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("doEnterBack: ", this.sceneCurr);
+                    this.tutorDoc.tutorContainer.xitions.off(CEFEvent_10.CEFEvent.COMPLETE, this.doEnterBack);
+                    if (!this.scenePersist[this.scenePrev]) {
+                        this.tutorDoc.tutorContainer.destroyScene(this.sceneName[this.scenePrev]);
+                    }
+                    this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.onEnterScene("WOZBACK");
+                    if (this.tutorDoc.fDemo)
+                        this.tutorDoc.tutorContainer.dispatchEvent(new Event("deferedDemoCheck", false, false));
+                    this._inNavigation = false;
+                }
+                doEnterScene(evt) {
+                    if (this.traceMode)
+                        CUtil_35.CUtil.trace("this.doEnterScene: ", this.sceneCurr);
+                    this.tutorDoc.tutorContainer.xitions.off(CEFEvent_10.CEFEvent.COMPLETE, this.doEnterScene);
+                    if (!this.scenePersist[this.scenePrev]) {
+                        this.tutorDoc.tutorContainer.destroyScene(this.sceneName[this.scenePrev]);
+                    }
+                    this.tutorDoc.TutAutomator[this.sceneSeq[this.sceneCurr]]._instance.onEnterScene("WOZGOTO");
+                    if (this.tutorDoc.fDemo)
+                        this.tutorDoc.tutorContainer.dispatchEvent(new Event("deferedDemoCheck", false, false));
+                    this._inNavigation = false;
+                }
+            };
+            exports_61("CEFNavigator", CEFNavigator);
+        }
+    };
+});
+System.register("bkt/CBKTSkill", [], function (exports_62, context_62) {
+    "use strict";
+    var __moduleName = context_62 && context_62.id;
+    var CBKTSkill;
+    return {
+        setters: [],
+        execute: function () {
+            CBKTSkill = class CBKTSkill {
+                constructor(_tutorDoc) {
+                    this.tutorDoc = _tutorDoc;
+                }
+                static factory(_tutorDoc, factory) {
+                    var node = new CBKTSkill(_tutorDoc);
+                    node.Bel = 0;
+                    node.pL = factory.pL;
+                    node.pT = factory.pT;
+                    node.pG = factory.pG;
+                    node.pS = factory.pS;
+                    return node;
+                }
+                updateBelief(ans) {
+                    if (ans == true)
+                        this.Bel = this.calcTRUE();
+                    else
+                        this.Bel = this.calcFALSE();
+                    this.pL = this.updatePrior(this.Bel);
+                }
+                calcTRUE() {
+                    return (this.pL * (1 - this.pS)) / ((this.pL * (1 - this.pS)) + ((1 - this.pL) * this.pG));
+                }
+                calcFALSE() {
+                    return (this.pL * this.pS) / ((this.pL * this.pS) + ((1 - this.pL) * (1 - this.pG)));
+                }
+                updatePrior(Bel) {
+                    return Bel + ((1 - Bel) * this.pT);
+                }
+                queryBelief() {
+                    return this.Bel;
+                }
+            };
+            exports_62("CBKTSkill", CBKTSkill);
+        }
+    };
+});
+System.register("tutorgraph/CTutorGraph", ["tutorgraph/CTutorNode", "tutorgraph/CTutorConstraint", "tutorgraph/CTutorAction", "tutorgraph/CTutorModule", "tutorgraph/CTutorModuleGroup", "bkt/CBKTSkill", "util/CUtil"], function (exports_63, context_63) {
+    "use strict";
+    var __moduleName = context_63 && context_63.id;
+    var CTutorNode_4, CTutorConstraint_1, CTutorAction_1, CTutorModule_2, CTutorModuleGroup_1, CBKTSkill_1, CUtil_36, CTutorGraph;
+    return {
+        setters: [
+            function (CTutorNode_4_1) {
+                CTutorNode_4 = CTutorNode_4_1;
+            },
+            function (CTutorConstraint_1_1) {
+                CTutorConstraint_1 = CTutorConstraint_1_1;
+            },
+            function (CTutorAction_1_1) {
+                CTutorAction_1 = CTutorAction_1_1;
+            },
+            function (CTutorModule_2_1) {
+                CTutorModule_2 = CTutorModule_2_1;
+            },
+            function (CTutorModuleGroup_1_1) {
+                CTutorModuleGroup_1 = CTutorModuleGroup_1_1;
+            },
+            function (CBKTSkill_1_1) {
+                CBKTSkill_1 = CBKTSkill_1_1;
+            },
+            function (CUtil_36_1) {
+                CUtil_36 = CUtil_36_1;
+            }
+        ],
+        execute: function () {
+            CTutorGraph = class CTutorGraph extends CTutorNode_4.CTutorNode {
+                constructor(_tutorDoc, factory) {
+                    super(_tutorDoc);
+                    this._nodes = {};
+                    this._modules = {};
+                    this._actions = {};
+                    this._graphs = {};
+                    this._constraints = {};
+                    this._skillSet = {};
+                    this._pFeatures = {};
+                    this._pConstraints = {};
+                    this._factory = factory;
+                }
+                static factory(_tutorDoc, parent, id, factory) {
+                    let tutorgraph = new CTutorGraph(_tutorDoc, factory);
+                    tutorgraph.parseNodes();
+                    tutorgraph.parseConstraints();
+                    tutorgraph.parseSkills();
+                    return tutorgraph;
+                }
+                captureGraph(obj) {
+                    obj['currNodeID'] = this._currNode.id;
+                    obj['currNode'] = this._currNode.captureGraph({});
+                    return obj;
+                }
+                restoreGraph(obj) {
+                    this._currNode = this.findNodeByName(obj['currNodeID']);
+                    this._currScene = this._currNode.restoreGraph(obj['currNode']);
+                    this._prevScene = this._currScene;
+                    return this._currScene;
+                }
+                sceneInstance() {
+                    let objInstance = null;
+                    try {
+                        if (this._currScene) {
+                            objInstance = this.tutorDoc.TutAutomator[this._currScene.scenename]._instance;
+                        }
+                    }
+                    catch (err) {
+                        CUtil_36.CUtil.trace("CONST.sceneInstance: " + err.toString());
+                        objInstance = null;
+                    }
+                    return objInstance;
+                }
+                queryPFeature(pid, size, cycle) {
+                    let iter = 0;
+                    if (this._pFeatures[pid] != undefined) {
+                        iter = this._pFeatures[pid] + 1;
+                        if (iter >= size) {
+                            iter = size - cycle;
+                        }
+                        this._pFeatures[pid] = iter;
+                    }
+                    else
+                        this._pFeatures[pid] = 0;
+                    return iter;
+                }
+                queryPConstraint(pid, size, cycle) {
+                    let iter = 0;
+                    if (this._pConstraints[pid] != undefined) {
+                        iter = this._pConstraints[pid] + 1;
+                        if (iter >= size) {
+                            iter = size - cycle;
+                        }
+                        this._pConstraints[pid] = iter;
+                    }
+                    else
+                        this._pConstraints[pid] = 0;
+                    return iter;
+                }
+                seekTo(nxtScene) {
+                    return null;
+                }
+                seekEnd() {
+                    return null;
+                }
+                applyNode() {
+                    return this._currNode.applyNode();
+                }
+                seekBack() {
+                    return null;
+                }
+                seekRoot() {
+                    this._currNode = this._nodes["root"];
+                }
+                nextScene() {
+                    let nextNode;
+                    if (this._currNode)
+                        do {
+                            this._currScene = this._currNode.nextScene();
+                            if (this._currScene == null) {
+                                nextNode = this._currNode.nextNode();
+                                this._currNode = nextNode;
+                                if (this._currNode != null)
+                                    this._currNode.applyNode();
+                            }
+                            else
+                                this._currScene.incIteration();
+                        } while ((this._currScene == null) && (this._currNode != null));
+                    this._prevScene = this._currScene;
+                    return this._currScene;
+                }
+                parseNodes() {
+                    let nodeList = this._factory.CNodes;
+                    for (let name in nodeList) {
+                        if (!(name.startsWith("COMMENT"))) {
+                            CUtil_36.CUtil.trace("TutorGraph - generating node: " + name);
+                            switch (nodeList[name].type) {
+                                case "action":
+                                    this._nodes[name] = CTutorAction_1.CTutorAction.factory(this.tutorDoc, this, name, this._factory);
+                                    break;
+                                case "module":
+                                    this._nodes[name] = CTutorModule_2.CTutorModule.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
+                                    break;
+                                case "modulegroup":
+                                    this._nodes[name] = CTutorModuleGroup_1.CTutorModuleGroup.factory(this.tutorDoc, this, name, nodeList[name], this._factory);
+                                    break;
+                                case "subgraph":
+                                    break;
+                                case "external":
+                                    break;
+                            }
+                        }
+                    }
+                    return true;
+                }
+                parseConstraints() {
+                    let constFactory = this._factory.CConstraints;
+                    for (let name in constFactory) {
+                        if (!(name.startsWith("COMMENT")))
+                            this._constraints[name] = CTutorConstraint_1.CTutorConstraint.factory(this.tutorDoc, this, constFactory[name]);
+                    }
+                    return true;
+                }
+                recoverSkills(recoveredSkills) {
+                    this._factory.CSkills = recoveredSkills;
+                    return this.parseSkills();
+                }
+                parseSkills() {
+                    let skillsFactory = this._factory.CSkills;
+                    for (let name in skillsFactory) {
+                        if (!(name.startsWith("COMMENT")))
+                            this._skillSet[name] = CBKTSkill_1.CBKTSkill.factory(this.tutorDoc, skillsFactory[name]);
+                    }
+                    this.tutorDoc.ktSkills = this._skillSet;
+                    return true;
+                }
+                findNodeByName(name) {
+                    return this._nodes[name];
+                }
+                findConstraintByName(name) {
+                    return this._constraints[name];
+                }
+                get node() {
+                    return this._currNode;
+                }
+                set node(newNode) {
+                    if (this._currNode != newNode)
+                        this._currNode.resetNode();
+                    this._currNode = newNode;
+                }
+                set scene(seekScene) {
+                    this._currScene = this._currNode.seekToScene(seekScene);
+                }
+            };
+            exports_63("CTutorGraph", CTutorGraph);
+        }
+    };
+});
+System.register("tutorgraph/CTutorScene", [], function (exports_64, context_64) {
+    "use strict";
+    var __moduleName = context_64 && context_64.id;
+    var CTutorScene;
+    return {
+        setters: [],
+        execute: function () {
+            CTutorScene = class CTutorScene {
+                constructor(_tutorDoc, factory, parent) {
+                    this._iteration = 0;
+                    this.tutorDoc = _tutorDoc;
+                    this.tutorContainer = _tutorDoc.tutorContainer;
+                    this._parent = parent;
+                    let namespace = factory.classname.split(".");
+                    this._name = factory.name;
+                    this._classPath = factory.classname;
+                    this._hostModule = factory.hostname || namespace[0];
+                    this._ownerModule = namespace[0];
+                    this._className = namespace[1];
+                    this._title = factory.title;
+                    this._page = factory.page;
+                    this._isAnchor = factory.isanchor || false;
+                    this._copyOf = factory.copyof || "";
+                    this._features = factory.features;
+                    this._enqueue = (factory.enqueue === "true") ? true : false;
+                    this._create = (factory.create === "true") ? true : false;
+                    this._visible = (factory.visible === "true") ? true : false;
+                    this._persist = (factory.persist === "true") ? true : false;
+                    this._checkpnt = (factory.ischeckpnt === "true") ? true : false;
+                    if (factory.$P != undefined) {
+                        this._pid = factory.pid;
+                        this._prob = factory.$P.split('|');
+                        this._cycle = Number(factory.cycle);
+                    }
+                    if (this._create)
+                        this.instantiateScene();
+                }
+                instantiateScene() {
+                    this._scene = this.tutorContainer.instantiateScene(this);
+                    this.features = this._features;
+                }
+                destroyScene() {
+                    this._scene = null;
+                }
+                set features(newFTR) {
+                    this._scene.features = newFTR;
+                }
+                get features() {
+                    if (this._scene != null)
+                        return this._scene.features;
+                    else
+                        return this._features;
+                }
+                get hasPFeature() {
+                    return (this._pid != null);
+                }
+                testPFeature() {
+                    let iter = this._parent.queryPFeature(this._pid, this._prob.length, this._cycle);
+                    let rand = Math.random();
+                    return (rand < this._prob[iter]);
+                }
+                get scenename() {
+                    return this._name;
+                }
+                get classname() {
+                    return this._className;
+                }
+                get classpath() {
+                    return this._classPath;
+                }
+                get ownermodule() {
+                    return this._ownerModule;
+                }
+                get hostmodule() {
+                    return this._hostModule;
+                }
+                get title() {
+                    return this._title;
+                }
+                get isCheckPoint() {
+                    return this._checkpnt;
+                }
+                get page() {
+                    return this._page;
+                }
+                get visible() {
+                    return this._visible;
+                }
+                get isAnchor() {
+                    return this._isAnchor;
+                }
+                get copyOf() {
+                    return this._copyOf;
+                }
+                get persist() {
+                    return this._persist;
+                }
+                get iteration() {
+                    return this._iteration;
+                }
+                incIteration() {
+                    this._iteration++;
+                    return this._iteration;
+                }
+                enumDisplayList() {
+                    this.tutorContainer.enumChildren(this.tutorContainer, 0);
+                }
+                get sceneLogName() {
+                    return this.scenename + "_" + this.iteration;
+                }
+            };
+            exports_64("CTutorScene", CTutorScene);
+        }
+    };
+});
+System.register("thermite/TTutorContainer", ["thermite/TRoot", "thermite/TObject", "thermite/TSceneBase", "thermite/TCursorProxy", "thermite/events/TMouseEvent", "core/CEFTimeStamp", "events/CEFEvent", "events/CEFNavEvent", "events/CEFKeyboardEvent", "util/CONST", "util/CUtil"], function (exports_65, context_65) {
+    "use strict";
+    var __moduleName = context_65 && context_65.id;
+    var TRoot_2, TObject_7, TSceneBase_2, TCursorProxy_1, TMouseEvent_2, CEFTimeStamp_1, CEFEvent_11, CEFNavEvent_1, CEFKeyboardEvent_1, CONST_10, CUtil_37, MovieClip, DisplayObjectContainer, Tween, Rectangle, Shape, TTutorContainer;
+    return {
+        setters: [
+            function (TRoot_2_1) {
+                TRoot_2 = TRoot_2_1;
+            },
+            function (TObject_7_1) {
+                TObject_7 = TObject_7_1;
+            },
+            function (TSceneBase_2_1) {
+                TSceneBase_2 = TSceneBase_2_1;
+            },
+            function (TCursorProxy_1_1) {
+                TCursorProxy_1 = TCursorProxy_1_1;
+            },
+            function (TMouseEvent_2_1) {
+                TMouseEvent_2 = TMouseEvent_2_1;
+            },
+            function (CEFTimeStamp_1_1) {
+                CEFTimeStamp_1 = CEFTimeStamp_1_1;
+            },
+            function (CEFEvent_11_1) {
+                CEFEvent_11 = CEFEvent_11_1;
+            },
+            function (CEFNavEvent_1_1) {
+                CEFNavEvent_1 = CEFNavEvent_1_1;
+            },
+            function (CEFKeyboardEvent_1_1) {
+                CEFKeyboardEvent_1 = CEFKeyboardEvent_1_1;
+            },
+            function (CONST_10_1) {
+                CONST_10 = CONST_10_1;
+            },
+            function (CUtil_37_1) {
+                CUtil_37 = CUtil_37_1;
+            }
+        ],
+        execute: function () {
+            MovieClip = createjs.MovieClip;
+            DisplayObjectContainer = createjs.Container;
+            Tween = createjs.Tween;
+            Rectangle = createjs.Rectangle;
+            Shape = createjs.Shape;
+            TTutorContainer = class TTutorContainer extends TRoot_2.TRoot {
+                constructor() {
+                    super();
+                    this.fIntroVideo = false;
+                    this.fCVSIntro = true;
+                    this.fRampsIntro = true;
+                    this.fRampPreTest = false;
+                    this.fFreeResponse = 0;
+                    this.fStepByStep0 = false;
+                    this.fStepByStep1 = false;
+                    this.fEIA = true;
+                    this.fEIB = true;
+                    this.fEIC = true;
+                    this.fSummaryVideo = false;
+                    this.fRampPostTest = true;
+                    this.timeStamp = new CEFTimeStamp_1.CEFTimeStamp;
+                    this.playing = new Array();
+                    this.isPaused = false;
+                    this.scenePtr = new Array;
+                    this.stateStack = new Array();
+                    this.sceneCnt = 0;
+                    this.replayIndex = new Array;
+                    this.replayTime = 0;
+                    this.Running = new Array();
+                    this.runCount = 0;
+                    this.sceneGraph = "<sceneGraph/>";
+                    this.init1();
+                }
+                TTutorContainerInitialize() {
+                    this.TRootInitialize();
+                    this.init1();
+                }
+                initialize() {
+                    this.TRootInitialize();
+                    this.init1();
+                }
+                init1() {
+                    this.traceMode = true;
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("TTutorContainer:Constructor");
+                    this.containerBounds = new Shape();
+                    this.containerBounds.graphics.f("rgba(255,0,0,0)").s("rgba(0,0,0,0)").ss(1, 1, 1).dr(0, 0, 1920, 1200);
+                    this.containerBounds.setTransform(0, 0);
+                    this.timeline.addTween(Tween.get(this.containerBounds).wait(1));
+                    this.nominalBounds = new Rectangle(0, 0, 1920, 1200);
+                }
+                Destructor() {
+                    super.Destructor();
+                }
+                captureLOGState() {
+                    let obj = super.captureLOGState();
+                    return obj;
+                }
+                loadXML(stringSrc) {
+                    super.loadXML(stringSrc);
+                }
+                saveXML() {
+                    let propVector;
+                    return propVector;
+                }
+                captureSceneGraph() {
+                }
+                instantiateScenePath(sceneName, classPath, sceneVisible = false) {
+                    console.error("ERROR: Use of Deprecated Function");
+                    let namespace = classPath.split(".");
+                }
+                instantiateScene(factory) {
+                    let i1;
+                    let tarScene;
+                    let subScene;
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Creating Scene : " + factory.scenename + " : Class : " + factory.classname);
+                    tarScene = CUtil_37.CUtil.instantiateThermiteObject(factory.ownermodule, factory.classname);
+                    tarScene.factory = factory;
+                    tarScene.name = factory.scenename;
+                    tarScene.sceneName = factory.scenename;
+                    tarScene.sceneLogName = factory.scenename + "_" + factory.iteration;
+                    tarScene.hostModule = factory.hostmodule;
+                    tarScene.ownerModule = factory.ownermodule;
+                    tarScene.classPath = factory.classname;
+                    tarScene.isAnchor = factory.isAnchor;
+                    tarScene.copyOf = factory.copyOf;
+                    tarScene.navigator = this.tutorDoc.tutorNavigator;
+                    tarScene.tutorDoc = this.tutorDoc;
+                    tarScene.tutorAutoObj = this.tutorAutoObj;
+                    tarScene.visible = false;
+                    try {
+                        CUtil_37.CUtil.mixinCodeSuppliments(tarScene, EFTut_Suppl[factory.hostmodule][CONST_10.CONST.COMMON_CODE], CONST_10.CONST.EXT_SIG);
+                    }
+                    catch (err) {
+                        console.log("Error: missing $Common mixin");
+                    }
+                    try {
+                        CUtil_37.CUtil.mixinCodeSuppliments(tarScene, EFTut_Suppl[factory.hostmodule][factory.scenename], CONST_10.CONST.EXT_SIG);
+                    }
+                    catch (err) {
+                        console.log("Error: missing Scene mixin");
+                    }
+                    CUtil_37.CUtil.initSceneTick(tarScene);
+                    this.addChild(tarScene);
+                    tarScene.connectSceneGraph(factory.hostmodule, factory.scenename);
+                    tarScene.stop();
+                    if (factory.visible) {
+                        this[factory.scenename] = tarScene;
+                        tarScene.visible = true;
+                    }
+                    this.automateScene(factory.scenename, tarScene);
+                    tarScene.addEventListener("Start", this.questionStart);
+                    tarScene.addEventListener("Done", this.questionComplete);
+                    tarScene.addEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVBACK, this.goBackScene);
+                    tarScene.addEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVNEXT, this.goNextScene);
+                    tarScene.addEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVTO, this.goToScene);
+                    for (i1 = 0; i1 < tarScene.numChildren; i1++) {
+                        subScene = tarScene.getChildAt(i1);
+                        if (subScene instanceof MovieClip)
+                            subScene.gotoAndStop(0);
+                    }
+                    return tarScene;
+                }
+                destroyScene(sceneName) {
+                    let sceneObj = this.getChildByName(sceneName);
+                    let wozObj;
+                    if (sceneObj != null) {
+                        sceneObj.removeEventListener("Start", this.questionStart);
+                        sceneObj.removeEventListener("Done", this.questionComplete);
+                        sceneObj.removeEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVBACK, this.goBackScene);
+                        sceneObj.removeEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVNEXT, this.goNextScene);
+                        sceneObj.removeEventListener(CEFNavEvent_1.CEFNavEvent.WOZNAVTO, this.goToScene);
+                        if (sceneObj instanceof TObject_7.TObject) {
+                            wozObj = sceneObj;
+                            wozObj.Destructor();
+                        }
+                        this.removeChild(sceneObj);
+                    }
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Destroying Scene : " + sceneName);
+                    if (this.hasOwnProperty(sceneName)) {
+                        this[sceneName] = null;
+                        if (this.tutorAutoObj.hasOwnProperty(sceneName)) {
+                            this.tutorAutoObj[sceneName]._instance = null;
+                            delete this.tutorAutoObj[sceneName];
+                        }
+                    }
+                }
+                automateScene(sceneName, sceneObj, nameObj = true) {
+                    this[sceneName] = sceneObj;
+                    if (nameObj)
+                        this[sceneName].name = sceneName;
+                    this.tutorAutoObj[sceneName] = {};
+                    this.tutorAutoObj[sceneName]._instance = sceneObj;
+                    sceneObj.initAutomation(sceneObj, this.tutorAutoObj[sceneName], "", this.tutorDoc.log, this);
+                    sceneObj.captureDefState(this.tutorAutoObj[sceneName]);
+                    sceneObj.restoreDefState(this.tutorAutoObj[sceneName]);
+                }
+                wozReplay() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace(" wozReplay : ", this.playing.length);
+                    this.wozStopPlay();
+                    dispatchEvent(new Event(CONST_10.CONST.EF_CANCEL));
+                    dispatchEvent(new Event(CONST_10.CONST.EF_REPLAY));
+                }
+                wozStopPlay() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace(" wozStopPlay : ", this.playing.length);
+                    let tCount = this.playing.length;
+                    for (let i1 = 0; i1 < tCount; i1++) {
+                        this.playing.pop();
+                    }
+                }
+                wozPause() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace(" wozPause : ", this.playing.length);
+                    this.isPaused = true;
+                    this.dispatchEvent(new Event(CONST_10.CONST.EF_PAUSING));
+                    for (let i1 = 0; i1 < this.playing.length; i1++) {
+                    }
+                }
+                wozPlay() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace(" wozPlay : ", this.playing.length);
+                    this.isPaused = false;
+                    this.dispatchEvent(new Event(CONST_10.CONST.EF_PLAYING));
+                    for (let i1 = 0; i1 < this.playing.length; i1++) {
+                    }
+                }
+                playRemoveThis(wozObj) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace(" playRemoveThis : ", wozObj.name, this.playing.length);
+                    for (let i1 = 0; i1 < this.playing.length; i1++) {
+                        if (this.playing[i1] == wozObj) {
+                            this.tutorDoc.incStateID();
+                            this.playing.splice(i1, 1);
+                            break;
+                        }
+                    }
+                }
+                playAddThis(wozObj) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace(" playAddThis : ", wozObj.name, this.playing.length);
+                    let fAdd = true;
+                    for (let i1 = 0; i1 < this.playing.length; i1++) {
+                        if (this.playing[i1] == wozObj) {
+                            fAdd = false;
+                            break;
+                        }
+                    }
+                    if (fAdd)
+                        this.playing.push(wozObj);
+                }
+                showPPlay(fShow) {
+                }
+                showReplay(fShow) {
+                }
+                setCursor(sMode) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("switching mouse ownership");
+                    if (this.cCursor) {
+                        this.cCursor.initWOZCursor(sMode);
+                    }
+                }
+                replaceCursor() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Creating Mouse Pointer");
+                    if (!this.cCursor) {
+                        this.cCursor = new TCursorProxy_1.TCursorProxy;
+                        this.cCursor.visible = false;
+                        this.addChild(this.cCursor);
+                    }
+                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZLIVE);
+                    this.cCursor.show(false);
+                }
+                initAutomation() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Init Automation:");
+                    if (this.xitions)
+                        this.xitions.connectToTutor(this, this.tutorAutoObj);
+                }
+                captureDefState(Tutor) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** Start Capture - Walking Scenes***");
+                    for (let scene in Tutor) {
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("\tSCENE : " + scene);
+                        if (scene != "_instance" && Tutor[scene]._instance instanceof TSceneBase_2.TSceneBase) {
+                            Tutor[scene]._instance.captureDefState(Tutor[scene]);
+                        }
+                    }
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** End Capture - Walking Scenes***");
+                }
+                restoreDefState(Tutor) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** Start Restore - Walking Scenes***");
+                    for (let scene in Tutor) {
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("\tSCENE : " + scene);
+                        if (scene != "_instance" && Tutor[scene]._instance instanceof TSceneBase_2.TSceneBase) {
+                            if (this.traceMode)
+                                CUtil_37.CUtil.trace("reseting: " + scene);
+                            Tutor[scene]._instance.restoreDefState(Tutor[scene]);
+                        }
+                    }
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** End Restore - Walking Scenes***");
+                }
+                doPlayBack(pbSource) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** Start - Playback Stream ***");
+                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZREPLAY);
+                    this.cCursor.setCursorStyle("Sautomate");
+                    this.cCursor.setTopMost();
+                    this.cCursor.show(true);
+                    this.cCursor.initPlayBack();
+                    this.stateStack.push(this.baseTime);
+                    this.stateStack.push(this.tutorDoc.stateID);
+                    this.stateStack.push(this.tutorDoc.frameID);
+                    this.stateStack.push(this.tutorDoc.log.fLogging);
+                    this.tutorDoc.log.fLogging = CONST_10.CONST.RECLOGNONE;
+                    this.tutorDoc.log.setPlayBackSource(pbSource);
+                    if (pbSource[0].version == "1") {
+                        this.tutorDoc.log.normalizePlayBackTime();
+                        this.baseTime = CUtil_37.CUtil.getTimer();
+                        addEventListener(CEFEvent_11.CEFEvent.ENTER_FRAME, this.playBackByTime);
+                        if (this.tutorDoc.fDemo) {
+                            this.stage.addEventListener(CEFKeyboardEvent_1.CEFKeyboardEvent.KEY_UP, this.abortPlayBack);
+                            this.stage.addEventListener(TMouseEvent_2.TMouseEvent.CLICK, this.abortPlayBack2);
+                        }
+                    }
+                    else if (pbSource[0].version == "2") {
+                        this.tutorDoc.log.normalizePlayBack();
+                        this.tutorDoc.connectFrameCounter(false);
+                        addEventListener(CEFEvent_11.CEFEvent.ENTER_FRAME, this.playBackByFrame);
+                    }
+                }
+                replayStream(evt) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** Start - Replay Stream ***");
+                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZREPLAY);
+                    this.cCursor.show(true);
+                    this.cCursor.initPlayBack();
+                    this.restoreDefState(this.tutorAutoObj);
+                    this.stateStack.push(this.baseTime);
+                    this.stateStack.push(this.tutorDoc.stateID);
+                    this.stateStack.push(this.tutorDoc.frameID);
+                    this.stateStack.push(this.tutorDoc.log.fLogging);
+                    this.tutorDoc.log.fLogging = CONST_10.CONST.RECLOGNONE;
+                    this.tutorDoc.log.setPlayBackSource(null);
+                    this.tutorDoc.log.normalizePlayBack();
+                    this.tutorDoc.connectFrameCounter(false);
+                    this.SnavPanel.goToScene("Sscene0");
+                    addEventListener(CEFEvent_11.CEFEvent.ENTER_FRAME, this.playBackByFrame);
+                }
+                replayLiveStream() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\t*** Start - Replay Live Stream ***");
+                    this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZREPLAY);
+                    this.cCursor.setCursorStyle("Sautomate");
+                    this.cCursor.setTopMost();
+                    this.cCursor.show(true);
+                    this.cCursor.initPlayBack();
+                    this.restoreDefState(this.tutorAutoObj);
+                    this.stateStack.push(this.baseTime);
+                    this.stateStack.push(this.tutorDoc.stateID);
+                    this.stateStack.push(this.tutorDoc.frameID);
+                    this.stateStack.push(this.tutorDoc.log.fLogging);
+                    this.tutorDoc.log.fLogging = CONST_10.CONST.RECLOGNONE;
+                    this.tutorDoc.log.setPlayBackSource(null);
+                    this.tutorDoc.log.normalizePlayBack();
+                    this.tutorDoc.connectFrameCounter(false);
+                    this.SnavPanel.goToScene("SstartSplash");
+                    addEventListener(CEFEvent_11.CEFEvent.ENTER_FRAME, this.playBackByFrame);
+                }
+                abortPlayBack(evt) {
+                    this.tutorDoc.log.setPlayBackDone(true);
+                    dispatchEvent(new Event("interruptPlayBack"));
+                }
+                abortPlayBack2(evt) {
+                    this.tutorDoc.log.setPlayBackDone(true);
+                    dispatchEvent(new Event("interruptPlayBack"));
+                }
+                playBackByFrame(evt) {
+                    let wozEvt = null;
+                    let nextEventState;
+                    if (this.tutorDoc.log.playBackDone()) {
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("-- Playback Completed -- ");
+                        removeEventListener(CEFEvent_11.CEFEvent.ENTER_FRAME, this.playBackByFrame);
+                        this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZLIVE);
+                        this.cCursor.setCursorStyle("Sstandard");
+                        this.cCursor.show(false);
+                        dispatchEvent(new Event("endPlayBack"));
+                        this.tutorDoc.log.fLogging = this.stateStack.pop();
+                        this.tutorDoc.frameID = this.stateStack.pop();
+                        this.tutorDoc.stateID = this.stateStack.pop();
+                        this.baseTime = this.stateStack.pop();
+                        this.tutorDoc.connectFrameCounter(true);
+                    }
+                    else {
+                        nextEventState = this.tutorDoc.log.getNextEventState();
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("this.tutorDoc.stateID: " + this.tutorDoc.stateID + "  - nextEventState:" + nextEventState);
+                        {
+                            do {
+                                wozEvt = this.tutorDoc.log.getNextEvent(this.tutorDoc.stateID, this.tutorDoc.frameID);
+                                if (wozEvt != null) {
+                                    if (this.traceMode)
+                                        CUtil_37.CUtil.trace("-- Executing Frame:" + this.tutorDoc.frameID + " -- EVT -- " + wozEvt);
+                                    this.cCursor.playBackAction(wozEvt);
+                                }
+                            } while (wozEvt != null);
+                            this.tutorDoc.incFrameID();
+                        }
+                    }
+                }
+                playBackByTime(evt) {
+                    let frameTime = CUtil_37.CUtil.getTimer() - this.baseTime;
+                    let wozEvt;
+                    do {
+                        wozEvt = this.tutorDoc.log.getActionEvent(frameTime);
+                        if (wozEvt != null) {
+                            this.cCursor.playBackAction(wozEvt);
+                            if (this.traceMode)
+                                CUtil_37.CUtil.trace("-- Executing Frame:" + frameTime + " -- EVT -- " + wozEvt);
+                        }
+                    } while (wozEvt != null);
+                    wozEvt = this.tutorDoc.log.getMoveEvent(frameTime);
+                    if (wozEvt != null)
+                        this.cCursor.playBackMove(wozEvt, frameTime);
+                    if (this.tutorDoc.log.playBackDone()) {
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("-- Playback Completed -- ");
+                        removeEventListener(CEFEvent_11.CEFEvent.ENTER_FRAME, this.playBackByTime);
+                        this.cCursor.initWOZCursor(TCursorProxy_1.TCursorProxy.WOZLIVE);
+                        this.cCursor.setCursorStyle("Sstandard");
+                        this.cCursor.show(false);
+                        dispatchEvent(new Event("endPlayBack"));
+                        this.tutorDoc.log.fLogging = this.stateStack.pop();
+                        this.tutorDoc.frameID = this.stateStack.pop();
+                        this.tutorDoc.stateID = this.stateStack.pop();
+                        this.baseTime = this.stateStack.pop();
+                        this.tutorDoc.connectFrameCounter(true);
+                        if (this.tutorDoc.fDemo) {
+                            this.stage.removeEventListener(CEFKeyboardEvent_1.CEFKeyboardEvent.KEY_UP, this.abortPlayBack);
+                            this.stage.removeEventListener(TMouseEvent_2.TMouseEvent.CLICK, this.abortPlayBack2);
+                        }
+                    }
+                }
+                dumpScenes(Tutor) {
+                    for (let scene in Tutor) {
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("\tSCENE : " + scene);
+                        if (scene != "_instance" && Tutor[scene]._instance instanceof TObject_7.TObject) {
+                            if (this.traceMode)
+                                CUtil_37.CUtil.trace("\tCEF***");
+                            Tutor[scene]._instance.dumpSceneObjs(Tutor[scene]);
+                        }
+                    }
+                }
+                enumScenes() {
+                    let sceneObj;
+                    for (let i1 = 0; i1 < this.numChildren; i1++) {
+                        sceneObj = this.getChildAt(i1);
+                        CUtil_37.CUtil.trace(sceneObj.name + " is visible : " + ((sceneObj.visible) ? " true" : " false"));
+                    }
+                }
+                enumChildren(scene, indentCnt) {
+                    let sceneObj;
+                    let indent = "";
+                    for (let i2 = 0; i2 < indentCnt; i2++)
+                        indent += "\t";
+                    for (let i1 = 0; i1 < scene.numChildren; i1++) {
+                        sceneObj = scene.getChildAt(i1);
+                        CUtil_37.CUtil.trace(indent + sceneObj.name + " is visible : " + ((sceneObj.visible) ? " true" : " false") + " -alpha : " + sceneObj.alpha.toString() + "- x : " + sceneObj.x.toString() + " -y : " + sceneObj.y.toString() + " -width : " + sceneObj.width.toString() + " -height : " + sceneObj.height.toString());
+                        if (sceneObj instanceof DisplayObjectContainer)
+                            this.enumChildren(sceneObj, indentCnt + 1);
+                    }
+                }
+                showNext(fshow) {
+                }
+                enableNext(fEnable) {
+                }
+                enableBack(fEnable) {
+                }
+                questionStart(evt) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Start of Question: ");
+                }
+                questionComplete(evt) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Question Complete: ");
+                }
+                goBackScene(evt) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Force Decrement Question: ");
+                    this.SnavPanel.onButtonPrev(null);
+                }
+                goNextScene(evt) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Force Increment Question: ");
+                    this.SnavPanel.gotoNextScene();
+                }
+                goToScene(evt) {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("Force Increment Question: ");
+                    this.SnavPanel.goToScene(evt.wozNavTarget);
+                }
+                dumpTutors() {
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("\n*** Start root dump ALL tutors ***");
+                    for (let tutor of this.tutorAutoObj) {
+                        if (this.traceMode)
+                            CUtil_37.CUtil.trace("TUTOR : " + tutor);
+                        if (this.tutorAutoObj[tutor]._instance instanceof TTutorContainer) {
+                            if (this.traceMode)
+                                CUtil_37.CUtil.trace("CEF***");
+                            this.tutorAutoObj[tutor]._instance.dumpScenes(this.tutorAutoObj[tutor]);
+                        }
+                    }
+                    if (this.traceMode)
+                        CUtil_37.CUtil.trace("*** End root dump tutor structure ***");
+                }
+            };
+            exports_65("TTutorContainer", TTutorContainer);
+        }
+    };
+});
+System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueEvent", "scenegraph/CSceneChoiceSet", "util/CONST"], function (exports_66, context_66) {
+    "use strict";
+    var __moduleName = context_66 && context_66.id;
+    var CEFTimer_3, CEFSceneCueEvent_1, CSceneChoiceSet_1, CONST_11, EventDispatcher, CSceneTrack;
+    return {
+        setters: [
+            function (CEFTimer_3_1) {
+                CEFTimer_3 = CEFTimer_3_1;
+            },
+            function (CEFSceneCueEvent_1_1) {
+                CEFSceneCueEvent_1 = CEFSceneCueEvent_1_1;
+            },
+            function (CSceneChoiceSet_1_1) {
+                CSceneChoiceSet_1 = CSceneChoiceSet_1_1;
+            },
+            function (CONST_11_1) {
+                CONST_11 = CONST_11_1;
+            }
+        ],
+        execute: function () {
+            EventDispatcher = createjs.EventDispatcher;
+            CSceneTrack = class CSceneTrack extends EventDispatcher {
+                constructor(_tutorDoc, factory, parent) {
+                    super();
+                    this._chosen = false;
+                    this.segNdx = 0;
+                    this.trackLoaded = false;
+                    this.hasAudio = false;
+                    this.isPlaying = false;
+                    this.isPaused = false;
+                    this.RX_DELIMITERS = /[_|]/g;
+                    this.assetPath = "";
+                    this.newSounds = [];
+                    this.tutorDoc = _tutorDoc;
+                    this._parent = parent;
+                    this.hostScene = parent.sceneInstance;
+                    this.sceneName = this.hostScene.name;
+                    this.hostModule = this.hostScene.hostModule;
+                    this.ownerModule = this.hostScene.ownerModule;
+                    this.language = this.tutorDoc.language;
+                    this.voice = this.tutorDoc.voice;
+                    if (factory.choiceset != undefined) {
+                        this._type = CONST_11.CONST.SCENE_CHOICESET;
+                        this._name = factory.choiceset;
+                        this._choiceset = CSceneChoiceSet_1.CSceneChoiceSet.factory(_tutorDoc, this._parent, factory.choiceset, this._parent._graphFactory.CChoiceSets[factory.choiceset]);
+                    }
+                    else if (factory.trackname != undefined) {
+                        this._type = CONST_11.CONST.SCENE_TRACK;
+                        this._name = factory.trackname;
+                        this._trackname = factory.trackname;
+                    }
+                    else if (factory.actionname != undefined) {
+                        this._type = CONST_11.CONST.SCENE_ACTION;
+                        this._name = factory.actionname;
+                        this._actionname = factory.actionname;
+                    }
+                    if (factory.enqueue === false) {
+                        console.log("rtest");
+                    }
+                    this._enqueue = typeof factory.enqueue == "undefined" ? true : factory.enqueue;
+                    this._autostep = factory.autostep || false;
+                    this._stepdelay = factory.stepdelay || 0.0;
+                    this._odds = factory.odds;
+                    this._features = factory.features || "";
+                    this._isgroup = factory.isgroup || false;
+                    if (factory.$P != undefined) {
+                        this._pid = factory.pid;
+                        this._prob = factory.$P.split('|');
+                        this._cycle = Number(factory.cycle);
+                    }
+                }
+                resolve() {
+                    let sceneTrack = null;
+                    switch (this._type) {
+                        case CONST_11.CONST.SCENE_ACTION:
+                            sceneTrack = this;
+                            break;
+                        case CONST_11.CONST.SCENE_TRACK:
+                            sceneTrack = this;
+                            this.registerTrack();
+                            break;
+                        case CONST_11.CONST.SCENE_CHOICESET:
+                            sceneTrack = this._choiceset.choose();
+                            sceneTrack.resolve();
+                            break;
+                    }
+                    return sceneTrack;
+                }
+                get isHistoric() {
+                    return this._enqueue;
+                }
+                get isGroup() {
+                    return this._isgroup;
+                }
+                get isAutoStep() {
+                    return this._autostep;
+                }
+                resolveSegmentKey(selector, templateRef) {
+                    if (templateRef) {
+                        let ontologyRef = templateRef[selector] || templateRef["*"];
+                        if (!ontologyRef) {
+                            if (selector.includes("?"))
+                                console.error("SCENETRACK: ERROR: missing Template Reference for:" + selector);
+                        }
+                        else {
+                            this._ontologyRef = this.hostScene.resolveRawSelector(ontologyRef, null);
+                        }
+                    }
+                    this.hostScene.resolveRawSelector(selector, this._ontologyRef);
+                    return this.hostScene.ontologyPath;
+                }
+                registerTrack() {
+                    createjs.Sound.removeAllSounds();
+                    this.assetPath = [this.hostModule] + CONST_11.CONST.TRACKASSETS_FILEPATH + this.language + "/";
+                    this.newSounds = [];
+                    let segvalue;
+                    this.segSequence = [];
+                    try {
+                        Object.assign(this, this.tutorDoc.moduleData[this.hostModule][CONST_11.CONST.TRACK_DATA][this.sceneName].tracks[this._trackname][this.language]);
+                        for (let segment of this.segments) {
+                            let selector = segment.templateVar;
+                            let selectorType = CONST_11.CONST.TRACK_SELECTOR;
+                            switch (selector) {
+                                case CONST_11.CONST.NOVAR:
+                                    segvalue = segment[selector];
+                                    segvalue.filepath = this.sceneName + "/" + this._trackname + CONST_11.CONST.SEGMENT_PREFIX + segvalue.fileid + CONST_11.CONST.VOICE_PREFIX + this.voice + CONST_11.CONST.TYPE_MP3;
+                                    break;
+                                default:
+                                    this._ontologyPath = this.resolveSegmentKey(selector, this.templateRef);
+                                    let selectorTag = this._ontologyPath.replace(this.RX_DELIMITERS, "");
+                                    segvalue = segment[selectorTag];
+                                    segvalue.filepath = CONST_11.CONST.COMMONAUDIO + selectorTag + CONST_11.CONST.VOICE_PREFIX + this.voice + CONST_11.CONST.TYPE_MP3;
+                                    break;
+                            }
+                            console.log("SCENEGRAPH: Loading: " + this._trackname + segvalue.fileid + " => " + segvalue.SSML);
+                            this.newSounds.push({ src: segvalue.filepath, id: segvalue.fileid });
+                            this.segSequence.push(segvalue);
+                        }
+                        if (this.newSounds.length > 0) {
+                            if (EFLoadManager.nativeSpeech) {
+                                this.newSounds.forEach(sound => {
+                                    EFLoadManager.nativeSpeech.registerSounds(sound, this.assetPath);
+                                });
+                                this.hasAudio = true;
+                                this.trackLoaded = true;
+                            }
+                            else if (EFLoadManager.nativeAudio) {
+                                EFLoadManager.nativeAudio.clearAllSounds();
+                                this.newSounds.forEach(sound => {
+                                    EFLoadManager.nativeAudio.registerSounds(sound.src, sound.id, this.assetPath);
+                                });
+                                this.hasAudio = true;
+                                this.trackLoaded = true;
+                            }
+                            else {
+                                this._soundCount = this.newSounds.length;
+                                createjs.Sound.on("fileload", this.onTrackLoaded, this);
+                                createjs.Sound.registerSounds(this.newSounds, this.assetPath);
+                                this.hasAudio = true;
+                                this.trackLoaded = false;
+                            }
+                        }
+                    }
+                    catch (err) {
+                        console.error("SCENETRACK: ERROR: " + err);
+                    }
+                }
+                onTrackLoaded(event) {
+                    this._soundCount--;
+                    console.log("SCENETRACK: Segment Loaded: " + event.id + ": " + event.src);
+                    if (!this._soundCount) {
+                        this.trackLoaded = true;
+                        console.log("SCENETRACK: Track Loaded: ");
+                    }
+                }
+                playTrack() {
+                    if (this.isPlaying) {
+                        let segment = this.segSequence[this.segNdx];
+                        if (this.trackLoaded) {
+                            if (this._asyncPlayTimer) {
+                                this._asyncPlayTimer.stop();
+                                this._asyncPlayTimer.off(CONST_11.CONST.TIMER, this._playHandler);
+                                this._asyncPlayTimer = null;
+                                console.log("SCENEGRAPH: Async Play: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                            }
+                            else {
+                                console.log("SCENEGRAPH: Loaded Play: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                            }
+                            if (EFLoadManager.nativeSpeech) {
+                            }
+                            else if (EFLoadManager.nativeAudio) {
+                                EFLoadManager.nativeAudio.play(segment.fileid);
+                                EFLoadManager.trackOwner = this;
+                                EFLoadManager.trackEvent = this.segmentComplete;
+                            }
+                            else {
+                                var props = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, volume: segment.volume });
+                                this.trackAudio = this.segSequence[this.segNdx].track = createjs.Sound.play(segment.fileid, props);
+                                if (this.trackAudio.playState === CONST_11.CONST.PLAY_FAILED) {
+                                    console.log("SCENEGRAPH: Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                                    alert("Track Play Failed: " + this._trackname + segment.fileid + " => " + segment.SSML);
+                                }
+                                if (segment.trim) {
+                                    this._asyncTrimTimer = new CEFTimer_3.CEFTimer(segment.duration + segment.trim);
+                                    this._trimHandler = this._asyncTrimTimer.on(CONST_11.CONST.TIMER, this.segmentComplete, this);
+                                    this._asyncTrimTimer.start();
+                                }
+                                else {
+                                    this.trackAudio.on("complete", this.segmentComplete, this);
+                                }
+                            }
+                            this.hostScene.$cuePoints(this._name, CONST_11.CONST.START_CUEPOINT);
+                            this.hostScene.$updateNav();
+                            this.setCuePoints(segment);
+                        }
+                        else {
+                            if (!this._asyncPlayTimer) {
+                                this._asyncPlayTimer = new CEFTimer_3.CEFTimer(0);
+                                this._playHandler = this._asyncPlayTimer.on(CONST_11.CONST.TIMER, this.playTrack, this);
+                                this._asyncPlayTimer.start();
+                            }
+                        }
+                    }
+                }
+                setCuePoints(segment) {
+                    this._cueTimers = new Array();
+                    for (let cue of segment.cues) {
+                        console.log("SCENETRACK: Configure cue: " + cue.name);
+                        this._cueTimers.push(CEFTimer_3.CEFTimer.startTimer(cue.relTime, this.cueHandler, this, new CustomEvent(CEFSceneCueEvent_1.CEFSceneCueEvent.CUEPOINT, { detail: { id: cue.name, track: this._name } })));
+                    }
+                }
+                cueHandler(evt, _timer) {
+                    this.dispatchEvent(evt);
+                    _timer.stop();
+                    let index = this._cueTimers.indexOf(_timer);
+                    this._cueTimers.splice(index, 1);
+                }
+                ensureFireCues() {
+                    if (this._cueTimers) {
+                        this._cueTimers.forEach(timer => {
+                            timer.stop();
+                        });
+                        this._cueTimers.forEach(timer => {
+                            this.dispatchEvent(timer.publicEvent);
+                            let index = this._cueTimers.indexOf(timer);
+                            this._cueTimers.splice(index, 1);
+                        });
+                    }
+                }
+                segmentComplete(event) {
+                    if (this._asyncTrimTimer) {
+                        this._asyncTrimTimer.stop();
+                        this._asyncTrimTimer.off(CONST_11.CONST.TIMER, this._trimHandler);
+                        this._asyncTrimTimer = null;
+                        console.log("SCENETRACK: Async Track Segment Completion: " + this._name);
+                    }
+                    else {
+                        console.log("SCENETRACK: Normal Track Segment Completion: " + this._name);
+                    }
+                    this.segNdx++;
+                    if (this.segNdx < this.segSequence.length) {
+                        this.playTrack();
+                    }
+                    else {
+                        this.segNdx = 0;
+                        this.hostScene.$cuePoints(this._name, CONST_11.CONST.END_CUEPOINT);
+                        this.hostScene.$updateNav();
+                        this.autoStep();
+                    }
+                }
+                autoStep() {
+                    if (this._autostep) {
+                        if (this._stepdelay && this._stepdelay > 0) {
+                            this._autoPlayTimer = new CEFTimer_3.CEFTimer(this._stepdelay);
+                            this._autoPlayHandler = this._autoPlayTimer.on(CONST_11.CONST.TIMER, this._asyncAutoPlay, this);
+                            this._autoPlayTimer.start();
+                        }
+                        else
+                            this.hostScene.nextTrack("$autoPlay");
+                    }
+                }
+                _asyncAutoPlay(evt) {
+                    this.killAutoPlayTimer();
+                    this.hostScene.nextTrack("$asyncAutoPlay");
+                }
+                killAutoPlayTimer() {
+                    if (this._autoPlayTimer) {
+                        this._autoPlayTimer.stop();
+                        this._autoPlayTimer.off(CONST_11.CONST.TIMER, this._autoPlayHandler);
+                        this._autoPlayTimer = null;
+                    }
+                }
+                play() {
+                    this.killAutoPlayTimer();
+                    switch (this._type) {
+                        case CONST_11.CONST.SCENE_ACTION:
+                            this.hostScene.$nodeAction(this._actionname);
+                            this.hostScene.$updateNav();
+                            this.autoStep();
+                            break;
+                        case CONST_11.CONST.SCENE_TRACK:
+                            if (!this.isPlaying) {
+                                if (this.hasAudio) {
+                                    this.isPaused = false;
+                                    this.isPlaying = true;
+                                    this.playTrack();
+                                }
+                                else {
+                                    console.log("SCENETRACK: Null audio track:)");
+                                    this.autoStep();
+                                }
+                            }
+                            break;
+                        case CONST_11.CONST.SCENE_CHOICESET:
+                            break;
+                    }
+                }
+                pause() {
+                    this.isPlaying = false;
+                    this.isPaused = true;
+                    this.trackAudio.paused = true;
+                }
+                stop() {
+                    this.isPlaying = false;
+                    createjs.Sound.stop();
+                    this.killAutoPlayTimer();
+                }
+                gotoAndStop(time) {
+                }
+                bindPlay(container) {
+                    if (this.tutorDoc.tutorContainer)
+                        this.tutorDoc.tutorContainer.playAddThis(this);
+                    this.play();
+                }
+                get trackID() {
+                    return this._name;
+                }
+                testPFeature() {
+                    let iter = this._parent.queryPFeature(this._pid, this._prob.length, this._cycle);
+                    let rand = Math.random();
+                    return (rand < this._prob[iter]);
+                }
+                get hasPFeature() {
+                    return (this._pid != null);
+                }
+                get type() {
+                    return this._type;
+                }
+                set features(newFTR) {
+                    this._features = newFTR;
+                }
+                get features() {
+                    return this._features;
+                }
+                get trackName() {
+                    return this._trackname;
+                }
+                get actionName() {
+                    return this._actionname;
+                }
+                getOdds(ndx) {
+                    let result;
+                    if (this._chosen)
+                        result = 0;
+                    else
+                        result = this._odds[ndx];
+                    return result;
+                }
+                get count() {
+                    return this._odds.length;
+                }
+                replace() {
+                    this._chosen = false;
+                }
+                choose() {
+                    this._chosen = true;
+                }
+            };
+            CSceneTrack.lastLoaded = "";
+            exports_66("CSceneTrack", CSceneTrack);
+        }
+    };
+});
+System.register("thermite/TScene", ["thermite/TSceneBase", "core/CEFTimer", "scenegraph/CSceneGraph", "scenegraph/CSceneHistory", "events/CEFSceneCueEvent", "events/CEFEvent", "util/CUtil", "util/CONST"], function (exports_67, context_67) {
+    "use strict";
+    var __moduleName = context_67 && context_67.id;
+    var TSceneBase_3, CEFTimer_4, CSceneGraph_1, CSceneHistory_1, CEFSceneCueEvent_2, CEFEvent_12, CUtil_38, CONST_12, TScene;
+    return {
+        setters: [
+            function (TSceneBase_3_1) {
+                TSceneBase_3 = TSceneBase_3_1;
+            },
+            function (CEFTimer_4_1) {
+                CEFTimer_4 = CEFTimer_4_1;
+            },
+            function (CSceneGraph_1_1) {
+                CSceneGraph_1 = CSceneGraph_1_1;
+            },
+            function (CSceneHistory_1_1) {
+                CSceneHistory_1 = CSceneHistory_1_1;
+            },
+            function (CEFSceneCueEvent_2_1) {
+                CEFSceneCueEvent_2 = CEFSceneCueEvent_2_1;
+            },
+            function (CEFEvent_12_1) {
+                CEFEvent_12 = CEFEvent_12_1;
+            },
+            function (CUtil_38_1) {
+                CUtil_38 = CUtil_38_1;
+            },
+            function (CONST_12_1) {
+                CONST_12 = CONST_12_1;
+            }
+        ],
+        execute: function () {
+            TScene = class TScene extends TSceneBase_3.TSceneBase {
+                constructor() {
+                    super();
+                    this._interval = TScene.DEFAULT_MONITOR_INTERVAL;
+                    this.cueListener = null;
+                    this.ktUpdated = false;
+                    this.sceneGraph = null;
+                    this.init4();
+                }
+                TSceneInitialize() {
+                    this.TSceneBaseInitialize.call(this);
+                    this.init4();
+                }
+                initialize() {
+                    this.TSceneBaseInitialize.call(this);
+                    this.init4();
+                }
+                init4() {
+                    this.traceMode = true;
+                    this._asyncPlayTimer = new CEFTimer_4.CEFTimer(0);
+                    this._asyncGraphTimer = new CEFTimer_4.CEFTimer(0);
+                    this._history = new CSceneHistory_1.CSceneHistory(this.tutorDoc);
+                    this._deferPlay = false;
+                    if (this.traceMode)
+                        CUtil_38.CUtil.trace("TScene:Constructor");
+                }
+                Destructor() {
+                    this.disConnectTrack(this.STrack);
+                    this._asyncPlayTimer.off("timer", this._playHandler);
+                    this._asyncGraphTimer.off("timer", this._trackHandler);
+                    super.Destructor();
+                }
+                trackPlay() {
+                    this._playHandler = this._asyncPlayTimer.on(CONST_12.CONST.TIMER, this._asyncPlayTrack, this);
+                    this._asyncPlayTimer.start();
+                }
+                _asyncPlayTrack(evt) {
+                    this._asyncPlayTimer.stop();
+                    this._asyncPlayTimer.off(CONST_12.CONST.TIMER, this._playHandler);
+                    this._asyncPlayTimer.reset();
+                    if (this.STrack)
+                        this.STrack.play();
+                }
+                connectTrack(track) {
+                    CUtil_38.CUtil.trace("Connect Audio Cue Behaviors");
+                    this.cueListener = track.on(CEFSceneCueEvent_2.CEFSceneCueEvent.CUEPOINT, this.doSceneCue, this);
+                }
+                disConnectTrack(track) {
+                    CUtil_38.CUtil.trace("Disconnect Audio Cue Behaviors");
+                    if (track) {
+                        track.stop();
+                        track.ensureFireCues();
+                        track.off(CEFSceneCueEvent_2.CEFSceneCueEvent.CUEPOINT, this.cueListener);
+                    }
+                }
+                nextScene(event) {
+                    if (this.traceMode)
+                        CUtil_38.CUtil.trace("navNext: " + event);
+                    this.navigator.gotoNextScene("$scriptAction");
+                }
+                doSceneCue(evt) {
+                    if (this.traceMode)
+                        CUtil_38.CUtil.trace("SceneCue: " + evt.detail.id + " - track: " + evt.detail.track);
+                    this.$cuePoints(evt.detail.track, evt.detail.id);
+                    this.$updateNav();
+                }
+                connectSceneGraph(hostModule, sceneName) {
+                    try {
+                        this.sceneGraph = CSceneGraph_1.CSceneGraph.factory(this.tutorDoc, this, hostModule, sceneName);
+                    }
+                    catch (err) {
+                        console.error("Error: scenegraph connect Failed: " + err);
+                    }
+                }
+                nextTrack(source) {
+                    this.changeRequestorTrack = source;
+                    this._trackHandler = this._asyncGraphTimer.on(CONST_12.CONST.TIMER, this._asyncNextTrack, this);
+                    this._asyncGraphTimer.start();
+                }
+                _asyncNextTrack(evt) {
+                    this._asyncGraphTimer.stop();
+                    this._asyncGraphTimer.off(CONST_12.CONST.TIMER, this._trackHandler);
+                    this.traceGraphEdge(false);
+                }
+                traceGraphEdge(bUserNavEvent = false) {
+                    let historyNode;
+                    let nextTrack;
+                    console.log("SCENEGRAPH: state change: " + this.changeRequestorTrack);
+                    if (this.sceneGraph != null) {
+                        if (this.STrack) {
+                            this.disConnectTrack(this.STrack);
+                            this.STrack = null;
+                        }
+                        historyNode = this._history.next();
+                        if (historyNode == null) {
+                            nextTrack = this.sceneGraph.gotoNextTrack(bUserNavEvent);
+                            if (!this.sceneGraph.volatile && nextTrack != null) {
+                                this._history.push(this.sceneGraph.node, nextTrack);
+                            }
+                        }
+                        else {
+                            nextTrack = this.sceneGraph.seekToTrack(historyNode);
+                        }
+                        if (nextTrack != null) {
+                            this.STrack = nextTrack;
+                            this.connectTrack(nextTrack);
+                            if (!this._deferPlay)
+                                this.STrack.play();
+                        }
+                        else if (!bUserNavEvent) {
+                            this.navigator.gotoNextScene("$endOfTracks");
+                        }
+                    }
+                    return nextTrack;
+                }
+                traceHistory() {
+                    let historyNode;
+                    let features;
+                    if (this.STrack) {
+                        this.disConnectTrack(this.STrack);
+                        this.STrack = null;
+                    }
+                    do {
+                        historyNode = this._history.back();
+                        if (historyNode != null) {
+                            if (!historyNode.track.isHistoric)
+                                continue;
+                            features = historyNode.track.features;
+                            if (features != "") {
+                                if (!this.tutorDoc.testFeatureSet(features)) {
+                                    continue;
+                                }
+                            }
+                            this.STrack = this.sceneGraph.seekToTrack(historyNode);
+                            this.connectTrack(historyNode.track);
+                            if (!this._deferPlay)
+                                this.STrack.play();
+                            break;
+                        }
+                    } while (historyNode != null);
+                    if (!historyNode) {
+                        this.STrack = this.sceneGraph.rootTrack;
+                        this.connectTrack(this.STrack);
+                        this.sceneGraph.resetRoot();
+                    }
+                    return historyNode;
+                }
+                preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction) {
+                    let result;
+                    if (this.traceMode)
+                        CUtil_38.CUtil.trace("TScene preenter Scene Behavior: " + this.name);
+                    result = super.preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction);
+                    this._deferPlay = true;
+                    this.nextTrack("$preEnterScene");
+                    return result;
+                }
+                onEnterScene(Direction) {
+                    if (this.traceMode)
+                        CUtil_38.CUtil.trace("TScene onenter Scene Behavior:" + this.name);
+                    this._deferPlay = false;
+                    this.trackPlay();
+                    super.onEnterScene(Direction);
+                }
+                preExitScene(Direction, sceneCurr) {
+                    return (super.preExitScene(Direction, sceneCurr));
+                }
+                onExitScene() {
+                    if (this.traceMode)
+                        CUtil_38.CUtil.trace("TScene onexit Behavior:" + this.name);
+                    this.disConnectTrack(this.STrack);
+                    this.STrack = null;
+                    this.tutorDoc._sceneData = {};
+                    this.updateKT();
+                    super.onExitScene();
+                }
+                enQueueTerminateEvent() {
+                    addEventListener(CEFEvent_12.CEFEvent.ENTER_FRAME, this._asyncTerminate);
+                }
+                _asyncTerminate(e) {
+                    removeEventListener(CEFEvent_12.CEFEvent.ENTER_FRAME, this._asyncTerminate);
+                    this.tutorDoc.log.logTerminateEvent();
+                }
+                updateKT() {
+                    if (!this.ktUpdated) {
+                        this.ktUpdated = true;
+                    }
+                }
+            };
+            TScene.DEFAULT_MONITOR_INTERVAL = 3000;
+            exports_67("TScene", TScene);
+        }
+    };
+});
+System.register("thermite/TRoot", ["util/CONST", "util/CUtil"], function (exports_68, context_68) {
+    "use strict";
+    var __moduleName = context_68 && context_68.id;
+    var CONST_13, CUtil_39, MovieClip, TRoot;
+    return {
+        setters: [
+            function (CONST_13_1) {
+                CONST_13 = CONST_13_1;
+            },
+            function (CUtil_39_1) {
+                CUtil_39 = CUtil_39_1;
+            }
+        ],
+        execute: function () {
+            MovieClip = createjs.MovieClip;
+            TRoot = class TRoot extends MovieClip {
+                constructor() {
+                    super();
+                    this.init0();
+                }
+                TRootInitialize() {
+                    MovieClip.call(this, MovieClip.INDEPENDENT, 0, CONST_13.CONST.MC_NOLOOP, null);
+                    this.init0();
+                }
+                initialize() {
+                    MovieClip.call(this);
+                    this.init0();
+                }
+                init0() {
+                    this._listenerArr = new Array;
+                    this.traceMode = true;
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace("TRoot:Constructor");
+                    this.xname = this.nextXname();
+                    this.clickBoundListener = this.clickListener.bind(this);
+                    this.changeBoundListener = this.changeListener.bind(this);
+                    this.completeListener = this.completeListener.bind(this);
+                }
+                set hostScene(scene) {
+                    this._hostScene = scene;
+                }
+                get hostScene() {
+                    return this._hostScene;
+                }
+                addListener(target, type) {
+                    let listener;
+                    switch (type) {
+                        case "click":
+                            listener = this.clickBoundListener;
+                            break;
+                        case "change":
+                            listener = this.changeBoundListener;
+                            break;
+                    }
+                    target.addEventListener(type, listener);
+                }
+                removeListener(target, type) {
+                    let listener;
+                    switch (type) {
+                        case "click":
+                            listener = this.clickBoundListener;
+                            break;
+                        case "change":
+                            listener = this.changeBoundListener;
+                            break;
+                    }
+                    target.removeEventListener(type, listener);
+                }
+                clickListener(e) {
+                }
+                changeListener(e) {
+                }
+                completeListener(e) {
+                }
+                nextXname() {
+                    let Xname = CONST_13.CONST.XNAME_SIG + TRoot.xInstID.toString();
+                    TRoot.xInstID++;
+                    return Xname;
+                }
+                Destructor() {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace("TRoot Destructor:");
+                    let subObj;
+                    for (let i1 = 0; i1 < this.numChildren; i1++) {
+                        subObj = this.getChildAt(i1);
+                        if (subObj instanceof TRoot) {
+                            subObj.Destructor();
+                        }
+                    }
+                }
+                testFeatures(features) {
+                    let result = false;
+                    if (features && features !== "")
+                        result = this.tutorDoc.testFeatureSet(features);
+                    return result;
+                }
+                captureXMLStructure(parentXML, iDepth) {
+                    let element;
+                    let elementOBJ = {};
+                    let elClass;
+                    let elxname;
+                    for (let i1 = 0; i1 < this.numChildren; i1++) {
+                        element = this.getChildAt(i1);
+                        if (this.traceMode)
+                            CUtil_39.CUtil.trace("\t\tCEFScene found subObject named:" + element.name + " ... in-place: ");
+                        if (element instanceof TRoot) {
+                            elxname = element.xname;
+                        }
+                        else {
+                            elxname = "null";
+                        }
+                        elementOBJ = new String("<obj " + " class=\"" + elClass + "\" name=\"" + element.name + "\" x=\"" + element.x + "\" y=\"" + element.y + "\" w=\"" + element.width + "\" h=\"" + element.height + "\" r=\"" + element.rotation + "\" a=\"" + element.alpha + "\"/>");
+                        if ((iDepth < 1) && (element instanceof TRoot))
+                            element.captureXMLStructure(elementOBJ, iDepth + 1);
+                    }
+                }
+                resetXML() {
+                }
+                saveXML() {
+                    let stateVector;
+                    return stateVector;
+                }
+                getSymbolClone(_cloneOf, _named) {
+                    let xClone = "";
+                    CUtil_39.CUtil.trace(xClone);
+                    return xClone;
+                }
+                logState() {
+                    return "<null/>";
+                }
+                IsUserDefined() {
+                    let iResult = 0;
+                    return iResult;
+                }
+                get captureLOGString() {
+                    return "";
+                }
+                captureLOGState() {
+                    return "<null />";
+                }
+                isDefined(prop) {
+                    let fResult;
+                    try {
+                        if (this.hasOwnProperty(prop)) {
+                            fResult = true;
+                        }
+                    }
+                    catch (err) {
+                        if (this.traceMode)
+                            CUtil_39.CUtil.trace(prop + " is Undefined");
+                        fResult = false;
+                    }
+                    return fResult;
+                }
+                superPlay() {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " Super Play");
+                    if (this.name == "SgenericPrompt")
+                        CUtil_39.CUtil.trace("SgenericPrompt Play Found in superPlay");
+                    super.play();
+                }
+                superStop() {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " Super Stop");
+                    super.stop();
+                }
+                gotoAndStop(frame) {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " is stopped at : " + frame);
+                    if (this.tutorDoc.tutorContainer)
+                        this.tutorDoc.tutorContainer.playRemoveThis(this);
+                    super.gotoAndStop(frame);
+                }
+                stop() {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " is stopped");
+                    if (this.tutorDoc.tutorContainer)
+                        this.tutorDoc.tutorContainer.playRemoveThis(this);
+                    super.stop();
+                }
+                gotoAndPlay(frame, scene = null) {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " is playing at : " + frame + ":" + scene);
+                    if (this.name == "SgenericPrompt")
+                        CUtil_39.CUtil.trace("SgenericPrompt Play Found in gotoAndPlay");
+                    if (this.tutorDoc.tutorContainer)
+                        this.tutorDoc.tutorContainer.playAddThis(this);
+                    super.gotoAndPlay(frame + ":" + scene);
+                }
+                play() {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " is playing");
+                    if (this.name == "SgenericPrompt")
+                        CUtil_39.CUtil.trace("SgenericPrompt Play Found in Play");
+                    if (this.tutorDoc.tutorContainer)
+                        this.tutorDoc.tutorContainer.playAddThis(this);
+                    super.play();
+                }
+                bindPlay(tutor) {
+                    if (this.traceMode)
+                        CUtil_39.CUtil.trace(this.name + " is playing");
+                    if (this.name == "SgenericPrompt")
+                        CUtil_39.CUtil.trace("SgenericPrompt Play Found in BindPlay");
+                    if (this.tutorDoc.tutorContainer)
+                        this.tutorDoc.tutorContainer.playAddThis(this);
+                    super.play();
+                }
+                setTopMost() {
+                    let topPosition;
+                    try {
+                        if (this.tutorDoc.tutorContainer) {
+                            topPosition = this.tutorDoc.tutorContainer.numChildren - 1;
+                            this.tutorDoc.tutorContainer.setChildIndex(this, topPosition);
+                        }
+                    }
+                    catch (err) {
+                    }
+                }
+                startSession() {
+                    this.tutorDoc.fSessionTime = CUtil_39.CUtil.getTimer();
+                }
+                get sessionTime() {
+                    let curTime;
+                    curTime = (CUtil_39.CUtil.getTimer() - this.tutorDoc.fSessionTime) / 1000.0;
+                    return curTime.toString();
+                }
+                dumpStage(_obj, _path) {
+                    let sceneObj;
+                    for (let i1 = 0; i1 < _obj.numChildren; i1++) {
+                        sceneObj = _obj.getChildAt(i1);
+                        if (sceneObj) {
+                            CUtil_39.CUtil.trace(_path + "." + sceneObj["name"] + " visible : " + ((sceneObj.visible) ? " true" : " false"));
+                            if (sceneObj)
+                                this.dumpStage(sceneObj, _path + "." + sceneObj["name"]);
+                        }
+                    }
+                }
+                initObjfromHtmlData(objData) {
+                }
+                resolveReferences(...dataElement) {
+                    let objData;
+                    dataElement.forEach(datasource => {
+                        objData = this.hostScene.resolveSelector(datasource, this._ontologyKey);
+                        this.deSerializeObj(objData);
+                    });
+                }
+                resetInitState() {
+                    if (this._InitData)
+                        this.deSerializeObj(this._InitData);
+                }
+                initFromDataSource(datasource) {
+                    let data = this.hostScene.resolveSelector(datasource, this._ontologyKey);
+                    this.deSerializeObj(data);
+                }
+                setContext(_hostModule, _ownerModule, _hostScene) {
+                    this.hostModule = _hostModule;
+                    this.ownerModule = _ownerModule;
+                    this.hostScene = _hostScene;
+                }
+                deSerializeObj(objData) {
+                    this._InitData = this._InitData || Object.assign({}, objData);
+                    if (objData.templateRef)
+                        this._templateRef = objData.templateRef;
+                    if (objData.layoutsource) {
+                        this.resolveReferences(objData.layoutsource);
+                    }
+                    if (objData.htmlData) {
+                        this.initObjfromHtmlData(objData);
+                    }
+                    if (objData.datasource) {
+                        if (Array.isArray(objData.datasource)) {
+                            for (let i1 = 0; i1 < objData.datasource.length; i1++) {
+                                if (this.tutorDoc.testFeatureSet(objData.datasource[i1].features)) {
+                                    this.initFromDataSource(objData.datasource[i1].src);
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                            this.initFromDataSource(objData.datasource);
+                    }
+                }
+            };
+            TRoot.xInstID = 1;
+            exports_68("TRoot", TRoot);
+        }
+    };
+});
+System.register("thermite/TObjectDyno", ["thermite/TRoot", "thermite/TObject", "util/CUtil"], function (exports_69, context_69) {
+    "use strict";
+    var __moduleName = context_69 && context_69.id;
+    var TRoot_3, TObject_8, CUtil_40, TObjectDyno;
+    return {
+        setters: [
+            function (TRoot_3_1) {
+                TRoot_3 = TRoot_3_1;
+            },
+            function (TObject_8_1) {
+                TObject_8 = TObject_8_1;
+            },
+            function (CUtil_40_1) {
+                CUtil_40 = CUtil_40_1;
+            }
+        ],
+        execute: function () {
+            TObjectDyno = class TObjectDyno extends TRoot_3.TRoot {
+                constructor() {
+                    super();
+                }
+                TObjectDynoInitialize() {
+                    this.TRootInitialize.call(this);
+                    this.init1();
+                }
+                initialize() {
+                    this.TRootInitialize.call(this);
+                    this.init1();
+                }
+                init1() {
+                }
+                initAutomation(_parentScene, sceneObj, ObjIdRef, lLogger, lTutor) {
+                    if (this.traceMode)
+                        CUtil_40.CUtil.trace("CEFObjectDyno initAutomation:");
+                    var subObj;
+                    var wozObj;
+                    this.objID = ObjIdRef + name;
+                    for (var i1 = 0; i1 < this.numChildren; i1++) {
+                        subObj = this.getChildAt(i1);
+                        if (subObj instanceof TObject_8.TObject || subObj instanceof TObjectDyno) {
+                            subObj.parentScene = _parentScene;
+                        }
+                    }
+                }
+            };
+            exports_69("TObjectDyno", TObjectDyno);
+        }
+    };
+});
+System.register("thermite/TSelector", [], function (exports_70, context_70) {
+    "use strict";
+    var __moduleName = context_70 && context_70.id;
+    var TSelector;
+    return {
+        setters: [],
+        execute: function () {
+            TSelector = class TSelector {
+                constructor(host, selectorStr) {
+                    this.selectors = selectorStr.split("|");
+                    this.regex = [];
+                    this.targets = [];
+                    for (let i1 = 0; i1 < this.selectors.length; i1++) {
+                        let selectorGrp = this.selectors[i1].split(",");
+                        if (selectorGrp.length > 1) {
+                            let regexGrp = [];
+                            for (let i1 = 0; i1 < selectorGrp.length; i1++) {
+                                regexGrp.push(new RegExp(selectorGrp[i1]));
+                            }
+                            this.regex.push(regexGrp);
+                        }
+                        else {
+                            this.regex.push(new RegExp(this.selectors[i1]));
+                        }
+                    }
+                    this.resolveSelectors(host, this.regex);
+                }
+                testSelector(currRegEx, element) {
+                    return currRegEx.test(element);
+                }
+                resolveSelectors(host, regex) {
+                    let currRegEx = regex[0];
+                    if (Array.isArray(currRegEx)) {
+                        currRegEx.forEach(innerRegEx => {
+                            for (let element in host) {
+                                if (innerRegEx.test(element)) {
+                                    if (regex.length > 1) {
+                                        this.resolveSelectors(host[element], regex.slice(1));
+                                    }
+                                    else {
+                                        this.targets.push(host[element]);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                        for (let element in host) {
+                            if (currRegEx.test(element)) {
+                                if (regex.length > 1) {
+                                    this.resolveSelectors(host[element], regex.slice(1));
+                                }
+                                else {
+                                    this.targets.push(host[element]);
+                                }
+                            }
+                        }
+                }
+                hide() {
+                    this.targets.forEach(component => {
+                        if (component.hide instanceof Function) {
+                            component.hide();
+                        }
+                    });
+                }
+                hideAll() {
+                    this.targets.forEach(component => {
+                        if (component.hideAll instanceof Function) {
+                            component.hideAll();
+                        }
+                    });
+                }
+                show() {
+                    this.targets.forEach(component => {
+                        if (component.show instanceof Function) {
+                            component.show();
+                        }
+                    });
+                }
+                enable() {
+                    this.targets.forEach(component => {
+                        if (component.enable instanceof Function) {
+                            component.enable(true);
+                        }
+                    });
+                }
+                disable() {
+                    this.targets.forEach(component => {
+                        if (component.enable instanceof Function) {
+                            component.enable(false);
+                        }
+                    });
+                }
+                play() {
+                    this.targets.forEach(component => {
+                        if (component.playMC instanceof Function) {
+                            component.playMC();
+                        }
+                    });
+                }
+                exec(func, ...vars) {
+                    this.targets.forEach(component => {
+                        if (component[func] instanceof Function) {
+                            component[func](vars);
+                        }
+                    });
+                }
+            };
+            exports_70("TSelector", TSelector);
+        }
+    };
+});
+System.register("thermite/events/TEvent", [], function (exports_71, context_71) {
+    "use strict";
+    var __moduleName = context_71 && context_71.id;
+    var Event, TEvent;
+    return {
+        setters: [],
+        execute: function () {
+            Event = createjs.Event;
+            TEvent = class TEvent extends Event {
+                constructor(type, bubbles = false, cancelable = false) {
+                    super(type, bubbles, cancelable);
+                }
+            };
+            exports_71("TEvent", TEvent);
+        }
+    };
+});
+System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "thermite/TSelector", "events/CEFEvent", "util/CONST", "util/CUtil", "thermite/events/TEvent"], function (exports_72, context_72) {
+    "use strict";
+    var __moduleName = context_72 && context_72.id;
+    var TRoot_4, TObjectDyno_1, TSelector_1, CEFEvent_13, CONST_14, CUtil_41, Tween, ColorMatrixFilter, BlurFilter, Ease, TEvent_1, TObject;
+    return {
+        setters: [
+            function (TRoot_4_1) {
+                TRoot_4 = TRoot_4_1;
+            },
+            function (TObjectDyno_1_1) {
+                TObjectDyno_1 = TObjectDyno_1_1;
+            },
+            function (TSelector_1_1) {
+                TSelector_1 = TSelector_1_1;
+            },
+            function (CEFEvent_13_1) {
+                CEFEvent_13 = CEFEvent_13_1;
+            },
+            function (CONST_14_1) {
+                CONST_14 = CONST_14_1;
+            },
+            function (CUtil_41_1) {
+                CUtil_41 = CUtil_41_1;
+            },
+            function (TEvent_1_1) {
+                TEvent_1 = TEvent_1_1;
+            }
+        ],
+        execute: function () {
+            Tween = createjs.Tween;
+            ColorMatrixFilter = createjs.ColorMatrixFilter;
+            BlurFilter = createjs.BlurFilter;
+            Ease = createjs.Ease;
+            TObject = class TObject extends TRoot_4.TRoot {
+                constructor() {
+                    super();
+                    this.sAuto = "UNKNOWN";
+                    this.satFrames = 8;
+                    this.satIncrement = 1 / this.satFrames;
+                    this.curSat = 1.0;
+                    this.curBlur = 1.0;
+                    this.blurFrames = 8;
+                    this.blurIncrement = 1 / this.blurFrames;
+                    this.curGlow = 1.0;
+                    this.glowFrames = 8;
+                    this.glowIncrement = 1 / this.glowFrames;
+                    this._isvalid = "false";
+                    this._ischecked = "false";
+                    this._activeFeature = "";
+                    this._validFeature = "";
+                    this._invalidFeature = "";
+                    this._hasClickMask = false;
+                    this.init2();
+                }
+                TObjectInitialize() {
+                    this.TRootInitialize.call(this);
+                    this.init2();
+                }
+                initialize() {
+                    this.TRootInitialize.call(this);
+                    this.init2();
+                }
+                init2() {
+                    this.traceMode = true;
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("TObject:Constructor");
+                    this.tweenID = 1;
+                    this.bTweenable = true;
+                    this.bSubTweenable = false;
+                    this.bPersist = false;
+                }
+                onCreate() {
+                }
+                Destructor() {
+                    this.off(CEFEvent_13.CEFEvent.COMPLETE, this.doAction);
+                    super.Destructor();
+                }
+                get ontologyPath() {
+                    return this._ontologyPath;
+                }
+                addHTMLControls() { }
+                playMC() {
+                    this.timeline.on(CEFEvent_13.CEFEvent.CHANGE, this.checkMCcomplete, this);
+                    this.gotoAndPlay(0);
+                }
+                checkMCcomplete(evt) {
+                    if (this.timeline.position >= this.timeline.duration) {
+                        this.timeline.off(CEFEvent_13.CEFEvent.CHANGE, this.checkMCcomplete);
+                        this.doAction(new TEvent_1.TEvent("complete"));
+                    }
+                }
+                doAction(evt) {
+                    try {
+                        if (this.hostScene)
+                            this.hostScene.onAction(this.name, evt.type);
+                    }
+                    catch (e) {
+                        CUtil_41.CUtil.trace("Error in onClick script: " + e);
+                    }
+                }
+                set hidden(hide) {
+                    if (this._hidden !== hide) {
+                        this._hidden = hide;
+                        if (this._hidden) {
+                            this._shownVisibility = this.visible;
+                            this._shownAlpha = this.alpha;
+                            this.visible = false;
+                            this.alpha = 0;
+                        }
+                        else {
+                            this.visible = this._shownVisibility || this.visible;
+                            this.alpha = this._shownAlpha || this.alpha;
+                        }
+                    }
+                }
+                get hidden() {
+                    return this._hidden;
+                }
+                hide() {
+                    this.hidden = true;
+                }
+                show() {
+                    this.hidden = false;
+                }
+                set features(newFTR) {
+                    this._features = newFTR;
+                }
+                get features() {
+                    return this._features;
+                }
+                setANDFeature(newFTR) {
+                    if (this._features.length != 0)
+                        this._features += ",";
+                    this._features += newFTR;
+                }
+                setORFeature(newFTR) {
+                    if (this._features.length != 0)
+                        this._features += ":";
+                    this._features += newFTR;
+                }
+                unSetFeature(ftr) {
+                    let feature;
+                    let featArray = new Array;
+                    let updatedFTRset = "";
+                    if (this._features.length > 0)
+                        featArray = this._features.split(":");
+                    for (let feature of featArray) {
+                        if (feature != ftr) {
+                            if (updatedFTRset.length != 0)
+                                updatedFTRset += ":";
+                            updatedFTRset += ftr;
+                        }
+                    }
+                    this._features = updatedFTRset;
+                }
+                resolveOntologyKey(selector, templateRef) {
+                    if (templateRef) {
+                        if (typeof templateRef === 'string') {
+                            this._ontologyRef = templateRef;
+                        }
+                        else {
+                            let ontologyRef = templateRef[selector] || templateRef["*"];
+                            if (!ontologyRef) {
+                                if (selector.includes("?"))
+                                    console.error("SELECTOR ERROR: missing Template Reference for:" + selector);
+                            }
+                            else {
+                                this._ontologyRef = this.resolveRawSelector(ontologyRef, null);
+                            }
+                        }
+                        if (this._ontologyRef) {
+                            let objSelector = this._ontologyRef.split("|");
+                            this._ontologyKey = objSelector[0].split("_");
+                        }
+                        else {
+                            this._ontologyKey = [];
+                        }
+                    }
+                }
+                buildObject(hostModule, objectClass, objectName) {
+                    let newObject;
+                    let maskDim;
+                    console.error("Error: Use of incomplete Function");
+                    newObject = CUtil_41.CUtil.instantiateThermiteObject(hostModule, objectClass);
+                    newObject.name = objectName;
+                    newObject.onCreate();
+                    this.addChild(newObject);
+                    if (newObject._hasClickMask) {
+                        maskDim = newObject.globalToLocal(0, 0);
+                        newObject.SclickMask.x = maskDim.x;
+                        newObject.SclickMask.y = maskDim.y;
+                        newObject.SclickMask.graphics.setStrokeStyle(0);
+                        newObject.SclickMask.graphics.beginFill(newObject._maskColor);
+                        newObject.SclickMask.graphics.drawRect(0, 0, this.tutorDoc.STAGEWIDTH, this.tutorDoc.STAGEHEIGHT);
+                        newObject.SclickMask.graphics.endFill();
+                    }
+                    return newObject;
+                }
+                buildMask() {
+                }
+                get activeFeature() {
+                    return "";
+                }
+                set activeFeature(value) {
+                }
+                clearAllEffects(fHide = true) {
+                    this.stopTransitions();
+                    removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.saturationTimer);
+                    removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.blurTimer);
+                    removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.flashTimer);
+                    this.filters = null;
+                    if (fHide)
+                        this.alpha = 0;
+                }
+                moveChild(tarObj, moveX, moveY, duration = "0.5") {
+                    if (moveX != "")
+                        this.Running.push(new Tween(this[tarObj]).to({ x: moveX }, Number(duration), Ease.cubicInOut));
+                    if (moveY != "")
+                        this.Running.push(new Tween(this[tarObj]).to({ y: moveY }, Number(duration), Ease.cubicInOut));
+                }
+                moveOriginChild(tarObj, regx, regy, duration = "0.5") {
+                    if (regx != "")
+                        this.Running.push(new Tween(this[tarObj]).to({ regX: regx }, Number(duration), Ease.cubicInOut));
+                    if (regy != "")
+                        this.Running.push(new Tween(this[tarObj]).to({ regY: regy }, Number(duration), Ease.cubicInOut));
+                }
+                scaleChild(tarObj, scalex, scaley, duration = "0.5") {
+                    if (scalex != "")
+                        this.Running.push(new Tween(this[tarObj]).to({ scaleX: scalex }, Number(duration), Ease.cubicInOut));
+                    if (scaley != "")
+                        this.Running.push(new Tween(this[tarObj]).to({ scaleY: scaley }, Number(duration), Ease.cubicInOut));
+                }
+                saturateChild(tarObj, newState, duration = "0.08") {
+                    this[tarObj].saturateObj(newState, duration);
+                }
+                saturateChildTo(tarObj, newSat, duration = "0.08") {
+                    this[tarObj].saturateObjTo(newSat, duration);
+                }
+                saturateObj(newState, duration = "0.08") {
+                    this.newSaturation = newState;
+                    if (this.newSaturation == "mono") {
+                        this.curSat = 1.0;
+                        this.newSat = 0.0;
+                    }
+                    else {
+                        this.curSat = 0.0;
+                        this.newSat = 1.0;
+                    }
+                    this.satIncrement = 1.0 / 12;
+                    addEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.saturationTimer);
+                }
+                saturateObjTo(_newSat, duration = "0.08") {
+                    let dynRange;
+                    if (_newSat > this.curSat) {
+                        this.newSaturation = "color";
+                    }
+                    else {
+                        this.newSaturation = "mono";
+                    }
+                    this.newSat = _newSat;
+                    dynRange = Math.abs(_newSat - this.curSat);
+                    this.satIncrement = dynRange / 12;
+                    addEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.saturationTimer);
+                }
+                saturationTimer(evt) {
+                    if (this.newSaturation == "color") {
+                        this.curSat += this.satIncrement;
+                        if (this.curSat >= this.newSat) {
+                            this.curSat = this.newSat;
+                            removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.saturationTimer);
+                        }
+                    }
+                    else if (this.newSaturation == "mono") {
+                        this.curSat -= this.satIncrement;
+                        if (this.curSat <= this.newSat) {
+                            this.curSat = this.newSat;
+                            removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.saturationTimer);
+                        }
+                    }
+                    else {
+                        this.curSat = 1.0;
+                        removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.saturationTimer);
+                    }
+                    this.filters = new Array(this.adjustSaturation(Number(this.curSat)));
+                }
+                adjustSaturation(s = 1) {
+                    let sInv;
+                    let irlum;
+                    let iglum;
+                    let iblum;
+                    sInv = (1 - s);
+                    irlum = (sInv * CONST_14.CONST.LUMA_R);
+                    iglum = (sInv * CONST_14.CONST.LUMA_G);
+                    iblum = (sInv * CONST_14.CONST.LUMA_B);
+                    return new ColorMatrixFilter([(irlum + s), iglum, iblum, 0, 0,
+                        irlum, (iglum + s), iblum, 0, 0,
+                        irlum, iglum, (iblum + s), 0, 0,
+                        0, 0, 0, 1, 0]);
+                }
+                blurChild(tarObj, duration = "12") {
+                    this[tarObj].blurObj(duration);
+                }
+                blurObj(duration = "12") {
+                    this.blurIncrement = 255.0 / Number(duration);
+                    this.curBlur = 0;
+                    addEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.blurTimer);
+                }
+                blurTimer(evt) {
+                    this.curBlur += this.blurIncrement;
+                    if (this.curBlur >= 255) {
+                        removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.blurTimer);
+                        dispatchEvent(new Event("blur_complete"));
+                        this.filters = null;
+                        this.alpha = 0;
+                    }
+                    else
+                        this.filters = new Array(new BlurFilter(this.curBlur, this.curBlur));
+                }
+                flashChild(tarObj, _glowColor, duration = "8") {
+                    this[tarObj].flashObj(_glowColor, duration);
+                }
+                flashObj(_glowColor, duration = "8") {
+                    this.glowStage = "color";
+                    this.glowColor = _glowColor;
+                    this.glowStrength = 2.0;
+                    this.glowAlpha = 1.0;
+                    this.glowIncrement = 175.0 / Number(duration);
+                    this.curGlow = 0;
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("start Object Flash");
+                    addEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.flashTimer);
+                }
+                flashTimer(evt) {
+                    if (this.glowStage == "color") {
+                        this.curGlow += this.glowIncrement;
+                        this.glowStrength += .1;
+                        if (this.curGlow >= 175) {
+                            this.glowStage = "alpha";
+                        }
+                    }
+                    else if (this.glowStage == "alpha") {
+                        if (this.glowAlpha <= 0.0) {
+                            if (this.traceMode)
+                                CUtil_41.CUtil.trace("end Object Flash");
+                            removeEventListener(CEFEvent_13.CEFEvent.ENTER_FRAME, this.flashTimer);
+                            dispatchEvent(new Event("glow_complete"));
+                            this.glowStage = "done";
+                            this.filters = null;
+                        }
+                        this.glowAlpha -= .05;
+                    }
+                }
+                showChild(tarObj, alphaTo = -1, autoStart = false) {
+                    this[tarObj].visible = true;
+                    if (alphaTo != -1)
+                        this[tarObj].alpha = alphaTo;
+                }
+                hideChild(tarObj) {
+                    this[tarObj].visible = false;
+                }
+                fadeChildOff(tarObj, autoStart = false, duration = "0.5") {
+                    this._tarObj = tarObj;
+                    this.Running.push(new Tween(this[tarObj]).to({ alpha: 0 }, Number(duration), Ease.cubicInOut));
+                    if (autoStart)
+                        this.startTransition(this.hideDone);
+                }
+                hideDone() {
+                    this[this._tarObj].visible = false;
+                }
+                fadeChild(tarObj, alphaTo, autoStart = false, duration = "0.5") {
+                    this[tarObj].visible = true;
+                    switch (alphaTo) {
+                        case "off":
+                        case "on":
+                            if (this.traceMode)
+                                CUtil_41.CUtil.trace("Fading : ", tarObj, alphaTo);
+                            this.Running.push(new Tween(this[tarObj]).to({ alpha: (alphaTo == "on") ? 1 : 0 }, Number(duration), Ease.cubicInOut));
+                            if (autoStart == true)
+                                this.startTransition(this.twnDone);
+                            break;
+                        default:
+                            if (this.traceMode)
+                                CUtil_41.CUtil.trace("fadeChild: Parameter error - should be 'on' or 'off' - is: ", alphaTo);
+                            break;
+                    }
+                }
+                fadeChildTo(tarObj, alphaTo, autoStart = false, duration = "0.5") {
+                    this[tarObj].visible = true;
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("Fading To: ", tarObj, alphaTo);
+                    this.Running.push(new Tween(this[tarObj]).to({ alpha: alphaTo }, Number(duration), Ease.cubicInOut));
+                    if (autoStart == true)
+                        this.startTransition(this.twnDone);
+                }
+                twnDone() {
+                }
+                startTween(xnF = this.twnDone) {
+                    if (this.Running.length > 0)
+                        this.startTransition((xnF == null) ? this.twnDone : xnF);
+                }
+                deepStateCopy(src) {
+                    this.rotation = src.rotation;
+                    this.x = src.x;
+                    this.y = src.y;
+                    this.scaleX = src.scaleX;
+                    this.scaleY = src.scaleY;
+                    this.alpha = src.alpha;
+                    this.visible = src.visible;
+                    this.bPersist = src.bPersist;
+                    this.activeFeature = src.activeFeature;
+                }
+                shallowStateCopy(tar, src) {
+                    tar.rotation = src.rotation;
+                    tar.x = src.x;
+                    tar.y = src.y;
+                    tar.scaleX = src.scaleX;
+                    tar.scaleY = src.scaleY;
+                    tar.alpha = src.alpha;
+                    tar.visible = src.visible;
+                }
+                captureDefState(tutObject) {
+                    this.defRot = this.rotation;
+                    this.defX = this.x;
+                    this.defY = this.y;
+                    this.defWidth = this.scaleX;
+                    this.defHeight = this.scaleY;
+                    this.defAlpha = this.alpha;
+                    for (let subObject in tutObject) {
+                        if (subObject != "_instance" && tutObject[subObject]._instance instanceof TObject) {
+                            if (this.traceMode)
+                                CUtil_41.CUtil.trace("capturing: " + tutObject[subObject]._instance.name);
+                            tutObject[subObject]._instance.captureDefState(tutObject[subObject]);
+                        }
+                    }
+                }
+                restoreDefState(tutObject) {
+                    this.rotation = this.defRot;
+                    this.scaleX = this.defWidth;
+                    this.scaleY = this.defHeight;
+                    this.x = this.defX;
+                    this.y = this.defY;
+                    this.alpha = this.defAlpha;
+                    for (let subObject in tutObject) {
+                        if (subObject != "_instance" && tutObject[subObject]._instance instanceof TObject) {
+                            if (this.traceMode)
+                                CUtil_41.CUtil.trace("restoring: " + tutObject[subObject]._instance.name);
+                            tutObject[subObject]._instance.restoreDefState(tutObject[subObject]);
+                        }
+                    }
+                }
+                isTweenable() {
+                    return this.bTweenable;
+                }
+                isSubTweenable() {
+                    return this.bSubTweenable;
+                }
+                captureLogState(obj = null) {
+                    if (obj == null)
+                        obj = {};
+                    return obj;
+                }
+                captureXMLState() {
+                    let nullXML = '<null/>';
+                    return nullXML;
+                }
+                restoreXMLState(xmlState) {
+                }
+                compareXMLState(xmlState) {
+                    return false;
+                }
+                createLogAttr(objprop, restart = false) {
+                    let sResult;
+                    if (!this.hasOwnProperty(objprop))
+                        sResult = "undefined";
+                    else
+                        sResult = this[objprop];
+                    return sResult;
+                }
+                measure() {
+                }
+                initAutomation(_parentScene, sceneObj, ObjIdRef, lLogger, lTutor) {
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("TObject initAutomation:");
+                    let subObj;
+                    let wozObj;
+                    this.objID = ObjIdRef + name;
+                    for (let i1 = 0; i1 < this.numChildren; i1++) {
+                        subObj = this.getChildAt(i1);
+                        sceneObj[subObj.name] = {};
+                        sceneObj[subObj.name]._instance = subObj;
+                        if (subObj instanceof TObject || subObj instanceof TObjectDyno_1.TObjectDyno) {
+                            subObj.parentScene = _parentScene;
+                            if (subObj instanceof TObject)
+                                subObj.measure();
+                        }
+                        sceneObj[subObj.name]['inPlace'] = { X: subObj.x, Y: subObj.y, Width: subObj.scaleX, Height: subObj.scaleY, Alpha: subObj.alpha };
+                        if (this.traceMode)
+                            CUtil_41.CUtil.trace("\t\tTObject found subObject named:" + subObj.name);
+                        if (subObj instanceof TObject) {
+                            wozObj = subObj;
+                            wozObj.initAutomation(_parentScene, sceneObj[subObj.name], this.objID + ".", lLogger, lTutor);
+                        }
+                        if (subObj instanceof TObjectDyno_1.TObjectDyno) {
+                            let wozDynoObj = subObj;
+                            wozDynoObj.initAutomation(_parentScene, sceneObj[subObj.name], this.objID + ".", lLogger, lTutor);
+                        }
+                    }
+                }
+                setAutomationMode(sceneObj, sMode) {
+                    this.sAuto = sMode;
+                    for (let subObj in sceneObj) {
+                        if (subObj != "_instance" && sceneObj[subObj]._instance instanceof TObject) {
+                            sceneObj[subObj]._instance.setAutomationMode(sceneObj[subObj], sMode);
+                        }
+                    }
+                }
+                dumpSubObjs(sceneObj, Indent) {
+                    for (let subObj in sceneObj) {
+                        if (this.traceMode)
+                            CUtil_41.CUtil.trace(Indent + "\tsubObj : " + subObj);
+                        if (subObj != "_instance") {
+                            let ObjData = sceneObj[subObj];
+                            if (sceneObj[subObj]._instance instanceof TObject) {
+                                if (this.traceMode)
+                                    CUtil_41.CUtil.trace(Indent + "\t");
+                                let wozObj = sceneObj[subObj]._instance;
+                                if (ObjData['inPlace'] != undefined) {
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace(Indent + "\tCEF* Object: " + " x: " + wozObj.x + " y: " + wozObj.y + " width: " + wozObj.scaleX + " height: " + wozObj.scaleY + " alpha: " + wozObj.alpha + " visible: " + wozObj.visible + " name: " + wozObj.name);
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace(Indent + "\tIn-Place Pos: " + " X: " + ObjData['inPlace'].X + " Y: " + ObjData['inPlace'].Y + " Width: " + ObjData['inPlace'].scaleX + " Height: " + ObjData['inPlace'].scaleY + " Alpha: " + ObjData['inPlace'].Alpha);
+                                }
+                                sceneObj[subObj]._instance.dumpSubObjs(sceneObj[subObj], Indent + "\t");
+                            }
+                            else {
+                                let disObj = sceneObj[subObj]._instance;
+                                if (ObjData['inPlace'] != undefined) {
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace(Indent + "\tFlash Object: " + " x: " + disObj.x + " y: " + disObj.y + " width: " + disObj.scaleX + " height: " + disObj.scaleY + " alpha: " + disObj.alpha + " visible: " + disObj.visible + " name: " + disObj.name);
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace(Indent + "\tIn-Place Pos: " + " X: " + ObjData['inPlace'].X + " Y: " + ObjData['inPlace'].Y + " Width: " + ObjData['inPlace'].scaleX + " Height: " + ObjData['inPlace'].scaleY + " Alpha: " + ObjData['inPlace'].Alpha);
+                                }
+                            }
+                        }
+                        else {
+                            if (this.traceMode)
+                                CUtil_41.CUtil.trace(Indent + "Parent Object : " + sceneObj + " visible: " + sceneObj[subObj].visible);
+                        }
+                    }
+                }
+                set isChecked(sval) {
+                    this._ischecked = sval;
+                }
+                get isChecked() {
+                    return this._ischecked;
+                }
+                set checked(bval) {
+                    this._ischecked = (bval) ? "true" : "false";
+                }
+                get checked() {
+                    return (this._ischecked == "true") ? true : false;
+                }
+                set isValid(sval) {
+                    this._isvalid = sval;
+                }
+                get isValid() {
+                    return this._isvalid;
+                }
+                assertFeatures() {
+                    return "";
+                }
+                retractFeatures() {
+                }
+                get tallyValid() {
+                    return "0";
+                }
+                addFeature(_feature, _name) {
+                    this.assertFeature(_feature, _name);
+                }
+                delFeature(_feature, _name) {
+                    this.retractFeature(_feature, _name);
+                }
+                assertFeature(_feature, _name) {
+                    this.tutorDoc.addFeature(_feature, _name);
+                }
+                retractFeature(_feature, _name) {
+                    this.tutorDoc.delFeature(_feature, _name);
+                }
+                set valid(bval) {
+                    this._isvalid = (bval) ? "true" : "false";
+                }
+                get valid() {
+                    return (this._isvalid == "true") ? true : false;
+                }
+                wozMouseClick(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozMouseMove(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozMouseDown(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozMouseUp(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozMouseOver(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozMouseOut(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozKeyDown(evt) {
+                    this.dispatchEvent(evt);
+                }
+                wozKeyUp(evt) {
+                    this.dispatchEvent(evt);
+                }
+                decodeTarget(baseObj, objArray) {
+                    let tmpObject = baseObj;
+                    let subObject;
+                    subObject = objArray.shift();
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("decoding: " + subObject);
+                    if (subObject != "this") {
+                        tmpObject = baseObj[subObject];
+                        if (objArray.length)
+                            tmpObject = this.decodeTarget(tmpObject, objArray);
+                    }
+                    return tmpObject;
+                }
+                parseOBJLog(tarObj, element) {
+                    let objArray;
+                    let dataStr;
+                    let attrName;
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("Processing: " + element.localName() + " - named: " + element.named);
+                    objArray = element.objname.split(".");
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("Target Array: " + objArray[0]);
+                    if (objArray.length)
+                        tarObj = this.decodeTarget(tarObj, objArray);
+                    if (element.objprop != undefined) {
+                        dataStr = tarObj.createLogAttr(element.objprop);
+                    }
+                    else if (element.objmethod != undefined) {
+                        dataStr = tarObj.runXMLFunction(tarObj, element);
+                    }
+                    attrName = this.constructLogName(element.logattr);
+                    this.tutorDoc._phaseData[attrName] = {};
+                    this.tutorDoc._phaseData[attrName]['value'] = dataStr;
+                    this.tutorDoc._phaseData[attrName]["start"] = this.tutorDoc.tutorContainer.timeStamp.getStartTime("dur_" + name);
+                    this.tutorDoc._phaseData[attrName]["duration"] = this.tutorDoc.tutorContainer.timeStamp.createLogAttr("dur_" + name);
+                    this.tutorDoc._sceneData[element.logattr] = dataStr;
+                    this.tutorDoc._sceneData['phasename'] = element.logid.toString();
+                    try {
+                        this.tutorDoc._sceneData['Rule0'] = this.tutorDoc.tutorContainer.ktSkills['rule0'].queryBelief();
+                        this.tutorDoc._sceneData['Rule1'] = this.tutorDoc.tutorContainer.ktSkills['rule1'].queryBelief();
+                        this.tutorDoc._sceneData['Rule2'] = this.tutorDoc.tutorContainer.ktSkills['rule2'].queryBelief();
+                    }
+                    catch (err) {
+                        CUtil_41.CUtil.trace("Error - CVS Skills not defined:" + err);
+                    }
+                    return;
+                }
+                constructLogName(attr) {
+                    let attrName = "L00000";
+                    let frame;
+                    frame = this.tutorDoc._framendx.toString();
+                    attrName = name + "_" + attr + "_" + this.tutorDoc.tutorContainer.gNavigator.iteration.toString();
+                    return attrName;
+                }
+                setXMLProperty(tarObj, tarXML) {
+                    if (this.traceMode)
+                        CUtil_41.CUtil.trace("Processing: " + tarXML.localName() + " - named: " + tarXML.named + "- value: " + tarXML.value);
+                    if (tarObj.hasOwnProperty(tarXML.prop)) {
+                        let parmDef = tarXML.value.split(":");
+                        if (parmDef[1] != "null") {
+                            if (parmDef[1] == "Array") {
+                                tarObj[tarXML.prop] = parmDef[0].split(",");
+                            }
+                            else {
+                                let tClass = CUtil_41.CUtil.getConstructorByName("moduleName", parmDef[1]);
+                                let value = parmDef[0];
+                                tarObj[tarXML.prop] = new tClass(value);
+                            }
+                        }
+                        else
+                            tarObj[tarXML.prop] = null;
+                    }
+                }
+                runXMLFunction(tarObj, tarXML) {
+                    let i1 = 1;
+                    let tClass;
+                    let value;
+                    let objArray;
+                    let parmDef;
+                    let parms = new Array;
+                    while (tarXML["parm" + i1] != undefined) {
+                        parmDef = tarXML["parm" + i1].split(":");
+                        if (parmDef[1] == "symbol") {
+                            objArray = parmDef[0].split(".");
+                            if (objArray.length)
+                                parms.push(this.decodeTarget(tarObj, objArray));
+                        }
+                        else if (parmDef[1] != "null") {
+                            tClass = CUtil_41.CUtil.getConstructorByName("moduleName", parmDef[1]);
+                            value = parmDef[0];
+                            parms.push(new tClass(value));
+                        }
+                        else
+                            parms.push(null);
+                        i1++;
+                    }
+                    if (tarXML.cmnd != undefined)
+                        return tarObj[tarXML.cmnd].apply(tarObj, (parms));
+                    if (tarXML.objmethod != undefined)
+                        return tarObj[tarXML.objmethod].apply(tarObj, (parms));
+                }
+                parseOBJ(tarObj, factoryOBJ, factoryType) {
+                    let tarObject;
+                    let childList;
+                    let objArray;
+                    let propName;
+                    for (propName in factoryOBJ) {
+                        tarObject = tarObj;
+                        if (factoryOBJ[propName].features != undefined) {
+                            if (!this.tutorDoc.tutorContainer.testFeatureSet(factoryOBJ[propName].features))
+                                continue;
+                        }
+                        try {
+                            switch (propName) {
+                                case "common":
+                                    break;
+                                case "log":
+                                    this.parseOBJLog(tarObject, propName);
+                                    break;
+                                case "obj":
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace("Processing: " + propName + " - named: " + propName.named);
+                                    try {
+                                        objArray = propName.named.split(".");
+                                        if (this.traceMode)
+                                            CUtil_41.CUtil.trace("Target Array: " + objArray[0]);
+                                        if (objArray.length)
+                                            tarObject = this.decodeTarget(tarObject, objArray);
+                                        childList = propName.children();
+                                        if (childList.length > 0)
+                                            this.parseOBJ(tarObject, childList, "obj");
+                                        if (propName.prop != undefined) {
+                                            this.setXMLProperty(tarObject, propName);
+                                        }
+                                        else if (propName.cmnd != undefined) {
+                                            this.runXMLFunction(tarObject, propName);
+                                        }
+                                    }
+                                    catch (err) {
+                                        if (this.traceMode)
+                                            CUtil_41.CUtil.trace("Invalid 'obj' target");
+                                    }
+                                    break;
+                                case "props":
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace("Processing: " + propName + " - named: " + propName.named + "- value: " + propName.value);
+                                    this.setXMLProperty(tarObject, propName);
+                                    break;
+                                case "cmnds":
+                                    if (this.traceMode)
+                                        CUtil_41.CUtil.trace("Processing: " + propName + " - named: " + propName.named + "- value: " + propName.value);
+                                    this.runXMLFunction(tarObject, propName);
+                                    break;
+                                case "symbol":
+                                    try {
+                                        objArray = propName.named.split(".");
+                                        if (this.traceMode)
+                                            CUtil_41.CUtil.trace("Target Array: " + objArray[0]);
+                                        if (objArray.length)
+                                            tarObject = this.decodeTarget(tarObject, objArray);
+                                    }
+                                    catch (err) {
+                                        CUtil_41.CUtil.trace("ParseXML Symbol named: " + propName.named + " not found.");
+                                        tarObject = null;
+                                    }
+                                    if (tarObject != null) {
+                                        tarObject.loadXML(propName);
+                                    }
+                                    break;
+                                case "object":
+                                    break;
+                                case "initself":
+                                    this.loadXML(propName);
+                                    break;
+                            }
+                        }
+                        catch (err) {
+                            CUtil_41.CUtil.trace("TObject:parseXML: " + err);
+                        }
+                    }
+                }
+                $(selector) {
+                    return new TSelector_1.TSelector(this, selector);
+                }
+                deSerializeObj(objData) {
+                    super.deSerializeObj(objData);
+                    this.xname = objData.xname || this.xname;
+                    this.x = objData.x || this.x;
+                    this.y = objData.y || this.y;
+                    this.visible = objData.visible || this.visible;
+                    this.alpha = objData.alpha || this.alpha;
+                    if (objData.mask != undefined) {
+                        this._hasClickMask = true;
+                        this.addChildAt(this.SclickMask, 0);
+                    }
+                }
+            };
+            exports_72("TObject", TObject);
+        }
+    };
+});
+System.register("events/CEFActionEvent", [], function (exports_73, context_73) {
+    "use strict";
+    var __moduleName = context_73 && context_73.id;
+    var Event, CEFActionEvent;
+    return {
+        setters: [],
+        execute: function () {
+            Event = createjs.Event;
+            CEFActionEvent = class CEFActionEvent extends Event {
+                constructor(type, Prop1, Prop2 = null, Prop3 = null, Prop4 = null, Prop5 = null, bubbles = false, cancelable = false) {
+                    super(type, bubbles, cancelable);
+                    this.prop1 = Prop1;
+                    this.prop2 = Prop2;
+                    this.prop3 = Prop3;
+                    this.prop4 = Prop4;
+                    this.prop5 = Prop5;
+                }
+                clone() {
+                    return new CEFActionEvent(this.type, this.prop1, this.prop2, this.prop3, this.prop4, this.prop5, this.bubbles, this.cancelable);
+                }
+            };
+            CEFActionEvent.CHKCMD = "chkcmd";
+            CEFActionEvent.STCCMD = "stccmd";
+            CEFActionEvent.INDCMD = "indcmd";
+            CEFActionEvent.RMPCMD = "rmpcmd";
+            CEFActionEvent.PMTCMD = "pmtcmd";
+            CEFActionEvent.NAVCMD = "navcmd";
+            CEFActionEvent.EFFECT = "effect";
+            exports_73("CEFActionEvent", CEFActionEvent);
+        }
+    };
+});
+System.register("events/CEFScriptEvent", [], function (exports_74, context_74) {
+    "use strict";
+    var __moduleName = context_74 && context_74.id;
+    var Event, CEFScriptEvent;
+    return {
+        setters: [],
+        execute: function () {
+            Event = createjs.Event;
+            CEFScriptEvent = class CEFScriptEvent extends Event {
+                constructor(type, _script, bubbles = false, cancelable = false) {
+                    super(type, bubbles, cancelable);
+                    this.script = _script;
+                }
+                clone() {
+                    return new CEFScriptEvent(this.type, this.script, this.bubbles, this.cancelable);
+                }
+            };
+            CEFScriptEvent.SCRIPT = "script";
+            exports_74("CEFScriptEvent", CEFScriptEvent);
+        }
+    };
+});
+System.register("events/CEFSeekEvent", ["util/CUtil"], function (exports_75, context_75) {
+    "use strict";
+    var __moduleName = context_75 && context_75.id;
+    var Event, CUtil_42, CEFSeekEvent;
+    return {
+        setters: [
+            function (CUtil_42_1) {
+                CUtil_42 = CUtil_42_1;
+            }
+        ],
+        execute: function () {
+            Event = createjs.Event;
+            CEFSeekEvent = class CEFSeekEvent extends Event {
+                constructor(type, SeekSeq, bubbles = false, cancelable = false) {
+                    super(type, bubbles, cancelable);
+                    this.wozSeekSeq = SeekSeq;
+                }
+                clone() {
+                    CUtil_42.CUtil.trace("cloning CEFSeekEvent:");
+                    return new CEFSeekEvent(this.type, this.wozSeekSeq, this.bubbles, this.cancelable);
+                }
+            };
+            CEFSeekEvent.SEEKFORWARD = "WOZSEEKF";
+            CEFSeekEvent.SEEKBACKWARD = "WOZSEEKB";
+            exports_75("CEFSeekEvent", CEFSeekEvent);
+        }
+    };
+});
+System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorContainer", "util/CONST", "util/CUtil"], function (exports_76, context_76) {
+    "use strict";
+    var __moduleName = context_76 && context_76.id;
+    var TObject_9, TTutorContainer_2, CONST_15, CUtil_43, DisplayObject, TSceneBase;
+    return {
+        setters: [
+            function (TObject_9_1) {
+                TObject_9 = TObject_9_1;
+            },
+            function (TTutorContainer_2_1) {
+                TTutorContainer_2 = TTutorContainer_2_1;
+            },
+            function (CONST_15_1) {
+                CONST_15 = CONST_15_1;
+            },
+            function (CUtil_43_1) {
+                CUtil_43 = CUtil_43_1;
+            }
+        ],
+        execute: function () {
+            DisplayObject = createjs.DisplayObject;
+            TSceneBase = class TSceneBase extends TObject_9.TObject {
+                constructor() {
+                    super();
+                    this.fComplete = false;
+                    this.sceneAttempt = 1;
+                    this._nextButton = null;
+                    this._prevButton = null;
+                    this.NDX_RAWTEMPLATE = 0;
+                    this.NDX_RAWSELECTOR = 1;
+                    this.NDX_SELECTORSIG = 2;
+                    this.NDX_SELECTOR = 3;
+                    this.NDX_OBJSELECTOR = 4;
+                    this.NDX_PROPSELECTOR = 5;
+                    this.init3();
+                }
+                TSceneBaseInitialize() {
+                    this.TObjectInitialize.call(this);
+                    this.init3();
+                }
+                initialize() {
+                    this.TObjectInitialize.call(this);
+                    this.init3();
+                }
+                init3() {
+                    this.traceMode = true;
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("TSceneBase:Constructor");
+                    this.sceneState = {};
+                    this.RX_SELECTOR = /(\$EF\w*?_)(.*)/;
+                    this.RX_TEMPLATES = /\{\{[^\}]*\}\}/g;
+                    this.RX_TEMPLTAGS = /\{\{|\}\}/g;
+                    this.RX_TEMPLATE = /{{[\$\w\.\?_\|]*}}/;
+                    this.RX_ONTQUERY = /{{\$EFO_([\w\.\?]*\|\w*)}}/;
+                    this.RX_GENSELECTOR = /{{((\$EF\w*?_)(([\w_\.\?]*)(\|?([\w_\?]*))*))}}/g;
+                    this.RX_GENTEMPLATE = /\{\{((\$EF\w*?_)(([\w_\?]*)\|([\w_\?]*)))\}\}/g;
+                    this.NDX_RAWTEMPLATE = 0;
+                    this.NDX_RAWSELECTOR = 1;
+                    this.NDX_SELECTORSIG = 2;
+                    this.NDX_SELECTOR = 3;
+                    this.NDX_OBJSELECTOR = 4;
+                    this.NDX_PROPSELECTOR = 5;
+                }
+                onCreate() {
+                    let dataElement;
+                    try {
+                        this.moduleData = this.tutorDoc.moduleData[this.hostModule][CONST_15.CONST.SCENE_DATA];
+                        this.sceneData = this.moduleData[this.sceneName];
+                        this.tutorNavigator = this.tutorDoc.tutorNavigator;
+                        this.tutorDoc.initializeStateData(this, this.name, this.sceneName, this.hostModule);
+                        this.$preCreateScene();
+                        for (let element in this.sceneData) {
+                            dataElement = this.sceneData[element];
+                            if (this[element] && this[element].deSerializeObj) {
+                                this[element].setContext(this.hostModule, this.ownerModule, this);
+                                this[element].deSerializeObj(dataElement);
+                                this[element].onCreate();
+                            }
+                            else {
+                                console.log(`Error: ObjData mismatch: Module-${this.hostModule}  Scene-${this.sceneName}  Element-${element}`);
+                            }
+                        }
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace(`Error in TSceneBase onCreate: ${this.sceneName} -- ${error}`);
+                    }
+                }
+                initUI() {
+                }
+                setBreadCrumbs(text) {
+                    this.tutorDoc.setBreadCrumbs(text);
+                }
+                enableNext(fEnable) {
+                    this.tutorDoc.enableNext(fEnable);
+                }
+                enableBack(fEnable) {
+                    this.tutorDoc.enableBack(fEnable);
+                }
+                setNavMode(navMode, navTarget) {
+                    this.tutorDoc.setNavMode(navMode, navTarget);
+                }
+                setSceneValue(property, value) {
+                    this.setStateValue(property, value, CONST_15.CONST.SCENESTATE);
+                }
+                setModuleValue(property, value) {
+                    this.setStateValue(property, value, CONST_15.CONST.MODULESTATE);
+                }
+                setTutorValue(property, value) {
+                    this.setStateValue(property, value, CONST_15.CONST.TUTORSTATE);
+                }
+                setStateValue(property, value, target = CONST_15.CONST.MODULESTATE) {
+                    switch (target) {
+                        case CONST_15.CONST.SCENESTATE:
+                            this.tutorDoc.assignProperty(this.tutorDoc.sceneState[this.name], property, value);
+                            this.tutorDoc.sceneChange[this.name][property] = true;
+                            break;
+                        case CONST_15.CONST.MODULESTATE:
+                            this.tutorDoc.assignProperty(this.tutorDoc.moduleState[this.hostModule], property, value);
+                            this.tutorDoc.moduleChange[this.hostModule][property] = true;
+                            break;
+                        case CONST_15.CONST.TUTORSTATE:
+                            this.tutorDoc.assignProperty(this.tutorDoc.tutorState, property, value);
+                            this.tutorDoc.tutorChange[property] = true;
+                            break;
+                    }
+                    this.pushStateEvent(property, value, target);
+                }
+                pushSceneEvent(property, value) {
+                    this.pushStateEvent(property, value, CONST_15.CONST.SCENESTATE);
+                }
+                pushModuleEvent(property, value) {
+                    this.pushStateEvent(property, value, CONST_15.CONST.MODULESTATE);
+                }
+                pushTutorEvent(property, value) {
+                    this.pushStateEvent(property, value, CONST_15.CONST.TUTORSTATE);
+                }
+                pushStateEvent(property, value, target = CONST_15.CONST.MODULESTATE) {
+                    switch (target) {
+                        case CONST_15.CONST.SCENESTATE:
+                            this.tutorDoc.pushEvent(this.tutorDoc.sceneState[this.name], property, value);
+                            break;
+                        case CONST_15.CONST.MODULESTATE:
+                            this.tutorDoc.pushEvent(this.tutorDoc.moduleState[this.hostModule], property, value);
+                            break;
+                        case CONST_15.CONST.TUTORSTATE:
+                            this.tutorDoc.pushEvent(this.tutorDoc.tutorState, property, value);
+                            break;
+                    }
+                }
+                getRawSceneValue(property) {
+                    return this.getRawStateValue(property, CONST_15.CONST.SCENESTATE);
+                }
+                getRawModuleValue(property) {
+                    return this.getRawStateValue(property, CONST_15.CONST.MODULESTATE);
+                }
+                getRawTutorValue(property) {
+                    return this.getRawStateValue(property, CONST_15.CONST.TUTORSTATE);
+                }
+                getRawStateValue(property, target = CONST_15.CONST.MODULESTATE) {
+                    let prop;
+                    switch (target) {
+                        case CONST_15.CONST.SCENESTATE:
+                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.sceneState[this.name], property);
+                            break;
+                        case CONST_15.CONST.MODULESTATE:
+                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.moduleState[this.hostModule], property);
+                            break;
+                        case CONST_15.CONST.TUTORSTATE:
+                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.tutorState, property);
+                            break;
+                    }
+                    return prop;
+                }
+                getSceneValue(property) {
+                    return this.getStateValue(property, CONST_15.CONST.SCENESTATE);
+                }
+                getModuleValue(property) {
+                    return this.getStateValue(property, CONST_15.CONST.MODULESTATE);
+                }
+                getTutorValue(property) {
+                    return this.getStateValue(property, CONST_15.CONST.TUTORSTATE);
+                }
+                getStateValue(property, target = CONST_15.CONST.MODULESTATE) {
+                    let prop;
+                    prop = this.getRawStateValue(property, target);
+                    prop = this.resolveTemplates(prop, null);
+                    return prop;
+                }
+                querySceneChange(property) {
+                    return this.queryValueChanged(property, CONST_15.CONST.SCENESTATE);
+                }
+                queryModuleChange(property) {
+                    return this.queryValueChanged(property, CONST_15.CONST.MODULESTATE);
+                }
+                queryTutorChange(property) {
+                    return this.queryValueChanged(property, CONST_15.CONST.TUTORSTATE);
+                }
+                queryValueChanged(property, target = CONST_15.CONST.MODULESTATE) {
+                    let prop;
+                    prop = this.getRawStateValue(property, target);
+                    return prop.changed;
+                }
+                testSceneValue(property, value) {
+                    return this.testStateValue(property, value, CONST_15.CONST.SCENESTATE);
+                }
+                testModuleValue(property, value) {
+                    return this.testStateValue(property, value, CONST_15.CONST.MODULESTATE);
+                }
+                testTutorValue(property, value) {
+                    return this.testStateValue(property, value, CONST_15.CONST.TUTORSTATE);
+                }
+                testStateValue(property, value, target = CONST_15.CONST.MODULESTATE) {
+                    let result = false;
+                    let prop;
+                    prop = this.getRawStateValue(property, target);
+                    result = prop === value;
+                    return result;
+                }
+                querySceneProp(property) {
+                    return this.queryStateProp(property, CONST_15.CONST.SCENESTATE);
+                }
+                queryModuleProp(property) {
+                    return this.queryStateProp(property, CONST_15.CONST.MODULESTATE);
+                }
+                queryTutorProp(property) {
+                    return this.queryStateProp(property, CONST_15.CONST.TUTORSTATE);
+                }
+                queryStateProp(property, target = CONST_15.CONST.MODULESTATE) {
+                    let prop;
+                    let valid = null;
+                    for (let i1 = 0; i1 < property.length; i1++) {
+                        prop = this.getRawStateValue(property[i1], target);
+                        valid = prop;
+                        if (!valid)
+                            break;
+                    }
+                    return valid ? true : false;
+                }
+                resolveTemplates(sourceStr, templateRef) {
+                    let result = sourceStr;
+                    let templArray;
+                    templArray = this.enumerateTemplates(this.RX_GENSELECTOR, sourceStr);
+                    if (templArray.length > 0) {
+                        result = this.composeScript(sourceStr, templArray, templateRef);
+                    }
+                    else {
+                        result = this.resolveSelector(sourceStr, templateRef) || sourceStr;
+                    }
+                    return result;
+                }
+                enumerateTemplates(regex, text) {
+                    let templArray = [];
+                    let templ;
+                    while ((templ = regex.exec(text)) !== null) {
+                        templArray.push(templ);
+                        templ.endIndex = regex.lastIndex;
+                    }
+                    return templArray;
+                }
+                composeScript(inst, templArray, templateRef) {
+                    let start = 0;
+                    let end = inst.length;
+                    let composition = "";
+                    if (templArray.length) {
+                        start = 0;
+                        for (let templ of templArray) {
+                            end = templ.index;
+                            if (start < end) {
+                                if (start > 0)
+                                    composition += " ";
+                                composition += inst.substring(start, end);
+                            }
+                            start = templ.index;
+                            end = templ.endIndex;
+                            if (start > 0)
+                                composition += " ";
+                            composition += this.resolveSelector(templ[this.NDX_RAWSELECTOR], templateRef);
+                            start = end;
+                        }
+                    }
+                    end = inst.length;
+                    if (start < end) {
+                        if (start > 0)
+                            composition += " ";
+                        composition += inst.substring(start, end);
+                    }
+                    return composition;
+                }
+                resolveSelector(selector, templateRef, targetThis = null) {
+                    let result = null;
+                    let selectorVal = this.RX_SELECTOR.exec(selector);
+                    if (selectorVal) {
+                        result = this.resolveRawSelector(selector, templateRef, targetThis);
+                        switch (selectorVal[1]) {
+                            case CONST_15.CONST.SCENESTATE_SELECTOR:
+                            case CONST_15.CONST.MODULESTATE_SELECTOR:
+                            case CONST_15.CONST.TUTORSTATE_SELECTOR:
+                                if (selector !== result)
+                                    result = this.resolveSelector(result, null);
+                                break;
+                        }
+                    }
+                    return result;
+                }
+                resolveRawSelector(selector, templateRef, targetThis = null) {
+                    let dataPath;
+                    let result = null;
+                    let selectorVal = this.RX_SELECTOR.exec(selector);
+                    if (selectorVal) {
+                        switch (selectorVal[1]) {
+                            case CONST_15.CONST.MODULEONTOLOGY_SELECTOR:
+                                result = this.resolveOntologyObject(selectorVal[2], this.tutorDoc.moduleData[this.hostModule][CONST_15.CONST.SCENE_DATA]._ONTOLOGY, templateRef);
+                                break;
+                            case CONST_15.CONST.GLOBALONTOLOGY_SELECTOR:
+                                result = this.resolveOntologyObject(selectorVal[2], this.tutorDoc.globalData._ONTOLOGY, templateRef);
+                                break;
+                            case CONST_15.CONST.TRACK_SELECTOR:
+                                result = targetThis[selectorVal[2]];
+                                break;
+                            case CONST_15.CONST.SCENESTATE_SELECTOR:
+                                result = this.getRawStateValue(selectorVal[2], CONST_15.CONST.SCENESTATE);
+                                break;
+                            case CONST_15.CONST.MODULESTATE_SELECTOR:
+                                result = this.getRawStateValue(selectorVal[2], CONST_15.CONST.MODULESTATE);
+                                break;
+                            case CONST_15.CONST.TUTORSTATE_SELECTOR:
+                                result = this.getRawStateValue(selectorVal[2], CONST_15.CONST.TUTORSTATE);
+                                break;
+                            case CONST_15.CONST.FOREIGNMODULE_SELECTOR:
+                                dataPath = selectorVal[2].split(".");
+                                let forMod = this.tutorDoc.moduleData[dataPath[1]];
+                                if (!forMod) {
+                                    console.log("Error: module for Foreign-Reference missing!");
+                                    throw ("missing module");
+                                }
+                                result = forMod[CONST_15.CONST.SCENE_DATA]._LIBRARY[dataPath[2]][dataPath[3]];
+                                break;
+                            case CONST_15.CONST.MODULELIBRARY_SELECTOR:
+                                result = this.resolveObject(this.tutorDoc.moduleData[this.hostModule][CONST_15.CONST.SCENE_DATA]._LIBRARY, selectorVal[2]);
+                                break;
+                            case CONST_15.CONST.GLOBALLIBRARY_SELECTOR:
+                                break;
+                        }
+                    }
+                    return result;
+                }
+                resolveObject(baseObj, objPath) {
+                    let dataPath = objPath.split(".");
+                    try {
+                        dataPath.forEach((element) => {
+                            baseObj = baseObj[element];
+                        });
+                    }
+                    catch (err) {
+                        console.log("Object Resolution Error: " + err);
+                    }
+                    return baseObj;
+                }
+                resolveOntologyObject(oSelector, ontologyRoot, templateRef) {
+                    let result = oSelector;
+                    let ontologyPath = [];
+                    if (oSelector) {
+                        this.resolveOntologyKey(oSelector, templateRef);
+                        let vArray = oSelector.split("|");
+                        let qArray = vArray[0].split("_");
+                        for (let index = 0; index < qArray.length; index++) {
+                            let pathEl = qArray[index].includes("?") ? this._ontologyKey[index] : qArray[index];
+                            ontologyPath.push(pathEl);
+                            ontologyRoot = ontologyRoot[pathEl];
+                        }
+                        this._ontologyPath = ontologyPath.join("_");
+                        if (vArray[1]) {
+                            result = ontologyRoot[vArray[1]];
+                            this._ontologyPath += "|" + vArray[1];
+                        }
+                        else {
+                            result = ontologyRoot;
+                        }
+                    }
+                    return result;
+                }
+                addFeaturebyQuery(_selector, _name) {
+                    let value = this.resolveOntologyObject(_selector, this.tutorDoc.moduleData[this.hostModule][CONST_15.CONST.SCENE_DATA]._ONTOLOGY, "");
+                    this.addFeature(value, _name);
+                }
+                effectHandler(evt) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Effect Event: " + evt);
+                    this[evt.prop1](evt.prop2, evt.prop3, evt.prop4, evt.prop5);
+                }
+                scriptHandler(evt) {
+                    var fTest = true;
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Effect Event: " + evt);
+                    if (evt.script.features != undefined) {
+                        fTest = this.tutorDoc.tutorContainer.testFeatureSet(String(evt.script.features));
+                    }
+                    if (fTest)
+                        this.parseOBJ(this, evt.script.children(), "script");
+                }
+                logSceneTag() {
+                    return { 'scenetag': this.sceneTag, 'attempt': this.sceneAttempt++ };
+                }
+                initAutomation(_parentScene, sceneAutoObj, ObjIdRef, lLogger, lTutor) {
+                    let propName;
+                    let childName;
+                    let childObj;
+                    let wozObj;
+                    this.onCreate();
+                    let nonTObj = Object.getOwnPropertyNames(_parentScene);
+                    for (propName of nonTObj) {
+                        childObj = _parentScene[propName];
+                        if (childObj instanceof TTutorContainer_2.TTutorContainer)
+                            continue;
+                        if (childObj instanceof TObject_9.TObject) {
+                            childObj.parentScene = _parentScene;
+                            childObj.measure();
+                        }
+                        if (childObj instanceof DisplayObject) {
+                            if (!childObj.xname || childObj.xname.startsWith(CONST_15.CONST.XNAME_SIG)) {
+                                if (this.isAnchor) {
+                                    childObj.xname = this.name + (childObj.name ? childObj.name : childObj.id);
+                                }
+                                else if (this.copyOf && this.copyOf !== "") {
+                                    childObj.xname = this.copyOf + (childObj.name ? childObj.name : childObj.id);
+                                }
+                            }
+                            if (childObj.name)
+                                childName = childObj.name;
+                            else
+                                childName = propName;
+                            sceneAutoObj[childName] = {};
+                            sceneAutoObj[childName]._instance = childObj;
+                            sceneAutoObj[childName].inPlace = childObj._cloneProps({});
+                            if (this.traceMode)
+                                CUtil_43.CUtil.trace("\t\tTScene found subObject named:" + childName + " ... in-place: ");
+                            if (childObj instanceof TObject_9.TObject) {
+                                wozObj = childObj;
+                                wozObj.initAutomation(_parentScene, sceneAutoObj[childName], name + ".", lLogger, lTutor);
+                            }
+                            if (this.traceMode)
+                                for (var id in sceneAutoObj[childName].inPlace) {
+                                    CUtil_43.CUtil.trace("\t\t\t\t" + id + " : " + sceneAutoObj[childName].inPlace[id]);
+                                }
+                        }
+                    }
+                    this.$onCreateScene();
+                    this.$updateNav();
+                }
+                captureDefState(TutScene) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("\t*** Start Capture - Walking Top Level Objects***");
+                    for (var sceneObj in TutScene) {
+                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_9.TObject) {
+                            if (this.traceMode)
+                                CUtil_43.CUtil.trace("capturing: " + TutScene[sceneObj]._instance.name);
+                            TutScene[sceneObj]._instance.captureDefState(TutScene[sceneObj]);
+                        }
+                    }
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("\t*** End Capture - Walking Top Level Objects***");
+                }
+                restoreDefState(TutScene) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("\t*** Start Restore - Walking Top Level Objects***");
+                    for (var sceneObj in TutScene) {
+                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_9.TObject) {
+                            if (this.traceMode)
+                                CUtil_43.CUtil.trace("restoring: " + TutScene[sceneObj]._instance.name);
+                            TutScene[sceneObj]._instance.restoreDefState(TutScene[sceneObj]);
+                        }
+                    }
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("\t*** End Restore - Walking Top Level Objects***");
+                }
+                setObjMode(TutScene, sMode) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("\t*** Start - Walking Top Level Objects***");
+                    for (var sceneObj in TutScene) {
+                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_9.TObject) {
+                            TutScene[sceneObj]._instance.setAutomationMode(TutScene[sceneObj], sMode);
+                        }
+                    }
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("\t*** End - Walking Top Level Objects***");
+                }
+                dumpSceneObjs(TutScene) {
+                    for (var sceneObj in TutScene) {
+                        if (this.traceMode)
+                            CUtil_43.CUtil.trace("\tSceneObj : " + sceneObj);
+                        if (sceneObj != "_instance" && TutScene[sceneObj]._instance instanceof TObject_9.TObject) {
+                            if (this.traceMode)
+                                CUtil_43.CUtil.trace("\tCEF***");
+                            TutScene[sceneObj]._instance.dumpSubObjs(TutScene[sceneObj], "\t");
+                        }
+                    }
+                }
+                handleEvent(target) {
+                    this.$handleEvent(target);
+                    this.$updateNav();
+                }
+                onSelect(target) {
+                    this.$onSelect(target);
+                    this.$updateNav();
+                }
+                onAction(target, evt) {
+                    this.$onAction(target, evt);
+                    this.$updateNav();
+                }
+                sceneReplay(evt) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("sceneReplay: " + evt);
+                    this.rewindScene();
+                    try {
+                        this.$preEnterScene();
+                        this.tutorDoc.$preEnterScene(this);
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("sceneReplay preenter error on scene: " + this.name + " - " + error);
+                    }
+                    this.trackPlay();
+                }
+                trackPlay() {
+                }
+                rewindScene() {
+                    try {
+                        this.$rewindScene();
+                        this.$demoIinitScene();
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("Error in rewindScene script: ");
+                    }
+                }
+                showScene() {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Base showScene Behavior: " + this.name);
+                    try {
+                        this.$preShowScene();
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("preShowScene error on scene: " + this.name + " - " + error);
+                    }
+                }
+                hideScene() {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Base showScene Behavior: " + this.name);
+                    try {
+                        this.$preHideScene();
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("preHideScene error on scene: " + this.name + " - " + error);
+                    }
+                }
+                preEnterScene(lTutor, sceneLabel, sceneTitle, scenePage, Direction) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Base preenter Scene Behavior: " + this.name);
+                    try {
+                        this.$preEnterScene();
+                        this.tutorDoc.$preEnterScene(this);
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("preenter error on scene: " + this.name + " - " + error);
+                    }
+                    return sceneLabel;
+                }
+                onEnterScene(Direction) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Base onenter Scene Behavior:" + this.name);
+                    try {
+                        this.$onEnterScene();
+                        this.$updateNav();
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("onenter error on scene: " + this.name + " - " + error);
+                    }
+                }
+                preExitScene(Direction, sceneCurr) {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Base preexit Scene Behavior:" + this.name);
+                    try {
+                        this.$preExitScene();
+                        this.tutorDoc.$preExitScene(this);
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("preexit error on scene: " + this.name + " - " + error);
+                    }
+                    return (CONST_15.CONST.OKNAV);
+                }
+                onExitScene() {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Base onexit Scene Behavior:" + this.name);
+                    try {
+                        if (this.$terminateScene) {
+                            if (this.tutorDoc.testFeatureSet(this.$features)) {
+                                this.enQueueTerminateEvent();
+                            }
+                            else {
+                                this.enQueueTerminateEvent();
+                            }
+                        }
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("enQueueTerminateEvent error on scene: " + this.name + " - " + error);
+                    }
+                    try {
+                        this.$logScene();
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("logging error on scene: " + this.name + " - " + error);
+                    }
+                    try {
+                        this.$onExitScene();
+                    }
+                    catch (error) {
+                        CUtil_43.CUtil.trace("onexit error on scene: " + this.name + " - " + error);
+                    }
+                }
+                demoBehavior() {
+                    if (this.traceMode)
+                        CUtil_43.CUtil.trace("Default demoBehavior: ");
+                }
+                initSeekArrays() {
+                }
+                doSeekForward(evt) {
+                    switch (evt.wozSeekSeq) {
+                    }
+                }
+                doSeekBackward(evt) {
+                }
+            };
+            exports_76("TSceneBase", TSceneBase);
+        }
+    };
+});
+System.register("core/IEFTutorDoc", [], function (exports_77, context_77) {
+    "use strict";
+    var __moduleName = context_77 && context_77.id;
+    return {
+        setters: [],
+        execute: function () {
         }
     };
 });
@@ -10433,7 +10568,7 @@ System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil
                         console.log("Tutor Construction Complete");
                     }
                     catch (error) {
-                        console.log("Tutor Construction Failed:  " + error.toString());
+                        console.log("Tutor Construction Failed: " + error.toString());
                     }
                 }
             };
@@ -13282,7 +13417,7 @@ System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "uti
                 highlightNone() {
                     for (let row = 0; row < this.cellData.length; row++) {
                         for (let col = 0; col < this.cellData[row].length; col++) {
-                            this.cellData[row][col].cell.style.background = "";
+                            this.cellData[row][col].cell.setAttribute("style", "background-color:");
                         }
                     }
                 }
@@ -13298,7 +13433,8 @@ System.register("thermite/THtmlTable", ["thermite/THtmlBase", "util/CUtil", "uti
                     for (let row = top; row <= bottom; row++) {
                         for (let col = left; col <= right; col++) {
                             let cell = this.cellData[row][col].cell;
-                            cell.style.background = bgcolor;
+                            bgcolor = bgcolor.slice(0, 7);
+                            this.cellData[row][col].cell.setAttribute("style", "background-color:" + bgcolor);
                         }
                     }
                 }

@@ -41,6 +41,32 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 	}
 
 
+(lib.TC_TObject__ButtonHL = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#00CCFF").ss(11.1,1,1).dr(-572,-67,1144,134);
+	this.shape.setTransform(572,67);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TObject__ButtonHL, new cjs.Rectangle(-5.5,-5.5,1155,145), null);
+
+
+(lib.TC_TClickMask__3butMask = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("rgba(255,255,255,0.008)").s().dr(-576,-225,1152,450);
+	this.shape.setTransform(576,225);
+
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TClickMask__3butMask, new cjs.Rectangle(0,0,1152,450), null);
+
+
 (lib.TC_TScene__SceneEnd = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -2506,6 +2532,27 @@ p.nominalBounds = new cjs.Rectangle(-3.5,-3.5,693.5,382.3);
 }).prototype = getMCSymbolPrototype(lib.TC_TScene__SceneStart, new cjs.Rectangle(0,0,1920.1,1200.1), null);
 
 
+(lib.TC_TScene__SceneBL = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_2
+	this.StitleBL = new lib.TC_THtmlText__Text1();
+	this.StitleBL.name = "StitleBL";
+	this.StitleBL.parent = this;
+	this.StitleBL.setTransform(1026.6,492.5,14.538,4.15,0,0,0,50.1,50.1);
+
+	this.timeline.addTween(cjs.Tween.get(this.StitleBL).wait(1));
+
+	// SceneRegion
+	this.instance = new lib.TC_TVirtual__SceneRgn();
+	this.instance.parent = this;
+	this.instance.setTransform(960,600,1,1,0,0,0,960,600);
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.TC_TScene__SceneBL, new cjs.Rectangle(0,0,1920.1,1200.1), null);
+
+
 (lib.TC_TScene__Scene11 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -3044,16 +3091,10 @@ p.nominalBounds = new cjs.Rectangle(-2,-3.5,1090.9,188.7);
 	this.Sbutton4.setTransform(375.1,875.4,1.118,0.497);
 	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
 
-	this.Sbutton3 = new lib.TC_THtmlButton__VarSelector();
-	this.Sbutton3.name = "Sbutton3";
-	this.Sbutton3.parent = this;
-	this.Sbutton3.setTransform(375.1,741,1.118,0.497);
-	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
-
 	this.Sbutton2 = new lib.TC_THtmlButton__VarSelector();
 	this.Sbutton2.name = "Sbutton2";
 	this.Sbutton2.parent = this;
-	this.Sbutton2.setTransform(375.1,606.6,1.118,0.497);
+	this.Sbutton2.setTransform(375.1,673.8,1.118,0.497);
 	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
 
 	this.Sbutton1 = new lib.TC_THtmlButton__VarSelector();
@@ -3067,7 +3108,7 @@ p.nominalBounds = new cjs.Rectangle(-2,-3.5,1090.9,188.7);
 	this.Stitle.parent = this;
 	this.Stitle.setTransform(1011.9,242.6,14.529,2.293,0,0,0,49.4,50.2);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton4}]}).wait(1));
 
 	// SceneRegion
 	this.instance = new lib.TC_TVirtual__SceneRgn();
@@ -3083,6 +3124,16 @@ p.nominalBounds = new cjs.Rectangle(-2,-3.5,1090.9,188.7);
 	this.initialize(mode,startPosition,loop,{});
 
 	// Layer_2
+	this.SclickMask = new lib.TC_TClickMask__3butMask();
+	this.SclickMask.name = "SclickMask";
+	this.SclickMask.parent = this;
+	this.SclickMask.setTransform(981,795.9,1,1,0,0,0,576,225);
+
+	this.SbuttonHL = new lib.TC_TObject__ButtonHL();
+	this.SbuttonHL.name = "SbuttonHL";
+	this.SbuttonHL.parent = this;
+	this.SbuttonHL.setTransform(982,486,1,1,0,0,0,572,67);
+
 	this.Sbutton4 = new lib.TC_THtmlButton__VarSelector();
 	this.Sbutton4.name = "Sbutton4";
 	this.Sbutton4.parent = this;
@@ -3112,7 +3163,7 @@ p.nominalBounds = new cjs.Rectangle(-2,-3.5,1090.9,188.7);
 	this.Stitle.parent = this;
 	this.Stitle.setTransform(1006.9,243,14.601,2.304,0,0,0,49.3,50.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4},{t:this.SbuttonHL},{t:this.SclickMask}]}).wait(1));
 
 	// SceneRegion
 	this.instance = new lib.TC_TVirtual__SceneRgn();

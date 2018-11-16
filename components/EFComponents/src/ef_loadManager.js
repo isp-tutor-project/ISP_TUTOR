@@ -47,6 +47,21 @@ var EFSoundEvent = function(evt) {
         EFLoadManager.trackEvent.call(EFLoadManager.trackOwner, evt);
 }
 
+// push the tutor state into the running tutor engine
+// 
+var EFPushState = function(stateData) {
+
+    if(EFLoadManager.pushState)
+        EFLoadManager.pushState.call(EFLoadManager.engine, stateData);
+}
+
+// push the tutor features into the running tutor engine
+// 
+var EFPushFeatures = function(featureData) {
+
+    if(EFLoadManager.pushFeatures)
+        EFLoadManager.pushFeatures.call(EFLoadManager.engine, featureData);
+}
 
 // We impersonate JQuery to get the Adobe loader to call our attach routine.
 // 

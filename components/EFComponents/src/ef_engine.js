@@ -1,4 +1,6 @@
 
+var EFtutorFeatures = EFtutorFeatures || "";
+
 (function(_EFLoadManager) {    
 
 	// Register a component with the className: my.Image,
@@ -73,8 +75,9 @@
 		//
 		attach: function(){
 
-			_EFLoadManager.efStage   = stage;
-			_EFLoadManager.efRoot    = exportRoot;				
+			_EFLoadManager.efStage    = stage;
+			_EFLoadManager.efRoot     = exportRoot;				
+            _EFLoadManager.efFeatures = EFtutorFeatures;	            			
 
 			System.import('TutorEngineOne').then(function(TutorEngineOne){
                     EFTutorEngine = new TutorEngineOne.CEngine;  

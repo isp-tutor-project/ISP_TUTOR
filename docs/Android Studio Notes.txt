@@ -1,0 +1,14 @@
+
+
+Using adb on Ethernet:
+
+C:\Users\kevin>adb tcpip 5555
+restarting in TCP mode port: 5555
+
+C:\Users\kevin>adb connect 10.0.0.101
+connected to 10.0.0.101:5555
+
+C:\Users\kevin>adb devices
+List of devices attached
+10.0.0.101:5555 device
+
