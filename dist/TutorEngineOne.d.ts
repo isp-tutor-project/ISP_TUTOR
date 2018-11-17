@@ -1739,13 +1739,13 @@ declare module "core/CEFTutorDoc" {
         features: string;
         addFeature(_feature: string, _id: string): void;
         delFeature(_feature: string, _id: string): void;
+        getFeaturesById(_id: string): string;
         private includes(ftrObj, ftr);
         private testFeature(element, index, arr);
         testFeatures(features: string): boolean;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
         logTutorState(scene: TSceneBase): void;
-        private Kludge_TranslateKeys();
         logTutorProgress(scene: string): void;
     }
 }
@@ -2402,6 +2402,7 @@ declare module "thermite/TObject" {
         readonly tallyValid: string;
         addFeature(_feature: string, _name?: string): void;
         delFeature(_feature: string, _name?: string): void;
+        getFeaturesById(_id: string): string;
         assertFeature(_feature: string, _name?: string): void;
         retractFeature(_feature: string, _name?: string): void;
         valid: boolean;
@@ -2699,6 +2700,7 @@ declare module "core/IEFTutorDoc" {
         features: string;
         addFeature(feature: string, _id?: string): void;
         delFeature(feature: string, _id?: string): void;
+        getFeaturesById(_id: string): string;
         testFeatures(features: string): boolean;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;

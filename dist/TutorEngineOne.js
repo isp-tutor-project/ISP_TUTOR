@@ -5637,7 +5637,8 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                             this.userID = EFLoadManager.nativeUserMgr.getUserId();
                         }
                         else {
-                            this.userID = "KEVINWI_DEC_27";
+                            this.userID = "GUESTBL_JAN_1";
+                            this.addFeature("FTR_WEB", null);
                         }
                         if (this.tutorStateData) {
                             this.normalizeStateData();
@@ -6146,6 +6147,17 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                         delete this.fFeatures[_feature];
                     }
                 }
+                getFeaturesById(_id) {
+                    let cnt = 0;
+                    let features = "";
+                    for (let ftr in this.featureID[_id]) {
+                        if (cnt > 0) {
+                            features += ":";
+                        }
+                        features += ftr;
+                    }
+                    return features;
+                }
                 includes(ftrObj, ftr) {
                     let result = false;
                     for (let fElement in ftrObj) {
@@ -6200,46 +6212,31 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     CUtil_33.CUtil.trace(this.fFeatures);
                 }
                 logTutorState(scene) {
-                    if (EFLoadManager.nativeUserMgr) {
+                    if (EFLoadManager.nativeUserMgr)
                         EFLoadManager.nativeUserMgr.logState(scene.sceneLogName, JSON.stringify(this.sceneState), JSON.stringify(this.moduleState), JSON.stringify(this.tutorState));
-                        if (this.hostModule.toUpperCase() === "EFMOD_RQSELECT") {
-                            if (this.userStateData) {
-                                for (let key in this.userStateData.tutorState) {
-                                    this.userStateData.tutorState[key] = scene.getTutorValue(this.userStateData.tutorState[key]);
-                                }
-                                for (let key in this.userStateData.moduleState) {
-                                    this.userStateData.moduleState[key] = scene.getModuleValue(this.userStateData.moduleState[key]);
-                                }
-                                if (this.userStateData.features.length < 2) {
-                                    let feature = scene.getModuleValue("selectedTopic.ontologyKey|features");
-                                    if (feature != null) {
-                                        this.userStateData.features.push(feature);
-                                    }
-                                }
-                            }
-                            EFLoadManager.nativeUserMgr.updateTutorState(JSON.stringify(this.tutorStateData));
-                        }
-                    }
-                }
-                Kludge_TranslateKeys() {
                     if (this.hostModule.toUpperCase() === "EFMOD_RQSELECT") {
                         if (this.userStateData) {
+                            for (let key in this.userStateData.tutorState) {
+                                this.userStateData.tutorState[key] = scene.getTutorValue(key);
+                            }
                             for (let key in this.userStateData.moduleState) {
-                                if (key.endsWith("ontologyKey")) {
-                                    let value = this.userStateData.moduleState[key];
-                                    value = value.slice(0, 1) + "TBL" + value.slice(1);
-                                    this.userStateData.moduleState[key] = value;
+                                this.userStateData.moduleState[key] = scene.getModuleValue(key);
+                            }
+                            if (this.userStateData.features.length < 2) {
+                                let feature = scene.getModuleValue("selectedTopic.ontologyKey|features");
+                                if (feature != null) {
+                                    this.userStateData.features.push(feature);
                                 }
                             }
-                            EFLoadManager.nativeUserMgr.updateTutorState(JSON.stringify(this.tutorStateData));
                         }
                     }
+                    if (EFLoadManager.nativeUserMgr)
+                        EFLoadManager.nativeUserMgr.updateTutorState(JSON.stringify(this.tutorStateData));
                 }
                 logTutorProgress(scene) {
                     if (EFLoadManager.nativeUserMgr) {
                         if (scene === CONST_8.CONST.END_OF_TUTOR) {
                             EFLoadManager.nativeUserMgr.tutorComplete();
-                            this.Kludge_TranslateKeys();
                         }
                         else {
                             EFLoadManager.nativeUserMgr.updateScene(scene);
@@ -9429,6 +9426,9 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
                 delFeature(_feature, _name) {
                     this.retractFeature(_feature, _name);
                 }
+                getFeaturesById(_id) {
+                    return this.tutorDoc.getFeaturesById(_id);
+                }
                 assertFeature(_feature, _name) {
                     this.tutorDoc.addFeature(_feature, _name);
                 }
@@ -10421,7 +10421,6 @@ System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil
                         this.loadBootImage();
                     }
                     if (EFLoadManager.NOLOG = true) {
-                        window['console']['log'] = function () { };
                     }
                 }
                 loadBootImage() {
