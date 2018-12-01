@@ -32,6 +32,7 @@ declare module "util/IBootLoader" {
         }
         interface ITutorConfig {
             dependencies: Array<string>;
+            tutorStateID: string;
         }
         interface IBootdescr {
             accountMode: string;
@@ -174,8 +175,6 @@ declare module "util/CONST" {
         static readonly SCENESTATE: string;
         static readonly MODULESTATE: string;
         static readonly TUTORSTATE: string;
-        static readonly TUTORSTATEVAR: string;
-        static readonly TUTORSTATEFAC: string;
         static readonly TUTOR_VARIABLE: string[];
         static readonly TUTOR_FACTORIES: string[];
         static readonly EFFECT_FADE: string;
@@ -742,6 +741,7 @@ declare module "tutorgraph/CTutorModule" {
         private _scenes;
         private _ndx;
         private _reuse;
+        private restored;
         constructor(_tutorDoc: IEFTutorDoc);
         static factory(_tutorDoc: any, parent: CTutorGraph, id: string, moduleFactory: any, factory: any): CTutorModule;
         captureGraph(obj: any): Object;
@@ -1580,6 +1580,8 @@ declare module "tutorgraph/CTutorGraphNavigator" {
         readonly iteration: string;
         private updateSceneIteration();
         static rootFactory(_tutorDoc: IEFTutorDoc, factory: any): CTutorGraphNavigator;
+        captureGraph(): any;
+        restoreGraph(nodeState: any): void;
         buttonBehavior: String;
         private enQueueTerminateEvent();
         private _asyncTerminate(e);
@@ -1605,6 +1607,7 @@ declare module "core/CEFTutorDoc" {
     export class CEFTutorDoc extends EventDispatcher implements IEFTutorDoc {
         traceMode: boolean;
         private isDebug;
+        private clickBoundListener;
         [key: string]: any;
         tutorContainer: TTutorContainer;
         SnavPanel: TNavPanel;
@@ -1619,8 +1622,9 @@ declare module "core/CEFTutorDoc" {
         tutorStateData: any;
         userStateData: any;
         userID: string;
+        graphState: any;
+        sceneObj: TSceneBase;
         tutorConfig: LoaderPackage.ITutorConfig;
-        dataInitialized: boolean;
         language: string;
         voice: string;
         modules: Array<LoaderPackage.IModuleDescr>;
@@ -1671,9 +1675,12 @@ declare module "core/CEFTutorDoc" {
         private featureID;
         private fDefaults;
         constructor();
-        initializeTutor(): void;
-        initializeStateData(scene: TSceneBase, name: string, sceneName: string, hostModule: string): void;
-        normalizeStateData(): void;
+        launchTutor(): void;
+        clickListener(e: Event): void;
+        initializeSceneStateData(scene: TSceneBase, name: string, sceneName: string, hostModule: string): void;
+        private getTutorState();
+        private restoreTutorState();
+        resolveTemplates(selector: string, ref: string): string;
         attachNavPanel(panel: TNavPanel): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
@@ -1710,7 +1717,6 @@ declare module "core/CEFTutorDoc" {
         retractGlobal(_id: string): void;
         queryGlobal(_id: string): any;
         globals: Object;
-        launchTutor(): void;
         resetStateFrameID(): void;
         frameID: number;
         incFrameID(): void;
@@ -2633,8 +2639,9 @@ declare module "core/IEFTutorDoc" {
         _sceneData: any;
         _phaseData: any;
         TutAutomator: any;
-        initializeTutor(): void;
-        initializeStateData(scene: TSceneBase, name: string, sceneName: string, hostModule: string): void;
+        launchTutor(): void;
+        initializeSceneStateData(scene: TSceneBase, name: string, sceneName: string, hostModule: string): void;
+        resolveTemplates(selector: string, ref: string): string;
         attachNavPanel(panel: any): void;
         setBreadCrumbs(text: string): void;
         enableNext(fEnable: boolean): void;
@@ -2671,7 +2678,6 @@ declare module "core/IEFTutorDoc" {
         retractGlobal(_id: string): void;
         queryGlobal(_id: string): any;
         globals: Object;
-        launchTutor(): void;
         resetStateFrameID(): void;
         frameID: number;
         incFrameID(): void;
@@ -3286,6 +3292,7 @@ declare module "thermite/THtmlList1" {
         initialize(): void;
         private init4();
         onAddedToStage(evt: CEFEvent): void;
+        setColor(bgcolor: string): void;
         private selectObjectByElement(tar);
         private getSelectionByName(itemName);
         private onOptionClick(evt, tar);

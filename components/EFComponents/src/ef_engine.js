@@ -1,5 +1,6 @@
 
 var EFtutorFeatures = EFtutorFeatures || "";
+var EFbootNode      = EFbootNode || null;
 
 (function(_EFLoadManager) {    
 
@@ -78,6 +79,7 @@ var EFtutorFeatures = EFtutorFeatures || "";
 			_EFLoadManager.efStage    = stage;
 			_EFLoadManager.efRoot     = exportRoot;				
             _EFLoadManager.efFeatures = EFtutorFeatures;	            			
+            _EFLoadManager.efBootNode = EFbootNode;	            			
 
 			System.import('TutorEngineOne').then(function(TutorEngineOne){
                     EFTutorEngine = new TutorEngineOne.CEngine;  

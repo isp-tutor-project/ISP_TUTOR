@@ -2,12 +2,12 @@
     "tutors": [
         {
             "launcher" : "/mats.html",
-			"logfolder": "MATS_PRE",
+			"logfolder": "MATSPRE_DEERLAKE",
             "features" : "FTR_PRE"
         },
         {
             "launcher": "/dr.html",
-			"logfolder": "DR",
+			"logfolder": "DR_DEERLAKE",
             "features": ""
         }
     ]

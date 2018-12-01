@@ -324,8 +324,6 @@ System.register("util/CONST", [], function (exports_5, context_5) {
             CONST.SCENESTATE = "SCN";
             CONST.MODULESTATE = "MDL";
             CONST.TUTORSTATE = "TUT";
-            CONST.TUTORSTATEVAR = "tutorstatedata.json";
-            CONST.TUTORSTATEFAC = "tutorStateData";
             CONST.TUTOR_VARIABLE = [
                 "tutorconfig.json",
                 "tutorgraph.json"
@@ -2005,6 +2003,7 @@ System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph
                     super(_tutorDoc);
                     this._scenes = new Array;
                     this._ndx = -1;
+                    this.restored = false;
                 }
                 static factory(_tutorDoc, parent, id, moduleFactory, factory) {
                     var moduleFactoryData = factory.CModules[moduleFactory.link];
@@ -2024,39 +2023,47 @@ System.register("tutorgraph/CTutorModule", ["tutorgraph/CTutorNode", "tutorgraph
                 }
                 restoreGraph(obj) {
                     this._ndx = Number(obj['index']);
+                    this.restored = true;
                     return this._scenes[this._ndx];
                 }
                 nextScene() {
                     var nextScene = null;
                     var features;
                     while (this._ndx < this._scenes.length) {
-                        this._ndx++;
-                        if (this._ndx >= this._scenes.length)
-                            nextScene = null;
-                        else
+                        if (this.restored) {
+                            this.restored = false;
                             nextScene = this._scenes[this._ndx];
-                        if (nextScene != null) {
-                            features = nextScene.features;
-                            if (features != "") {
-                                if (this.tutorDoc.testFeatureSet(features)) {
-                                    if (nextScene.hasPFeature) {
-                                        if (nextScene.testPFeature())
+                            break;
+                        }
+                        else {
+                            this._ndx++;
+                            if (this._ndx >= this._scenes.length)
+                                nextScene = null;
+                            else
+                                nextScene = this._scenes[this._ndx];
+                            if (nextScene != null) {
+                                features = nextScene.features;
+                                if (features != "") {
+                                    if (this.tutorDoc.testFeatureSet(features)) {
+                                        if (nextScene.hasPFeature) {
+                                            if (nextScene.testPFeature())
+                                                break;
+                                        }
+                                        else
                                             break;
                                     }
-                                    else
+                                    CUtil_11.CUtil.trace("Graph Feature: " + features + " :failed.");
+                                }
+                                else if (nextScene.hasPFeature) {
+                                    if (nextScene.testPFeature())
                                         break;
                                 }
-                                CUtil_11.CUtil.trace("Graph Feature: " + features + " :failed.");
-                            }
-                            else if (nextScene.hasPFeature) {
-                                if (nextScene.testPFeature())
+                                else
                                     break;
                             }
                             else
                                 break;
                         }
-                        else
-                            break;
                     }
                     if (this._ndx >= this._scenes.length) {
                         if (this._reuse) {
@@ -5324,6 +5331,12 @@ System.register("tutorgraph/CTutorGraphNavigator", ["tutorgraph/CTutorGraph", "t
                     tutorNav._rootGraph.seekRoot();
                     return tutorNav;
                 }
+                captureGraph() {
+                    return this._rootGraph.captureGraph({});
+                }
+                restoreGraph(nodeState) {
+                    this._rootGraph.restoreGraph(nodeState);
+                }
                 set buttonBehavior(action) {
                     if (action == CONST_7.CONST.GOTONEXTSCENE)
                         this._fTutorGraph = true;
@@ -5553,7 +5566,6 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     this.logFrameID = 0;
                     this.logStateID = 0;
                     this.userStateData = null;
-                    this.dataInitialized = false;
                     this.language = "en";
                     this.voice = "F0";
                     this._tutorFeatures = "";
@@ -5607,65 +5619,83 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                     this.setTutorDefaults(this._tutorFeatures);
                     this.setTutorFeatures("");
                     this.log = CLogManager_1.CLogManager.getInstance();
+                    this.clickBoundListener = this.clickListener.bind(this);
                 }
-                initializeTutor() {
+                launchTutor() {
                     this.hostModule = this.tutorGraph.hostModule;
+                    if (EFLoadManager.nativeUserMgr) {
+                        this.userID = EFLoadManager.nativeUserMgr.getUserId();
+                        this.graphState = EFLoadManager.nativeUserMgr.getCurrentScene();
+                        this.hostFeatures = EFLoadManager.nativeUserMgr.getFeatures();
+                        this.setTutorFeatures(this.hostFeatures);
+                        this.restoreTutorState();
+                    }
+                    else {
+                        this.userID = "GUESTBL_JAN_1";
+                        this.graphState = EFLoadManager.efBootNode;
+                        this.hostFeatures = EFLoadManager.efFeatures;
+                        this.setTutorFeatures(this.hostFeatures);
+                    }
+                    this.resetStateFrameID();
                     CTutorGraphNavigator_1.CTutorGraphNavigator.rootFactory(this, this.tutorGraph);
                     this.tutorContainer.initAutomation();
-                    if (EFLoadManager.nativeUserMgr) {
-                        this.hostFeatures = EFLoadManager.nativeUserMgr.getFeatures();
-                        this.hostTutorData = EFLoadManager.nativeUserMgr.getTutorState();
+                    if (this.graphState) {
+                        this.tutorNavigator.restoreGraph(this.graphState);
                     }
-                    else if (EFLoadManager.efFeatures) {
-                        this.setTutorFeatures(EFLoadManager.efFeatures);
+                    if (this.testFeatures("FTR_WEB")) {
+                        window.addEventListener("click", this.clickBoundListener);
                     }
-                    this.launchTutor();
+                    else {
+                        this.tutorNavigator.gotoNextScene("$launchTutor");
+                    }
                 }
-                initializeStateData(scene, name, sceneName, hostModule) {
+                clickListener(e) {
+                    if (e.type === "click") {
+                        window.removeEventListener("click", this.clickBoundListener);
+                        this.tutorNavigator.gotoNextScene("$launchTutor");
+                    }
+                }
+                initializeSceneStateData(scene, name, sceneName, hostModule) {
                     if (name !== sceneName) {
                         alert("TutorDoc Scene name Mismatch: " + name + " != " + sceneName);
                     }
+                    this.sceneObj = scene;
                     this.sceneState[name] = {};
-                    this.moduleState[hostModule] = this.moduleState[hostModule] || {};
-                    this.tutorState = this.tutorState || {};
                     this.sceneChange[sceneName] = {};
-                    this.moduleChange[hostModule] = this.moduleChange[hostModule] || {};
-                    this.tutorChange = this.tutorChange || {};
-                    if (!this.dataInitialized) {
-                        this.dataInitialized = true;
-                        if (EFLoadManager.nativeUserMgr) {
-                            this.userID = EFLoadManager.nativeUserMgr.getUserId();
-                        }
-                        else {
-                            this.userID = "GUESTBL_JAN_1";
-                            this.addFeature("FTR_WEB", null);
-                        }
-                        if (this.tutorStateData) {
-                            this.normalizeStateData();
-                            for (let element of this.tutorStateData.users) {
-                                if (element.userName === this.userID) {
-                                    this.userStateData = element;
-                                    break;
-                                }
-                            }
-                            if (this.userStateData) {
-                                for (let key in this.userStateData.tutorState) {
-                                    scene.setTutorValue(key, this.userStateData.tutorState[key]);
-                                }
-                                for (let key in this.userStateData.moduleState) {
-                                    scene.setModuleValue(key, this.userStateData.moduleState[key]);
-                                }
-                                for (let value of this.userStateData.features) {
-                                    this.addFeature(value, null);
-                                }
-                            }
-                        }
-                    }
                 }
-                normalizeStateData() {
-                    for (let element of this.tutorStateData.users) {
-                        element.userName = element.userName.replace("-", "_").toUpperCase();
+                getTutorState() {
+                    let store = {
+                        "sceneState": {},
+                        "moduleState": {},
+                        "tutorState": {},
+                        "fFeatures": {},
+                        "featureID": {}
+                    };
+                    Object.assign(store.sceneState, this.sceneState);
+                    Object.assign(store.moduleState, this.moduleState);
+                    Object.assign(store.tutorState, this.tutorState);
+                    delete (store.sceneState.$seq);
+                    delete (store.moduleState.$seq);
+                    delete (store.tutorState.$seq);
+                    Object.assign(store.fFeatures, this.fFeatures);
+                    Object.assign(store.featureID, this.featureID);
+                    return JSON.stringify(store);
+                }
+                restoreTutorState() {
+                    let result = false;
+                    let jsonData = EFLoadManager.nativeUserMgr.getTutorState(this.tutorConfig.tutorStateID);
+                    if (jsonData && jsonData !== "") {
+                        let hostTutorData = JSON.parse(jsonData);
+                        Object.assign(this.sceneState, hostTutorData.sceneState);
+                        Object.assign(this.moduleState, hostTutorData.moduleState);
+                        Object.assign(this.tutorState = hostTutorData.tutorState);
+                        Object.assign(this.fFeatures = hostTutorData.fFeatures);
+                        Object.assign(this.featureID = hostTutorData.featureID);
                     }
+                    return result;
+                }
+                resolveTemplates(selector, ref) {
+                    return this.sceneObj.resolveTemplates(selector, ref);
                 }
                 attachNavPanel(panel) {
                     this.SnavPanel = panel;
@@ -5713,7 +5743,7 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                             prop = this.resolveProperty(this.sceneState[this.name], property);
                             break;
                         case CONST_8.CONST.MODULESTATE:
-                            prop = this.resolveProperty(this.moduleState[this.hostModule], property);
+                            prop = this.resolveProperty(this.moduleState, property);
                             break;
                         case CONST_8.CONST.TUTORSTATE:
                             prop = this.resolveProperty(this.tutorState, property);
@@ -5835,10 +5865,6 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 get globals() {
                     return this._globals;
                 }
-                launchTutor() {
-                    this.resetStateFrameID();
-                    this.tutorNavigator.gotoNextScene("$launchTutor");
-                }
                 resetStateFrameID() {
                     this.frameID = 0;
                     this.stateID = 0;
@@ -5909,13 +5935,6 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 }
                 buildBootSet(targetTutor) {
                     this.loaderData = [];
-                    this.loaderData.push({
-                        type: CONST_8.CONST.TUTORSTATEVAR,
-                        filePath: CONST_8.CONST.TUTOR_COMMONPATH + CONST_8.CONST.TUTORSTATEVAR,
-                        onLoad: this.onLoadJson.bind(this),
-                        fileName: CONST_8.CONST.TUTORSTATEVAR,
-                        varName: CONST_8.CONST.TUTORSTATEFAC
-                    });
                     for (let i1 = 0; i1 < CONST_8.CONST.TUTOR_VARIABLE.length; i1++) {
                         this.loaderData.push({
                             type: CONST_8.CONST.TUTOR_VARIABLE[i1],
@@ -6214,24 +6233,8 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 logTutorState(scene) {
                     if (EFLoadManager.nativeUserMgr)
                         EFLoadManager.nativeUserMgr.logState(scene.sceneLogName, JSON.stringify(this.sceneState), JSON.stringify(this.moduleState), JSON.stringify(this.tutorState));
-                    if (this.hostModule.toUpperCase() === "EFMOD_RQSELECT") {
-                        if (this.userStateData) {
-                            for (let key in this.userStateData.tutorState) {
-                                this.userStateData.tutorState[key] = scene.getTutorValue(key);
-                            }
-                            for (let key in this.userStateData.moduleState) {
-                                this.userStateData.moduleState[key] = scene.getModuleValue(key);
-                            }
-                            if (this.userStateData.features.length < 2) {
-                                let feature = scene.getModuleValue("selectedTopic.ontologyKey|features");
-                                if (feature != null) {
-                                    this.userStateData.features.push(feature);
-                                }
-                            }
-                        }
-                    }
                     if (EFLoadManager.nativeUserMgr)
-                        EFLoadManager.nativeUserMgr.updateTutorState(JSON.stringify(this.tutorStateData));
+                        EFLoadManager.nativeUserMgr.updateTutorState(this.tutorConfig.tutorStateID, this.getTutorState());
                 }
                 logTutorProgress(scene) {
                     if (EFLoadManager.nativeUserMgr) {
@@ -6239,7 +6242,8 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                             EFLoadManager.nativeUserMgr.tutorComplete();
                         }
                         else {
-                            EFLoadManager.nativeUserMgr.updateScene(scene);
+                            let graphState = JSON.stringify(this.tutorNavigator.captureGraph());
+                            EFLoadManager.nativeUserMgr.updateScene(graphState);
                         }
                     }
                 }
@@ -7876,6 +7880,9 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                         }
                         else {
                             this._ontologyRef = this.hostScene.resolveRawSelector(ontologyRef, null);
+                            if (!this._ontologyRef) {
+                                console.error("SCENETRACK: Error: missing Ontology Value:" + ontologyRef);
+                            }
                         }
                     }
                     this.hostScene.resolveRawSelector(selector, this._ontologyRef);
@@ -7901,7 +7908,12 @@ System.register("scenegraph/CSceneTrack", ["core/CEFTimer", "events/CEFSceneCueE
                                     this._ontologyPath = this.resolveSegmentKey(selector, this.templateRef);
                                     let selectorTag = this._ontologyPath.replace(this.RX_DELIMITERS, "");
                                     segvalue = segment[selectorTag];
-                                    segvalue.filepath = CONST_11.CONST.COMMONAUDIO + selectorTag + CONST_11.CONST.VOICE_PREFIX + this.voice + CONST_11.CONST.TYPE_MP3;
+                                    if (segvalue) {
+                                        segvalue.filepath = CONST_11.CONST.COMMONAUDIO + selectorTag + CONST_11.CONST.VOICE_PREFIX + this.voice + CONST_11.CONST.TYPE_MP3;
+                                    }
+                                    else {
+                                        console.log("ERROR: Missing ontology selector TAG: " + selectorTag);
+                                    }
                                     break;
                             }
                             console.log("SCENEGRAPH: Loading: " + this._trackname + segvalue.fileid + " => " + segvalue.SSML);
@@ -9647,6 +9659,7 @@ System.register("thermite/TObject", ["thermite/TRoot", "thermite/TObjectDyno", "
                     }
                 }
                 $(selector) {
+                    selector = this.tutorDoc.resolveTemplates(selector, null);
                     return new TSelector_1.TSelector(this, selector);
                 }
                 deSerializeObj(objData) {
@@ -9817,7 +9830,7 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                         this.moduleData = this.tutorDoc.moduleData[this.hostModule][CONST_15.CONST.SCENE_DATA];
                         this.sceneData = this.moduleData[this.sceneName];
                         this.tutorNavigator = this.tutorDoc.tutorNavigator;
-                        this.tutorDoc.initializeStateData(this, this.name, this.sceneName, this.hostModule);
+                        this.tutorDoc.initializeSceneStateData(this, this.name, this.sceneName, this.hostModule);
                         this.$preCreateScene();
                         for (let element in this.sceneData) {
                             dataElement = this.sceneData[element];
@@ -9865,8 +9878,8 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                             this.tutorDoc.sceneChange[this.name][property] = true;
                             break;
                         case CONST_15.CONST.MODULESTATE:
-                            this.tutorDoc.assignProperty(this.tutorDoc.moduleState[this.hostModule], property, value);
-                            this.tutorDoc.moduleChange[this.hostModule][property] = true;
+                            this.tutorDoc.assignProperty(this.tutorDoc.moduleState, property, value);
+                            this.tutorDoc.moduleChange[property] = true;
                             break;
                         case CONST_15.CONST.TUTORSTATE:
                             this.tutorDoc.assignProperty(this.tutorDoc.tutorState, property, value);
@@ -9890,7 +9903,7 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                             this.tutorDoc.pushEvent(this.tutorDoc.sceneState[this.name], property, value);
                             break;
                         case CONST_15.CONST.MODULESTATE:
-                            this.tutorDoc.pushEvent(this.tutorDoc.moduleState[this.hostModule], property, value);
+                            this.tutorDoc.pushEvent(this.tutorDoc.moduleState, property, value);
                             break;
                         case CONST_15.CONST.TUTORSTATE:
                             this.tutorDoc.pushEvent(this.tutorDoc.tutorState, property, value);
@@ -9913,7 +9926,7 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                             prop = this.tutorDoc.resolveProperty(this.tutorDoc.sceneState[this.name], property);
                             break;
                         case CONST_15.CONST.MODULESTATE:
-                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.moduleState[this.hostModule], property);
+                            prop = this.tutorDoc.resolveProperty(this.tutorDoc.moduleState, property);
                             break;
                         case CONST_15.CONST.TUTORSTATE:
                             prop = this.tutorDoc.resolveProperty(this.tutorDoc.tutorState, property);
@@ -10049,6 +10062,9 @@ System.register("thermite/TSceneBase", ["thermite/TObject", "thermite/TTutorCont
                                     result = this.resolveSelector(result, null);
                                 break;
                         }
+                    }
+                    else {
+                        result = selector;
                     }
                     return result;
                 }
@@ -10563,7 +10579,7 @@ System.register("TutorEngineOne", ["core/CEFTutorDoc", "util/CONST", "util/CUtil
                 }
                 constructTutor() {
                     try {
-                        this.tutorDoc.initializeTutor();
+                        this.tutorDoc.launchTutor();
                         console.log("Tutor Construction Complete");
                     }
                     catch (error) {
@@ -13092,6 +13108,9 @@ System.register("thermite/THtmlList1", ["thermite/THtmlBase", "util/CUtil", "uti
                             host.closeAllSelect(null);
                         });
                     }
+                }
+                setColor(bgcolor) {
+                    this.efListBox.setAttribute("style", "background-color:" + bgcolor);
                 }
                 selectObjectByElement(tar) {
                     let selOption = this.getSelectionByName(tar.innerHTML);

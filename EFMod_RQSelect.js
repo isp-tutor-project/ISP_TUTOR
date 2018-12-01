@@ -3123,47 +3123,113 @@ p.nominalBounds = new cjs.Rectangle(-2,-3.5,1090.9,188.7);
 (lib.TC_TScene__Scene9 = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// Layer_2
-	this.SclickMask = new lib.TC_TClickMask__3butMask();
-	this.SclickMask.name = "SclickMask";
-	this.SclickMask.parent = this;
-	this.SclickMask.setTransform(981,795.9,1,1,0,0,0,576,225);
+	// SbuttonHL1
+	this.SbuttonHL1 = new lib.TC_TObject__ButtonHL();
+	this.SbuttonHL1.name = "SbuttonHL1";
+	this.SbuttonHL1.parent = this;
+	this.SbuttonHL1.setTransform(982,486,1,1,0,0,0,572,67);
 
-	this.SbuttonHL = new lib.TC_TObject__ButtonHL();
-	this.SbuttonHL.name = "SbuttonHL";
-	this.SbuttonHL.parent = this;
-	this.SbuttonHL.setTransform(982,486,1,1,0,0,0,572,67);
+	this.timeline.addTween(cjs.Tween.get(this.SbuttonHL1).wait(1));
 
-	this.Sbutton4 = new lib.TC_THtmlButton__VarSelector();
-	this.Sbutton4.name = "Sbutton4";
-	this.Sbutton4.parent = this;
-	this.Sbutton4.setTransform(423.3,899.5,1.03,0.574);
-	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+	// SclickMask1
+	this.SclickMask1 = new lib.TC_TClickMask__3butMask();
+	this.SclickMask1.name = "SclickMask1";
+	this.SclickMask1.parent = this;
+	this.SclickMask1.setTransform(978,486.7,1,0.329,0,0,0,576,225);
 
-	this.Sbutton3 = new lib.TC_THtmlButton__VarSelector();
-	this.Sbutton3.name = "Sbutton3";
-	this.Sbutton3.parent = this;
-	this.Sbutton3.setTransform(423.3,744.5,1.03,0.574);
-	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+	this.timeline.addTween(cjs.Tween.get(this.SclickMask1).wait(1));
 
-	this.Sbutton2 = new lib.TC_THtmlButton__VarSelector();
-	this.Sbutton2.name = "Sbutton2";
-	this.Sbutton2.parent = this;
-	this.Sbutton2.setTransform(423.3,589.4,1.03,0.574);
-	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+	// SbuttonHL2
+	this.SbuttonHL2 = new lib.TC_TObject__ButtonHL();
+	this.SbuttonHL2.name = "SbuttonHL2";
+	this.SbuttonHL2.parent = this;
+	this.SbuttonHL2.setTransform(982,641,1,1,0,0,0,572,67);
 
+	this.timeline.addTween(cjs.Tween.get(this.SbuttonHL2).wait(1));
+
+	// SclickMask2
+	this.SclickMask2 = new lib.TC_TClickMask__3butMask();
+	this.SclickMask2.name = "SclickMask2";
+	this.SclickMask2.parent = this;
+	this.SclickMask2.setTransform(978,641.7,1,0.329,0,0,0,576,225);
+
+	this.timeline.addTween(cjs.Tween.get(this.SclickMask2).wait(1));
+
+	// SbuttonHL3
+	this.SbuttonHL3 = new lib.TC_TObject__ButtonHL();
+	this.SbuttonHL3.name = "SbuttonHL3";
+	this.SbuttonHL3.parent = this;
+	this.SbuttonHL3.setTransform(982,796,1,1,0,0,0,572,67);
+
+	this.timeline.addTween(cjs.Tween.get(this.SbuttonHL3).wait(1));
+
+	// SclickMask3
+	this.SclickMask3 = new lib.TC_TClickMask__3butMask();
+	this.SclickMask3.name = "SclickMask3";
+	this.SclickMask3.parent = this;
+	this.SclickMask3.setTransform(978,796.7,1,0.329,0,0,0,576,225);
+
+	this.timeline.addTween(cjs.Tween.get(this.SclickMask3).wait(1));
+
+	// SbuttonHL4
+	this.SbuttonHL4 = new lib.TC_TObject__ButtonHL();
+	this.SbuttonHL4.name = "SbuttonHL4";
+	this.SbuttonHL4.parent = this;
+	this.SbuttonHL4.setTransform(982,951,1,1,0,0,0,572,67);
+
+	this.timeline.addTween(cjs.Tween.get(this.SbuttonHL4).wait(1));
+
+	// SclickMask4
+	this.SclickMask4 = new lib.TC_TClickMask__3butMask();
+	this.SclickMask4.name = "SclickMask4";
+	this.SclickMask4.parent = this;
+	this.SclickMask4.setTransform(978,951.7,1,0.329,0,0,0,576,225);
+
+	this.timeline.addTween(cjs.Tween.get(this.SclickMask4).wait(1));
+
+	// Sbutton1
 	this.Sbutton1 = new lib.TC_THtmlButton__VarSelector();
 	this.Sbutton1.name = "Sbutton1";
 	this.Sbutton1.parent = this;
 	this.Sbutton1.setTransform(423.3,434.3,1.03,0.574);
 	new cjs.ButtonHelper(this.Sbutton1, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
 
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton1).wait(1));
+
+	// Sbutton2
+	this.Sbutton2 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton2.name = "Sbutton2";
+	this.Sbutton2.parent = this;
+	this.Sbutton2.setTransform(423.3,589.4,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton2, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton2).wait(1));
+
+	// Sbutton3
+	this.Sbutton3 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton3.name = "Sbutton3";
+	this.Sbutton3.parent = this;
+	this.Sbutton3.setTransform(423.3,744.5,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton3, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton3).wait(1));
+
+	// Sbutton4
+	this.Sbutton4 = new lib.TC_THtmlButton__VarSelector();
+	this.Sbutton4.name = "Sbutton4";
+	this.Sbutton4.parent = this;
+	this.Sbutton4.setTransform(423.3,899.5,1.03,0.574);
+	new cjs.ButtonHelper(this.Sbutton4, 0, 1, 2, false, new lib.TC_THtmlButton__VarSelector(), 3);
+
+	this.timeline.addTween(cjs.Tween.get(this.Sbutton4).wait(1));
+
+	// Stitle
 	this.Stitle = new lib.TC_THtmlText__Text1();
 	this.Stitle.name = "Stitle";
 	this.Stitle.parent = this;
 	this.Stitle.setTransform(1006.9,243,14.601,2.304,0,0,0,49.3,50.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.Stitle},{t:this.Sbutton1},{t:this.Sbutton2},{t:this.Sbutton3},{t:this.Sbutton4},{t:this.SbuttonHL},{t:this.SclickMask}]}).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.Stitle).wait(1));
 
 	// SceneRegion
 	this.instance = new lib.TC_TVirtual__SceneRgn();
