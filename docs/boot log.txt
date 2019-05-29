@@ -1,0 +1,20 @@
+
+Reboot deviceOwner log
+11-27 15:06:46.978 1205-1205/? D/PowerSaverService: current package:org.edforge.efdeviceowner;activity:org.edforge.efdeviceowner.OwnerActivity
+11-27 15:06:53.314 2078-2078/? E/GameUtils: Skip launcher package: org.edforge.efdeviceowner
+11-27 15:06:58.069 1497-1497/? D/ActivityThread: BDC-Calling onReceive: intent=Intent { act=android.app.action.LOCK_TASK_ENTERING flg=0x10 cmp=org.edforge.efdeviceowner/.DeviceOwnerReceiver (has extras) }, receiver=org.edforge.efdeviceowner.DeviceOwnerReceiver@e346404
+
+
+Enter SlaveMode on reboot
+11-27 15:07:42.779 845-915/? E/wifiJNI: android_net_wifi_get_wlan_wake_reason_count: failed to get wake reason count
+11-27 15:07:42.779 845-1430/? W/PackageManager: checkUidPermission(): android.permission.LOCAL_MAC_ADDRESS of 10090 is denied.
+11-27 15:07:42.780 1497-1497/? D/nameView: Broadcast recieved: 
+11-27 15:07:42.787 1497-2765/? W/System.err: java.net.BindException: Cannot assign requested address
+11-27 15:07:42.790 1497-2765/? W/System.err:     at java.net.PlainSocketImpl.socketBind(Native Method)
+11-27 15:07:42.790 1497-2765/? W/System.err:     at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:375)
+11-27 15:07:42.790 1497-2765/? W/System.err:     at java.net.ServerSocket.bind(ServerSocket.java:377)
+11-27 15:07:42.790 1497-2765/? W/System.err:     at java.net.ServerSocket.<init>(ServerSocket.java:237)
+11-27 15:07:42.790 1497-2765/? W/System.err:     at org.edforge.efdeviceowner.net.CServer$ServerThread.run(CServer.java:121)
+
+
+

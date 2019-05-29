@@ -109,6 +109,8 @@ declare module "util/CONST" {
         static readonly NAVBACK: number;
         static readonly NAVNEXT: number;
         static readonly NAVBOTH: number;
+        static readonly NAVSCENE: string;
+        static readonly NAVTUTOR: string;
         static readonly ACTION_PFX: string;
         static readonly SCENE_CHOICESET: string;
         static readonly SCENE_TRACK: string;
@@ -1388,7 +1390,7 @@ declare module "core/CEFTimeLine" {
         xnFinalize: Function;
         xnScope: any;
         constructor(tweens: Tween[], labels: Object, props: Object, _tutorDoc: IEFTutorDoc);
-        addTween(...tween: Tween[]): void;
+        addTween(...tween: Tween[]): Tween;
         startTransition(xnF: Function, scope: any): void;
         stopTransitions(): void;
         xnChanged(evt: CEFEvent): void;
@@ -1479,6 +1481,8 @@ declare module "thermite/THtmlBase" {
         private effectFinished();
         addCSSRules(styleElement: HTMLStyleElement, cssStyles: any): void;
         protected addCustomStyles(srcStyle: any, tarStyle: any): void;
+        getText(): string;
+        setText(text: string): void;
         protected initObjfromHtmlData(objData: any): void;
         deSerializeObj(objData: any): void;
     }
@@ -1497,11 +1501,38 @@ declare module "thermite/THtmlText" {
         deSerializeObj(objData: any): void;
     }
 }
+declare module "thermite/TProgress" {
+    import { TObject } from "thermite/TObject";
+    import { TScene } from "thermite/TScene";
+    export class TProgress extends TObject {
+        private SHOW;
+        private HIDE;
+        private MAXSTATE;
+        constructor();
+        TProgressInitialize(): void;
+        initialize(): void;
+        private init3();
+        Destructor(): void;
+        addHTMLControls(): void;
+        hostScene: TScene;
+        private showStates(item, newState, show);
+        private showAll(show);
+        private gotoStepState(step, state);
+        gotoState(step: number, state: number): void;
+        captureLogState(obj?: any): Object;
+        captureXMLState(): any;
+        restoreXMLState(stateVal: any): void;
+        compareXMLState(stateVal: any): boolean;
+        deSerializeObj(objData: any): void;
+    }
+}
 declare module "thermite/TNavPanel" {
     import { TScene } from "thermite/TScene";
     import { TObject } from "thermite/TObject";
     import { THtmlText } from "thermite/THtmlText";
+    import { TProgress } from "thermite/TProgress";
     export class TNavPanel extends TScene {
+        protected Sprogress: TProgress;
         protected SbackMask: TObject;
         protected SbreadCrumbs: THtmlText;
         protected Sbackground: TObject;
@@ -1523,6 +1554,8 @@ declare module "thermite/TNavPanel" {
         enablePrev(enable: boolean): void;
         enableBack(enable: boolean): void;
         setBreadCrumbs(text: string): void;
+        hideProgress(): void;
+        setProgress(step: number, state: number): void;
         showHideNavButton(type: string, show: boolean): void;
         connectNavButton(type: string, butComp: string, _once?: boolean): void;
         disConnectNavButton(type: string, butComp: string): void;
@@ -1683,6 +1716,8 @@ declare module "core/CEFTutorDoc" {
         resolveTemplates(selector: string, ref: string): string;
         attachNavPanel(panel: TNavPanel): void;
         setBreadCrumbs(text: string): void;
+        hideProgress(): void;
+        setProgress(step: number, state: number): void;
         enableNext(fEnable: boolean): void;
         enableBack(fEnable: boolean): void;
         setNavMode(navMode: number, navTarget: string): void;
@@ -1741,7 +1776,7 @@ declare module "core/CEFTutorDoc" {
         onLoadFonts(fileLoader: LoaderPackage.ILoaderData, filedata: string): void;
         onLoadData(fileLoader: LoaderPackage.ILoaderData, filedata: string): void;
         setTutorDefaults(featSet: string): void;
-        setTutorFeatures(featSet: string): void;
+        addTutorFeatures(featSet: string): void;
         features: string;
         addFeature(_feature: string, _id: string): void;
         delFeature(_feature: string, _id: string): void;
@@ -1752,7 +1787,7 @@ declare module "core/CEFTutorDoc" {
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
         logTutorState(scene: TSceneBase): void;
-        logTutorProgress(scene: string): void;
+        logTutorProgress(sceneName: string): void;
     }
 }
 declare module "thermite/TObjectMask" {
@@ -2087,6 +2122,8 @@ declare module "scenegraph/CSceneTrack" {
         private _asyncCueTimer;
         private _cueTimers;
         private RX_DELIMITERS;
+        private RX_SSML;
+        private RX_DOT;
         private assetPath;
         private newSounds;
         private static lastLoaded;
@@ -2103,6 +2140,7 @@ declare module "scenegraph/CSceneTrack" {
         private cueHandler(evt, _timer);
         ensureFireCues(): void;
         private segmentComplete(event);
+        private speechComplete(event);
         autoStep(): void;
         private _asyncAutoPlay(evt);
         private killAutoPlayTimer();
@@ -2344,6 +2382,7 @@ declare module "thermite/TObject" {
         initialize(): void;
         private init2();
         onCreate(): void;
+        onAddedToStage(evt: CEFEvent): void;
         Destructor(): void;
         readonly ontologyPath: string;
         addHTMLControls(): void;
@@ -2488,7 +2527,7 @@ declare module "thermite/TSceneBase" {
         classPath: string;
         moduleData: any;
         sceneData: any;
-        private sceneState;
+        protected sceneState: any;
         changeRequestorScene: string;
         changeRequestorTrack: string;
         protected _section: string;
@@ -2500,6 +2539,7 @@ declare module "thermite/TSceneBase" {
         private RX_TEMPLATES;
         private RX_TEMPLATE;
         private RX_ONTQUERY;
+        private RX_SSML;
         private RX_GENSELECTOR;
         private RX_GENTEMPLATE;
         private NDX_RAWTEMPLATE;
@@ -2515,6 +2555,8 @@ declare module "thermite/TSceneBase" {
         onCreate(): void;
         protected initUI(): void;
         setBreadCrumbs(text: string): void;
+        hideProgress(): void;
+        setProgress(step: number, state: number): void;
         enableNext(fEnable: boolean): void;
         enableBack(fEnable: boolean): void;
         setNavMode(navMode: number, navTarget: string): void;
@@ -2644,6 +2686,8 @@ declare module "core/IEFTutorDoc" {
         resolveTemplates(selector: string, ref: string): string;
         attachNavPanel(panel: any): void;
         setBreadCrumbs(text: string): void;
+        hideProgress(): void;
+        setProgress(step: number, state: number): void;
         enableNext(fEnable: boolean): void;
         enableBack(fEnable: boolean): void;
         setNavMode(navMode: number, navTarget: string): void;
@@ -2702,7 +2746,7 @@ declare module "core/IEFTutorDoc" {
         onLoadFonts(fileLoader: LoaderPackage.ILoaderData, filedata: string): void;
         onLoadData(fileLoader: LoaderPackage.ILoaderData, filedata: string): void;
         setTutorDefaults(featSet: string): void;
-        setTutorFeatures(featSet: string): void;
+        addTutorFeatures(featSet: string): void;
         features: string;
         addFeature(feature: string, _id?: string): void;
         delFeature(feature: string, _id?: string): void;
@@ -3247,6 +3291,7 @@ declare module "thermite/THtmlInput" {
         initialize(): void;
         private init4();
         onAddedToStage(evt: CEFEvent): void;
+        hasMinWords(cnt?: number, minLen?: number): Boolean;
         setFocus(focus: boolean): void;
         setEnabled(enabled: boolean): void;
         fontContainsElement(attr: string, candidates: Array<string> | Array<RegExp>): any;
@@ -3350,6 +3395,31 @@ declare module "thermite/THtmlTable" {
         deSerializeObj(objData: any): void;
     }
 }
+declare module "thermite/TProgressEl" {
+    import { TObject } from "thermite/TObject";
+    import { TScene } from "thermite/TScene";
+    export class TProgressEl extends TObject {
+        private SHOW;
+        private HIDE;
+        private MAXSTATE;
+        constructor();
+        TProgressElInitialize(): void;
+        initialize(): void;
+        private init3();
+        Destructor(): void;
+        addHTMLControls(): void;
+        hostScene: TScene;
+        private showStates(item, newState, show);
+        private showAll(show);
+        private gotoStepState(step, state);
+        gotoState(step: number, state: number): void;
+        captureLogState(obj?: any): Object;
+        captureXMLState(): any;
+        restoreXMLState(stateVal: any): void;
+        compareXMLState(stateVal: any): boolean;
+        deSerializeObj(objData: any): void;
+    }
+}
 declare module "thermite/TTitleBar" {
     import { TObject } from "thermite/TObject";
     import { TSceneBase } from "thermite/TSceneBase";
@@ -3392,6 +3462,30 @@ declare module "thermite/TVirtual" {
         private init3();
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
+    }
+}
+declare module "thermite/events/TNavEvent" {
+    import Event = createjs.Event;
+    export class TNavEvent extends Event {
+        static readonly WOZNAVNEXT: string;
+        static readonly WOZNAVBACK: string;
+        static readonly WOZNAVTO: string;
+        static readonly WOZNAVINC: string;
+        static readonly WOZNAVREPLAY: string;
+        wozNavTarget: string;
+        wozFeatures: string;
+        constructor(type: string, _target?: string, _featureSet?: string, bubbles?: boolean, cancelable?: boolean);
+        clone(): Event;
+    }
+}
+declare module "thermite/events/TSelectEvent" {
+    import Event = createjs.Event;
+    export class TSelectEvent extends Event {
+        static readonly WOZTABSELECT: string;
+        static readonly WOZIMGSELECT: string;
+        selection: string;
+        constructor(target: string, type: string, bubbles?: boolean, cancelable?: boolean);
+        clone(): Event;
     }
 }
 declare module "thermite/scenes/CEFEndCloak" {

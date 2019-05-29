@@ -107,15 +107,17 @@
         "rq_bl.html",
         "ted_c.html",
         "ted_nb.html",
-        "tutor_seq_all_baseline.json",
-        "tutor_seq_all_choice.json",
-        "tutor_seq_all_nochoice.json",
-        "tutor_seq_baseline.json",
-        "tutor_seq_choice.json",
-        "tutor_seq_daylast.json",
-        "tutor_seq_dayone.json",
-        "tutor_seq_nochoice.json",
+        
+        "tutor_instrseq_config.json",
 
+        "tutor_seq_choice_3day.json",
+        "tutor_seq_nochoice_3day.json",
+        "tutor_seq_baseline_3day.json",
+        
+        "tutor_seq_choice_4day.json",
+        "tutor_seq_nochoice_4day.json",
+        "tutor_seq_baseline_4day.json",
+		
         "EFMod_Algae.js",   
         "EFMod_Balloon.js",   
         "EFMod_Crystal.js",   
@@ -130,5 +132,24 @@
         "EFMod_TEDInstr.js",   
         "EFMod_TEDIntro.js",   
         "EFTutorLoader.js"
-    ]
+    ],
+    "tutor_seq": [
+	
+        "tutor_seq_all_baseline.json",
+        "tutor_seq_all_choice.json",
+        "tutor_seq_all_nochoice.json",
+        
+        "tutor_seq_baseline.json",
+        "tutor_seq_choice.json",
+        "tutor_seq_nochoice.json",
+
+        "tutor_seq_daylast.json",
+        "tutor_seq_dayone.json",
+		
+        "tutor_seq_DL_BASELINE_PLANTS.json",                                     
+        "tutor_seq_DL_BASELINE_SODA.json",                                      
+        "tutor_seq_DL_CHOICE.json",                                             
+        "tutor_seq_DL_NOCHOICE_PLANTS.json",                                     
+        "tutor_seq_DL_NOCHOICE_SODA.json"
+    ]	
 }

@@ -35,7 +35,7 @@ EFLoadManager.nativeAudio   = EFnativeAudio;
 EFLoadManager.nativeSpeech  = EFnativeSpeech;
 EFLoadManager.nativeUserMgr = EFnativeUserMgr;
 EFLoadManager.nativeLogMgr  = EFnativeLogMgr;
-EFLoadManager.NOLOG         = EFloginhibit? true:false;
+EFLoadManager.NOLOG         = EFloginhibit? EFloginhibit:false;
 
 // Send media events from the Java Domain to the JS domain
 // trackEvent and trackOwner are initialized by sceneTrack play 

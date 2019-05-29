@@ -1,0 +1,11 @@
+{
+    "comment": "Tutor Instruction Sequence - Default Selection",
+    "defInstr":"tutor_seq_choice_4day.json",
+    "options":[
+        "tutor_seq_choice_4day.json",
+        "tutor_seq_nochoice_4day.json",
+        "tutor_seq_baseline_4day.json",
+        "tutor_seq_choice_3day.json",
+        "tutor_seq_nochoice_3day.json",
+        "tutor_seq_baseline_3day.json"]
+}
