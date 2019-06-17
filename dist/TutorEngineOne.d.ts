@@ -186,6 +186,7 @@ declare module "util/CONST" {
         static STATE_DOWN: string;
         static STATE_DISABLED: string;
         static STATE_HIT: string;
+        static readonly STATE_OUT: string;
         static readonly BUTTON_TEXT: string;
         static readonly SIMPLE_BUTTON: string;
         static readonly SHAPE_UP: string;
@@ -198,7 +199,6 @@ declare module "util/CONST" {
         static readonly INSTANCE_DOWN: string;
         static readonly INSTANCE_DISABLED: string;
         static readonly INSTANCE_HIT: string;
-        static readonly STATE_OUT: string;
         static readonly NEXTSCENE: string;
         static readonly PREVSCENE: string;
         static readonly MOUSE_MOVE: string;
@@ -312,6 +312,9 @@ declare module "core/CEFTimer" {
         frameRate: number;
         frame_ms: number;
         private _tickHandler;
+        private _cancelHandler;
+        private _pauseHandler;
+        private _playHandler;
         private static activeTimers;
         private static tutorDoc;
         constructor(time: number, repeatCount?: number);
@@ -1436,15 +1439,16 @@ declare module "thermite/THtmlBase" {
         protected controlContainer: HTMLElement;
         protected dimContainer: TObject;
         protected scaleCompensation: number;
-        protected fAdded: boolean;
         protected fEnabled: boolean;
         protected isHTMLControl: boolean;
         protected HTMLmute: boolean;
         protected startText: string;
         protected styleElement: HTMLStyleElement;
         protected styleSheet: StyleSheet;
+        protected cssSheetBase: any;
         protected cssSheet: any;
         protected cssDirty: any;
+        protected custHTML: any;
         protected fontSize: number;
         protected cssClass: string;
         protected _updateVisibilityCbk: any;
@@ -1457,10 +1461,12 @@ declare module "thermite/THtmlBase" {
         initialize(): void;
         private init3();
         Destructor(): void;
+        removeDOMInstance(): void;
         enable(): void;
         disable(): void;
         invertScale(): void;
         onAddedToStage(evt: CEFEvent): void;
+        onRemovedFromStage(evt: CEFEvent): void;
         addHTMLControls(): void;
         buildRuleSet(cssRules: any): string;
         setProperty(key: string, value: string | number, force?: boolean): void;
@@ -1625,6 +1631,7 @@ declare module "tutorgraph/CTutorGraphNavigator" {
         private traceGraphEdge();
         onButtonPrev(evt: TMouseEvent): void;
         private seekToScene(nextScene);
+        doPreEnterScene(): void;
         protected doEnterScene(evt: Event): void;
     }
 }
@@ -1806,6 +1813,7 @@ declare module "core/CEFTransitions" {
         newScene: string;
         rTime: number;
         tTime: number;
+        xType: string;
         fSingleStep: boolean;
         private activeObjs;
         private persistObjs;
@@ -1815,7 +1823,7 @@ declare module "core/CEFTransitions" {
         connectToTutor(parentTutor: TTutorContainer, autoTutor: Object): void;
         resetTransitions(): void;
         walkTweens(): void;
-        gotoScene(scn: string): void;
+        gotoScene(scn: string, xtype: string): void;
         setTransitionOUT(): void;
         setTransitionIN(objectList: any, sceneName: string): void;
         changeScene(): void;
@@ -2218,6 +2226,7 @@ declare module "thermite/TRoot" {
         traceMode: boolean;
         private clickBoundListener;
         private changeBoundListener;
+        bPersist: boolean;
         xname: string;
         static xInstID: number;
         ownerModule: string;
@@ -2242,6 +2251,7 @@ declare module "thermite/TRoot" {
         protected completeListener(e: Event): void;
         nextXname(): string;
         Destructor(): void;
+        removeDOMInstance(): void;
         testFeatures(features: string): boolean;
         captureXMLStructure(parentXML: string, iDepth: number): void;
         resetXML(): void;
@@ -2317,22 +2327,22 @@ declare module "thermite/TObject" {
     import { CEFNavigator } from "core/CEFNavigator";
     import { CEFTimeLine } from "core/CEFTimeLine";
     import { CEFEvent } from "events/CEFEvent";
+    import { TEvent } from "thermite/events/TEvent";
     import { ILogManager } from "managers/ILogManager";
     import Shape = createjs.Shape;
     import Tween = createjs.Tween;
     import ColorMatrixFilter = createjs.ColorMatrixFilter;
     import DisplayObject = createjs.DisplayObject;
-    import { TEvent } from "thermite/events/TEvent";
     export class TObject extends TRoot {
         SclickMask: Shape;
         sAuto: string;
         objID: string;
+        protected fAdded: boolean;
         effectTimeLine: CEFTimeLine;
         effectTweens: Array<Tween>;
         tweenID: number;
         bTweenable: boolean;
         bSubTweenable: boolean;
-        bPersist: boolean;
         private defRot;
         private defX;
         private defY;
@@ -2383,6 +2393,7 @@ declare module "thermite/TObject" {
         private init2();
         onCreate(): void;
         onAddedToStage(evt: CEFEvent): void;
+        onRemovedFromStage(evt: CEFEvent): void;
         Destructor(): void;
         readonly ontologyPath: string;
         addHTMLControls(): void;
@@ -2625,10 +2636,12 @@ declare module "thermite/TSceneBase" {
 declare module "core/IEFTutorDoc" {
     import { LoaderPackage } from "util/IBootLoader";
     import { TSceneBase } from "thermite/TSceneBase";
+    import { CTutorGraphNavigator } from "tutorgraph/CTutorGraphNavigator";
+    import { TTutorContainer } from "thermite/TTutorContainer";
     export interface IEFTutorDoc {
         traceMode: boolean;
-        tutorContainer: any;
-        tutorNavigator: any;
+        tutorContainer: TTutorContainer;
+        tutorNavigator: CTutorGraphNavigator;
         name: string;
         loaderData: Array<LoaderPackage.ILoaderData>;
         logFrameID: number;
@@ -2803,6 +2816,12 @@ declare module "thermite/TButton" {
         STATE_OVER: string;
         STATE_DOWN: string;
         STATE_DISABLED: string;
+        private _doMouseClickedHdlr;
+        private _doMouseOverHdlr;
+        private _doMouseOutHdlr;
+        private _doMouseDownHdlr;
+        private _doMouseUpHdlr;
+        private _wired;
         private onClickScript;
         constructor();
         TButtonInitialize(): void;
@@ -2818,6 +2837,7 @@ declare module "thermite/TButton" {
         resetState(): void;
         gotoState(sState: string): void;
         muteButton(bMute: boolean): void;
+        enableButton(bFlag: boolean): void;
         enable(bFlag: boolean): void;
         doMouseClicked(evt: TMouseEvent): void;
         protected doClickActions(evt: TEvent): void;
@@ -3286,11 +3306,18 @@ declare module "thermite/THtmlInput" {
     import { CEFEvent } from "events/CEFEvent";
     export class THtmlInput extends THtmlBase {
         SControlContainer: TObject;
+        STextArea: HTMLInputElement;
         constructor();
         THtmlInputInitialize(): void;
         initialize(): void;
         private init4();
+        Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
+        onRemovedFromStage(evt: CEFEvent): void;
+        oninput(evt: any): void;
+        getText(): string;
+        captureLogState(obj?: any): TObject;
+        captureXMLState(): any;
         hasMinWords(cnt?: number, minLen?: number): Boolean;
         setFocus(focus: boolean): void;
         setEnabled(enabled: boolean): void;
