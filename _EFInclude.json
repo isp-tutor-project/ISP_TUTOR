@@ -95,7 +95,20 @@
         "EFMod_TEDIntro:EFgraphs",
         "EFMod_TEDIntro:EFconfig.json",
 
-        "EFTutors",
+        "EFMod_PrePost:EFaudio",
+        "EFMod_PrePost:EFbuild",
+        "EFMod_PrePost:EFdata",
+        "EFMod_PrePost:EFfonts",
+        "EFMod_PrePost:EFgraphs",
+        "EFMod_PrePost:EFconfig.json",
+
+        "EFTutors:EFTED_Dedr",
+        "EFTutors:EFTED_Instr",
+        "EFTutors:EFTED_Intro",
+        "EFTutors:EFTED_Mats",
+        "EFTutors:EFTED_PrePost",
+        "EFTutors:EFTED_RQSelect",
+		
         "images",
         "lib",
         "node_modules",
@@ -107,6 +120,15 @@
         "rq_bl.html",
         "ted_c.html",
         "ted_nb.html",
+		
+		"EFProdLoaderB.html",
+		"EFProdLoaderI.html",
+		"EFProdLoaderPPA.html",
+		"EFProdLoaderPPB.html",
+		"EFProdLoaderR.html",
+		"EFProdLoaderT.html",
+		"EFProdLoaderT1.html",
+		"EFProdLoaderT2.html",
         
         "tutor_instrseq_config.json",
 
