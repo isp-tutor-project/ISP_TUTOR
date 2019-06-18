@@ -153,6 +153,7 @@
         "EFMod_Soda.js",   
         "EFMod_TEDInstr.js",   
         "EFMod_TEDIntro.js",   
+        "EFMod_PrePost.js",   
         "EFTutorLoader.js"
     ],
     "tutor_seq": [
