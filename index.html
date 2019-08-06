@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ISP Tutor</title>
+  <link rel="stylesheet" href="main.css">
+  <!-- Google Material Icons (Home Icon) -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Google Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
+  <!-- Adobe Animate (RQ and TED) -->
+  <script src="https://code.createjs.com/createjs-2015.11.26.combined.js"></script>
+  
+  <!-- Load the SystemJS module loader and the tutor engine module -->
+  <script src="./node_modules/systemjs/dist/system.src.js"></script>
+  <script src="./dist/TutorEngineOne.js"></script>
+  <script src="EFTutorLoader.js"></script>
+  <!-- Load the JS for the Hypo module -->
+  <script src="hypo.js"></script>
+</head>
+<body>
+  <!-- Index Page -->
+  <div class="page" id="index-page">
+    <img id="title-logo" src="isptutorlogo.png" alt="ISP Tutor">
+    <div class="button-container">
+      <h2> Sign-In Portal</h2>
+      <button id="signin-button">User Sign-In</button>
+      <button id="register-button">Register</button>
+    </div>
+  </div>
+
+  <!-- Signin Page -->
+  <div class="page" id="signin-page">
+    <img id="title-logo" src="isptutorlogo_narrow.png" alt="ISP Tutor">
+    <button id="s-back-button" class="back-button">Back</button>
+    <form class="border-container" id="signin-form">
+      <div class="container">
+        <label><b>Class code</b></label>
+        <input type="text" placeholder="Enter class code" id="s-classcode">
+        <label><b>First name</b></label>
+        <input type="text" placeholder="Enter first name" id="s-fname" required>
+        <label><b>First two characters of last name</b></label>
+        <input type="text" placeholder="Enter first two characters of last name" id="s-lname" required>
+        <label><b>Birthday</b></label>
+        <br>
+        <select class="select-css" id="s-bmonth" required>
+          <option value="" disabled selected hidden>Month</option>
+          <option value="JAN">January</option>
+          <option value="FEB">February</option>
+          <option value="MAR">March</option>
+          <option value="APR">April</option>
+          <option value="MAY">May</option>
+          <option value="JUN">June</option>
+          <option value="JUL">July</option>
+          <option value="AUG">August</option>
+          <option value="SEP">September</option>
+          <option value="OCT">October</option>
+          <option value="NOV">November</option>
+          <option value="DEC">December</option>
+        </select>
+        <select class="select-css" id="s-bday" required>
+          <option value="" disabled selected hidden>Day</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+          <option>26</option>
+          <option>27</option>
+          <option>28</option>
+          <option>29</option>
+          <option>30</option>
+          <option>31</option>
+        </select>      
+        <button type="button" id="signin-submit">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Registration Page -->
+  <div class="page" id="registration-page">
+    <img id="title-logo" src="isptutorlogo_narrow.png" alt="ISP Tutor">
+    <button id="r-back-button" class="back-button">Back</button>
+    <form class="border-container" id="registration-form">
+      <div class="container">
+        <label><b>Class code</b></label>
+        <input type="text" placeholder="Enter class code" id="r-classcode">
+        <label><b>First name</b></label>
+        <input type="text" placeholder="Enter first name" id="r-fname" required>
+        <label><b>First two characters of last name</b></label>
+        <input type="text" placeholder="Enter first two characters of last name" id="r-lname" required>
+        <label><b>Birthday</b></label>
+        <br>
+        <select class="select-css" id="r-bmonth" required>
+          <option value="" disabled selected hidden>Month</option>
+          <option value="JAN">January</option>
+          <option value="FEB">February</option>
+          <option value="MAR">March</option>
+          <option value="APR">April</option>
+          <option value="MAY">May</option>
+          <option value="JUN">June</option>
+          <option value="JUL">July</option>
+          <option value="AUG">August</option>
+          <option value="SEP">September</option>
+          <option value="OCT">October</option>
+          <option value="NOV">November</option>
+          <option value="DEC">December</option>
+        </select>
+        <select class="select-css" id="r-bday" required>
+          <option value="" disabled selected hidden>Day</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+          <option>26</option>
+          <option>27</option>
+          <option>28</option>
+          <option>29</option>
+          <option>30</option>
+          <option>31</option>
+        </select>      
+        <button type="button" id="registration-submit">Register</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Home Page -->
+  <div class="page" id="home-page">
+    <img id="title-logo" src="isptutorlogo_narrow.png" alt="ISP Tutor">
+    <div id="sign-in-text"></div>
+    <div class="border-container">
+      <div class="container">
+        <button type="button" id="rq-button" class="module-button disabled" disabled>Research Question</button>
+        <button type="button" id="hypo-button" class="module-button disabled" disabled>Hypothesis</button>
+        <button type="button" id="ted-button" class="module-button disabled" disabled hidden>TED Tutor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Page (for RQ and TED) -->
+  <div class="page" id="module-page" style="margin:0px;">
+    <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1920px; height:1200px">
+      <canvas id="canvas" width="1920" height="1200" style="position: absolute; display: none; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+      <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:1200px; position: absolute; left: 0px; top: 0px; display: none;">
+      </div>
+    </div>
+    <div id='_preload_div_' style='position:absolute; top:0; left:0; display: inline-block; height:1200px; width: 1920px; text-align: center;'>	<span style='display: inline-block; height: 100%; vertical-align: middle;'></span>	<img src=images/_preloader.gif style='vertical-align: middle; max-height: 100%'/></div>
+    <i id="home-icon" class="material-icons">home</i>
+  </div>
+
+  <!-- Hypo Page -->
+  <div class="page" id="hypo-page">
+    <canvas id="hypo-canvas" width="1200" height="750">
+      Error: HTML5 canvas is not working. Please make sure JavaScript is enabled.
+    </canvas>
+    <!-- Note!!! In the Youtube URL below, the enablejsapi parameter must be set to 1 and the rel parameter set to 0!!! This is so the hypo.js code can pause the video when necessary, and block related videos from appearing -->
+    <iframe id="instruction_video_overlay" width="800" height="450" enablejsapi src="https://www.youtube.com/embed/Bn62x8uyDOg?enablejsapi=1&rel=0" frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <img id="temperature_gif_overlay" class="overlay" src="HypoGraphics/slide2/temperaturegif.gif">
+    <div id="quiz_overlay" class="overlay">
+      <ul>
+        <li><u>How often a city is hit by a hurricane</u> and <u>how often it floods</u></li>
+        <li><u>Margarine (butter) sales</u> and <u>divorce rate</u></li>
+        <li><u>Humidity</u> and <u>the amount of water in the air</u></li>
+        <li><u>How hard you push on an object</u> and <u>how much the object moves</u></li>
+        <li><u>Friction</u> and <u>how much resistance there is to motion on a surface</u></li>
+      </ul>
+    </div>
+    <form id="quiz_questions_overlay" class="overlay">
+      <select id="quiz_q1" class="quiz_questions">
+        <option value="" disabled selected hidden>Choose one...</option>
+        <option>Definition</option>
+        <option>Causation</option>
+        <option>Correlation</option>
+      </select>
+      <br>
+      <select id="quiz_q2" class="quiz_questions">
+        <option value="" disabled selected hidden>Choose one...</option>
+        <option>Definition</option>
+        <option>Causation</option>
+        <option>Correlation</option>
+      </select>
+      <br>
+      <select id="quiz_q3" class="quiz_questions">
+        <option value="" disabled selected hidden>Choose one...</option>
+        <option>Definition</option>
+        <option>Causation</option>
+        <option>Correlation</option>
+      </select>
+      <br>
+      <select id="quiz_q4" class="quiz_questions">
+        <option value="" disabled selected hidden>Choose one...</option>
+        <option>Definition</option>
+        <option>Causation</option>
+        <option>Correlation</option>
+      </select>
+      <br>
+      <select id="quiz_q5" class="quiz_questions">
+        <option value="" disabled selected hidden>Choose one...</option>
+        <option>Definition</option>
+        <option>Causation</option>
+        <option>Correlation</option>
+      </select>
+    </form>
+    <iframe id="brm_instruction_overlay" class="overlay" width="1080px" height="680px" frameborder="no" scrolling="auto"
+      src="https://storage.googleapis.com/cmuintgames/INHelperBRM2/index.html"></iframe>
+  </div>
+
+  <!-- Home Icon Overlay -->
+  <div id="home-overlay" class="border-container overlay">
+    <div class="container">
+      <h3>If you go back to the home page, you will lose all your progress. Are you sure you wish to proceed?</h3>
+      <br>
+      <div class="inline-btn-container">
+        <button id="yes-btn" type="button" class="inline-btn">Yes</button>
+        <button id="cancel-btn" type="button" class="inline-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tutor Completion Overlay-->
+  <div id="completion-overlay" class="border-container overlay">
+    <div class="container">
+      <h3>You are now done with this section. Click Home to move on to the next section.</h3>
+      <br>
+      <div class="inline-btn-container">
+        <button id="completion-home-btn" type="button" class="inline-btn">Home</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Snackbar -->
+  <div id="snackbar">Some text some message..</div>
+
+  <script src="index.js"></script>
+  
+</body>
+</html>
