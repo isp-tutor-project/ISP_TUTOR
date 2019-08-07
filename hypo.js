@@ -223,6 +223,15 @@ function logData(ivBubble) {
     console.log(log);
 }
 
+function logBrmData() {
+    db.collection(collectionID).doc(userID).update({
+        brm: localStorage.getItem("isptutor_brmHistory")
+    })
+    .catch((error) => {
+        console.error("Error writing BRM data: ", error);
+    });
+}
+
 // ==========================================================================================================
 // ================================================ Pages ==================================================
 // ==========================================================================================================
@@ -847,7 +856,8 @@ function brmPage() {
     let brmButton = createLargeButton(CANVAS_WIDTH * .5, CANVAS_HEIGHT * .5, "BRM", "#3769C2")
     brmButton.on("click", e => {
         //open("https://sites.google.com/site/isptutorbrmstudent/", "_blank");
-        open("https://brm.isptutor.org/home/index.html?name=" + userID + "&study=" + collectionID, "_blank");
+        //open("https://brm.isptutor.org/home/index.html?name=" + userID + "&study=" + collectionID, "_blank");
+        open("https://go.isptutor.org/brm/home/index.html", "_blank");
     });
     stage.addChild(text, brmButton);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
@@ -1152,6 +1162,7 @@ function verify(ivBubble) {
     }
     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct. Please ask your instructor to come check your work.", "16px Arial", "#000");
     logData(ivBubble);
+    logBrmData();
     return isGood;
 }
 

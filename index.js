@@ -102,6 +102,7 @@ function initHomePage() {
     if (userID != null) {
         document.getElementById("sign-in-text").innerHTML = "Signed in as " + userID;
     }
+    localStorage.setItem("isptutor_brmHistory", []);
 }
 
 let init;
