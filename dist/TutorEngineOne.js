@@ -5709,7 +5709,7 @@ System.register("network/WebLogger", [], function (exports_59, context_59) {
                         let jsonData = "";
                         let docRef = db.collection(collectionID).doc(this.getUserId());
                         yield docRef.get().then((doc) => {
-                            if (doc.exists) {
+                            if (doc.exists && doc.data() != null && doc.data().rqted != null) {
                                 console.log("Document exists");
                                 jsonData = doc.data().rqted;
                                 this.currTutorNdx = doc.data().currTutorNdx;
@@ -5930,14 +5930,16 @@ System.register("core/CEFTutorDoc", ["managers/CLogManager", "network/CURLLoader
                 }
                 restoreTutorState() {
                     let result = false;
-                    let jsonData = EFLoadManager.nativeUserMgr.getTutorState(this.tutorConfig.tutorStateID);
-                    if (jsonData && jsonData !== "") {
-                        let hostTutorData = JSON.parse(jsonData);
-                        Object.assign(this.moduleState, hostTutorData.moduleState);
-                        Object.assign(this.tutorState = hostTutorData.tutorState);
-                        Object.assign(this.fFeatures = hostTutorData.fFeatures);
-                        Object.assign(this.featureID = hostTutorData.featureID);
-                    }
+                    EFLoadManager.nativeUserMgr.getTutorState(this.tutorConfig.tutorStateID)
+                        .then((jsonData) => {
+                        if (jsonData && jsonData !== "") {
+                            let hostTutorData = JSON.parse(jsonData);
+                            Object.assign(this.moduleState, hostTutorData.moduleState);
+                            Object.assign(this.tutorState = hostTutorData.tutorState);
+                            Object.assign(this.fFeatures = hostTutorData.fFeatures);
+                            Object.assign(this.featureID = hostTutorData.featureID);
+                        }
+                    });
                     return result;
                 }
                 resolveTemplates(selector, ref) {
