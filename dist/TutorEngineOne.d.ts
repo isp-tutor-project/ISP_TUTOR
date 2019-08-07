@@ -102,35 +102,35 @@ declare module "events/CEFEvent" {
 }
 declare module "util/CONST" {
     export class CONST {
-        static readonly MC_NOLOOP: boolean;
-        static readonly MC_LOOP: boolean;
-        static readonly TUTORCONTAINER: string;
-        static readonly NAVNONE: number;
-        static readonly NAVBACK: number;
-        static readonly NAVNEXT: number;
-        static readonly NAVBOTH: number;
-        static readonly NAVSCENE: string;
-        static readonly NAVTUTOR: string;
-        static readonly ACTION_PFX: string;
-        static readonly SCENE_CHOICESET: string;
-        static readonly SCENE_TRACK: string;
-        static readonly SCENE_ACTION: string;
-        static readonly TEMPLATE_VAR: string;
-        static readonly NOVAR: string;
-        static readonly SCENE_DATA: string;
-        static readonly TRACK_DATA: string;
-        static readonly START_CUEPOINT: string;
-        static readonly END_CUEPOINT: string;
-        static readonly EFTEXT_TYPE: string;
-        static readonly EFINPUT_TYPE: string;
-        static readonly EFLISTBOX_TYPE: string;
-        static readonly EFTABLE_TYPE: string;
-        static readonly EFDATA_TYPE: string;
-        static readonly GLOBAL_MODULE: string;
-        static readonly GLOBAL_CODE: string;
-        static readonly COMMON_CODE: string;
-        static readonly EXT_SIG: string;
-        static readonly XNAME_SIG: string;
+        static readonly MC_NOLOOP = false;
+        static readonly MC_LOOP = true;
+        static readonly TUTORCONTAINER = "STutorContainer";
+        static readonly NAVNONE = 0;
+        static readonly NAVBACK = 1;
+        static readonly NAVNEXT = 2;
+        static readonly NAVBOTH = 3;
+        static readonly NAVSCENE = "SCENE";
+        static readonly NAVTUTOR = "TUTOR";
+        static readonly ACTION_PFX = "$nodeAction.";
+        static readonly SCENE_CHOICESET = "choiceset";
+        static readonly SCENE_TRACK = "track";
+        static readonly SCENE_ACTION = "action";
+        static readonly TEMPLATE_VAR = "templateVar";
+        static readonly NOVAR = "__novar";
+        static readonly SCENE_DATA = "SceneData";
+        static readonly TRACK_DATA = "TrackData";
+        static readonly START_CUEPOINT = "$start";
+        static readonly END_CUEPOINT = "$end";
+        static readonly EFTEXT_TYPE = "eftext";
+        static readonly EFINPUT_TYPE = "efinput";
+        static readonly EFLISTBOX_TYPE = "eflist";
+        static readonly EFTABLE_TYPE = "eftable";
+        static readonly EFDATA_TYPE = "efdata";
+        static readonly GLOBAL_MODULE = "$GLOBAL";
+        static readonly GLOBAL_CODE = "$GLOBAL";
+        static readonly COMMON_CODE = "$Common";
+        static readonly EXT_SIG = "$";
+        static readonly XNAME_SIG = "$$";
         static readonly TUTOR_COMMONPATH: string;
         static readonly ACCOUNT_LOADER: string;
         static readonly MODID_FILEPATH: string;
@@ -149,10 +149,10 @@ declare module "util/CONST" {
         static readonly VOICE_PREFIX: string;
         static readonly ANMODULE_FILEPATH: string;
         static readonly COMMONAUDIO: string;
-        static readonly TYPE_MP3: string;
-        static readonly TYPE_WAV: string;
-        static readonly TUTOR_GLOBALCODE: string;
-        static readonly TUTOR_GLOBALDATA: string;
+        static readonly TYPE_MP3 = ".mp3";
+        static readonly TYPE_WAV = ".wav";
+        static readonly TUTOR_GLOBALCODE = "TutorGlobalCode";
+        static readonly TUTOR_GLOBALDATA = "TutorGlobalData";
         static readonly LOCAL: string;
         static readonly WAIT: number;
         static readonly DONT_LAUNCH: boolean;
@@ -163,44 +163,44 @@ declare module "util/CONST" {
         static readonly THERMITE_PREFIX: string;
         static readonly MODULE_PREFIX: string;
         static readonly MODLINK_PREFIX: string;
-        static readonly SCENE_EXT: string;
-        static readonly TUTOR_EXT: string;
-        static readonly GLOBALONTOLOGY_SELECTOR: string;
-        static readonly MODULEONTOLOGY_SELECTOR: string;
-        static readonly TRACK_SELECTOR: string;
-        static readonly SCENESTATE_SELECTOR: string;
-        static readonly MODULESTATE_SELECTOR: string;
-        static readonly TUTORSTATE_SELECTOR: string;
-        static readonly MODULELIBRARY_SELECTOR: string;
-        static readonly GLOBALLIBRARY_SELECTOR: string;
-        static readonly FOREIGNMODULE_SELECTOR: string;
-        static readonly SCENESTATE: string;
-        static readonly MODULESTATE: string;
-        static readonly TUTORSTATE: string;
+        static readonly SCENE_EXT = "sceneExt";
+        static readonly TUTOR_EXT = "tutorExt";
+        static readonly GLOBALONTOLOGY_SELECTOR = "$EFGO_";
+        static readonly MODULEONTOLOGY_SELECTOR = "$EFO_";
+        static readonly TRACK_SELECTOR = "$EFTR_";
+        static readonly SCENESTATE_SELECTOR = "$EFS_";
+        static readonly MODULESTATE_SELECTOR = "$EFM_";
+        static readonly TUTORSTATE_SELECTOR = "$EFT_";
+        static readonly MODULELIBRARY_SELECTOR = "$EFL_";
+        static readonly GLOBALLIBRARY_SELECTOR = "$EFG_";
+        static readonly FOREIGNMODULE_SELECTOR = "$EFFM_";
+        static readonly SCENESTATE = "SCN";
+        static readonly MODULESTATE = "MDL";
+        static readonly TUTORSTATE = "TUT";
         static readonly TUTOR_VARIABLE: string[];
         static readonly TUTOR_FACTORIES: string[];
-        static readonly EFFECT_FADE: string;
-        static readonly EFFECT_SWAP: string;
+        static readonly EFFECT_FADE = "fade";
+        static readonly EFFECT_SWAP = "swap";
         static STATE_UP: string;
         static STATE_OVER: string;
         static STATE_DOWN: string;
         static STATE_DISABLED: string;
         static STATE_HIT: string;
-        static readonly STATE_OUT: string;
-        static readonly BUTTON_TEXT: string;
-        static readonly SIMPLE_BUTTON: string;
-        static readonly SHAPE_UP: string;
-        static readonly SHAPE_OVER: string;
-        static readonly SHAPE_DOWN: string;
-        static readonly SHAPE_DISABLED: string;
-        static readonly SHAPE_HIT: string;
-        static readonly INSTANCE_UP: string;
-        static readonly INSTANCE_OVER: string;
-        static readonly INSTANCE_DOWN: string;
-        static readonly INSTANCE_DISABLED: string;
-        static readonly INSTANCE_HIT: string;
-        static readonly NEXTSCENE: string;
-        static readonly PREVSCENE: string;
+        static readonly STATE_OUT = "Sout";
+        static readonly BUTTON_TEXT = "Slabel";
+        static readonly SIMPLE_BUTTON = "SIMPLE_BUTTON";
+        static readonly SHAPE_UP = "shape";
+        static readonly SHAPE_OVER = "shape_1";
+        static readonly SHAPE_DOWN = "shape_2";
+        static readonly SHAPE_DISABLED = "shape_3";
+        static readonly SHAPE_HIT = "shape_3";
+        static readonly INSTANCE_UP = "instance";
+        static readonly INSTANCE_OVER = "instance_1";
+        static readonly INSTANCE_DOWN = "instance_2";
+        static readonly INSTANCE_DISABLED = "instance_3";
+        static readonly INSTANCE_HIT = "instance_3";
+        static readonly NEXTSCENE = "nextbutton";
+        static readonly PREVSCENE = "prevbutton";
         static readonly MOUSE_MOVE: string;
         static readonly MOUSE_DOWN: string;
         static readonly MOUSE_UP: string;
@@ -319,7 +319,7 @@ declare module "core/CEFTimer" {
         private static tutorDoc;
         constructor(time: number, repeatCount?: number);
         static startTimer(duration: number, callback: Function, scope: Object, event: Object): CEFTimer;
-        private tick(evt);
+        private tick;
         timerAddThis(): void;
         timerRemoveThis(): void;
         connectToTutor(): void;
@@ -518,7 +518,7 @@ declare module "scenegraph/CSceneGraph" {
         queryPFeature(pid: string, size: number, cycle: number): number;
         gotoNextTrack(bUserEvent: boolean): CSceneTrack;
         seekToTrack(historyNode: CSceneHistoryNode): any;
-        private parseNodes();
+        private parseNodes;
         findNodeByName(name: string): CSceneNode;
         node: CSceneNode;
         readonly rootTrack: CSceneTrack;
@@ -619,7 +619,7 @@ declare module "thermite/TCursorProxy" {
         constructor();
         TCursorProxyInitialize(): void;
         initialize(): void;
-        private init1();
+        private init1;
         setCursorStyle(style: string): void;
         initWOZCursor(sMode: string): void;
         decodeTarget(baseObj: any, objArray: Array<any>): TObject;
@@ -638,7 +638,7 @@ declare module "thermite/TCursorProxy" {
         hitTestCoord(locX: number, locY: number): TObject;
         hitTestMouse(evt: TMouseEvent): void;
         show(bFlag: boolean): void;
-        private updateCurrentObject(evt, hitObj);
+        private updateCurrentObject;
         isWOZObject(tObj: any): TObject;
     }
 }
@@ -879,7 +879,7 @@ declare module "mongo/CMongo" {
         static insertPacket(_source: string, _command: string, _collection: string, _objectDoc: Object): string;
         static updatePacket(_source: string, _command: string, _collection: string, _query: any, _updateObj: Object): string;
         static unsetFieldPacket(_source: string, _command: string, _collection: string, _query: any, _updateObj: Object): string;
-        private static parseUpdateFields(node, objPath?);
+        private static parseUpdateFields;
         static encodeAsJSON(_fields: Object, parent: Object): string;
         static encodeAsObject(host: Object, _fields: any, parent: any): Object;
         static objectBuilder(leafObj: any, pathArray: Array<string>): Object;
@@ -995,20 +995,20 @@ declare module "network/CSocket" {
         openSocket(hostName: string, port: number): void;
         closeSocket(): void;
         sendData(data: Object): boolean;
-        private configureListeners(connect?);
+        private configureListeners;
         protected connectHandler(event: Event): void;
         protected closeHandler(event: Event): void;
         protected dataHandler(event: CDataEvent): void;
         protected ioErrorHandler(event: CIOErrorEvent): void;
         protected progressHandler(event: ProgressEvent): void;
         protected securityErrorHandler(event: CSecurityErrorEvent): void;
-        private configureAbandonListeners(connect?);
-        private abandonConnectHandler(event);
-        private abandonCloseHandler(event);
-        private abandonDataHandler(event);
-        private abandonIoErrorHandler(event);
-        private abandonProgressHandler(event);
-        private abandonSecurityErrorHandler(event);
+        private configureAbandonListeners;
+        private abandonConnectHandler;
+        private abandonCloseHandler;
+        private abandonDataHandler;
+        private abandonIoErrorHandler;
+        private abandonProgressHandler;
+        private abandonSecurityErrorHandler;
     }
 }
 declare module "events/CLogEvent" {
@@ -1090,7 +1090,7 @@ declare module "network/CLogSocket" {
         constructor(host?: String, port?: number, _tracer?: Object);
         openSocket(host?: String, port?: number, _tracer?: Object): void;
         closeSocket(): void;
-        sendData(dataPacket: string): void;
+        sendData(dataPacket: string): boolean;
         readonly connected: boolean;
         protected connectHandler(event: Event): void;
         protected closeHandler(event: Event): void;
@@ -1202,10 +1202,10 @@ declare module "network/CDDnsLoader" {
         constructor(request?: CURLRequest, _StextArea?: Object);
         resolveArbiter(): void;
         configureDDNSListeners(fAdd: boolean): void;
-        private completeHandlerDDNS(evt);
-        private progressHandlerDDNS(evt);
-        private securityErrorHandlerDDNS(evt);
-        private ioErrorHandlerDDNS(evt);
+        private completeHandlerDDNS;
+        private progressHandlerDDNS;
+        private securityErrorHandlerDDNS;
+        private ioErrorHandlerDDNS;
     }
 }
 declare module "events/CTimerEvent" {
@@ -1260,7 +1260,7 @@ declare module "managers/CLogManager" {
         constructor(enforcer: SingletonObj);
         static getInstance(): ILogManager;
         useLocalHost(): void;
-        private progressListener(e);
+        private progressListener;
         queryTheQueue(): void;
         fLogging: number;
         account: object;
@@ -1274,8 +1274,8 @@ declare module "managers/CLogManager" {
         connectForInterface(): void;
         connectToAuthenticate(): void;
         connectToReattach(): void;
-        private indirectConnectSocket();
-        private directConnectSocket();
+        private indirectConnectSocket;
+        private directConnectSocket;
         readonly connectionActive: boolean;
         getConnectionState(): string;
         readonly connectionActiveOrPending: boolean;
@@ -1287,12 +1287,12 @@ declare module "managers/CLogManager" {
         readonly sessionStatus: string;
         abandonSession(abandonData?: boolean, newStatus?: string): void;
         abandonSocket(abandonData?: boolean): void;
-        private timeStampSession();
+        private timeStampSession;
         private readonly sessionTime;
         submitAuthentication(logData: any): void;
         submitJSONQuery(logData: any): void;
         flushGlobalStateLocally(name: string): void;
-        private generateEvent(logData, type);
+        private generateEvent;
         logSessionIDEvent(): void;
         logLiveEvent(logData: object): void;
         logActionEvent(logData: object): void;
@@ -1304,35 +1304,35 @@ declare module "managers/CLogManager" {
         logDebugEvent(logData: any): void;
         logErrorEvent(logData: object): void;
         sendPacket(packet: any): boolean;
-        private sendXMLPacket(packet);
-        private sendJSONPacket(packet);
-        private resetSendTimer();
-        private socketTimeout(e);
+        private sendXMLPacket;
+        private sendJSONPacket;
+        private resetSendTimer;
+        private socketTimeout;
         sendDebugPacket(logData: object): void;
-        private ackPacket(evt);
+        private ackPacket;
         startDebugDataStream(): void;
         stopDebugDataStream(): void;
-        private ackStream(evt);
-        private startQueuedStream();
-        private stopQueuedStream();
-        private queueChanged(evt);
+        private ackStream;
+        private startQueuedStream;
+        private stopQueuedStream;
+        private queueChanged;
         startQueueing(): void;
         stopQueueing(): void;
-        private queueCallBack(evt);
+        private queueCallBack;
         readonly isDataStreaming: boolean;
         readonly isQueueStreaming: boolean;
         readonly queueLength: number;
         readonly queuePosition: number;
         readonly isSending: boolean;
         readonly isConnected: boolean;
-        private socketConnectionHdlr(evt);
-        private createSocket();
-        private cleanupSocket();
+        private socketConnectionHdlr;
+        private createSocket;
+        private cleanupSocket;
         recycleConnection(fRestart: boolean): void;
-        private cleanupDNSLoader();
-        private DNSresolved(evt);
-        private DNSfailed(evt);
-        private protocolHandlerLGR(evt);
+        private cleanupDNSLoader;
+        private DNSresolved;
+        private DNSfailed;
+        private protocolHandlerLGR;
         activateSession(sessionID?: string): void;
         failSession(): void;
         setPlayBackSource(logSource: any): void;
@@ -1374,7 +1374,7 @@ declare module "thermite/TText" {
         constructor();
         TTextInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
     }
@@ -1392,6 +1392,7 @@ declare module "core/CEFTimeLine" {
         targets: Array<any>;
         xnFinalize: Function;
         xnScope: any;
+        _tweens: any;
         constructor(tweens: Tween[], labels: Object, props: Object, _tutorDoc: IEFTutorDoc);
         addTween(...tween: Tween[]): Tween;
         startTransition(xnF: Function, scope: any): void;
@@ -1459,7 +1460,7 @@ declare module "thermite/THtmlBase" {
         constructor();
         THtmlBaseInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         removeDOMInstance(): void;
         enable(): void;
@@ -1482,9 +1483,9 @@ declare module "thermite/THtmlBase" {
         setContentNext(effectType?: string, effectDur?: number): void;
         setContentByIndex(newIndex: number, effectType?: string, effectDur?: number): void;
         setContentFromString(newContent: string): void;
-        private performTransition(effectNewIndex, effectType, effectDur?);
-        private swapContent();
-        private effectFinished();
+        private performTransition;
+        private swapContent;
+        private effectFinished;
         addCSSRules(styleElement: HTMLStyleElement, cssStyles: any): void;
         protected addCustomStyles(srcStyle: any, tarStyle: any): void;
         getText(): string;
@@ -1502,7 +1503,7 @@ declare module "thermite/THtmlText" {
         constructor();
         THtmlTextInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         onAddedToStage(evt: CEFEvent): void;
         deSerializeObj(objData: any): void;
     }
@@ -1517,13 +1518,13 @@ declare module "thermite/TProgress" {
         constructor();
         TProgressInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         addHTMLControls(): void;
         hostScene: TScene;
-        private showStates(item, newState, show);
-        private showAll(show);
-        private gotoStepState(step, state);
+        private showStates;
+        private showAll;
+        private gotoStepState;
         gotoState(step: number, state: number): void;
         captureLogState(obj?: any): Object;
         captureXMLState(): any;
@@ -1553,7 +1554,7 @@ declare module "thermite/TNavPanel" {
         constructor();
         TNavPanelInitialize(): void;
         initialize(): void;
-        private init5();
+        private init5;
         Destructor(): void;
         onCreate(): void;
         enableNext(enable: boolean): void;
@@ -1566,7 +1567,7 @@ declare module "thermite/TNavPanel" {
         connectNavButton(type: string, butComp: string, _once?: boolean): void;
         disConnectNavButton(type: string, butComp: string): void;
         setNavigationTarget(behavior: string): void;
-        private hideAllAssets();
+        private hideAllAssets;
         setNavMode(modeID: number, navTar: string): void;
     }
 }
@@ -1617,22 +1618,40 @@ declare module "tutorgraph/CTutorGraphNavigator" {
         constructor(_tutorDoc: IEFTutorDoc);
         readonly sceneObj: TScene;
         readonly iteration: string;
-        private updateSceneIteration();
+        private updateSceneIteration;
         static rootFactory(_tutorDoc: IEFTutorDoc, factory: any): CTutorGraphNavigator;
         captureGraph(): any;
         restoreGraph(nodeState: any): void;
         buttonBehavior: String;
-        private enQueueTerminateEvent();
-        private _asyncTerminate(e);
+        private enQueueTerminateEvent;
+        private _asyncTerminate;
         recoverState(): void;
         gotoNextScene(source: string): void;
-        private _asyncNextScene(evt);
+        private _asyncNextScene;
         onButtonNext(evt: TMouseEvent): void;
-        private traceGraphEdge();
+        private traceGraphEdge;
         onButtonPrev(evt: TMouseEvent): void;
-        private seekToScene(nextScene);
+        private seekToScene;
         doPreEnterScene(): void;
         protected doEnterScene(evt: Event): void;
+    }
+}
+declare module "network/WebLogger" {
+    export class WebLogger {
+        currScene: any;
+        currFeatures: string;
+        currTutorNdx: number;
+        currTutorState: string;
+        constructor();
+        setValues(currScene: any, currFeatures: string): void;
+        updateTutorState(tutorID: string, tutorStateJSON: string): void;
+        getTutorState(tutorID: string): Promise<string>;
+        logState(scenename: string, scene: string, module: string, tutor: string): void;
+        getUserId(): string;
+        getCurrentScene(): any;
+        getFeatures(): string;
+        tutorComplete(): void;
+        updateScene(sceneName: string, sceneid: string): void;
     }
 }
 declare module "core/CEFTutorDoc" {
@@ -1718,8 +1737,8 @@ declare module "core/CEFTutorDoc" {
         launchTutor(): void;
         clickListener(e: Event): void;
         initializeSceneStateData(scene: TSceneBase, name: string, sceneName: string, hostModule: string): void;
-        private getTutorState();
-        private restoreTutorState();
+        private getTutorState;
+        private restoreTutorState;
         resolveTemplates(selector: string, ref: string): string;
         attachNavPanel(panel: TNavPanel): void;
         setBreadCrumbs(text: string): void;
@@ -1788,8 +1807,8 @@ declare module "core/CEFTutorDoc" {
         addFeature(_feature: string, _id: string): void;
         delFeature(_feature: string, _id: string): void;
         getFeaturesById(_id: string): string;
-        private includes(ftrObj, ftr);
-        private testFeature(element, index, arr);
+        private includes;
+        private testFeature;
         testFeatures(features: string): boolean;
         testFeatureSet(featSet: string): boolean;
         traceFeatures(): void;
@@ -1862,13 +1881,13 @@ declare module "core/CEFNavigator" {
         protected sceneName: Array<string>;
         protected sceneClass: Array<string>;
         protected scenePersist: Array<string>;
-        private findSceneOrd(tarScene);
+        private findSceneOrd;
         goToScene(tarScene: string): void;
         onButtonNext(evt: TMouseEvent): void;
         recoverState(): void;
         gotoNextScene(source: string): void;
         onButtonPrev(evt: TMouseEvent): void;
-        private gotoPrevScene();
+        private gotoPrevScene;
         protected doEnterNext(evt: Event): void;
         protected doEnterBack(evt: Event): void;
         protected doEnterScene(evt: Event): void;
@@ -1886,9 +1905,9 @@ declare module "bkt/CBKTSkill" {
         constructor(_tutorDoc: IEFTutorDoc);
         static factory(_tutorDoc: IEFTutorDoc, factory: any): CBKTSkill;
         updateBelief(ans: boolean): void;
-        private calcTRUE();
-        private calcFALSE();
-        private updatePrior(Bel);
+        private calcTRUE;
+        private calcFALSE;
+        private updatePrior;
         queryBelief(): number;
     }
 }
@@ -1923,8 +1942,8 @@ declare module "tutorgraph/CTutorGraph" {
         seekBack(): CTutorScene;
         seekRoot(): void;
         nextScene(): CTutorScene;
-        private parseNodes();
-        private parseConstraints();
+        private parseNodes;
+        private parseConstraints;
         recoverSkills(recoveredSkills: any): boolean;
         parseSkills(): boolean;
         findNodeByName(name: string): CTutorNode;
@@ -2029,7 +2048,7 @@ declare module "thermite/TTutorContainer" {
         constructor();
         TTutorContainerInitialize(): void;
         initialize(): void;
-        private init1();
+        private init1;
         Destructor(): void;
         captureLOGState(): string;
         loadXML(stringSrc: any): void;
@@ -2055,8 +2074,8 @@ declare module "thermite/TTutorContainer" {
         doPlayBack(pbSource: any): void;
         replayStream(evt: CEFNavEvent): void;
         replayLiveStream(): void;
-        private abortPlayBack(evt);
-        private abortPlayBack2(evt);
+        private abortPlayBack;
+        private abortPlayBack2;
         playBackByFrame(evt: Event): void;
         playBackByTime(evt: Event): void;
         dumpScenes(Tutor: any): void;
@@ -2144,14 +2163,14 @@ declare module "scenegraph/CSceneTrack" {
         registerTrack(): void;
         onTrackLoaded(event: any): void;
         playTrack(): void;
-        private setCuePoints(segment);
-        private cueHandler(evt, _timer);
+        private setCuePoints;
+        private cueHandler;
         ensureFireCues(): void;
-        private segmentComplete(event);
-        private speechComplete(event);
+        private segmentComplete;
+        private speechComplete;
         autoStep(): void;
-        private _asyncAutoPlay(evt);
-        private killAutoPlayTimer();
+        private _asyncAutoPlay;
+        private killAutoPlayTimer;
         play(): void;
         pause(): void;
         stop(): void;
@@ -2193,17 +2212,17 @@ declare module "thermite/TScene" {
         constructor();
         TSceneInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         Destructor(): void;
         trackPlay(): void;
-        private _asyncPlayTrack(evt);
+        private _asyncPlayTrack;
         connectTrack(track: CSceneTrack): void;
         disConnectTrack(track: CSceneTrack): void;
         nextScene(event: CEFNavEvent): void;
         doSceneCue(evt: CustomEvent): void;
         connectSceneGraph(hostModule: string, sceneName: string): void;
         nextTrack(source: string): void;
-        private _asyncNextTrack(evt);
+        private _asyncNextTrack;
         traceGraphEdge(bUserNavEvent?: boolean): CSceneTrack;
         traceHistory(): CSceneHistoryNode;
         preEnterScene(lTutor: Object, sceneLabel: string, sceneTitle: string, scenePage: string, Direction: string): string;
@@ -2211,7 +2230,7 @@ declare module "thermite/TScene" {
         preExitScene(Direction: string, sceneCurr: number): string;
         onExitScene(): void;
         enQueueTerminateEvent(): void;
-        private _asyncTerminate(e);
+        private _asyncTerminate;
         updateKT(): void;
     }
 }
@@ -2242,7 +2261,7 @@ declare module "thermite/TRoot" {
         constructor();
         TRootInitialize(): void;
         initialize(): void;
-        private init0();
+        private init0;
         hostScene: TScene;
         addListener(target: any, type: string): void;
         removeListener(target: any, type: string): void;
@@ -2274,9 +2293,9 @@ declare module "thermite/TRoot" {
         readonly sessionTime: string;
         dumpStage(_obj: DisplayObjectContainer, _path: string): void;
         protected initObjfromHtmlData(objData: any): void;
-        private resolveReferences(...dataElement);
+        private resolveReferences;
         resetInitState(): void;
-        private initFromDataSource(datasource);
+        private initFromDataSource;
         setContext(_hostModule: any, _ownerModule: any, _hostScene: any): void;
         deSerializeObj(objData: any): void;
     }
@@ -2291,7 +2310,7 @@ declare module "thermite/TObjectDyno" {
         constructor();
         TObjectDynoInitialize(): void;
         initialize(): void;
-        private init1();
+        private init1;
         initAutomation(_parentScene: TSceneBase, sceneObj: Object, ObjIdRef: string, lLogger: ILogManager, lTutor: TTutorContainer): void;
     }
 }
@@ -2302,8 +2321,8 @@ declare module "thermite/TSelector" {
         private regex;
         private targets;
         constructor(host: TObject, selectorStr: string);
-        private testSelector(currRegEx, element);
-        private resolveSelectors(host, regex);
+        private testSelector;
+        private resolveSelectors;
         hide(): void;
         hideAll(): void;
         show(): void;
@@ -2390,7 +2409,7 @@ declare module "thermite/TObject" {
         constructor();
         TObjectInitialize(): void;
         initialize(): void;
-        private init2();
+        private init2;
         onCreate(): void;
         onAddedToStage(evt: CEFEvent): void;
         onRemovedFromStage(evt: CEFEvent): void;
@@ -2398,7 +2417,7 @@ declare module "thermite/TObject" {
         readonly ontologyPath: string;
         addHTMLControls(): void;
         playMC(): void;
-        private checkMCcomplete(evt);
+        private checkMCcomplete;
         protected doAction(evt: TEvent): void;
         hidden: boolean;
         hide(): void;
@@ -2419,18 +2438,18 @@ declare module "thermite/TObject" {
         saturateChildTo(tarObj: string, newSat: number, duration?: string): void;
         saturateObj(newState: string, duration?: string): void;
         saturateObjTo(_newSat: number, duration?: string): void;
-        private saturationTimer(evt);
+        private saturationTimer;
         adjustSaturation(s?: number): ColorMatrixFilter;
         blurChild(tarObj: string, duration?: string): void;
         blurObj(duration?: string): void;
-        private blurTimer(evt);
+        private blurTimer;
         flashChild(tarObj: string, _glowColor: number, duration?: string): void;
         flashObj(_glowColor: number, duration?: string): void;
-        private flashTimer(evt);
+        private flashTimer;
         showChild(tarObj: string, alphaTo?: number, autoStart?: boolean): void;
         hideChild(tarObj: string): void;
         fadeChildOff(tarObj: string, autoStart?: boolean, duration?: string): void;
-        private hideDone();
+        private hideDone;
         fadeChild(tarObj: string, alphaTo: string, autoStart?: boolean, duration?: string): void;
         fadeChildTo(tarObj: string, alphaTo: number, autoStart?: boolean, duration?: string): void;
         twnDone(): void;
@@ -2471,10 +2490,10 @@ declare module "thermite/TObject" {
         wozKeyDown(evt: CEFEvent): void;
         wozKeyUp(evt: CEFEvent): void;
         protected decodeTarget(baseObj: DisplayObject, objArray: Array<any>): DisplayObject;
-        private parseOBJLog(tarObj, element);
-        private constructLogName(attr);
-        private setXMLProperty(tarObj, tarXML);
-        private runXMLFunction(tarObj, tarXML);
+        private parseOBJLog;
+        private constructLogName;
+        private setXMLProperty;
+        private runXMLFunction;
         parseOBJ(tarObj: DisplayObject, factoryOBJ: any, factoryType: string): void;
         $(selector: string): TSelector;
         deSerializeObj(objData: any): void;
@@ -2562,7 +2581,7 @@ declare module "thermite/TSceneBase" {
         constructor();
         TSceneBaseInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         onCreate(): void;
         protected initUI(): void;
         setBreadCrumbs(text: string): void;
@@ -2600,12 +2619,12 @@ declare module "thermite/TSceneBase" {
         queryTutorProp(property: string[]): boolean;
         queryStateProp(property: string[], target?: string): boolean;
         resolveTemplates(sourceStr: string, templateRef: any): string;
-        private enumerateTemplates(regex, text);
-        private composeScript(inst, templArray, templateRef);
+        private enumerateTemplates;
+        private composeScript;
         resolveSelector(selector: string, templateRef: any, targetThis?: any): any;
         resolveRawSelector(selector: string, templateRef: any, targetThis?: any): any;
-        private resolveObject(baseObj, objPath);
-        private resolveOntologyObject(oSelector, ontologyRoot, templateRef);
+        private resolveObject;
+        private resolveOntologyObject;
         addFeaturebyQuery(_selector: string, _name: string): void;
         effectHandler(evt: CEFActionEvent): void;
         scriptHandler(evt: CEFScriptEvent): void;
@@ -2783,14 +2802,14 @@ declare module "TutorEngineOne" {
         [key: string]: any;
         constructor();
         start(_bootTutorID: string): void;
-        private loadBootImage();
-        private loadTutorImage();
-        private loadCreateJSResources();
+        private loadBootImage;
+        private loadTutorImage;
+        private loadCreateJSResources;
         handleComplete(evt: any, comp: any, resolve: Function, reject: Function): void;
         handleError(evt: any, comp: any, reject: Function): void;
         mapThermiteClasses(AnLib: any, resolve: Function, reject: Function): void;
         importAndMap(AnModuleName: string, AnObject: any, classPath: string, className: string, variant: string): Promise<void>;
-        private mapForeignClasses();
+        private mapForeignClasses;
         startTutor(): void;
         constructTutor(): void;
     }
@@ -2826,7 +2845,7 @@ declare module "thermite/TButton" {
         constructor();
         TButtonInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         decomposeButton(): void;
@@ -2846,8 +2865,8 @@ declare module "thermite/TButton" {
         doMouseDown(evt: TMouseEvent): void;
         doMouseUp(evt: TMouseEvent): void;
         showButton(fShow: boolean): void;
-        private addBtnElementsFromData(elementData);
-        private initBtnFromData(btnData);
+        private addBtnElementsFromData;
+        private initBtnFromData;
         deSerializeObj(objData: any): void;
     }
 }
@@ -2904,7 +2923,7 @@ declare module "controls/CEFSkilloMeter" {
         updateSkill(index: number, newValue: number, tfVal: string): void;
         updateName(index: number, newName: string): void;
         title: string;
-        private skillClick(evt);
+        private skillClick;
     }
 }
 declare module "thermite/TMouseMask" {
@@ -3117,7 +3136,7 @@ declare module "kt/CEFKTNode" {
         CEFKTNode(): void;
         newEvid: string;
         readonly predValue: number;
-        private dispatchBeliefChangedEvent(oldValue);
+        private dispatchBeliefChangedEvent;
         readonly BeliefName: string;
         readonly BeliefValue: number;
         loadXML(xmlSrc: any): void;
@@ -3157,7 +3176,7 @@ declare module "thermite/TCheckButton" {
         constructor();
         TCheckButtonInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         protected fChecked: boolean;
         private _ftrChecked;
         private _ftrUnchecked;
@@ -3206,7 +3225,7 @@ declare module "thermite/TButtonGroup" {
         constructor();
         TButtonGroupInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         onAddedToStage(evt: CEFEvent): void;
         addButton(newButton: any, bType?: string): void;
         removeButton(newButton: TButton): void;
@@ -3230,7 +3249,7 @@ declare module "thermite/TButtonGroup" {
         querylogGroup(): string;
         loadXML(xmlSrc: any): void;
         saveXML(): any;
-        private initGroupFromData(objData);
+        private initGroupFromData;
         deSerializeObj(objData: any): void;
     }
 }
@@ -3241,7 +3260,7 @@ declare module "thermite/TRadioButton" {
         constructor();
         TRadioButtonInitialize(): void;
         initialize(): void;
-        private init5();
+        private init5;
         doMouseClicked(evt: TMouseEvent): void;
         setCheck(bCheck: boolean): void;
     }
@@ -3272,7 +3291,7 @@ declare module "thermite/TClickMask" {
         constructor();
         TClickMaskInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         doMouseEvent(evt: TMouseEvent): void;
@@ -3290,7 +3309,7 @@ declare module "thermite/THtmlButton" {
         constructor();
         THtmlButtonInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         _handleDrawStart(evt: CEFEvent): void;
@@ -3310,7 +3329,7 @@ declare module "thermite/THtmlInput" {
         constructor();
         THtmlInputInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         onRemovedFromStage(evt: CEFEvent): void;
@@ -3342,7 +3361,7 @@ declare module "thermite/THtmlList" {
         constructor();
         THtmlListInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         onAddedToStage(evt: CEFEvent): void;
         deSerializeObj(objData: any): void;
     }
@@ -3362,15 +3381,15 @@ declare module "thermite/THtmlList1" {
         constructor();
         THtmlList1Initialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         onAddedToStage(evt: CEFEvent): void;
         setColor(bgcolor: string): void;
-        private selectObjectByElement(tar);
-        private getSelectionByName(itemName);
-        private onOptionClick(evt, tar);
-        private closeAllSelect(tar);
-        private clearOptionList();
-        private initListFromData(element);
+        private selectObjectByElement;
+        private getSelectionByName;
+        private onOptionClick;
+        private closeAllSelect;
+        private clearOptionList;
+        private initListFromData;
         protected initObjfromHtmlData(objData: any): void;
         deSerializeObj(objData: any): void;
     }
@@ -3390,21 +3409,21 @@ declare module "thermite/THtmlTable" {
         constructor();
         THtmlTableInitialize(): void;
         initialize(): void;
-        private init4();
+        private init4;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
         getCell(row: number, col: number): any;
         getRows(): number;
         getCols(): number;
         setColWidth(col: number, width: string): void;
-        private findCell(cell);
+        private findCell;
         protected clickListener(e: Event): void;
-        private getParentCell(control);
+        private getParentCell;
         protected changeListener(e: Event): void;
-        private captureContent();
+        private captureContent;
         showCells(left: number, top: number, right: number, bottom: number): void;
         hideCells(left: number, top: number, right: number, bottom: number): void;
-        private getInnerComponent(cell);
+        private getInnerComponent;
         listenToCells(type: string, left: number, top: number, right: number, bottom: number): void;
         clearListeners(type: string): void;
         cellsHaveValues(left: number, top: number, right: number, bottom: number): boolean;
@@ -3416,8 +3435,8 @@ declare module "thermite/THtmlTable" {
         highlightCells(bgcolor: string, left: number, top: number, right: number, bottom: number, flashCount?: number, flashRate?: number): void;
         highlightCellBorders(color: string, flashCount: number, flashRate: number, left: number, top: number, right: number, bottom: number): void;
         reifyTable(): void;
-        private resolvePlaceHolderElement(selector, cellData);
-        private resolveOptionElements(options, cellData);
+        private resolvePlaceHolderElement;
+        private resolveOptionElements;
         initElementFromData(rowindex: number, colindex: number, element: any): void;
         deSerializeObj(objData: any): void;
     }
@@ -3432,13 +3451,13 @@ declare module "thermite/TProgressEl" {
         constructor();
         TProgressElInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         addHTMLControls(): void;
         hostScene: TScene;
-        private showStates(item, newState, show);
-        private showAll(show);
-        private gotoStepState(step, state);
+        private showStates;
+        private showAll;
+        private gotoStepState;
         gotoState(step: number, state: number): void;
         captureLogState(obj?: any): Object;
         captureXMLState(): any;
@@ -3470,8 +3489,8 @@ declare module "thermite/TTitleBar" {
         CEFTitleBar(): void;
         configDemoButton(_Tutor: TTutorContainer): void;
         doTitleClick(evt: TMouseEvent): void;
-        private doDemoClick(evt);
-        private doDeferedDemoClick(evt);
+        private doDemoClick;
+        private doDeferedDemoClick;
         onTutorPlay(evt: TMouseEvent): void;
         onTutorPause(evt: TMouseEvent): void;
         onTutorReplay(evt: TMouseEvent): void;
@@ -3486,7 +3505,7 @@ declare module "thermite/TVirtual" {
         constructor();
         TVirtualInitialize(): void;
         initialize(): void;
-        private init3();
+        private init3;
         Destructor(): void;
         onAddedToStage(evt: CEFEvent): void;
     }
@@ -3551,7 +3570,7 @@ declare module "thermite/scenes/CEFNavDemo" {
         private _demoPanel;
         private _scenesShown;
         constructor();
-        private gotoScene(evt);
+        private gotoScene;
     }
 }
 declare module "thermite/scenes/CEFScene0" {

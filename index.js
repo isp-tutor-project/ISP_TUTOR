@@ -411,7 +411,7 @@ document.getElementById("cancel-btn").addEventListener("click", e => {
 });
 
 // this is how you control the first page that opens
-let editMode = true;
+let editMode = false;
 if (editMode) {
     initHypoPage();
     openPage("hypo-page");

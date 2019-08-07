@@ -3,9 +3,9 @@
 // to launch the first page after done loading. Other pages can be launched for convenient development.
 function handleFileComplete(event) {
     //conceptMapPage();
-    //startPage();
+    startPage();
     //definitionPage6();
-    instructionPage();
+    //instructionPage();
     //brmPage();
     //brmInstructionPage();
 }
