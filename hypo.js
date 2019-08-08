@@ -649,11 +649,12 @@ function definitionPage6() {
     text1.y = 100;
     text1.lineWidth = 900;
     text1.lineHeight = 30;
-    let text2 = new createjs.Text("• How often a city is hit by a hurricane and how often it floods\n\n• Margarine (butter) sales and divorce rate\n\n• Humidity and the amount of water in the air\n\n• How hard you push on an object and how much the object moves\n\n• Friction and how much resistance there is to motion on a surface", "18px Arial", "#000");
+    // btw this text below is now in index.html
+    /*let text2 = new createjs.Text("• How often a city is hit by a hurricane and how often it floods\n\n• Margarine (butter) sales and divorce rate\n\n• Humidity and the amount of water in the air\n\n• How hard you push on an object and how much the object moves\n\n• Friction and how much resistance there is to motion on a surface", "18px Arial", "#000");
     text2.x = 230;
     text2.y = 200;
     text2.lineHeight = 20;
-    text2.lineWidth = 600;
+    text2.lineWidth = 600;*/
     let text3 = new createjs.Text("Reminder: Correlation does not equal causation:", "18px Arial", "#000");
     text3.x = 150;
     text3.y = 470;
@@ -847,7 +848,7 @@ function brmInstructionPage() {
 
 function brmPage() {
     stage.removeAllChildren();
-    let text = new createjs.Text('Click the "BRM" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. This task is expected to take around 30 minutes. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
+    let text = new createjs.Text('Click the "BRM" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
     text.x = CANVAS_WIDTH/2;
     text.y = 150;
     text.textAlign = "center";
@@ -858,6 +859,7 @@ function brmPage() {
         //open("https://sites.google.com/site/isptutorbrmstudent/", "_blank");
         //open("https://brm.isptutor.org/home/index.html?name=" + userID + "&study=" + collectionID, "_blank");
         open("https://go.isptutor.org/brm/home/index.html", "_blank");
+        localStorage.setItem("isptutor_brmStartTime", Date.now())
     });
     stage.addChild(text, brmButton);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
