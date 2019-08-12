@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This install script is a work in progress.....
+# You can look at Part1, Part2, and Part 3, but I do not guarantee that this script installs everything
+
 if false; then
 # Part 1, install the experiment modules
 echo Installing EFMod_Algae...

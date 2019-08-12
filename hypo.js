@@ -135,16 +135,8 @@ let loadingText;
 // ==========================================================================================================
 // ================================================ Firebase ==================================================
 // ==========================================================================================================
-/*
-// initialize firebase
-let firebaseConfig = {
-    apiKey: "AIzaSyD7zIk-8V20QqJNSs0cAV0uNL3qjeqLMdM",
-    authDomain: "isptutor.firebaseapp.com",
-    projectId: "isptutor"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-let db = firebase.firestore();*/
+
+// this is old function to load rq data, uses hypoOntology.js, might not work anymore
 /*
         async function getTutorState() {
             let jsonData = null;
@@ -644,6 +636,11 @@ function definitionPage5() {
 
 function definitionPage6() {
     stage.removeAllChildren();
+    // add error field
+    errorField = new createjs.Container();
+    errorField.y = 10;
+    stage.addChild(errorField);
+
     let text1 = new createjs.Text("For each example below, as one increases, the other increases or decreases. What kind of relationship do YOU think there is for each of the following pairs of concepts (each concept is underlined):", "24px Arial", "#000");
     text1.x = 150;
     text1.y = 100;
@@ -687,6 +684,7 @@ function definitionPage6() {
     });
     stage.addChild(backButton);
     let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let readyToMoveOn = false;
     nextButton.on("click", e => {
         // checking validity info for quiz questions
         let quizSelectors = document.getElementsByClassName("quiz_questions");
@@ -696,16 +694,25 @@ function definitionPage6() {
             }
             else {
                 quizSelectors[i].setCustomValidity("");
+                quizSelectors[i].style.color = "green";
             }
             // resetting validity
             quizSelectors[i].onchange = (() => {
                 quizSelectors[i].setCustomValidity("");
+                quizSelectors[i].style.color = "";
             });
         }
-        if (quizQuestions.htmlElement.reportValidity()) {
+        // this will activate when all answers are correct, and next had been clicked
+        if (readyToMoveOn) {
             quiz.htmlElement.style.display = "none";
             quizQuestions.htmlElement.style.display = "none";
             instructionPage();
+            return;
+        }
+        // testing if all answers are correct
+        if (quizQuestions.htmlElement.reportValidity()) {
+            updateErrorField("Your answers are all correct. Click Next to move on.", "16px Arial", "green");
+            readyToMoveOn = true;
         };
     });
     stage.addChild(nextButton);
@@ -1165,9 +1172,9 @@ function verify(ivBubble) {
     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct. Please ask your instructor to come check your work.", "16px Arial", "#000");
     logData(ivBubble);
     logBrmData();
+    localStorage.removeItem("isptutor_brmStartTime");
     return isGood;
 }
-
 
 function updateErrorField(text, font, color) {
     errorField.removeAllChildren();
