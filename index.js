@@ -103,7 +103,7 @@ var canvas, exportRoot, anim_container, dom_overlay_container, fnStartAnimation,
 function initRQPage() {
     EFRootTutor = 'EFTED_RQSelect';
     EFloginhibit = false;
-    
+
     // change this to enable rq choice
     EFtutorFeatures = "FTR_WEB:FTR_CHOICE";
     //EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL";
@@ -356,7 +356,7 @@ document.getElementById("registration-submit").addEventListener("click", e => {
             })
             .then(function () {
                 console.log("Document successfully written!");
-                showSnackbar("Successfully created new account. Signed in as " + userID + ".");
+                showSnackbar("Signed in as " + userID + ".");
                 openPage("home-page");
                 initHomePage();
             })

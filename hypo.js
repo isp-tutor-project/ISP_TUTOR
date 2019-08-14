@@ -888,7 +888,8 @@ function brmPage() {
     let brmButton = createLargeButton(CANVAS_WIDTH * .5, CANVAS_HEIGHT * .5, "BRM", "#3769C2")
     brmButton.on("click", e => {
         open("https://go.isptutor.org/brm/home/index.html", "_blank");
-        localStorage.setItem("isptutor_brmStartTime", Date.now())
+        localStorage.setItem("isptutor_brmStartTime", Date.now());
+        localStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
     });
     stage.addChild(text, brmButton);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
