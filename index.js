@@ -106,7 +106,7 @@ function initRQPage() {
 
     // change this to enable rq choice
     //EFtutorFeatures = "FTR_WEB:FTR_CHOICE";
-    EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCSODA";
+    EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL";
 
     init = () => {
 

@@ -32,8 +32,8 @@ let ontology = {
                     "fourcanchange":"In this experiment, there are only four things we can change. Any of these might make a difference in the amount of crystal growth on a string in water. These are the four variables you can test in this experiment",
 
                     "enumValue1":"The Water Temperature",
-                    "enumValue1a":"Cool (16c)",
-                    "enumValue1b":"Hot (50c)",
+                    "enumValue1a":"Cool (16°C)",
+                    "enumValue1b":"Hot (50°C)",
                     "enumValue2":"The Type of Crystal",
                     "enumValue2a":"Salt",
                     "enumValue2b":"Brown Sugar",
