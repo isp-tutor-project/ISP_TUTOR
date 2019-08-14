@@ -1,4 +1,4 @@
-
+// this is the hypo.js file, responsible for the functionality of the hypo module
 
 // to launch the first page after done loading. Other pages can be launched for convenient development.
 function handleFileComplete(event) {
@@ -69,33 +69,34 @@ const CONNECTOR_RADIUS = 5;
 const QUIZ_ANSWERS = ["Causation", "Correlation", "Definition", "Causation", "Definition"];
 
 
-// constants regarding values of nodes
+// placeholder constants regarding values of nodes
 const IV = "Water temperature"
 const DV = "Amount crystal growth on string"
 // there can be 1 - 8 nodes (or else it will look strange)
-let NODES = ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"];
-// these two negative indices are just using while logging steps
-NODES[-2] = IV;
-NODES[-1] = DV;
+const NODES = ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"];
 const CAUSES = ["Electric force", "Conservation of matter", "Energy to escape electric forces"];
 // true corresponds to "increasing" and false corresponds to "decreasing"
-//let initialDVDirection = true;
 let firstPrediction = true;
 let secondPrediction = true;
 
 /*
-        // constants regarding values of nodes
-        const IV = "Listening to songs while studying"
-        const DV = "Grades in the class"
-        // there can be 1 - 8 nodes (or else it will look strange)
-        const NODES = ["Knowledge of lyrics", "Reading comprehension of material", "Learning of material"];
-        const CAUSES = ["Concentration", "Familiarity", "Mood"];
-        // true corresponds to "increasing" and false corresponds to "decreasing"
-        let initialDVDirection = false;
+    // constants regarding values of nodes
+    const IV = "Listening to songs while studying"
+    const DV = "Grades in the class"
+    // there can be 1 - 8 nodes (or else it will look strange)
+    const nodes = ["Knowledge of lyrics", "Reading comprehension of material", "Learning of material"];
+    const causes = ["Concentration", "Familiarity", "Mood"];
 */
 // variable versions of iv and dv
 let iv = IV;
 let dv = DV;
+// abbreviated dv
+let dvabb = DV;
+let nodes = NODES;
+// these two negative indices are just using while logging steps
+nodes[-2] = IV;
+nodes[-1] = DV;
+let causes = CAUSES;
 
 // constants regarding position of nodes,
 // nodes/bubbles are centered upon the x and y positions selected
@@ -137,46 +138,68 @@ let loadingText;
 // ==========================================================================================================
 
 // this is old function to load rq data, uses hypoOntology.js, might not work anymore
-/*
-        async function getTutorState() {
-            let jsonData = null;
-            if (getUserId() == null) return null;
-            var docRef = db.collection("users").doc(getUserId());
-            await docRef.get().then(function(doc) {
-                if (doc.exists) {
-                    console.log("Document exists");
-                    jsonData = doc.data().rqted;
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch(function(error) {
-                console.log("Error getting document:", error);
-            });
-            //console.log("returned data: "+ jsonData);
-            return jsonData;
-        }
 
-        function getUserId() {
-            return userID;
+async function getTutorState() {
+    let jsonData = null;
+    if (userID == null) {
+        console.log("userID is null");
+        return null;
+    }
+    var docRef = db.collection(collectionID).doc(userID);
+    await docRef.get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document exists");
+            jsonData = doc.data().rqted;
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
         }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    //console.log("returned data: "+ jsonData);
+    return jsonData;
+}
 
-        function loadData() {
-            getTutorState().then((jsonData) => {
-                if (jsonData != null) {
-                    let moduleData = JSON.parse(jsonData)['moduleState'];
-                    if (moduleData['selectedArea'] != undefined && moduleData['selectedTopic'] != undefined && moduleData['selectedVariable'] != undefined) {
-                        let area = moduleData['selectedArea']['index'];
-                        let topic = moduleData['selectedTopic']['index'];
-                        let variable = moduleData['selectedTopic']['index'];
-                        let ontologyTopic = hypoOntology['_ONTOLOGY']['S']['A'+area]['T'+topic];
-                        iv = ontologyTopic['enumValue'+variable];
-                        dv = ontologyTopic['DVabb'];
-                    }
+function loadData() {
+    getTutorState().then((jsonData) => {
+        if (jsonData != null) {
+            let moduleData = JSON.parse(jsonData)['moduleState'];
+            if (moduleData['selectedArea'] != undefined && moduleData['selectedTopic'] != undefined && moduleData['selectedVariable'] != undefined) {
+                let area = moduleData['selectedArea']['index'];
+                let topic = moduleData['selectedTopic']['index'];
+                let variable = moduleData['selectedVariable']['index'];
+                // ontology stuff
+                let ontologyTopic = ontology['_ONTOLOGY']['S']['A'+area]['T'+topic];
+                iv = ontologyTopic['enumValue'+variable];
+                dv = ontologyTopic['DVs'];
+                dvabb = ontologyTopic['DVabb'];
+                // hypoOntology stuff
+                let hypoOntologyTopic = hypoOntology['A'+area]['T'+topic]['V'+variable];
+                if (hypoOntologyTopic['IV'] != "") {
+                    iv = hypoOntologyTopic['IV'];
                 }
-            })
+                if (hypoOntologyTopic['DV'] != "") {
+                    dv = hypoOntologyTopic['DV'];
+                }
+                if (hypoOntologyTopic['DVabb'] != "") {
+                    dvabb = hypoOntologyTopic['DVabb'];
+                }
+                nodes = hypoOntologyTopic['NODES'];
+                console.log(area+","+topic+","+variable);
+                console.log(hypoOntologyTopic)
+                console.log(nodes);
+                nodes[-2] = iv;
+                nodes[-1] = dvabb;
+                causes = hypoOntologyTopic['CAUSES'];
+            }
+            else {
+                console.log("RQTED data not present");
+            }
         }
-*/
+    })
+}
+
 function logData(ivBubble) {
     let log = {};
     if (firstPrediction) log.firstPrediction = "increase";
@@ -232,7 +255,7 @@ function logBrmData() {
 function initHypoPage() {
 
     // load IV and DV from firebase, if available
-    //loadData();
+    loadData();
 
     // used to create a higher resolution canvas
     createHiPPICanvas = function (w, h, ratio) {
@@ -784,11 +807,13 @@ function predictionPage1() {
     question.x = CANVAS_WIDTH / 2;
     question.y = title.y + 40;
     question.textAlign = "center";
+    question.lineWidth = 800;
+    question.lineHeight = 30;
 
     let chosenDVDirection;
     let choice1 = new createjs.Text("Increase", "20px Arial", "#000");
     choice1.x = CANVAS_WIDTH / 2;
-    choice1.y = question.y + 70;
+    choice1.y = question.y + 150;
     choice1.textAlign = "center";
     generateHitAreaCenterAlignment(choice1);
     choice1.on("click", e => {
@@ -817,7 +842,6 @@ function predictionPage1() {
         }
         else {
             firstPrediction = chosenDVDirection;
-            //initialDVDirection = chosenDVDirection;
             brmInstructionPage();
         }
     });
@@ -863,8 +887,6 @@ function brmPage() {
     text.lineHeight = 30;
     let brmButton = createLargeButton(CANVAS_WIDTH * .5, CANVAS_HEIGHT * .5, "BRM", "#3769C2")
     brmButton.on("click", e => {
-        //open("https://sites.google.com/site/isptutorbrmstudent/", "_blank");
-        //open("https://brm.isptutor.org/home/index.html?name=" + userID + "&study=" + collectionID, "_blank");
         open("https://go.isptutor.org/brm/home/index.html", "_blank");
         localStorage.setItem("isptutor_brmStartTime", Date.now())
     });
@@ -894,11 +916,13 @@ function predictionPage2() {
     question.x = CANVAS_WIDTH / 2;
     question.y = title.y + 40;
     question.textAlign = "center";
+    question.lineWidth = 800;
+    question.lineHeight = 30;
 
     let chosenDVDirection;
     let choice1 = new createjs.Text("Increase", "20px Arial", "#000");
     choice1.x = CANVAS_WIDTH / 2;
-    choice1.y = question.y + 70;
+    choice1.y = question.y + 150;
     choice1.textAlign = "center";
     generateHitAreaCenterAlignment(choice1);
     choice1.on("click", e => {
@@ -926,7 +950,6 @@ function predictionPage2() {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
         }
         else {
-            //initialDVDirection = chosenDVDirection;
             secondPrediction = chosenDVDirection;
             conceptMapPage();
         }
@@ -963,8 +986,8 @@ function conceptMapPage() {
     let topMargin = 60;
     let rightMargin = 20 + buttonSize;
     let spacing = 35;
-    for (let i = 0; i < NODES.length; i++) {
-        let nodeText = new createjs.Text(NODES[i], "16px Arial", "#000");
+    for (let i = 0; i < nodes.length; i++) {
+        let nodeText = new createjs.Text(nodes[i], "16px Arial", "#000");
         let plusButton;
         let xButton;
         if (i < 4) {
@@ -983,11 +1006,11 @@ function conceptMapPage() {
         let storedBubble = null;
         plusButton.on("click", e => {
             if (storedBubble == null) {
-                let bubble = createBubble(CANVAS_WIDTH / 2 + increment, CANVAS_HEIGHT / 2 + increment, NODES[i], "#4286f4", "none");
+                let bubble = createBubble(CANVAS_WIDTH / 2 + increment, CANVAS_HEIGHT / 2 + increment, nodes[i], "#4286f4", "none");
                 bubble.idx = i;
                 steps.push({
                     action: "NODE_CREATE",
-                    object: NODES[bubble.idx],
+                    object: nodes[bubble.idx],
                     index: bubble.idx,
                     info: "N/A",
                     timestamp: (new Date()).toLocaleString()
@@ -1007,7 +1030,7 @@ function conceptMapPage() {
                 stage.removeChild(storedBubble);
                 steps.push({
                     action: "NODE_DELETE",
-                    object: NODES[storedBubble.idx],
+                    object: nodes[storedBubble.idx],
                     index: storedBubble.idx,
                     info: "N/A",
                     timestamp: (new Date()).toLocaleString()
@@ -1020,13 +1043,13 @@ function conceptMapPage() {
     stage.addChild(textField);
 
     // adding IV bubble, DV bubble, and arrow
-    let ivBubble = createFixedBubble(IV_X, IV_Y, iv, "#99bbff", "increase", false);
+    let ivBubble = createFixedBubble(IV_X, IV_Y, capitalizeFirstLetter(iv), "#99bbff", "increase", false);
     let dvBubble;
     if (secondPrediction) {
-        dvBubble = createFixedBubble(DV_X, DV_Y, dv, "#99bbff", "increase", true);
+        dvBubble = createFixedBubble(DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", "increase", true);
     }
     else {
-        dvBubble = createFixedBubble(DV_X, DV_Y, dv, "#99bbff", "decrease", true);
+        dvBubble = createFixedBubble(DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", "decrease", true);
     }
     let arrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y, dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y);
 
@@ -1044,6 +1067,10 @@ function conceptMapPage() {
 }
 
 
+// random utility function to capitalize first letter and make rest lower case
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
 // ==========================================================================================================
 // ============================================ Handle Overs ================================================
@@ -1291,7 +1318,7 @@ function createOutConnector(x, y) {
                 connectorOver.arrow = currentArrow;
                 steps.push({
                     action: "ARROW_CREATE",
-                    object: NODES[connector.parent.idx] + "::" + NODES[connectorOver.parent.idx],
+                    object: nodes[connector.parent.idx] + "::" + nodes[connectorOver.parent.idx],
                     index: connector.parent.idx + "::" + connectorOver.parent.idx,
                     info: "N/A",
                     timestamp: (new Date()).toLocaleString()
@@ -1619,7 +1646,7 @@ function createDirectionPanel(x, y, target) {
         drawDirButton(target, x, y, "increase", "#FFFFFF");
         steps.push({
             action: "NODE_CHANGE_DIRECTION",
-            object: NODES[target.parent.idx],
+            object: nodes[target.parent.idx],
             index: target.parent.idx,
             info: "increase",
             timestamp: (new Date()).toLocaleString()
@@ -1629,7 +1656,7 @@ function createDirectionPanel(x, y, target) {
         drawDirButton(target, x, y, "decrease", "#FFFFFF")
         steps.push({
             action: "NODE_CHANGE_DIRECTION",
-            object: NODES[target.parent.idx],
+            object: nodes[target.parent.idx],
             index: target.parent.idx,
             info: "decrease",
             timestamp: (new Date()).toLocaleString()
@@ -1646,7 +1673,7 @@ function changeExplanation(target, text) {
     drawArrow(arrow, arrow.x, arrow.y, arrow.endX, arrow.endY, text);
     steps.push({
         action: "ARROW_CHANGE_LABEL",
-        object: NODES[arrow.connector.parent.idx] + "::" + NODES[arrow.connectorOver.parent.idx],
+        object: nodes[arrow.connector.parent.idx] + "::" + nodes[arrow.connectorOver.parent.idx],
         index: arrow.connector.parent.idx + "::" + arrow.connectorOver.parent.idx,
         info: text.replace("\n", " "),
         timestamp: (new Date()).toLocaleString()
@@ -1679,7 +1706,7 @@ function createDeletePanel(x, y, target) {
         removeArrowAndLabel(target);
         steps.push({
             action: "ARROW_DELETE",
-            object: NODES[target.connector.parent.idx] + "::" + NODES[target.connectorOver.parent.idx],
+            object: nodes[target.connector.parent.idx] + "::" + nodes[target.connectorOver.parent.idx],
             index: target.connector.parent.idx + "::" + target.connectorOver.parent.idx,
             info: "N/A",
             timestamp: (new Date()).toLocaleString()
@@ -1695,16 +1722,16 @@ function createCausePanel(x, y, target) {
     panel.y = y;
     // find max length of cause text
     let optionWidth = OPTION_MIN_WIDTH;
-    for (let i = 0; i < CAUSES.length; i++) {
-        let text = new createjs.Text(CAUSES[i], "16px Arial", "#000");
+    for (let i = 0; i < causes.length; i++) {
+        let text = new createjs.Text(causes[i], "16px Arial", "#000");
         let textWidth = text.getMeasuredWidth() + 10;
         if (textWidth > optionWidth) {
             optionWidth = textWidth;
         }
     }
-    for (let i = 0; i < CAUSES.length; i++) {
-        let option = createOption(0, OPTION_HEIGHT * i, CAUSES[i], optionWidth);
-        option.on("click", e => changeExplanation(target, "Cause:\n" + CAUSES[i]));
+    for (let i = 0; i < causes.length; i++) {
+        let option = createOption(0, OPTION_HEIGHT * i, causes[i], optionWidth);
+        option.on("click", e => changeExplanation(target, "Cause:\n" + causes[i]));
         panel.addChild(option);
     }
     return panel;
@@ -1714,7 +1741,6 @@ function createCausePanel(x, y, target) {
 // ==========================================================================================================
 // ======================================= Arrows and Labels ================================================
 // ========================================================================================================== 
-
 
 // only used for the unlabeled arrow between iv and dv
 function createUnlabeledArrow(startX, startY, endX, endY) {

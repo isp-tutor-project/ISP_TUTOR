@@ -1,3 +1,4 @@
+// this is the index.js file, responsible for controlling the account registration system and launching the different modules
 
 let currentPage = "index-page";
 let collectionID;
@@ -57,17 +58,6 @@ function isValidInput(input) {
     }
 }
 
-// Your web app's Firebase configuration
-let firebaseConfig = {
-    apiKey: "AIzaSyD7zIk-8V20QqJNSs0cAV0uNL3qjeqLMdM",
-    authDomain: "isptutor.firebaseapp.com",
-    projectId: "isptutor"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-let db = firebase.firestore();
-
-
 // ==========================================================================================================
 // ========================================== Page Initiations ==============================================
 // ==========================================================================================================
@@ -109,11 +99,15 @@ let init;
 let handleComplete;
 var EFRootTutor, EFloginhibit, EFtutorFeatures;
 var canvas, exportRoot, anim_container, dom_overlay_container, fnStartAnimation, inited;
-function initRQPage() {
 
-    EFRootTutor = 'EFTED_RQSelect'
+function initRQPage() {
+    EFRootTutor = 'EFTED_RQSelect';
     EFloginhibit = false;
-    EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL"
+    
+    // change this to enable rq choice
+    EFtutorFeatures = "FTR_WEB:FTR_CHOICE";
+    //EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL";
+
     init = () => {
 
         // NOTE: Some chrome extensions may introduce secondary calls to the onload listener
