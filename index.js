@@ -39,10 +39,8 @@ function showSnackbar(text) {
     // Get the snackbar DIV
     let snackbar = document.getElementById("snackbar");
     snackbar.innerHTML = text;
-
     // Add the "show" class to DIV
     snackbar.className = "show";
-
     // After 3 seconds, remove the show class from DIV
     setTimeout(() => { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
 }
@@ -105,11 +103,10 @@ function initRQPage() {
     EFloginhibit = false;
 
     // change this to enable rq choice
-    //EFtutorFeatures = "FTR_WEB:FTR_CHOICE";
-    EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL";
+    EFtutorFeatures = "FTR_WEB:FTR_CHOICE";
+    //EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL";
 
     init = () => {
-
         // NOTE: Some chrome extensions may introduce secondary calls to the onload listener
         //       inited ensure it only fires once.
         //
@@ -379,7 +376,6 @@ document.getElementById("hypo-button").addEventListener("click", e => {
     initHypoPage();
     openPage("hypo-page");
 });
-
 document.getElementById("ted-button").addEventListener("click", e => {
   openPage("module-page");
   initTEDPage();
