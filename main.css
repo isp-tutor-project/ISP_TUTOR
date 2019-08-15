@@ -236,7 +236,6 @@ button:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  /*margin: auto;*/
   z-index: 1;
 }
 
@@ -246,7 +245,6 @@ button:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  /*margin: auto;*/
 }
 
 .quiz_questions {
@@ -278,7 +276,6 @@ button:hover {
   left: 50%; /* Center the snackbar */
   bottom: 30px; /* 30px from the bottom */
 }
-
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {
   visibility: visible; /* Show the snackbar */
@@ -287,23 +284,19 @@ button:hover {
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
-
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
   from {bottom: 0; opacity: 0;} 
   to {bottom: 30px; opacity: 1;}
 }
-
 @keyframes fadein {
   from {bottom: 0; opacity: 0;}
   to {bottom: 30px; opacity: 1;}
 }
-
 @-webkit-keyframes fadeout {
   from {bottom: 30px; opacity: 1;} 
   to {bottom: 0; opacity: 0;}
 }
-
 @keyframes fadeout {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
@@ -317,3 +310,10 @@ button:hover {
   top:0;bottom:0;
 }
 
+/* Footer */
+#footer {
+  font-size: 10px;
+  background-color: #E4E3E3;
+  padding: 10px;
+  margin-top: 80px;
+}
