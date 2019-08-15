@@ -72,8 +72,8 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["node1", "node2"],
-                "CAUSES": ["cause1", "cause2"]
+                "NODES": ["ice temperature", "size ice cube"],
+                "CAUSES": ["kinetic energy", "heat transfer"]
             },
             "V2": {
                 "IV": "",
