@@ -177,8 +177,8 @@ let ontology = {
                     "fourcanchange":"In this experiment, there are only four things we can change. Any of these might make a difference in the time it takes for the ice cube to melt in water. These are the four variables you can test in this experiment",
 
                     "enumValue1":"The initial temperature of the ice cube",
-                    "enumValue1a":"0c",
-                    "enumValue1b":"-20c",
+                    "enumValue1a":"0°C",
+                    "enumValue1b":"-20°C",
                     "enumValue2":"The initial temperature of the water",
                     "enumValue2a":"Cold",
                     "enumValue2b":"Hot",
