@@ -17,22 +17,22 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Node1", "Node2"],
-                "CAUSES": ["Cause1", "Cause2"]
+                "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"],
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": [],
-                "CAUSES": []
+                "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"],
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": [],
-                "CAUSES": []
+                "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"],
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces"]
             }
         },
         "T2": {
@@ -40,29 +40,29 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Node1", "Node2"],
-                "CAUSES": ["Cause1", "Cause2"]
+                "NODES": ["Nucleation Sites on Mint", "Amount of CO2 bubbles on mint","amount of CO2 escaping from soda","kinetic energy CO2 bubbles"],
+                "CAUSES": ["unknown cause", "due to more mass", "buoyancy force", "conservation energy"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": [],
-                "CAUSES": []
+                "NODES": ["Nucleation Sites on Mint", "Amount of CO2 bubbles on mint","amount of CO2 escaping from soda","kinetic energy CO2 bubbles"],
+                "CAUSES": ["unknown cause", "due to more mass", "buoyancy force", "conservation energy"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": [],
-                "CAUSES": []
+                "NODES": ["Nucleation Sites on Mint", "Amount of CO2 bubbles on mint","amount of CO2 escaping from soda","kinetic energy CO2 bubbles"],
+                "CAUSES": ["unknown cause", "due to more mass", "buoyancy force", "conservation energy"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": [],
-                "CAUSES": []
+                "NODES": ["Nucleation Sites on Mint", "Amount of CO2 bubbles on mint","amount of CO2 escaping from soda","kinetic energy CO2 bubbles"],
+                "CAUSES": ["unknown cause", "due to more mass", "buoyancy force", "conservation energy"]
             }
         }
     },
