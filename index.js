@@ -103,8 +103,8 @@ function initRQPage() {
     EFloginhibit = false;
 
     // change this to enable rq choice
-    //EFtutorFeatures = "FTR_CHOICE";
-    EFtutorFeatures = "FTR_NOCHOICE:FTR_NCCRYSTAL";
+    EFtutorFeatures = "FTR_CHOICE";
+    //EFtutorFeatures = "FTR_NOCHOICE:FTR_NCCRYSTAL";
 
     init = () => {
         // NOTE: Some chrome extensions may introduce secondary calls to the onload listener
