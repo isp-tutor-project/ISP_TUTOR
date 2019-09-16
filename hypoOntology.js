@@ -102,28 +102,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal E from balloon to gas"],
+                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal energy from balloon to gas"],
                 "CAUSES": ["thermal energy transfer", "conservation of energy", "electric forces"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal E from balloon to gas"],
+                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal energy from balloon to gas"],
                 "CAUSES": ["thermal energy transfer", "conservation of energy", "electric forces"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal E from balloon to gas"],
+                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal energy from balloon to gas"],
                 "CAUSES": ["thermal energy transfer", "conservation of energy", "electric forces"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal E from balloon to gas"],
+                "NODES": ["Amount of sunlight balloon absorbs", "Amount of sunlight converted to thermal energy", "Temperature of balloon material", "Amt thermal energy from balloon to gas"],
                 "CAUSES": ["thermal energy transfer", "conservation of energy", "electric forces"]
             }
         }
