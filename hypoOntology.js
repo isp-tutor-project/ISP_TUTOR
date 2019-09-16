@@ -79,21 +79,21 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","Likeliehood of H2O molecules breaking bonds with others=melt"],
+                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","likelihood of H2O molecules breaking bonds with others=melt"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","Likeliehood of H2O molecules breaking bonds with others=melt"],
+                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","likelihood of H2O molecules breaking bonds with others=melt"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","Likeliehood of H2O molecules breaking bonds with others=melt"],
+                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","likelihood of H2O molecules breaking bonds with others=melt"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             }
         },
