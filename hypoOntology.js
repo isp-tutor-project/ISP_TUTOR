@@ -134,28 +134,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "Kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "Kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "Kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "Kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             }
         },
@@ -164,29 +164,29 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)"],
-                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "Stronger pull of gravity"]
+                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)", "Force of gravity pulling down on object", "Buoyancy force pushing up on object"],
+                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "masses object and Earth", "water molecules hitting object"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)"],
-                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "Stronger pull of gravity"]
+                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)", "Force of gravity pulling down on object", "Buoyancy force pushing up on object"],
+                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "masses object and Earth", "water molecules hitting object"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)"],
-                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "Stronger pull of gravity"]
+                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)", "Force of gravity pulling down on object", "Buoyancy force pushing up on object"],
+                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "masses object and Earth", "water molecules hitting object"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)"],
-                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "Stronger pull of gravity"]
+                "NODES": ["Acceleration of object (downward)", "Speed of object (downward)", "Force of gravity pulling down on object", "Buoyancy force pushing up on object"],
+                "CAUSES": ["Newton's Second Law", "Newton's Third Law", "masses object and Earth", "water molecules hitting object"]
             }
         }
     },
@@ -196,28 +196,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Temperature of Flowers", "Number of Bees attracted to flower", "Chance of Pollination"],
+                "NODES": ["Temperature of Flowers", "How sweet flowers smell", "Number of Bees attracted to flower", "Chance of Pollination", "Amount of nectar in flowers"],
                 "CAUSES": ["transfer of energy", "pollen transferred to stigma", "pollen fertilizing egg cell", "pollen sticks to bee"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Temperature of Flowers", "Number of Bees attracted to flower", "Chance of Pollination"],
+                "NODES": ["Temperature of Flowers", "How sweet flowers smell", "Number of Bees attracted to flower", "Chance of Pollination", "Amount of nectar in flowers"],
                 "CAUSES": ["transfer of energy", "pollen transferred to stigma", "pollen fertilizing egg cell", "pollen sticks to bee"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Temperature of Flowers", "Number of Bees attracted to flower", "Chance of Pollination"],
+                "NODES": ["Temperature of Flowers", "How sweet flowers smell", "Number of Bees attracted to flower", "Chance of Pollination", "Amount of nectar in flowers"],
                 "CAUSES": ["transfer of energy", "pollen transferred to stigma", "pollen fertilizing egg cell", "pollen sticks to bee"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Temperature of Flowers", "Number of Bees attracted to flower", "Chance of Pollination"],
+                "NODES": ["Temperature of Flowers", "How sweet flowers smell", "Number of Bees attracted to flower", "Chance of Pollination", "Amount of nectar in flowers"],
                 "CAUSES": ["transfer of energy", "pollen transferred to stigma", "pollen fertilizing egg cell", "pollen sticks to bee"]
             }
         },
@@ -226,28 +226,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Glucose produced ", "ATP produced"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Glucose produced ", "ATP produced"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Glucose produced ", "ATP produced"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Glucose produced ", "ATP produced"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             }
         }
