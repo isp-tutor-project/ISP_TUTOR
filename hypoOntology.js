@@ -72,28 +72,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Kinetic energy of (liquid) water molecules"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Time for (initial) ice and water to reach same temperature"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","energy to escape electric forces"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Kinetic energy of (liquid) water molecules"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Time for (initial) ice and water to reach same temperature"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","energy to escape electric forces"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Kinetic energy of (liquid) water molecules"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Time for (initial) ice and water to reach same temperature"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","energy to escape electric forces"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Kinetic energy of (liquid) water molecules"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting", "Time for (initial) ice and water to reach same temperature"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","energy to escape electric forces"]
             }
         },
