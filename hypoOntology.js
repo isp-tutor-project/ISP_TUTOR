@@ -226,28 +226,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Number of new cells grown", "Amount of light absorbed by chlorophyll"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
-                "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Number of new cells grown", "Amount of light absorbed by chlorophyll"],
+                "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy "]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Number of new cells grown", "Amount of light absorbed by chlorophyll"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Amount of cell growth"],
+                "NODES": ["Amount of glucose produced", "Amount of ATP produced", "Number of new cells grown", "Amount of light absorbed by chlorophyll"],
                 "CAUSES": ["photosynthesis", "chemical reaction", "physical reaction", "kinetic energy"]
             }
         }
