@@ -72,28 +72,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["ice temperature", "size ice cube"],
-                "CAUSES": ["kinetic energy", "heat transfer"]
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
+                "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Kinetic energy in H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
+                "NODES": ["Kinetic energy of H2O molecules in ice","Motion of H2O molecules","Likelihood of H2O molecules breaking bonds", "Amount of melting"],
                 "CAUSES": ["conservation of matter", "speed changes during collisions","electric forces"]
             }
         },
