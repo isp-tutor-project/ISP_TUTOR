@@ -134,28 +134,28 @@ let hypoOntology = {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
-                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball"],
+                "NODES": ["Time gravitational force acts on ball", "Time ball accelerates down ramp", "Amount friction between ramp and ball", "kinetic energy of ball"],
                 "CAUSES": ["Newton's Second Law", "Newton's Third Law", "More force in direction of motion"]
             }
         },
