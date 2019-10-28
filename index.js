@@ -84,7 +84,7 @@ function parseUserForm(formID) {
 
     let form = getEleById(formID);
     if (!form.reportValidity()) {
-        return;
+        return false;
     }
     let schoolCode = getEleById(flds.schoolcode).value.toUpperCase();
     let period = getEleById(flds.period).value.toUpperCase();
@@ -94,17 +94,18 @@ function parseUserForm(formID) {
     let month = getEleById(flds.bmonth).value;
     let day = getEleById(flds.bday).value;
     if (!ensureLength2(firstname, "first name")) {
-        return;
+        return false;
     }
     if (!ensureLength2(lastname, "last name")) {
-        return;
+        return false;
     }
     userID = firstname + lastname;
     if (!isValidInput(userID)) {
-        return;
+        return false;
     }
     userID += '_' + month + '_' + day;
     userID = userID.toUpperCase();
+    return true;
 }
 
 // ==========================================================================================================
@@ -361,22 +362,23 @@ document.getElementById("signin-submit").addEventListener("click", e => {
     // }
     // userID += "_" + month + "_" + day;
     // userID = userID.toUpperCase();
-    parseUserForm("signin-form");
-    db.collection(collectionID).doc(userID).get().then((doc) => {
-        if (doc.exists) {
-            console.log("Account found");
-            showSnackbar("Signed in as " + userID + ".");
-            openPage("home-page");
-            initHomePage();
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such account!");
-            showSnackbar("No such account exists. Check that your name and birthday were typed in correctly.")
-        }
-    }).catch(function (error) {
-        console.log("Error getting account:", error);
-        showSnackbar("No such account exists. Check that you typed in the classcode correctly.")
-    })
+    if (parseUserForm("signin-form")) {
+        db.collection(collectionID).doc(userID).get().then((doc) => {
+            if (doc.exists) {
+                console.log("Account found");
+                showSnackbar("Signed in as " + userID + ".");
+                openPage("home-page");
+                initHomePage();
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such account!");
+                showSnackbar("No such account exists. Check that your name and birthday were typed in correctly.")
+            }
+        }).catch(function (error) {
+            console.log("Error getting account:", error);
+            showSnackbar("No such account exists. Check that you typed in the classcode correctly.")
+        })
+    }
 });
 document.getElementById("registration-submit").addEventListener("click", e => {
     // let form = document.getElementById("registration-form");
@@ -396,31 +398,32 @@ document.getElementById("registration-submit").addEventListener("click", e => {
     // }
     // userID += "_" + month + "_" + day;
     // userID = userID.toUpperCase();
-    parseUserForm("registration-form");
-    db.collection(collectionID).doc(userID).get().then((doc) => {
-        if (doc.exists) {
-            console.log("Account already exists");
-            showSnackbar("Account already exists.");
-        } else {
-            console.log("Creating account");
-            db.collection(collectionID).doc(userID).set({
-                currTutorNdx: 0
-            })
-            .then(function () {
-                console.log("Document successfully written!");
-                showSnackbar("Signed in as " + userID + ".");
-                openPage("home-page");
-                initHomePage();
-            })
-            .catch(function (error) {
-                console.error("Error writing document: ", error);
-                showSnackbar("Error creating new account.");
-            });
-        }
-    }).catch(function (error) {
-        console.log("Error getting account:", error);
-        showSnackbar("Cannot create account. Please make sure that class code is correct.");
-    })
+    if (parseUserForm("registration-form")) {
+        db.collection(collectionID).doc(userID).get().then((doc) => {
+            if (doc.exists) {
+                console.log("Account already exists");
+                showSnackbar("Account already exists.");
+            } else {
+                console.log("Creating account");
+                db.collection(collectionID).doc(userID).set({
+                    currTutorNdx: 0
+                })
+                .then(function () {
+                    console.log("Document successfully written!");
+                    showSnackbar("Signed in as " + userID + ".");
+                    openPage("home-page");
+                    initHomePage();
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                    showSnackbar("Error creating new account.");
+                });
+            }
+        }).catch(function (error) {
+            console.log("Error getting account:", error);
+            showSnackbar("Cannot create account. Please make sure that class code is correct.");
+        });
+    }
 });
 document.getElementById("rq-button").addEventListener("click", e => {
   openPage("module-page");
