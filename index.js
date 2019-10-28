@@ -1,8 +1,15 @@
 // this is the index.js file, responsible for controlling the account registration system and launching the different modules
+/* global db, AdobeAn, createjs, stage, initHypoPage */
+
+// convenience function so I don't have to constantly
+// type document.getElementById()
+function getEleById(eleID) {
+    return document.getElementById(eleID);
+}
 
 let currentPage = "index-page";
 let collectionID;
-let userID;
+let userID = sessionStorage.getItem("userID");
 let currModulePage = document.getElementById("module-page");
 let newModulePage = document.getElementById("module-page").cloneNode(true);
 
@@ -54,6 +61,50 @@ function isValidInput(input) {
         showSnackbar("Please do not enter any numbers, spaces, or special characters in your input.");
         return false;
     }
+}
+
+function ensureLength2(value, fldName) {
+    if (value.length !== 2) {
+        showSnackbar(`Please enter exactly two letters for your ${fldName}`)
+        return false;
+    }
+    return true;
+}
+
+// simple parameterized wrapper which handles the otherwise duplicate login and
+// registration form parsing.
+function parseUserForm(formID) {
+    const pfx = ('registration-form' === formID) ? 'r' : 's';
+    let fldNames = ['schoolcode', 'period', 'fname', 'lname', 'bmonth', 'bday'];
+    // create a map of fldNames to prefixed ('r-' or 's-') field names
+    let flds = fldNames.reduce((obj, key) => {
+        obj[key] = `${pfx}-${key}`;
+        return obj;
+    }, {});
+
+    let form = getEleById(formID);
+    if (!form.reportValidity()) {
+        return;
+    }
+    let schoolCode = getEleById(flds.schoolcode).value.toUpperCase();
+    let period = getEleById(flds.period).value.toUpperCase();
+    collectionID = schoolCode + period;
+    let firstname = getEleById(flds.fname).value;
+    let lastname = getEleById(flds.lname).value;
+    let month = getEleById(flds.bmonth).value;
+    let day = getEleById(flds.bday).value;
+    if (!ensureLength2(firstname, "first name")) {
+        return;
+    }
+    if (!ensureLength2(lastname, "last name")) {
+        return;
+    }
+    userID = firstname + lastname;
+    if (!isValidInput(userID)) {
+        return;
+    }
+    userID += '_' + month + '_' + day;
+    userID = userID.toUpperCase();
 }
 
 // ==========================================================================================================
@@ -120,7 +171,8 @@ function initRQPage() {
         createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
         var loader = new createjs.LoadQueue(false);
         loader.addEventListener("complete", function (evt) { handleComplete(evt, comp) });
-        var lib = comp.getLibrary();
+        // commenting out for now as this a duplicate redeclaration
+        // var lib = comp.getLibrary();
         loader.loadManifest(lib.properties.manifest);
         // }
     }
@@ -130,7 +182,7 @@ function initRQPage() {
         var ss = comp.getSpriteSheet();
         var queue = evt.target;
         var ssMetadata = lib.ssMetadata;
-        for (i = 0; i < ssMetadata.length; i++) {
+        for (let i = 0; i < ssMetadata.length; i++) {
             ss[ssMetadata[i].name] = new createjs.SpriteSheet({ "images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames })
         }
         var preloaderDiv = document.getElementById("_preload_div_");
@@ -206,7 +258,8 @@ function initTEDPage() {
         createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
         var loader = new createjs.LoadQueue(false);
         loader.addEventListener("complete", function (evt) { handleComplete(evt, comp) });
-        var lib = comp.getLibrary();
+        // commenting out for now as this a duplicate redeclaration
+        // var lib = comp.getLibrary();
         loader.loadManifest(lib.properties.manifest);
         //}
     }
@@ -216,7 +269,7 @@ function initTEDPage() {
         var ss = comp.getSpriteSheet();
         var queue = evt.target;
         var ssMetadata = lib.ssMetadata;
-        for (i = 0; i < ssMetadata.length; i++) {
+        for (let i = 0; i < ssMetadata.length; i++) {
             ss[ssMetadata[i].name] = new createjs.SpriteSheet({ "images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames })
         }
         var preloaderDiv = document.getElementById("_preload_div_");
@@ -291,23 +344,24 @@ document.getElementById("r-back-button").addEventListener("click", e => {
     openPage("index-page");
 });
 document.getElementById("signin-submit").addEventListener("click", e => {
-    let form = document.getElementById("signin-form");
-    if (!form.reportValidity()) return;
-    collectionID = document.getElementById("s-classcode").value.toUpperCase();
-    let firstname = document.getElementById("s-fname").value;
-    let lastname = document.getElementById("s-lname").value;
-    let month = document.getElementById("s-bmonth").value;
-    let day = document.getElementById("s-bday").value;
-    if (lastname.length != 2) {
-        showSnackbar("Please enter exactly two characters for your last name.")
-        return;
-    }
-    userID = firstname + lastname;
-    if (!isValidInput(userID)) {
-        return;
-    }
-    userID += "_" + month + "_" + day;
-    userID = userID.toUpperCase();
+    // let form = document.getElementById("signin-form");
+    // if (!form.reportValidity()) return;
+    // collectionID = document.getElementById("s-classcode").value.toUpperCase();
+    // let firstname = document.getElementById("s-fname").value;
+    // let lastname = document.getElementById("s-lname").value;
+    // let month = document.getElementById("s-bmonth").value;
+    // let day = document.getElementById("s-bday").value;
+    // if (lastname.length != 2) {
+    //     showSnackbar("Please enter exactly two characters for your last name.")
+    //     return;
+    // }
+    // userID = firstname + lastname;
+    // if (!isValidInput(userID)) {
+    //     return;
+    // }
+    // userID += "_" + month + "_" + day;
+    // userID = userID.toUpperCase();
+    parseUserForm("signin-form");
     db.collection(collectionID).doc(userID).get().then((doc) => {
         if (doc.exists) {
             console.log("Account found");
@@ -325,23 +379,24 @@ document.getElementById("signin-submit").addEventListener("click", e => {
     })
 });
 document.getElementById("registration-submit").addEventListener("click", e => {
-    let form = document.getElementById("registration-form");
-    if (!form.reportValidity()) return;
-    collectionID = document.getElementById("r-classcode").value.toUpperCase();
-    let firstname = document.getElementById("r-fname").value;
-    let lastname = document.getElementById("r-lname").value;
-    let month = document.getElementById("r-bmonth").value;
-    let day = document.getElementById("r-bday").value;
-    if (lastname.length != 2) {
-        showSnackbar("Please enter exactly two characters for your last name.")
-        return;
-    }
-    userID = firstname + lastname;
-    if (!isValidInput(userID)) {
-        return;
-    }
-    userID += "_" + month + "_" + day;
-    userID = userID.toUpperCase();
+    // let form = document.getElementById("registration-form");
+    // if (!form.reportValidity()) return;
+    // collectionID = document.getElementById("r-classcode").value.toUpperCase();
+    // let firstname = document.getElementById("r-fname").value;
+    // let lastname = document.getElementById("r-lname").value;
+    // let month = document.getElementById("r-bmonth").value;
+    // let day = document.getElementById("r-bday").value;
+    // if (lastname.length != 2) {
+    //     showSnackbar("Please enter exactly two characters for your last name.")
+    //     return;
+    // }
+    // userID = firstname + lastname;
+    // if (!isValidInput(userID)) {
+    //     return;
+    // }
+    // userID += "_" + month + "_" + day;
+    // userID = userID.toUpperCase();
+    parseUserForm("registration-form");
     db.collection(collectionID).doc(userID).get().then((doc) => {
         if (doc.exists) {
             console.log("Account already exists");

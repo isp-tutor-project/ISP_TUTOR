@@ -19,7 +19,8 @@
   <script src="EFTutorLoader.js"></script>
 
   <!-- Loads my Firebase initializer -->
-  <script src="firebase.js"></script>
+  <!-- FIXME: need to replace with firebase.js -->
+  <script src="firebase_init.js"></script>
   <!-- Loads the ontologies -->
   <script src="ontology.js"></script>
   <script src="hypoOntology.js"></script>
@@ -62,12 +63,14 @@
     <button id="s-back-button" class="back-button">Back</button>
     <form class="border-container" id="signin-form">
       <div class="container">
-        <label><b>Class code</b></label>
-        <input type="text" placeholder="Enter class code" id="s-classcode">
-        <label><b>First name</b></label>
-        <input type="text" placeholder="Enter first name" id="s-fname" required>
-        <label><b>First two characters of last name</b></label>
-        <input type="text" placeholder="Enter first two characters of last name" id="s-lname" required>
+        <label><b>School Code</b></label>
+        <input type="text" placeholder="Enter school code" id="s-schoolcode" required>
+        <label><b>Class Period</b></label>
+        <input type="number" placeholder="Enter class period" id="s-period" required>
+        <label><b>First two letters of first name</b></label>
+        <input type="text" value="" id="s-fname" size="2" maxlength="2" required>
+        <label><b>First two letters of last name</b></label>
+        <input type="text" value="" id="s-lname" size="2" maxlength="2" required>
         <label><b>Birthday</b></label>
         <br>
         <select class="select-css" id="s-bmonth" required>
@@ -130,12 +133,14 @@
     <button id="r-back-button" class="back-button">Back</button>
     <form class="border-container" id="registration-form">
       <div class="container">
-        <label><b>Class code</b></label>
-        <input type="text" placeholder="Enter class code" id="r-classcode">
-        <label><b>First name</b></label>
-        <input type="text" placeholder="Enter first name" id="r-fname" required>
-        <label><b>First two characters of last name</b></label>
-        <input type="text" placeholder="Enter first two characters of last name" id="r-lname" required>
+        <label><b>School Code</b></label>
+        <input type="text" placeholder="Enter school code" id="r-schoolcode" required>
+        <label><b>Class Period</b></label>
+        <input type="text" id="r-period" required>
+        <label><b>First two letters of first name</b></label>
+        <input type="text" value="" id="r-fname" size="2" maxlength="2" required>
+        <label><b>First two letters of last name</b></label>
+        <input type="text" value="" id="r-lname" size="2" maxlength="2" required>
         <label><b>Birthday</b></label>
         <br>
         <select class="select-css" id="r-bmonth" required>
