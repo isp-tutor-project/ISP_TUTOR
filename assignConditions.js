@@ -1,5 +1,3 @@
-// $('#myTable').dataTable();
-// let studNum = 0;
 
 /* global db */
 let students;
@@ -63,21 +61,21 @@ function addRow(idx, studData) {
   // console.log('cond: ', cond);
 
   function selectIfValue(fldVal, value) {
-      console.log(`selectIfValue(${fldVal}, ${value})`)
       if (fldVal === value) {
           return "selected";
       } else {
           return "";
       }
   }
+
   function ifHasValue(val) {
-    // console.log('ifHasValue() called with value:', val);
     if (undefined !== val && null !== val && "" !== val) {
       return `value="${val}"`
     } else {
       return "";
     }
   }
+
   let newRowText = `
     <td>
         ${studData.id} <input type="hidden" id="studentID_${idx}" value="${studData.id}"/>
@@ -106,17 +104,9 @@ function addRow(idx, studData) {
 }
 
 // firebase stuff
-function fetchStudents() {
-  console.log("fetchStudents() called");
-  let form = getEleById('load_students_form');
-  if (!form.reportValidity()) {
-    return false;
-  }
-  let schoolCode = getEleById('school_code').value.toUpperCase();
-  let classPeriod = getEleById('class_period').value;
-  collectionID = schoolCode + classPeriod;
+function downloadStudentData() {
   students = [];
-  db.collection(collectionID).get()
+  return db.collection(collectionID).get()
     .then((snapShot) => {
       snapShot.forEach((doc) => {
         let data = doc.data();
@@ -128,13 +118,11 @@ function fetchStudents() {
           condition: condition
         });
       });
+      return true;
     })
     .catch(function (error) {
       console.error(error);
-    })
-    .then(() => {
-      console.log(students);
-      dispStudents()
+      return false;
     });
 }
 
@@ -160,17 +148,6 @@ function studentsSort() {
   });
 }
 
-function sortStudents() {
-  // displays table of students sorted in pretest desc order
-  let result = parseStudentsForm(false);
-  if (result) {
-    students = result;
-    studentsSort();
-    dispStudents();
-  }
-}
-
-
 function parseStudentsForm(validateConditions) {
   clearErrors();
   console.log('parseStudentsForm() called');
@@ -180,7 +157,7 @@ function parseStudentsForm(validateConditions) {
   let hasErrors = false;
   let form = getEleById('student_conditions_form');
   let tmp = [];
-  for (let i=0; i<students.length; i++) {
+  for (let i = 0; i < students.length; i++) {
     let studID = getEleById(`studentID_${i}`).value;
     let preTestScore = parseFloat(getEleById(`preTestScore_${i}`).value, 10);
     let cond = getEleById(`condition_${i}`).value;
@@ -192,7 +169,11 @@ function parseStudentsForm(validateConditions) {
       missingConditions = true;
       hasErrors = true;
     }
-    tmp.push({id: studID, preTestScore: preTestScore, condition: cond});
+    tmp.push({
+      id: studID,
+      preTestScore: preTestScore,
+      condition: cond
+    });
     console.log(`${i}: studID: ${studID} preTestScore: ${preTestScore} cond: ${cond}`);
   }
   if (missingPreTestScores) {
@@ -207,7 +188,6 @@ function parseStudentsForm(validateConditions) {
   } else {
     return tmp;
   }
-  
 }
 
 function selectCondition(idx) {
@@ -215,6 +195,38 @@ function selectCondition(idx) {
     idx -= 3;
   }
   return `cond${idx}`;
+}
+
+// button handlers
+function fetchStudents() {
+  console.log("fetchStudents() called");
+  let form = getEleById('load_students_form');
+  if (!form.reportValidity()) {
+    return false;
+  }
+  let schoolCode = getEleById('school_code').value.toUpperCase();
+  let classPeriod = getEleById('class_period').value;
+  collectionID = schoolCode + classPeriod;
+  downloadStudentData()
+    .then((successValue) => {
+      if (successValue) {
+        console.log(students);
+        dispStudents();
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+
+function sortStudents() {
+  // displays table of students sorted in pretest desc order
+  let result = parseStudentsForm(false);
+  if (result) {
+    students = result;
+    studentsSort();
+    dispStudents();
+  }
 }
 
 function assignConditions() {
@@ -260,7 +272,7 @@ function submitConditions () {
 }
 
 
-// event listener registration
+// register button event listeners 
 buttons.fetchStudents.addEventListener('click', e => fetchStudents());
 buttons.sortStudents.addEventListener('click', e => sortStudents());
 buttons.assignConditions.addEventListener('click', e => assignConditions());
