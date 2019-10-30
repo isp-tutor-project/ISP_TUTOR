@@ -111,7 +111,7 @@ const conditionHypoTasks = {
 }
 
 let studentHypoTasks;
-let studentCondition = "cond2";
+let studentCondition;
 let currHypoTaskIdx;
 
 function invalidTask() {
@@ -173,25 +173,24 @@ function currHypoTask() {
 
 
 function getStudentCondition() {
-  studentCondition = "cond2";
-  currHypoTaskIdx = 0;
-  // db.collection(collectionID).doc(userID).get()
-  // .then((doc) => {
-  //     if (doc.exists) {
-  //         console.log(`User document ${collectionID}.${userID} exists`);
-  //         let cond = doc.data().condition;
-  //         if (null === cond || undefined === cond) {
-  //             console.log(`User ${collectionID}.${userID} has not been assigned a condition yet.`);
-  //             showSnackbar("You must wait for your pre-test to be graded before you can proceed");
-  //             studentCondition = null;
-  //         } else {
-  //             studentCondition = cond;
-  //         }
-  //     }
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
+  return db.collection(collectionID).doc(userID).get()
+  .then((doc) => {
+      if (doc.exists) {
+        console.log(`User document ${collectionID}.${userID} exists`);
+        let cond = doc.data().condition;
+        if (null === cond || undefined === cond) {
+          console.log(`User ${collectionID}.${userID} has not been assigned a condition yet.`);
+          studentCondition = null;
+        } else {
+          studentCondition = cond;
+        }
+        return studentCondition;
+      }
+  })
+  .catch(function (error) {
+    console.log(error);
+    return null;
+  });
 }
 
 function initHypoTasks() {
