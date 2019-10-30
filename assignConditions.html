@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+<!--     
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+   -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
+    <script src="firebase_init.js"></script>
+    <style>
+      input {
+        text-transform: uppercase;
+      }
+      .error {
+        background-color: red !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+     <form id="load_students_form">
+        <label>School Code: <input type="text" id="school_code" required></label>
+        <label>Class Period <input type="number" id="class_period" required></label>
+        <button type="button" id="fetch_students">Fetch Student Data</button>
+      </form>
+    </div>
+    <div>
+      <form id="student_conditions_form">
+        <table id="myTable" class="display">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Pre-Test Score</th>
+              <th>Condition</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+  
+        <button type="button" id="sort_students">Sort Students</button>
+        <button type="button" id="assign_conditions">Assign Conditions</button>
+        <button type="button" id="submit_conditions">Submit Conditions</button>
+      </form>
+    
+      <div id="error_region"></div>
+      
+    </div>
+
+    
+    <script src="assignConditions.js"></script>
+  </body>
+</html>
