@@ -1,5 +1,5 @@
 // this is the index.js file, responsible for controlling the account registration system and launching the different modules
-/* global db, AdobeAn, createjs, stage, initHypoPage */
+/* global db, AdobeAn, createjs, stage, initHypoPage, getStudentCondition */
 
 // convenience function so I don't have to constantly
 // type document.getElementById()
@@ -367,8 +367,9 @@ document.getElementById("signin-submit").addEventListener("click", e => {
             if (doc.exists) {
                 console.log("Account found");
                 showSnackbar("Signed in as " + userID + ".");
-                openPage("home-page");
-                initHomePage();
+                // openPage("home-page");
+                // initHomePage();
+                homePageHack()
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such account!");
@@ -411,8 +412,9 @@ document.getElementById("registration-submit").addEventListener("click", e => {
                 .then(function () {
                     console.log("Document successfully written!");
                     showSnackbar("Signed in as " + userID + ".");
-                    openPage("home-page");
-                    initHomePage();
+                    // openPage("home-page");
+                    // initHomePage();
+                    homePageHack();
                 })
                 .catch(function (error) {
                     console.error("Error writing document: ", error);
@@ -430,9 +432,22 @@ document.getElementById("rq-button").addEventListener("click", e => {
   initRQPage();
   init();
 });
+
 document.getElementById("hypo-button").addEventListener("click", e => {
-    initHypoPage();
-    openPage("hypo-page");
+    getStudentCondition()
+    .then((condition) => {
+        if (condition) {
+            initHypoPage();
+            openPage("hypo-page");
+        } else {
+            openPage("home-page");
+            initHomePage();
+            showSnackbar('Sorry, you cannot proceed any further until your pre-test has been graded.');
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
 });
 document.getElementById("ted-button").addEventListener("click", e => {
   openPage("module-page");
@@ -459,11 +474,34 @@ document.getElementById("cancel-btn").addEventListener("click", e => {
 });
 
 // this is how you control the first page that opens
-let editMode = false;
-if (editMode) {
-    initHypoPage();
-    openPage("hypo-page");
+let editMode = true;
+// if (editMode) {
+//     initHypoPage();
+//     openPage("hypo-page");
+// }
+// else {
+//     openPage("index-page");
+// }
+
+function homePageHack() {
+    if (editMode && userID) {
+        getStudentCondition()
+        .then((condition) => {
+            if (condition) {
+                initHypoPage();
+                openPage('hypo-page');
+            } else {
+               openPage('home-page');
+               initHomePage();
+               showSnackbar('Sorry, you cannot proceed further until your pre-test is graded'); 
+            }
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+    } else {
+        openPage('index-page');
+    }
 }
-else {
-    openPage("index-page");
-}
+
+openPage("index-page");
