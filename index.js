@@ -504,5 +504,5 @@ else {
 //         initHomePage();
 //     }
 // }
-
+ 
 // openPage("index-page");
