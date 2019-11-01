@@ -57,21 +57,20 @@ function downloadStudentData() {
 }
 
 function uploadStudentData(rows) {
-  rows.forEach((studentData) => {
-    let uid = studentData.id;
-    delete studentData.id;
+  console.log('uploadStudentData() called');
+  let collectionRef = db.collection(collectionID);
+  let promises = rows.map(rowData => {
+    let uid = rowData.id;
+    delete rowData.id;
     // IMPORTANT!!! never let this field get saved to firebase!!!
-    if (undefined !== studentData.saveRow) {
-      delete studentData.saveRow;
+    if (undefined !== rowData.saveRow) {
+      delete rowData.saveRow;
     }
-    db.collection(collectionID).doc(uid).update(studentData)
-      .then(() => {
-        console.log(`${uid} data has been saved`);
-      })
-      .catch(function (error) {
-        console.log(`an error occured saving ${uid}'s data`);
-      });
+    return collectionRef.doc(uid).update(rowData)
+      .then(() => `${uid} saved`)
+      .catch((error) => `error saving ${uid} data ${error}`);
   });
+  return Promise.all(promises);
 }
 
 
@@ -171,7 +170,7 @@ function studentsSort() {
 
 function parseStudentsForm(requirePreTestScores, requireConditions) {
   clearErrors();
-  console.log('parseStudentsForm() called');
+  console.log(`parseStudentsForm(preTestsReq=${requirePreTestScores}, condsReq=${requireConditions}) called`);
   let errors = [];
   let genericMissingPreTestScoresError = false;
   // let missingConditions = false;
@@ -191,13 +190,14 @@ function parseStudentsForm(requirePreTestScores, requireConditions) {
     if (isNaN(preTestScore)) {
       preTestScore = undefined;
       if (requirePreTestScores) {
-        hasErrors = true;
         if (requireConditions) {
           if (saveRow) {
+            hasErrors = true;
             errors.push(`you must enter a pre-test score for user ${studID}`);
           }
         } else {
           genericMissingPreTestScoresError = true;
+          hasErrors = true;
         }
       }
     }
@@ -226,6 +226,7 @@ function parseStudentsForm(requirePreTestScores, requireConditions) {
   }
   if (hasErrors) {
     dispErrors(errors);
+    console.log(errors);
     return false;
   } else {
     return tmp;
@@ -313,21 +314,23 @@ function changeAllRows() {
 
 function submitChanges () {
   clearErrors();
-  let result = parseStudentsForm(REQUIRE_PRE_TEST_SCORES, REQUIRE_CONDITIONS)
+  let result = parseStudentsForm(REQUIRE_PRE_TEST_SCORES, REQUIRE_CONDITIONS);
   if (result) {
     students = result;
     let students2save = students.filter(x => x.saveRow);
     students.forEach((stud) => {
       delete stud.saveRow;
     });
-    console.log(students2save);
-    // studentsSort();
-    // let allHavePreTestScores = students.every(x => !isNaN(parseFloat(x.preTestScore)));
-    // let allHaveConditions = students.every(x => conditions.includes(x.condition));
-    // if (allHavePreTestScores && allHavePreTestScores) {
-    
-    uploadStudentData(students2save);
+    // console.log(students2save);    
+    uploadStudentData(students2save)
+    .then((results) => {
+      console.log(results);
+      dispErrors(results);
+    });
     // }
+  } else {
+    console.log('no result???');
+    console.log(result);
   }
   // let ptMsg = "pre-test scores are " + ((allHavePreTestScores) ? "ok" : "not ok");
   // let cMsg = "conditions are " + ((allHaveConditions) ? "ok" : "not ok");
