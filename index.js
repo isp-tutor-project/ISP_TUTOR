@@ -366,9 +366,9 @@ document.getElementById("signin-submit").addEventListener("click", e => {
             if (doc.exists) {
                 console.log("Account found");
                 showSnackbar("Signed in as " + userID + ".");
-                // openPage("home-page");
-                // initHomePage();
-                homePageHack()
+                openPage("home-page");
+                initHomePage();
+                // homePageHack()
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such account!");
@@ -411,9 +411,9 @@ document.getElementById("registration-submit").addEventListener("click", e => {
                 .then(function () {
                     console.log("Document successfully written!");
                     showSnackbar("Signed in as " + userID + ".");
-                    // openPage("home-page");
-                    // initHomePage();
-                    homePageHack();
+                    openPage("home-page");
+                    initHomePage();
+                    // homePageHack();
                 })
                 .catch(function (error) {
                     console.error("Error writing document: ", error);
@@ -441,13 +441,14 @@ document.getElementById("hypo-button").addEventListener("click", e => {
         } else {
             openPage("home-page");
             initHomePage();
-            showSnackbar('Sorry, you cannot proceed any further until your pre-test has been graded.');
+            showSnackbar('Sorry, you cannot proceed any further until your pre-test has been scored.');
         }
     })
     .catch(function(error) {
         console.error(error);
     });
 });
+
 document.getElementById("ted-button").addEventListener("click", e => {
   openPage("module-page");
   initTEDPage();
@@ -473,34 +474,35 @@ document.getElementById("cancel-btn").addEventListener("click", e => {
 });
 
 // this is how you control the first page that opens
-let editMode = true;
-// if (editMode) {
-//     initHypoPage();
-//     openPage("hypo-page");
-// }
-// else {
-//     openPage("index-page");
-// }
-
-function homePageHack() {
-    if (editMode && userID) {
-        getStudentCondition()
-        .then((condition) => {
-            if (condition) {
-                initHypoPage();
-                openPage('hypo-page');
-            } else {
-               openPage('home-page');
-               initHomePage();
-               showSnackbar('Sorry, you cannot proceed further until your pre-test is graded'); 
-            }
-        })
-        .catch(function(error) {
-            console.error(error);
-        });
-    } else {
-        openPage('index-page');
-    }
+let editMode = false;
+if (editMode) {
+    initHypoPage();
+    openPage("hypo-page");
+}
+else {
+    openPage("index-page");
 }
 
-openPage("index-page");
+// function homePageHack() {
+//     if (editMode && userID) {
+//         getStudentCondition()
+//         .then((condition) => {
+//             if (condition) {
+//                 initHypoPage();
+//                 openPage('hypo-page');
+//             } else {
+//                openPage('home-page');
+//                initHomePage();
+//                showSnackbar('Sorry, you cannot proceed further until your pre-test is graded'); 
+//             }
+//         })
+//         .catch(function(error) {
+//             console.error(error);
+//         });
+//     } else {
+//         openPage('home-page');
+//         initHomePage();
+//     }
+// }
+
+// openPage("index-page");
