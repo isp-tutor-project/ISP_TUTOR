@@ -75,7 +75,7 @@ function ensureLength2(value, fldName) {
 // registration form parsing.
 function parseUserForm(formID) {
     const pfx = ('registration-form' === formID) ? 'r' : 's';
-    let fldNames = ['schoolcode', 'period', 'fname', 'lname', 'bmonth', 'bday'];
+    let fldNames = ['classcode', 'fname', 'lname', 'bmonth', 'bday'];
     // create a map of fldNames to prefixed ('r-' or 's-') field names
     let flds = fldNames.reduce((obj, key) => {
         obj[key] = `${pfx}-${key}`;
@@ -86,9 +86,8 @@ function parseUserForm(formID) {
     if (!form.reportValidity()) {
         return false;
     }
-    let schoolCode = getEleById(flds.schoolcode).value.toUpperCase();
-    let period = getEleById(flds.period).value.toUpperCase();
-    collectionID = schoolCode + period;
+    let classCode = getEleById(flds.classcode).value.toUpperCase();
+    collectionID = classCode;
     let firstname = getEleById(flds.fname).value;
     let lastname = getEleById(flds.lname).value;
     let month = getEleById(flds.bmonth).value;
