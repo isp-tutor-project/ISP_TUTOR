@@ -261,6 +261,31 @@ button:hover {
   font-size: 24px;
 }
 
+.notepad {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 200px;
+  height: 400px;
+  background-color: yellow;
+}
+.notepad-heading {
+  height: 62px;
+  width: 100%;
+  text-align: center;
+  border: 1px black;
+  /* font-weight: bold; */
+}
+.notepad-body {
+  width: 100%;
+  border: 0;
+  max-height: calc(100% - 62px);
+  min-height: calc(100% - 62px);
+  overflow: auto;
+}
+
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */

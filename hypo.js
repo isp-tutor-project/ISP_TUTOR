@@ -1332,19 +1332,15 @@ function completePage() {
 function parameterizedConceptMapPage(whichConceptMap) {
     let pageVersion;
     let prediction;
-    let nextPage;
     if ("initial" === whichConceptMap) {
         pageVersion = "initial";
         prediction = firstPrediction;
-        nextPage = biDirInstructionPage1;
     } else if ("opposite" === whichConceptMap) {
         pageVersion = "opposite";
         prediction = !firstPrediction;
-        nextPage = brmPage;
     } else if ("final" === whichConceptMap) {
         pageVersion = "final";
         prediction = secondPrediction;
-        nextPage = completePage;
     } else {
         console.error("invalid concept map version: ", whichConceptMap);
         return;
@@ -1441,11 +1437,26 @@ function parameterizedConceptMapPage(whichConceptMap) {
     }
     let arrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y, dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y);
 
+    // add notebook (scrolling textarea)
+    let notepad = new createjs.DOMElement("concept_map_notepad_overlay");
+    notepad.x = 265 * 2 / PIXEL_RATIO;
+    notepad.y = 73 * 2 / PIXEL_RATIO;
+    notepad.scaleX = .2 * 2 / PIXEL_RATIO;
+    notepad.scaleY = .2 * 2 / PIXEL_RATIO;
+    notepad.htmlElement.style.display = "block";
+    stage.addChild(notepad);
+    
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
-    backButton.on("click", e => prevHypoTask());
+    backButton.on("click", e => {
+        notepad.htmlElement.style.display = "none";
+        prevHypoTask();
+    });
     stage.addChild(backButton);
     let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
-    nextButton.on("click", e => nextHypoTask());
+    nextButton.on("click", e => {
+        notepad.htmlElement.style.display = "none";
+        nextHypoTask();
+    });
     // verify button
     let verifyButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Check", BUTTON_COLOR);
     verifyButton.on("click", e => {
