@@ -1,11 +1,17 @@
 <!doctype html>
 <html>
   <head>
-<!--     
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-   -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- bootstrap CSS framework-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-auth.js"></script> -->
@@ -26,36 +32,78 @@
     </style>
   </head>
   <body>
-    <div>
-     <form id="load_students_form">
-        <label>School Code: <input type="text" id="school_code" required></label>
-        <label>Class Period <input type="number" id="class_period" required></label>
-        <button type="button" id="fetch_students">Fetch Student Data</button>
-      </form>
-    </div>
-    <div>
-      <form id="student_conditions_form">
-        <table id="myTable" class="display">
-          <thead>
-            <tr>
-              <th>Student ID</th>
-              <th>Pre-Test Score</th>
-              <th>Condition</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-  
-        <button type="button" id="sort_students">Sort Students</button>
-        <button type="button" id="assign_conditions">Assign Conditions</button>
-        <button type="button" id="submit_conditions">Submit Conditions</button>
-      </form>
-    
-      <div id="error_region"></div>
-      
-    </div>
 
-    
+
+    <div class="container" id="layout_container">
+      <div class="row" id="layout_row">
+        <div class="col-lg-2" id="layout_left_column"> &nbsp;</div> <!-- ./left column -->
+        <div class="col-lg-8" id="layout_center_column">
+
+          <div class="row" id="header_row">
+            <div class="col-lg-12">
+              <h3> Assign Conditions Page</h3>
+              <br/>
+            </div>
+          </div>
+          <div class="row" id="fetch_students_row">
+            <div class="col-lg-12">
+
+              <form id="load_students_form" class="form-inline">
+                <div class="form-group">
+                  <label for="class_code">Class Code</label>
+                  <input type="text" id="class_code" class="form-control" required>
+                </div> <!-- ./form-group-->
+                <button type="button" class="btn btn-primary" id="fetch_students">Fetch Student Data</button>
+              </form>
+              <br/>
+            </div>
+          </div> <!-- ./fetch student data form row-->
+  
+          <div class="row" id="students_form_row">
+            <div class="col-lg-12">
+
+              <form id="student_conditions_form">
+                <table id="myTable" class="table table.striped table.condensed">
+                  <thead>
+                    <tr>
+                      <th>Student ID</th>
+                      <th>Pre-Test Score</th>
+                      <th>Condition</th>
+                      <td>Save Row <input type="checkbox" id="select_all" data-toggle="tooltip" data-placement="top" title="select/deselect all rows"/></td>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              
+                <button type="button" class="btn btn-primary" id="sort_students">Sort Students</button>
+                <button type="button" class="btn btn-primary" id="auto_assign_conditions">Auto-Assign Conditions</button>
+                <button type="button" class="btn btn-danger" id="submit_changes">Save Changes to Selected Rows</button>
+              </form>
+            
+            </div>
+          </div>
+
+          <div class="row" id="error_region_row">
+            <div class="col-lg-12">
+              
+              <div id="error_region"></div>
+            
+            </div>
+          </div>
+
+        </div> <!-- ./center column -->
+        <div class="col-lg-2" id="layout_right_column"> &nbsp; </div> <!-- ./right column-->
+      </div> <!-- ./layout row -->
+    </div> <!-- ./layout container -->
+
+        
+        
+        
+      </div>
+
+    </div> <!-- ./container -->
+
     <script src="assignConditions.js"></script>
+  
   </body>
 </html>

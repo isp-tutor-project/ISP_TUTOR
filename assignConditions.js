@@ -1,5 +1,10 @@
 
 /* global db */
+const REQUIRE_PRE_TEST_SCORES = true;
+const NO_REQUIRE_PRE_TEST_SCORES = false;
+const REQUIRE_CONDITIONS = true;
+const NO_REQUIRE_CONDITIONS = false;
+
 let students;
 const conditions = ["cond1", "cond2", "cond3"];
 let choices = conditions;
@@ -18,9 +23,57 @@ const errorRegion = getEleById('error_region');
 const buttons = {
   fetchStudents:  getEleById('fetch_students'),
   sortStudents: getEleById('sort_students'),
-  assignConditions:  getEleById('assign_conditions'),
-  submitConditions: getEleById('submit_conditions')
+  autoAssignConditions:  getEleById('auto_assign_conditions'),
+  submitChanges: getEleById('submit_changes'),
+  selectAll: getEleById('select_all'),
 }
+
+// firebase stuff
+function downloadStudentData() {
+  students = [];
+  return db.collection(collectionID).get()
+    .then((snapShot) => {
+      snapShot.forEach((doc) => {
+        let data = doc.data();
+        let studData = {
+          id: doc.id
+        };        
+        let preTestScore = data.preTestScore;
+        let condition = data.condition;
+        if (undefined !== preTestScore) {
+          studData.preTestScore = preTestScore;
+        }
+        if (undefined !== condition) {
+          studData.condition = condition;
+        }
+        students.push(studData);
+      });
+      return true;
+    })
+    .catch(function (error) {
+      console.error(error);
+      return false;
+    });
+}
+
+function uploadStudentData(rows) {
+  rows.forEach((studentData) => {
+    let uid = studentData.id;
+    delete studentData.id;
+    // IMPORTANT!!! never let this field get saved to firebase!!!
+    if (undefined !== studentData.saveRow) {
+      delete studentData.saveRow;
+    }
+    db.collection(collectionID).doc(uid).update(studentData)
+      .then(() => {
+        console.log(`${uid} data has been saved`);
+      })
+      .catch(function (error) {
+        console.log(`an error occured saving ${uid}'s data`);
+      });
+  });
+}
+
 
 // error message stuff
 function dispErrors(errors) {
@@ -98,89 +151,78 @@ function addRow(idx, studData) {
     newRowText += `
         </select>
     </td>
+    <td>
+      <input type="checkbox" id="saveCondition_${idx}"/>
+    </td>
     `;
     newRow.innerHTML = newRowText;
     tbody.appendChild(newRow);
 }
 
-// firebase stuff
-function downloadStudentData() {
-  students = [];
-  return db.collection(collectionID).get()
-    .then((snapShot) => {
-      snapShot.forEach((doc) => {
-        let data = doc.data();
-        let preTestScore = data.preTestScore || null;
-        let condition = data.condition || null;
-        students.push({
-          id: doc.id,
-          preTestScore: preTestScore,
-          condition: condition
-        });
-      });
-      return true;
-    })
-    .catch(function (error) {
-      console.error(error);
-      return false;
-    });
-}
-
-function uploadStudentData() {
-  students.forEach((studentData) => {
-    let uid = studentData.id;
-    delete studentData.id;
-    db.collection(collectionID).doc(uid).update(studentData)
-    .then(() => {
-      console.log(`${uid} data has been saved`);
-    })
-    .catch(function(error) {
-      console.log(`an error occured saving ${uid}'s data`);
-    });
-  });
-}
-
 // data manipulation/form stuff
 
 function studentsSort() {
-  students.sort(function (a, b) {
-    return b.preTestScore - a.preTestScore;
-  });
+  let haves = students.filter(x => x.preTestScore);
+  let haveNots = students.filter(x => !x.preTestScore);
+  haves.sort((a, b) => b.preTestScore - a.preTestScore);
+  haveNots.forEach((i) => haves.push(i));
+  students = haves;
 }
 
-function parseStudentsForm(validateConditions) {
+function parseStudentsForm(requirePreTestScores, requireConditions) {
   clearErrors();
   console.log('parseStudentsForm() called');
-  let errors = []
-  let missingPreTestScores = false;
-  let missingConditions = false;
+  let errors = [];
+  let genericMissingPreTestScoresError = false;
+  // let missingConditions = false;
   let hasErrors = false;
   let form = getEleById('student_conditions_form');
   let tmp = [];
+  let num2save = 0;
   for (let i = 0; i < students.length; i++) {
     let studID = getEleById(`studentID_${i}`).value;
     let preTestScore = parseFloat(getEleById(`preTestScore_${i}`).value, 10);
     let cond = getEleById(`condition_${i}`).value;
-    if (isNaN(preTestScore)) {
-      missingPreTestScores = true;
-      hasErrors = true;
+    let saveRow = getEleById(`saveCondition_${i}`).checked;
+    if (saveRow) {
+      num2save++;
     }
-    if (validateConditions && "" === cond) {
-      missingConditions = true;
+
+    if (isNaN(preTestScore)) {
+      preTestScore = undefined;
+      if (requirePreTestScores) {
+        hasErrors = true;
+        if (requireConditions) {
+          if (saveRow) {
+            errors.push(`you must enter a pre-test score for user ${studID}`);
+          }
+        } else {
+          genericMissingPreTestScoresError = true;
+        }
+      }
+    }
+    if (requireConditions && saveRow && "" === cond) {
+      errors.push(`you must select a condition for user ${studID}`);
       hasErrors = true;
     }
     tmp.push({
       id: studID,
       preTestScore: preTestScore,
-      condition: cond
+      condition: cond,
+      saveRow: saveRow
     });
-    console.log(`${i}: studID: ${studID} preTestScore: ${preTestScore} cond: ${cond}`);
+    console.log(`${i}: studID: ${studID} preTestScore: ${preTestScore} cond: ${cond} saveRow: ${saveRow}`);
   }
-  if (missingPreTestScores) {
+  if (genericMissingPreTestScoresError) {
     errors.push('You must enter pre-test scores for all students and redo this operation');
   }
-  if (missingConditions) {
-    errors.push('You must select a condition for all students and redo this operation');
+
+  
+  if (requireConditions && 0 === num2save) {
+    errors.push('You must select rows to save');
+    hasErrors = true;
+  } else {
+    console.log(num2save);
   }
   if (hasErrors) {
     dispErrors(errors);
@@ -199,18 +241,26 @@ function selectCondition(idx) {
 
 // button handlers
 function fetchStudents() {
+  // re-enable to assignconditions button before we load the data
+  // and determine whether we need to disable it
+  buttons.autoAssignConditions.removeAttribute("disabled");
   console.log("fetchStudents() called");
   let form = getEleById('load_students_form');
   if (!form.reportValidity()) {
     return false;
   }
-  let schoolCode = getEleById('school_code').value.toUpperCase();
-  let classPeriod = getEleById('class_period').value;
-  collectionID = schoolCode + classPeriod;
+  let classCode = getEleById('class_code').value.toUpperCase();
+  collectionID = classCode;
   downloadStudentData()
     .then((successValue) => {
       if (successValue) {
         console.log(students);
+        if (students.some(x => x.condition)) {
+          // at least one student has previously been assigned a condition
+          // disable auto-assignment of conditions
+          buttons.autoAssignConditions.setAttribute("disabled", "true");
+        }
+        studentsSort();
         dispStudents();
       }
     })
@@ -221,7 +271,7 @@ function fetchStudents() {
 
 function sortStudents() {
   // displays table of students sorted in pretest desc order
-  let result = parseStudentsForm(false);
+  let result = parseStudentsForm(NO_REQUIRE_PRE_TEST_SCORES, NO_REQUIRE_CONDITIONS);
   if (result) {
     students = result;
     studentsSort();
@@ -229,9 +279,9 @@ function sortStudents() {
   }
 }
 
-function assignConditions() {
+function autoAssignConditions() {
   clearErrors();
-  let result = parseStudentsForm(false);
+  let result = parseStudentsForm(REQUIRE_PRE_TEST_SCORES, NO_REQUIRE_CONDITIONS);
   if (result) {
     students = result;
     studentsSort();
@@ -253,17 +303,31 @@ function assignConditions() {
   //   errorRegion.appendChild(p);
   // });
 
-function submitConditions () {
+function changeAllRows() {
+  console.log('changeAllRows() called');
+  let newValue = (buttons.selectAll.checked) ? true : false;
+  students.forEach((_unused, idx) => {
+    getEleById('saveCondition_' + idx).checked = newValue;
+  });
+}
+
+function submitChanges () {
   clearErrors();
-  let result = parseStudentsForm(true)
+  let result = parseStudentsForm(REQUIRE_PRE_TEST_SCORES, REQUIRE_CONDITIONS)
   if (result) {
     students = result;
-    studentsSort();
-    let allHavePreTestScores = students.every(x => !isNaN(parseFloat(x.preTestScore)));
-    let allHaveConditions = students.every(x => conditions.includes(x.condition));
-    if (allHavePreTestScores && allHavePreTestScores) {
-      uploadStudentData();
-    }
+    let students2save = students.filter(x => x.saveRow);
+    students.forEach((stud) => {
+      delete stud.saveRow;
+    });
+    console.log(students2save);
+    // studentsSort();
+    // let allHavePreTestScores = students.every(x => !isNaN(parseFloat(x.preTestScore)));
+    // let allHaveConditions = students.every(x => conditions.includes(x.condition));
+    // if (allHavePreTestScores && allHavePreTestScores) {
+    
+    uploadStudentData(students2save);
+    // }
   }
   // let ptMsg = "pre-test scores are " + ((allHavePreTestScores) ? "ok" : "not ok");
   // let cMsg = "conditions are " + ((allHaveConditions) ? "ok" : "not ok");
@@ -275,5 +339,6 @@ function submitConditions () {
 // register button event listeners 
 buttons.fetchStudents.addEventListener('click', e => fetchStudents());
 buttons.sortStudents.addEventListener('click', e => sortStudents());
-buttons.assignConditions.addEventListener('click', e => assignConditions());
-buttons.submitConditions.addEventListener('click', e => submitConditions());
+buttons.autoAssignConditions.addEventListener('click', e => autoAssignConditions());
+buttons.selectAll.addEventListener('change', e => changeAllRows());
+buttons.submitChanges.addEventListener('click', e => submitChanges());
