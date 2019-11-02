@@ -1117,7 +1117,9 @@ function brmPage() {
     text.lineHeight = 30;
     let brmButton = createLargeButton(CANVAS_WIDTH * .5, CANVAS_HEIGHT * .5, "BRM", "#3769C2")
     brmButton.on("click", e => {
-        open("https://go.isptutor.org/brm/home/index.html", "_blank");
+        // switching to simply path (and protocol) of current server so it works in toth dev and production
+        // open("https://go.isptutor.org/brm/home/index.html", "_blank");
+        open("//brm/home/index.html", "_blank");
         localStorage.setItem("isptutor_brmStartTime", Date.now());
         localStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
     });
