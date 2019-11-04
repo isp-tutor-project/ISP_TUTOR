@@ -129,8 +129,14 @@ function initHomePage() {
     })
     .then((currTutorNdx) => {
         if (tutors.length === currTutorNdx) {
+            // student is done, disable all module buttons and display message
+            tutors.forEach((tut, idx) => {
+                let enbld = document.getElementById(tutors[idx] + "-button");
+                enbld.classList.add("disabled");
+            });
             showSnackbar("You have finished your work with the tutor.");
         } else {
+            // student still working, enable/disable the appropriate module buttons
             let enabled = document.getElementById(tutors[currTutorNdx] + "-button");
             enabled.classList.remove("disabled");
             enabled.disabled = false;
