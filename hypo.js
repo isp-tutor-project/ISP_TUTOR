@@ -970,14 +970,14 @@ function graphPage1() {
     let prediction = (firstPrediction) ? "increase" : "decrease";
     let text1 = new createjs.Text(`You predicted that as the water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
-    text1.y = 25;
+    text1.y = 75;
     text1.textAlign = "center";
     text1.lineWidth = 700;
     text1.lineHeight = 35;
     stage.addChild(text1);
     let image = getImageForPrediction(prediction);
     image.x = 400;
-    image.y = 100;
+    image.y = 150;
     stage.addChild(image);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
@@ -993,11 +993,11 @@ function graphPage2() {
     let prediction = (firstPrediction) ? "increase" : "decrease";
     let image = getImageForPrediction(prediction);
     image.x = 400
-    image.y = 25;
+    image.y = 50;
     stage.addChild(image);
     let text1 = new createjs.Text('Your prediction is represented as: ', "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
-    text1.y = 450;
+    text1.y = 475;
     text1.textAlign = "center";
     text1.lineWidth = 700;
     text1.lineHeight = 35;
@@ -1028,7 +1028,7 @@ function biDirInstructionPage1() {
     image1.scaleX = 1.0;
     image1.scaleY = 1.0;
     stage.addChild(image1);
-    const txt = "Now, lets say that another student made a prediction in the opposite direction from your prediction..."
+    const txt = "Now, let's say that another student made a prediction in the opposite direction from your prediction..."
     let text1 = new createjs.Text(txt, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 150;
@@ -1078,6 +1078,7 @@ function biDirInstructionPage2() {
 
 function biDirInstructionPage3() {
     stage.removeAllChildren();
+    let oppositePrediction = (firstPrediction) ? "decrease" : "increase";
     let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing"));
     image1.x = 50;
     image1.y = 50;
@@ -1099,8 +1100,11 @@ function biDirInstructionPage3() {
     text2.textAlign = "center";
     text2.lineWidth = 700;
     text2.lineHeight = 35;
-
     stage.addChild(text2);
+    let image2 = getImageForPrediction(oppositePrediction);
+    image2.x = 400;
+    image2.y = 250;
+    stage.addChild(image2);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
@@ -1224,10 +1228,12 @@ function finalConceptMap() {
 }
 
 function completePage() {
-    openPage("home-page");
-    initHomePage();
     getEleById('completion-overlay').style.display = "block";
-
+    db.collection(collectionID).doc(userID).update({
+        currTutorNdx: 2
+    }).catch(function(error) {
+        console.error(error);
+    });
 }
 // function conceptMapPage() {
 //     stage.removeAllChildren();
