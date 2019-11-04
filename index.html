@@ -284,10 +284,18 @@
     <div id="save_concept_map_overlay" class="overlay save-cpt-map">
       <div class="save-cpt-map-heading">Once you save your hypothesis, you will not be able to change it.</div>
       <div class="inline-btn-container">
-        <button type="button" id="cpt_map_changes">Make Changes</button>
-        <button type="button" id="cpt_map_save">Save Hypothesis</button>
+        <button type="button" class="inline-btn" id="cpt_map_cancel_save">Cancel</button>
+        <button type="button" class="inline-btn" id="cpt_map_save">Save</button>
       </div>
     </div>
+    <div id="leave_concept_map_overlay" class="overlay leave-cpt-map">
+      <div class="leave-cpt-map-heading">You will lose your work if you leave this page.</div>
+      <div class="inline-btn-container">
+        <button type="button" class="inline-btn" id="cpt_map_cancel_leave_page">Cancel</button>
+        <button type="button" class="inline-btn" id="cpt_map_leave_page">Proceed</button>
+      </div>
+    </div>
+    
     <iframe id="brm_instruction_overlay" class="overlay" width="1080px" height="680px" frameborder="no" scrolling="auto"
       src="https://storage.googleapis.com/cmuintgames/INHelperBRM2/index.html"></iframe>
   </div>

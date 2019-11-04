@@ -291,6 +291,9 @@ function logBrmData() {
     db.collection(collectionID).doc(userID).update({
         brm: localStorage.getItem("isptutor_brmHistory")
     })
+    .then(() => {
+        localStorage.removeItem("isptutor_brmStartTime");
+    })
     .catch((error) => {
         console.error("Error writing BRM data: ", error);
     });
@@ -1117,9 +1120,10 @@ function brmPage() {
     text.lineHeight = 30;
     let brmButton = createLargeButton(CANVAS_WIDTH * .5, CANVAS_HEIGHT * .5, "BRM", "#3769C2")
     brmButton.on("click", e => {
-        // switching to simply path (and protocol) of current server so it works in toth dev and production
+        // switched from https://go.isptutor.org to window.location.origin
+        // so that it will work both from production website and dev environment
         // open("https://go.isptutor.org/brm/home/index.html", "_blank");
-        open("//brm/home/index.html", "_blank");
+        open(window.location.origin + "/brm/home/index.html", "_blank");
         localStorage.setItem("isptutor_brmStartTime", Date.now());
         localStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
     });
@@ -1190,12 +1194,12 @@ function predictionPage2() {
     stage.update();
 }
 
-function fetchPrevSavedHypo(whichConceptMap) {
+function fetchPrevSavedHypo(whichHypo) {
     let hypoData = null;
     return db.collection(collectionID).doc(userID).get()
     .then((doc) => {
         let data = doc.data();
-        let hypoDataStr = data[`${whichConceptMap}Hypo`];
+        let hypoDataStr = data[`${whichHypo}Hypo`];
         if (undefined !== hypoDataStr) {
             hypoData = JSON.parse(hypoDataStr);
         }
@@ -1208,15 +1212,15 @@ function fetchPrevSavedHypo(whichConceptMap) {
 }
 
 function initialConceptMap() {
-    parameterizedConceptMapPage("initial");
+    conceptMapPage2("initial");
 }
 
 function oppositeDirectionConceptMap() {
-    parameterizedConceptMapPage("opposite");
+    conceptMapPage2("opposite");
 }
 
 function finalConceptMap() {
-    parameterizedConceptMapPage("final");
+    conceptMapPage2("final");
 }
 
 function completePage() {
@@ -1331,20 +1335,22 @@ function completePage() {
 //     stage.on("stagemouseup", removeErrorField);
 // }
 
-function parameterizedConceptMapPage(whichConceptMap) {
-    let pageVersion;
+function conceptMapPage2(whichHypo) {
+    // reset steps to empty list so:
+    // 1) steps are kept in sync with nodes/arrows if the student returns from prev page
+    // 2) steps for subsequent concept maps aren't merely appended
+    steps = [];
+    let hypoSaved = false;
+    let pageVersion = whichHypo;
     let prediction;
-    if ("initial" === whichConceptMap) {
-        pageVersion = "initial";
+    if ("initial" === whichHypo) {
         prediction = firstPrediction;
-    } else if ("opposite" === whichConceptMap) {
-        pageVersion = "opposite";
+    } else if ("opposite" === whichHypo) {
         prediction = !firstPrediction;
-    } else if ("final" === whichConceptMap) {
-        pageVersion = "final";
+    } else if ("final" === whichHypo) {
         prediction = secondPrediction;
     } else {
-        console.error("invalid concept map version: ", whichConceptMap);
+        console.error("invalid concept map version: ", whichHypo);
         return;
     }
     stage.removeAllChildren();
@@ -1441,44 +1447,114 @@ function parameterizedConceptMapPage(whichConceptMap) {
 
     // add notebook (scrolling textarea)
     let notepad = new createjs.DOMElement("concept_map_notepad_overlay");
-    notepad.x = 265 * 2 / PIXEL_RATIO;
+    notepad.x = 258 * 2 / PIXEL_RATIO;
     notepad.y = 73 * 2 / PIXEL_RATIO;
     notepad.scaleX = .2 * 2 / PIXEL_RATIO;
     notepad.scaleY = .2 * 2 / PIXEL_RATIO;
     notepad.htmlElement.style.display = "block";
     stage.addChild(notepad);
     
+    // save Warning popup
+    let saveWarning = new createjs.DOMElement("save_concept_map_overlay");
+    saveWarning.x = 110 * 2 / PIXEL_RATIO;
+    saveWarning.y = 70 * 2 / PIXEL_RATIO;
+    saveWarning.scaleX = .2 * 2 / PIXEL_RATIO;
+    saveWarning.scaleY = .2 * 2 / PIXEL_RATIO;
+    let cancelSaveBtn = getEleById("cpt_map_cancel_save");
+    let saveBtn = getEleById("cpt_map_save");
+    function cancelSaveHandler() {
+        saveWarning.htmlElement.style.display = "none";
+    }
+
+    function saveHandler() {
+        saveWarning.htmlElement.style.display = "none";
+        logData2(ivBubble, whichHypo);
+        hypoSaved = true;
+        // FIXME: this brm storage needs to be moved elsewhere
+        logBrmData();
+        stage.removeChild(verifyButton);
+        stage.addChild(nextButton);
+        updateErrorField("Hypothesis saved. Click 'next' to continue.", "16px Arial", "#000");
+        stage.update();
+    }
+
+    stage.addChild(saveWarning);
+
+    // back button leave page warning popup
+    let leavePageWarning = new createjs.DOMElement("leave_concept_map_overlay");
+    leavePageWarning.x = 110 * 2 / PIXEL_RATIO;
+    leavePageWarning.y = 70 * 2 / PIXEL_RATIO;
+    leavePageWarning.scaleX = .2 * 2 / PIXEL_RATIO;
+    leavePageWarning.scaleY = .2 * 2 / PIXEL_RATIO;
+    let cancelLeavePageBtn = getEleById("cpt_map_cancel_leave_page");
+    let leavePageBtn = getEleById("cpt_map_leave_page");
+
+    function cancelLeavePageHandler() {
+        // alert('cancel clicked');
+        leavePageWarning.htmlElement.style.display = "none";
+    }
+    function leavePageHandler() {
+        // alert('proceed clicked');
+        leavePageWarning.htmlElement.style.display = "none";
+        clearDOMEventListeners();
+        prevHypoTask();
+    }
+    stage.addChild(leavePageWarning);
+
+    cancelSaveBtn.addEventListener('click', cancelSaveHandler);
+    saveBtn.addEventListener("click", saveHandler);
+    cancelLeavePageBtn.addEventListener('click', cancelLeavePageHandler);
+    leavePageBtn.addEventListener('click', leavePageHandler);
+
+    function clearDOMEventListeners() {
+        saveBtn.removeEventListener("click", saveHandler);
+        cancelSaveBtn.removeEventListener("click", cancelSaveHandler);
+        leavePageBtn.removeEventListener("click", leavePageHandler);
+        cancelLeavePageBtn.removeEventListener("click", cancelLeavePageHandler);
+    }
+
+
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => {
         notepad.htmlElement.style.display = "none";
-        prevHypoTask();
+        if (hypoSaved) {
+            clearDOMEventListeners();
+            prevHypoTask();
+        } else {
+            leavePageWarning.htmlElement.style.display = "block";
+        }
+        // prevHypoTask();
     });
     stage.addChild(backButton);
     let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
     nextButton.on("click", e => {
         notepad.htmlElement.style.display = "none";
+        clearDOMEventListeners();
         nextHypoTask();
     });
     // verify button
     let verifyButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Check", BUTTON_COLOR);
     verifyButton.on("click", e => {
-        if (verify2(ivBubble, whichConceptMap)) {
-            // if everything is ok, replace the verify button with the next button
-            stage.removeChild(verifyButton);
-            stage.addChild(nextButton);
-            stage.update();
+        if (verifyConceptMap(ivBubble)) {
+            // if everything is ok, show the save warning popup
+            saveWarning.htmlElement.style.display = "block";
         }
-    })
+    });
     // stage.addChild(ivBubble, dvBubble, arrow, verifyButton);
     stage.addChild(ivBubble, dvBubble, arrow, verifyButton);
     stage.update();
     // stage handlers
     stage.on("stagemouseup", removePanel);
     stage.on("stagemouseup", removeErrorField);
-    fetchPrevSavedHypo(whichConceptMap)
+    fetchPrevSavedHypo(whichHypo)
     .then((hypoData) => {
         if (null !== hypoData) {
-            rehydrateHypothesis(hypoData, ivBubble, dvBubble, verifyButton, nextButton);
+            hypoSaved = true;
+            stage.removeChild(verifyButton);
+            stage.addChild(nextButton);
+            stage.update();
+            updateErrorField("Your hypothesis has already been saved. You can not make any changes.", "22px Arial", "#000");
+            // rehydrateHypothesis(hypoData, ivBubble, dvBubble);
         }
     })
     .catch(function (error) {
@@ -1488,10 +1564,9 @@ function parameterizedConceptMapPage(whichConceptMap) {
 
 // rebuilds the concept map'a nodes, directions, arrows, and labels from what is 
 // stored in firebase (hypoData).  requires ivBubble and dvBubble as these nodes aren't
-// saved in the db, and needs the verifyButton and nextButton, so that the verifyButton
-// can be replaced with the next button, ensuring that they can't save any changes.
-function rehydrateHypothesis(hypoData, ivBubble, dvBubble, verifyButton, nextButton) {
-    showSnackbar('Changes to previously saved hypothesis will not be saved.');
+// saved in the db
+function rehydrateHypothesis(hypoData, ivBubble, dvBubble) {
+    // showSnackbar('Changes to previously saved hypothesis will not be saved.');
     // console.log(hypoData);
     let nodeOrder = hypoData.nodes.slice(0, -1);
     // let directions = hypoData.directions.slice(0, -1);
@@ -1581,9 +1656,6 @@ function rehydrateHypothesis(hypoData, ivBubble, dvBubble, verifyButton, nextBut
         let arr = createArrow(_start.x, _start.y, _end.x, _end.y, label);
         stage.addChild(arr);
     });
-    stage.removeChild(verifyButton);
-    stage.addChild(nextButton);
-    updateErrorField("Changes will not be saved. This is merely being displayed so you can see what your hypothesis was.", "22px Arial", "#000");
     stage.update();
 }
 
@@ -1773,7 +1845,64 @@ function handleCauseClick(x, y, target) {
 //     return isGood;
 // }
 
-function verify2(ivBubble, whichConceptMap) {
+// function verify2(ivBubble, whichHypo) {
+//     let isGood = true;
+//     // checking everything is labeled
+//     for (let i = 0; i < stage.numChildren; i++) {
+//         let child = stage.getChildAt(i);
+//         // checking that a bubble has a direction if it is connected
+//         if (child.name === "bubble") {
+//             let dirButton = child.getChildByName("dirButton");
+//             let connected = false;
+//             for (let bubbleChild of child.children) {
+//                 if ((bubbleChild.name === "inConnector" || bubbleChild.name === "outConnector") && bubbleChild.arrow != null) {
+//                     connected = true;
+//                     break;
+//                 }
+//             }
+//             if (dirButton.children.length === 1 && connected) {
+//                 drawDirButton(dirButton, dirButton.x, dirButton.y, dirButton.direction, "red");
+//                 isGood = false;
+//             }
+//         }
+//         // checking that arrows are properly labeled
+//         else if (child.name === "arrow") {
+//             child.label.color = "#000";
+//             if (child.label.text === "Add label") {
+//                 child.label.color = "red";
+//                 isGood = false;
+//             }
+//         }
+//     }
+//     if (!isGood) {
+//         updateErrorField("Please make sure that everything is labeled properly.", "16px Arial", "red");
+//         return isGood;
+//     }
+//     // checking connectivity
+//     let connector = ivBubble.outConnector;
+//     while (connector != null) {
+//         if (connector.arrow == null) {
+//             updateErrorField("Please make sure that all of the bubbles are connected.", "16px Arial", "red");
+//             isGood = false;
+//             return isGood;
+//         }
+//         let nextBubble = connector.arrow.connectorOver.parent;
+//         connector = nextBubble.outConnector;
+//     }
+//     // checking at least one intermediate bubble
+//     if (ivBubble.outConnector.arrow.connectorOver.parent.outConnector == null) {
+//         updateErrorField("Please add at least one intermediate bubble.", "16px Arial", "red");
+//         isGood = false;
+//         return isGood;
+//     }
+//     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
+//     logData2(ivBubble, whichHypo);
+//     logBrmData();
+//     localStorage.removeItem("isptutor_brmStartTime");
+//     return isGood;
+// }
+
+function verifyConceptMap(ivBubble) {
     let isGood = true;
     // checking everything is labeled
     for (let i = 0; i < stage.numChildren; i++) {
@@ -1823,10 +1952,7 @@ function verify2(ivBubble, whichConceptMap) {
         isGood = false;
         return isGood;
     }
-    updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct. Click 'Next' to continue.", "16px Arial", "#000");
-    logData2(ivBubble, whichConceptMap);
-    logBrmData();
-    localStorage.removeItem("isptutor_brmStartTime");
+    updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
     return isGood;
 }
 
