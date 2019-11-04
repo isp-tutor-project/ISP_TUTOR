@@ -128,13 +128,17 @@ function initHomePage() {
         console.log("Error getting document:", error);
     })
     .then((currTutorNdx) => {
-        let enabled = document.getElementById(tutors[currTutorNdx] + "-button");
-        enabled.classList.remove("disabled");
-        enabled.disabled = false;
-        if (currTutorNdx != 0) {
-            let former = document.getElementById(tutors[currTutorNdx - 1] + "-button");
-            former.classList.add("disabled");
-            former.disabled = true;
+        if (tutors.length === currTutorNdx) {
+            showSnackbar("You have finished your work with the tutor.");
+        } else {
+            let enabled = document.getElementById(tutors[currTutorNdx] + "-button");
+            enabled.classList.remove("disabled");
+            enabled.disabled = false;
+            if (currTutorNdx != 0) {
+                let former = document.getElementById(tutors[currTutorNdx - 1] + "-button");
+                former.classList.add("disabled");
+                former.disabled = true;
+            }
         }
     });
 
