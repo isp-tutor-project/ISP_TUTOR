@@ -1496,11 +1496,9 @@ function conceptMapPage2(whichHypo) {
     let leavePageBtn = getEleById("cpt_map_leave_page");
 
     function cancelLeavePageHandler() {
-        // alert('cancel clicked');
         leavePageWarning.htmlElement.style.display = "none";
     }
     function leavePageHandler() {
-        // alert('proceed clicked');
         leavePageWarning.htmlElement.style.display = "none";
         clearDOMEventListeners();
         prevHypoTask();
