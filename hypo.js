@@ -303,7 +303,7 @@ function logData2(ivBubble, whichHypo) {
     log.arrowLabels = arrowLabels;
     log.directions = directions;
     log.steps = steps;
-    log.notes = notes.innerHTML;
+    log.notes = notes.innerText;
 
     db.collection(collectionID).doc(userID).update({
         [`${whichHypo}Hypo`]: JSON.stringify(log)
@@ -323,10 +323,10 @@ function logData2(ivBubble, whichHypo) {
 function logBrmData() {
     showSnackbar("Saving data...");
     return db.collection(collectionID).doc(userID).update({
-        brm: sessionStorage.getItem("isptutor_brmHistory")
+        brm: localStorage.getItem("isptutor_brmHistory")
     })
     .then(() => {
-        sessionStorage.removeItem("isptutor_brmStartTime");
+        localStorage.removeItem("isptutor_brmStartTime");
         return true;
     })
     .catch((error) => {
@@ -1198,8 +1198,8 @@ function brmPage() {
         // so that it will work both from production website and dev environment
         // open("https://go.isptutor.org/brm/home/index.html", "_blank");
         open(window.location.origin + "/brm/home/index.html", "_blank");
-        sessionStorage.setItem("isptutor_brmStartTime", Date.now());
-        sessionStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
+        localStorage.setItem("isptutor_brmStartTime", Date.now());
+        localStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
     });
     stage.addChild(text, brmButton);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
@@ -1952,7 +1952,7 @@ function handleCauseClick(x, y, target) {
 
 //     logData(ivBubble);
 //     logBrmData();
-//     sessionStorage.removeItem("isptutor_brmStartTime");
+//     localStorage.removeItem("isptutor_brmStartTime");
 //     return isGood;
 // }
 
@@ -2009,7 +2009,7 @@ function handleCauseClick(x, y, target) {
 //     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
 //     logData2(ivBubble, whichHypo);
 //     logBrmData();
-//     sessionStorage.removeItem("isptutor_brmStartTime");
+//     localStorage.removeItem("isptutor_brmStartTime");
 //     return isGood;
 // }
 
@@ -2752,6 +2752,8 @@ window.addEventListener("beforeunload", (e) => {
         } else {
             console.log("some soft of issue saving BRM data");
         }
+        // remove all localstorage variables
+        localStorage.clear();
         delete e['returnValue'];
     });
 });

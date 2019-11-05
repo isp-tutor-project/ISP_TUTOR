@@ -105,8 +105,8 @@ function parseUserForm(formID) {
     userID += '_' + month + '_' + day;
     userID = userID.toUpperCase();
     // save collection and uid so BRM can connect to firebase
-    sessionStorage.setItem("collectionID", collectionID);
-    sessionStorage.setItem("userID", userID);
+    localStorage.setItem("collectionID", collectionID);
+    localStorage.setItem("userID", userID);
     return true;
 }
 
@@ -153,7 +153,7 @@ function initHomePage() {
             if (!brm) {
                 brm = "[]";
             }
-            sessionStorage.setItem("isptutor_brmHistory", brm);
+            localStorage.setItem("isptutor_brmHistory", brm);
         }
     });
 
