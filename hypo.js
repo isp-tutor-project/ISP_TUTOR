@@ -78,9 +78,19 @@ const DV = "Amount crystal growth on string"
 // there can be 1 - 8 nodes (or else it will look strange)
 const NODES = ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"];
 const CAUSES = ["Electric force", "Conservation of matter", "Energy to escape electric forces"];
+
 // true corresponds to "increasing" and false corresponds to "decreasing"
 let firstPrediction = true;
+// if true, will highlight the current value, but still let you change it
+let firstPredictionSaved = false;
+// if this gets set to true, you will not be able to change the first prediction
+let firstPredictionLocked = false;
+let firstPredictionLockedReason;
+// ditto for the second prediction
 let secondPrediction = true;
+let secondPredictionSaved = false;
+let secondPredictionLocked = false;
+let secondPredictionLockedReason;
 
 /*
     // constants regarding values of nodes
@@ -240,21 +250,31 @@ function loadData() {
 //     console.log(log);
 // }
 
+function boolPredictionToString(prediction) {
+    return (prediction) ? "increase" : "decrease";
+}
+
 function logData2(ivBubble, whichHypo) {
     let log = {};
-    let prediction;
+    let currentPrediction;
+    let currentPredictionValue;
     if ("initial" === whichHypo) {
-        log.firstPrediction = (firstPrediction) ? "increase" : "decrease";
+        currentPrediction = "first";
+        currentPredictionValue = boolPredictionToString(firstPrediction);
     } else if ("opposite" === whichHypo) {
-        log.oppositePrediction = (!firstPrediction) ? "decrease" : "increase";
+        currentPrediction = "opposite(first)";
+        currentPredictionValue = boolPredictionToString(!firstPrediction);
     } else {
-        log.secondPrediction = (secondPrediction) ? "increase" : "decrease";
+        currentPrediction = "second";
+        currentPredictionValue = boolPredictionToString(secondPrediction);
     }
-
     // if (firstPrediction) log.firstPrediction = "increase";
     // else log.firstPrediction = "decrease";
     // if (secondPrediction) log.secondPrediction = "increase";
     // else log.secondPrediction = "decrease";
+    log.currentPrediction = currentPrediction;
+    log.currentPredictionValue = currentPredictionValue;
+    let notes = getEleById("notepad_notes");
     let nodes = [];
     let arrowLabels = [];
     let directions = [];
@@ -271,6 +291,7 @@ function logData2(ivBubble, whichHypo) {
     log.arrowLabels = arrowLabels;
     log.directions = directions;
     log.steps = steps;
+    log.notes = notes.innerHTML;
 
     db.collection(collectionID).doc(userID).update({
         [`${whichHypo}Hypo`]: JSON.stringify(log)
@@ -889,23 +910,41 @@ function predictionPage1() {
     choice1.x = CANVAS_WIDTH / 2;
     choice1.y = question.y + 150;
     choice1.textAlign = "center";
-    generateHitAreaCenterAlignment(choice1);
-    choice1.on("click", e => {
-        choice1.color = "#5588EE";
-        choice2.color = "#000";
-        chosenDVDirection = true;
-        console.log(choice1);
-    });
     let choice2 = new createjs.Text("Decrease", "20px Arial", "#000");
     choice2.x = CANVAS_WIDTH / 2;
     choice2.y = choice1.y + 30;
     choice2.textAlign = "center";
-    generateHitAreaCenterAlignment(choice2);
-    choice2.on("click", e => {
-        choice1.color = "#000";
-        choice2.color = "#5588EE";
-        chosenDVDirection = false;
-    });
+    if (firstPredictionLocked) {
+        // display message that they cannot change the value and
+        // don't setup the click handlers
+        updateErrorField(firstPredictionLockedReason + " You cannot change your prediction.", "22px Arial", '#000');
+    } else {
+        generateHitAreaCenterAlignment(choice1);
+        choice1.on("click", e => {
+            choice1.color = "#5588EE";
+            choice2.color = "#000";
+            chosenDVDirection = true;
+            // console.log(choice1);
+        });
+        generateHitAreaCenterAlignment(choice2);
+        choice2.on("click", e => {
+            choice1.color = "#000";
+            choice2.color = "#5588EE";
+            chosenDVDirection = false;
+        });
+    }
+    if (firstPredictionSaved) {
+        // set chosenDVDirection to the value of firstPrediction and
+        chosenDVDirection = firstPrediction;
+        // set the choices to the appropriate colors based on the saved value
+        if (firstPrediction) {
+            choice1.color = "#5588EE";
+            choice2.color = "#000";
+        } else {
+            choice1.color = "#000";
+            choice2.color = "#5588EE";
+        }
+    }
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
@@ -915,8 +954,16 @@ function predictionPage1() {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
         } else {
             firstPrediction = chosenDVDirection;
-            // brmInstructionPage();
-            nextHypoTask();
+            db.collection(collectionID).doc(userID).update({
+                firstPrediction: firstPrediction
+            })
+            .then(() => {
+                firstPredictionSaved = true;
+                nextHypoTask();
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
         }
     });
     stage.addChild(title, question, choice1, choice2, nextButton);
@@ -1165,23 +1212,40 @@ function predictionPage2() {
     choice1.x = CANVAS_WIDTH / 2;
     choice1.y = question.y + 150;
     choice1.textAlign = "center";
-    generateHitAreaCenterAlignment(choice1);
-    choice1.on("click", e => {
-        choice1.color = "#5588EE";
-        choice2.color = "#000";
-        chosenDVDirection = true;
-        console.log(choice1);
-    });
     let choice2 = new createjs.Text("Decrease", "20px Arial", "#000");
     choice2.x = CANVAS_WIDTH / 2;
     choice2.y = choice1.y + 30;
     choice2.textAlign = "center";
-    generateHitAreaCenterAlignment(choice2);
-    choice2.on("click", e => {
-        choice1.color = "#000";
-        choice2.color = "#5588EE";
-        chosenDVDirection = false;
-    });
+    if (secondPredictionLocked) {
+        // display message and don't add event listeners
+        updateErrorField(secondPredictionLockedReason + " You cannot change your prediction.", "22px Arial", "#000");
+    } else {
+        generateHitAreaCenterAlignment(choice1);
+        choice1.on("click", e => {
+            choice1.color = "#5588EE";
+            choice2.color = "#000";
+            chosenDVDirection = true;
+            console.log(choice1);
+        });
+        generateHitAreaCenterAlignment(choice2);
+        choice2.on("click", e => {
+            choice1.color = "#000";
+            choice2.color = "#5588EE";
+            chosenDVDirection = false;
+        });
+    }
+    if (secondPredictionSaved) {
+        // set chosenDVDirection to the value of secondPrediction and
+        chosenDVDirection = secondPrediction;
+        // set the choices to the appropriate colors based on the saved value  
+        if (secondPrediction) {
+            choice1.color = "#5588EE";
+            choice2.color = "#000";
+        } else {
+            choice1.color = "#000";
+            choice2.color = "#5588EE";
+        }
+    }
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
@@ -1191,8 +1255,21 @@ function predictionPage2() {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
         } else {
             secondPrediction = chosenDVDirection;
-            nextHypoTask();
-        }
+            db.collection(collectionID).doc(userID).update({
+                secondPrediction: secondPrediction
+            })
+            .then(() => {
+                secondPredictionSaved = true;
+                if (!firstPredictionLocked) {
+                    firstPredictionLocked = true;
+                    firstPredictionLockedReason = "You have already saved your second prediction.";
+                }
+                nextHypoTask();
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+        }   
     });
     stage.addChild(title, question, choice1, choice2, nextButton);
     stage.update();
@@ -1458,6 +1535,8 @@ function conceptMapPage2(whichHypo) {
     notepad.scaleX = .2 * 2 / PIXEL_RATIO;
     notepad.scaleY = .2 * 2 / PIXEL_RATIO;
     notepad.htmlElement.style.display = "block";
+    // clear any notes any previous arrivals on this page
+    getEleById("notepad_notes").innerHTML = "";
     stage.addChild(notepad);
     
     // save Warning popup
@@ -1476,8 +1555,16 @@ function conceptMapPage2(whichHypo) {
         saveWarning.htmlElement.style.display = "none";
         logData2(ivBubble, whichHypo);
         hypoSaved = true;
+        if ("initial" === whichHypo) {
+            firstPredictionLocked = true;
+            firstPredictionLockedReason = "You have already saved your hypothesis."
+        } else if ("final" === whichHypo) {
+            secondPredictionLocked = true;
+            secondPredictionLockedReason = "You have already saved your hypothesis."
+        }
         // FIXME: this brm storage needs to be moved elsewhere
         logBrmData();
+
         stage.removeChild(verifyButton);
         stage.addChild(nextButton);
         updateErrorField("Hypothesis saved. Click 'next' to continue.", "16px Arial", "#000");
