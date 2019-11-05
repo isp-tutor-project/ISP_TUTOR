@@ -251,7 +251,19 @@ function loadData() {
 // }
 
 function boolPredictionToString(prediction) {
+    if (typeof(prediction) === "string") {
+        // for backward compat
+        return prediction;
+    }
     return (prediction) ? "increase" : "decrease";
+}
+
+function strPredictionToBool(prediction) {
+    if (typeof(prediction) === "boolean") {
+        // for backward compat
+        return prediction;
+    }
+    return ("increase" === prediction) ? true : false;
 }
 
 function logData2(ivBubble, whichHypo) {
@@ -955,7 +967,7 @@ function predictionPage1() {
         } else {
             firstPrediction = chosenDVDirection;
             db.collection(collectionID).doc(userID).update({
-                firstPrediction: firstPrediction
+                firstPrediction: boolPredictionToString(firstPrediction)
             })
             .then(() => {
                 firstPredictionSaved = true;
@@ -1256,7 +1268,7 @@ function predictionPage2() {
         } else {
             secondPrediction = chosenDVDirection;
             db.collection(collectionID).doc(userID).update({
-                secondPrediction: secondPrediction
+                secondPrediction: boolPredictionToString(secondPrediction)
             })
             .then(() => {
                 secondPredictionSaved = true;

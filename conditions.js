@@ -204,7 +204,7 @@ function initHypoTasks() {
     let finalHyp = data.finalHypo;
     if (undefined !== firstPred) {
       // refresh firstPrediction from the db, overriding default value in hypo.js
-      firstPrediction = firstPred;
+      firstPrediction = strPredictionToBool(firstPred);
       firstPredictionSaved = true;
       if (undefined !== initHyp) {
         // if the initial hypo is saved, disable the ability to change firstPrediction
@@ -214,7 +214,7 @@ function initHypoTasks() {
     }
     if (undefined !== secondPred) {
       // refresh secondPrediction from the db, overriding the default value in hypo.js
-      secondPrediction = secondPred;
+      secondPrediction = strPredictionToBool(secondPred);
       secondPredictionSaved = true;
       if (undefined !== finalHyp) {
       // if the final hypo is saved, disable the ability to change the second prediction
