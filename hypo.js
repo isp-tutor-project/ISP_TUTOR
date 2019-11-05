@@ -321,14 +321,17 @@ function logData2(ivBubble, whichHypo) {
 }
 
 function logBrmData() {
-    db.collection(collectionID).doc(userID).update({
-        brm: localStorage.getItem("isptutor_brmHistory")
+    showSnackbar("Saving data...");
+    return db.collection(collectionID).doc(userID).update({
+        brm: sessionStorage.getItem("isptutor_brmHistory")
     })
     .then(() => {
-        localStorage.removeItem("isptutor_brmStartTime");
+        sessionStorage.removeItem("isptutor_brmStartTime");
+        return true;
     })
     .catch((error) => {
         console.error("Error writing BRM data: ", error);
+        return false;
     });
 }
 
@@ -356,7 +359,7 @@ const pageNamesToFunctions = {
     "predictionPage2": predictionPage2,
     "finalConceptMap": finalConceptMap,
     "completePage": completePage
-}
+};
 
 // init is the first function to be called
 function initHypoPage() {
@@ -1081,6 +1084,7 @@ function graphPage2() {
 
 function biDirInstructionPage1() {
     stage.removeAllChildren()
+    let oppositePrediction = (firstPrediction) ? "decrease" : "increase";
     let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing"));
     image1.x = 50;
     image1.y = 50;
@@ -1095,6 +1099,10 @@ function biDirInstructionPage1() {
     text1.lineWidth = 700;
     text1.lineHeight = 35;
     stage.addChild(text1);
+    let image2 = getImageForPrediction(oppositePrediction);
+    image2.x = 400;
+    image2.y = 250;
+    stage.addChild(image2);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
@@ -1120,7 +1128,6 @@ function biDirInstructionPage2() {
     text1.textAlign = "center";
     text1.lineWidth = 700;
     text1.lineHeight = 35;
-
     stage.addChild(text1);
     let image2 = getImageForPrediction(oppositePrediction);
     image2.x = 400;
@@ -1173,6 +1180,10 @@ function biDirInstructionPage3() {
     stage.update();
 }
 
+// function biDirInstructionPage4() {
+
+// }
+
 function brmPage() {
     stage.removeAllChildren();
     let text = new createjs.Text('Click the "BRM" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
@@ -1187,8 +1198,8 @@ function brmPage() {
         // so that it will work both from production website and dev environment
         // open("https://go.isptutor.org/brm/home/index.html", "_blank");
         open(window.location.origin + "/brm/home/index.html", "_blank");
-        localStorage.setItem("isptutor_brmStartTime", Date.now());
-        localStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
+        sessionStorage.setItem("isptutor_brmStartTime", Date.now());
+        sessionStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
     });
     stage.addChild(text, brmButton);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
@@ -1574,9 +1585,6 @@ function conceptMapPage2(whichHypo) {
             secondPredictionLocked = true;
             secondPredictionLockedReason = "You have already saved your hypothesis."
         }
-        // FIXME: this brm storage needs to be moved elsewhere
-        logBrmData();
-
         stage.removeChild(verifyButton);
         stage.addChild(nextButton);
         updateErrorField("Hypothesis saved. Click 'next' to continue.", "16px Arial", "#000");
@@ -1944,7 +1952,7 @@ function handleCauseClick(x, y, target) {
 
 //     logData(ivBubble);
 //     logBrmData();
-//     localStorage.removeItem("isptutor_brmStartTime");
+//     sessionStorage.removeItem("isptutor_brmStartTime");
 //     return isGood;
 // }
 
@@ -2001,7 +2009,7 @@ function handleCauseClick(x, y, target) {
 //     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
 //     logData2(ivBubble, whichHypo);
 //     logBrmData();
-//     localStorage.removeItem("isptutor_brmStartTime");
+//     sessionStorage.removeItem("isptutor_brmStartTime");
 //     return isGood;
 // }
 
@@ -2734,3 +2742,15 @@ function removeArrowAndLabel(arrow) {
         //stage.removeChild(arrow.label);
     }
 }
+
+
+window.addEventListener("beforeunload", (e) => {
+    e.preventDefault();
+    logBrmData().then((success) => {
+        if (success) {
+            console.log("succesfully saved BRM data");
+        } else {
+            console.log("some soft of issue saving BRM data");
+        }
+    });
+});
