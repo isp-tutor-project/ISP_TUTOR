@@ -196,7 +196,41 @@ function getStudentCondition() {
 function initHypoTasks() {
   db.collection(collectionID).doc(userID).get()
   .then((doc) => {
-    currHypoTaskIdx = doc.data().currHypoTaskIdx || 0;
+    let data = doc.data();
+    currHypoTaskIdx = data.currHypoTaskIdx || 0;
+    let firstPred = data.firstPrediction;
+    let initHyp = data.initialHypo;
+    let secondPred = data.secondPrediction;
+    let finalHyp = data.finalHypo;
+    if (undefined !== firstPred) {
+      // refresh firstPrediction from the db, overriding default value in hypo.js
+      firstPrediction = firstPred;
+      firstPredictionSaved = true;
+      if (undefined !== initHyp) {
+        // if the initial hypo is saved, disable the ability to change firstPrediction
+        firstPredictionLocked = true;
+        firstPredictionLockedReason = "You have already saved your hypothesis."
+      } 
+    }
+    if (undefined !== secondPred) {
+      // refresh secondPrediction from the db, overriding the default value in hypo.js
+      secondPrediction = secondPred;
+      secondPredictionSaved = true;
+      if (undefined !== finalHyp) {
+      // if the final hypo is saved, disable the ability to change the second prediction
+      // it's unlikely that this will occur, because they will most likely click next
+      // and be done with the tutor, but just in case they click 'back' after saving
+      // their final hypo, we don't want them to be able to change secondPrediction
+        secondPredictionLocked = true;
+        secondPredictionLockedReason = "You have already saved your hypothesis."
+      } else if (!firstPredictionLocked) {
+        // however, if they've made both their firstPrediction and secondPrediction, but
+        // have no saved the finalhypo (say in cond3 where there is no initial concept
+        // map, lock the firstPrediction)
+        firstPredictionLocked = true;
+        firstPredictionLockedReason = "You have already saved your second prediction.";
+      }
+    }
     console.log('initHypoTasks::currHypoTaskIdx:', currHypoTaskIdx);
     updateCurrTaskIndex(currHypoTaskIdx)
     .then(() => {
