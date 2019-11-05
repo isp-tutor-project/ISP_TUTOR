@@ -9,7 +9,7 @@ function getEleById(eleID) {
 
 let currentPage = "index-page";
 let collectionID;
-let userID = sessionStorage.getItem("userID");
+let userID; 
 let currModulePage = document.getElementById("module-page");
 let newModulePage = document.getElementById("module-page").cloneNode(true);
 
@@ -104,6 +104,9 @@ function parseUserForm(formID) {
     }
     userID += '_' + month + '_' + day;
     userID = userID.toUpperCase();
+    // save collection and uid so BRM can connect to firebase
+    sessionStorage.setItem("collectionID", collectionID);
+    sessionStorage.setItem("userID", userID);
     return true;
 }
 
@@ -354,23 +357,6 @@ document.getElementById("r-back-button").addEventListener("click", e => {
     openPage("index-page");
 });
 document.getElementById("signin-submit").addEventListener("click", e => {
-    // let form = document.getElementById("signin-form");
-    // if (!form.reportValidity()) return;
-    // collectionID = document.getElementById("s-classcode").value.toUpperCase();
-    // let firstname = document.getElementById("s-fname").value;
-    // let lastname = document.getElementById("s-lname").value;
-    // let month = document.getElementById("s-bmonth").value;
-    // let day = document.getElementById("s-bday").value;
-    // if (lastname.length != 2) {
-    //     showSnackbar("Please enter exactly two characters for your last name.")
-    //     return;
-    // }
-    // userID = firstname + lastname;
-    // if (!isValidInput(userID)) {
-    //     return;
-    // }
-    // userID += "_" + month + "_" + day;
-    // userID = userID.toUpperCase();
     if (parseUserForm("signin-form")) {
         db.collection(collectionID).doc(userID).get().then((doc) => {
             if (doc.exists) {
@@ -378,7 +364,6 @@ document.getElementById("signin-submit").addEventListener("click", e => {
                 showSnackbar("Signed in as " + userID + ".");
                 openPage("home-page");
                 initHomePage();
-                // homePageHack()
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such account!");
@@ -391,23 +376,6 @@ document.getElementById("signin-submit").addEventListener("click", e => {
     }
 });
 document.getElementById("registration-submit").addEventListener("click", e => {
-    // let form = document.getElementById("registration-form");
-    // if (!form.reportValidity()) return;
-    // collectionID = document.getElementById("r-classcode").value.toUpperCase();
-    // let firstname = document.getElementById("r-fname").value;
-    // let lastname = document.getElementById("r-lname").value;
-    // let month = document.getElementById("r-bmonth").value;
-    // let day = document.getElementById("r-bday").value;
-    // if (lastname.length != 2) {
-    //     showSnackbar("Please enter exactly two characters for your last name.")
-    //     return;
-    // }
-    // userID = firstname + lastname;
-    // if (!isValidInput(userID)) {
-    //     return;
-    // }
-    // userID += "_" + month + "_" + day;
-    // userID = userID.toUpperCase();
     if (parseUserForm("registration-form")) {
         db.collection(collectionID).doc(userID).get().then((doc) => {
             if (doc.exists) {
@@ -423,7 +391,6 @@ document.getElementById("registration-submit").addEventListener("click", e => {
                     showSnackbar("Signed in as " + userID + ".");
                     openPage("home-page");
                     initHomePage();
-                    // homePageHack();
                 })
                 .catch(function (error) {
                     console.error("Error writing document: ", error);
@@ -492,27 +459,3 @@ if (editMode) {
 else {
     openPage("index-page");
 }
-
-// function homePageHack() {
-//     if (editMode && userID) {
-//         getStudentCondition()
-//         .then((condition) => {
-//             if (condition) {
-//                 initHypoPage();
-//                 openPage('hypo-page');
-//             } else {
-//                openPage('home-page');
-//                initHomePage();
-//                showSnackbar('Sorry, you cannot proceed further until your pre-test is graded'); 
-//             }
-//         })
-//         .catch(function(error) {
-//             console.error(error);
-//         });
-//     } else {
-//         openPage('home-page');
-//         initHomePage();
-//     }
-// }
- 
-// openPage("index-page");
