@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Test Unload Page</title>
+    </head>
+    <body>
+        <h1>Before Unload Test</h1>
+        <script>
+            window.addEventListener("DOMContentLoaded", (e) => {
+                function wasteTime(n){
+                    for (let i=0; i<n; i++) {
+                        if (i % 1000000 === 0) {
+                            console.log(i);
+                        }
+                    }
+                }
+                window.addEventListener('beforeunload', e => {
+                    e.preventDefault();
+                    console.log('saving data');
+                    wasteTime(1000000000);
+                    delete e['returnValue'];
+                });
+            });
+        </script>
+    </body>
+</html>
