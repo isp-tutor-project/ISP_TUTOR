@@ -2752,5 +2752,6 @@ window.addEventListener("beforeunload", (e) => {
         } else {
             console.log("some soft of issue saving BRM data");
         }
+        delete e['returnValue'];
     });
 });
