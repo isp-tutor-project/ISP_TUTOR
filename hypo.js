@@ -266,6 +266,21 @@ function strPredictionToBool(prediction) {
     return ("increase" === prediction) ? true : false;
 }
 
+
+function logPrediction(fldName, fldValue) {
+    return db.collection(collectionID).doc(userID).update({
+        [fldName]: boolPredictionToString(fldValue)
+    })
+    .then(() => {
+        logBrmData();
+        return true;
+    })
+    .catch(function (error) {
+        console.error(error);
+        return false;
+    });
+}
+
 function logData2(ivBubble, whichHypo) {
     let log = {};
     let currentPrediction;
@@ -316,22 +331,24 @@ function logData2(ivBubble, whichHypo) {
         console.error("Error writing document: ", error);
         showSnackbar("Error: Failed to log hypothesis data.");
     });
+    logBrmData();
     console.log("Logged Data:");
     console.log(log);
 }
 
+
 function logBrmData() {
     showSnackbar("Saving data...");
-    return db.collection(collectionID).doc(userID).update({
+    db.collection(collectionID).doc(userID).update({
         brm: localStorage.getItem("isptutor_brmHistory")
     })
     .then(() => {
         localStorage.removeItem("isptutor_brmStartTime");
-        return true;
+        // return true;
     })
     .catch((error) => {
         console.error("Error writing BRM data: ", error);
-        return false;
+        // return false;
     });
 }
 
@@ -969,9 +986,7 @@ function predictionPage1() {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
         } else {
             firstPrediction = chosenDVDirection;
-            db.collection(collectionID).doc(userID).update({
-                firstPrediction: boolPredictionToString(firstPrediction)
-            })
+            logPrediction("firstPrediction", firstPrediction)
             .then(() => {
                 firstPredictionSaved = true;
                 nextHypoTask();
@@ -1278,9 +1293,10 @@ function predictionPage2() {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
         } else {
             secondPrediction = chosenDVDirection;
-            db.collection(collectionID).doc(userID).update({
-                secondPrediction: boolPredictionToString(secondPrediction)
-            })
+            // db.collection(collectionID).doc(userID).update({
+            //     secondPrediction: boolPredictionToString(secondPrediction)
+            // })
+            logPrediction("secondPrediction", secondPrediction)
             .then(() => {
                 secondPredictionSaved = true;
                 if (!firstPredictionLocked) {
@@ -1573,7 +1589,6 @@ function conceptMapPage2(whichHypo) {
     function cancelSaveHandler() {
         saveWarning.htmlElement.style.display = "none";
     }
-
     function saveHandler() {
         saveWarning.htmlElement.style.display = "none";
         logData2(ivBubble, whichHypo);
@@ -1587,7 +1602,7 @@ function conceptMapPage2(whichHypo) {
         }
         stage.removeChild(verifyButton);
         stage.addChild(nextButton);
-        updateErrorField("Hypothesis saved. Click 'next' to continue.", "16px Arial", "#000");
+        updateErrorField("Please draw your concept map in your booklet before continuing", "bold 22px Arial", "#FFA500");
         stage.update();
     }
 
@@ -2746,14 +2761,16 @@ function removeArrowAndLabel(arrow) {
 
 window.addEventListener("beforeunload", (e) => {
     e.preventDefault();
-    logBrmData().then((success) => {
-        if (success) {
-            console.log("succesfully saved BRM data");
-        } else {
-            console.log("some soft of issue saving BRM data");
-        }
-        // remove all localstorage variables
-        localStorage.clear();
-        delete e['returnValue'];
-    });
+    localStorage.clear();
+    delete e['returnValue'];
+
+    // let done = false;
+    // logBrmData().finally(() => {
+    //     // remove all localstorage variables
+    //     done = true;
+    // });
+    // while (!done) {
+    //     continue;
+    // }
+    
 });
