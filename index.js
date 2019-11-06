@@ -105,8 +105,8 @@ function parseUserForm(formID) {
     userID += '_' + month + '_' + day;
     userID = userID.toUpperCase();
     // save collection and uid so BRM can connect to firebase
-    sessionStorage.setItem("collectionID", collectionID);
-    sessionStorage.setItem("userID", userID);
+    localStorage.setItem("collectionID", collectionID);
+    localStorage.setItem("userID", userID);
     return true;
 }
 
@@ -122,7 +122,7 @@ function initHomePage() {
     db.collection(collectionID).doc(userID).get().then((doc) => {
         if (doc.exists) {
             console.log("Document exists");
-            return doc.data().currTutorNdx;
+            return doc.data();
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -130,7 +130,9 @@ function initHomePage() {
     }).catch(function (error) {
         console.log("Error getting document:", error);
     })
-    .then((currTutorNdx) => {
+    .then((data) => {
+        let currTutorNdx = data.currTutorNdx;
+        let brm = data.brm;
         if (tutors.length === currTutorNdx) {
             // student is done, disable all module buttons and display message
             tutors.forEach((tut, idx) => {
@@ -148,13 +150,16 @@ function initHomePage() {
                 former.classList.add("disabled");
                 former.disabled = true;
             }
+            if (!brm) {
+                brm = "[]";
+            }
+            localStorage.setItem("isptutor_brmHistory", brm);
         }
     });
 
     if (userID != null) {
         document.getElementById("sign-in-text").innerHTML = "Signed in as " + userID;
     }
-    localStorage.setItem("isptutor_brmHistory", "[]");
 }
 
 let init;
