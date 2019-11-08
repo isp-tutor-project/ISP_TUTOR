@@ -1695,16 +1695,16 @@ function conceptMapPage2(whichHypo) {
     getEleById("notepad_notes").innerHTML = "";
     stage.addChild(notepad);
     
-    let rewatchVideoButton = createExtraLargeButton(502 * 2 / PIXEL_RATIO,
-                                                    64 * 2 / PIXEL_RATIO,
-                                                    "Re-\nwatch\nhow-to\nvideo",
-                                                    "#3769C2",
-                                                    BUTTON_WIDTH * 1.5,
-                                                    BUTTON_HEIGHT * 5,
-                                                    "");
-    rewatchVideoButton.on("click", e => {
-       open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
-    });
+    // let rewatchVideoButton = createExtraLargeButton(502 * 2 / PIXEL_RATIO,
+    //                                                 64 * 2 / PIXEL_RATIO,
+    //                                                 "Re-\nwatch\nhow-to\nvideo",
+    //                                                 "#3769C2",
+    //                                                 BUTTON_WIDTH * 1.5,
+    //                                                 BUTTON_HEIGHT * 5,
+    //                                                 "");
+    // rewatchVideoButton.on("click", e => {
+    //    open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
+    // });
     stage.addChild(rewatchVideoButton);
     // save Warning popup
     let saveWarning = new createjs.DOMElement("save_concept_map_overlay");
