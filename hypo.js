@@ -1705,7 +1705,7 @@ function conceptMapPage2(whichHypo) {
     // rewatchVideoButton.on("click", e => {
     //    open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
     // });
-    stage.addChild(rewatchVideoButton);
+    // stage.addChild(rewatchVideoButton);
     // save Warning popup
     let saveWarning = new createjs.DOMElement("save_concept_map_overlay");
     saveWarning.x = 110 * 2 / PIXEL_RATIO;
