@@ -5733,7 +5733,7 @@ System.register("network/WebLogger", [], function (exports_59, context_59) {
                 }
                 tutorComplete() {
                     this.currTutorNdx++;
-                    db.collection(collectionID).doc(this.getUserId()).set({
+                    db.collection(collectionID).doc(this.getUserId()).update({
                         currTutorNdx: this.currTutorNdx,
                         rqted: this.currTutorState
                     })
