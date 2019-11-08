@@ -356,6 +356,7 @@ function logBrmData() {
 // ================================================ Pages ==================================================
 // ==========================================================================================================
 const pageNamesToFunctions = {
+    "raiseYourHand": raiseYourHand,
     "startPage": startPage,
     "definitionPage1": definitionPage1,
     "definitionPage2": definitionPage2,
@@ -364,6 +365,7 @@ const pageNamesToFunctions = {
     "definitionPage5": definitionPage5,
     "definitionPage6": definitionPage6,
     "instructionPage": instructionPage,
+    "backToYourRQ": backToYourRQ,
     "predictionPage1": predictionPage1,
     "graphPage1": graphPage1,
     "graphPage2": graphPage2,
@@ -489,6 +491,54 @@ function loadingPage() {
     loadingText.y = CANVAS_HEIGHT / 2 - 100;
     loadingText.textAlign = "center";
     stage.addChild(loadingText);
+    stage.update();
+}
+
+function getRQ() {
+    // "Does the initial water temperature affect the weight of the crystal growth on a string";
+    return "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?"
+}
+
+function raiseYourHand() {
+    stage.removeAllChildren()
+    let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing"));
+    image1.x = 50;
+    image1.y = 50;
+    image1.scaleX = 1.0;
+    image1.scaleY = 1.0;
+    stage.addChild(image1);
+    let txt1 = "Please raise your hand to get a notebook for doing Background Research";
+    let txt2 = "Then write your research question ..."
+    let txt3 = getRQ();
+    let txt4 = "on the first page of your notebook ";
+    let text1 = new createjs.Text(txt1, "22px Arial", "#000");
+    text1.x = CANVAS_WIDTH / 2;
+    text1.y = 100;
+    text1.textAlign = "center";
+    stage.addChild(text1);
+    let text2 = new createjs.Text(txt2, "22px Arial", "#000");
+    text2.x = CANVAS_WIDTH / 2;
+    text2.y = 175;
+    text2.textAlign = "center";
+    stage.addChild(text2);
+    let text3 = new createjs.Text(txt3, "bold 22px Arial", "#000");
+    text3.x = CANVAS_WIDTH / 2;
+    text3.y = 250;
+    text3.textAlign = "center";
+    text3.lineHeight = 35;
+    text3.lineWidth = 700;
+    stage.addChild(text3);
+    let text4 = new createjs.Text(txt4, "22px Arial", "#000");
+    text4.x = CANVAS_WIDTH / 2;
+    text4.y = 350;
+    text4.textAlign = "center";
+    stage.addChild(text4);
+    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    backButton.on("click", e => prevHypoTask());
+    stage.addChild(backButton);
+    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(nextButton);
     stage.update();
 }
 
@@ -871,7 +921,7 @@ function definitionPage6() {
 
 function instructionPage() {
     stage.removeAllChildren();
-
+    let delayAchieved = false;
     // add error field
     errorField = new createjs.Container();
     errorField.y = 10;
@@ -895,19 +945,31 @@ function instructionPage() {
         prevHypoTask();
     });
     stage.addChild(backButton);
+
     let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
     nextButton.on("click", e => {
-        updateErrorField("Please watch the tutorial video.", "16px Arial", "#000")
-    })
-    // 5 second delay for next button to move on
-    setTimeout(() => {
-        nextButton.on("click", e => {
+        if (!delayAchieved) {
+            updateErrorField("Please watch the tutorial video.", "16px Arial", "#000");
+            setTimeout(() => {
+                delayAchieved = true;
+            }, 20000);
+        } else {
             let vid = document.getElementById("instruction_video_overlay");
             vid.style.display = "none";
-            vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*')
+            vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
             nextHypoTask();
-        });
-    }, 0);
+        }
+        // // 20 second delay for next button to move on
+        // setTimeout(() => {
+        //     nextButton.on("click", e => {
+        //         let vid = document.getElementById("instruction_video_overlay");
+        //         vid.style.display = "none";
+        //         vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*')
+        //         nextHypoTask();
+        //     });
+        // }, 20000);
+    });
+
     let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nIt is recommended to watch the video in full screen.", "16px Arial", "#000");
     advice.x = CANVAS_WIDTH / 2;
     advice.y = CANVAS_HEIGHT * .8;
@@ -915,6 +977,39 @@ function instructionPage() {
 
     stage.addChild(text, video, nextButton, advice);
     document.getElementById("instruction_video_overlay").style.display = "block";
+    stage.update();
+}
+
+function backToYourRQ() {
+    stage.removeAllChildren();
+    let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing"));
+    image1.x = 50;
+    image1.y = 50;
+    image1.scaleX = 1.0;
+    image1.scaleY = 1.0;
+    stage.addChild(image1);
+    let txt1 = "Now that you've seen how to set up your hypothesis by linking concepts, let's go back to your original research question...";
+    let txt2 = getRQ();
+    let text1 = new createjs.Text(txt1, "22px Arial", "#000");
+    text1.x = CANVAS_WIDTH / 2;
+    text1.y = 175;
+    text1.textAlign = "center";
+    text1.lineHeight = 35;
+    text1.lineWidth = 700;
+    stage.addChild(text1);
+    let text2 = new createjs.Text(txt2, "bold 22px Arial", "#000");
+    text2.x = CANVAS_WIDTH / 2;
+    text2.y = 300;
+    text2.textAlign = "center";
+    text2.lineHeight = 35;
+    text2.lineWidth = 700;
+    stage.addChild(text2);
+    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    backButton.on("click", e => prevHypoTask());
+    stage.addChild(backButton);
+    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(nextButton);
     stage.update();
 }
 
@@ -1201,13 +1296,25 @@ function biDirInstructionPage3() {
 
 function brmPage() {
     stage.removeAllChildren();
-    let text = new createjs.Text('Click the "BRM" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
+    // add error field
+    errorField = new createjs.Container();
+    errorField.y = 10;
+    stage.addChild(errorField);
+
+    let brmBtnClicked = false;
+    let text = new createjs.Text('Click the "Go to Background Research website" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
     text.x = CANVAS_WIDTH / 2;
     text.y = 150;
     text.textAlign = "center";
     text.lineWidth = 800;
     text.lineHeight = 30;
-    let brmButton = createLargeButton(CANVAS_WIDTH * .5, CANVAS_HEIGHT * .5, "BRM", "#3769C2")
+    let brmButton = createExtraLargeButton(CANVAS_WIDTH * .5,
+                                           CANVAS_HEIGHT * .5 + 50,
+                                           "Go to\nBackground\nResearch\nwebsite",
+                                           "#3769C2",
+                                           BUTTON_WIDTH * 3,
+                                           BUTTON_HEIGHT * 5,
+                                           "bold");
     brmButton.on("click", e => {
         // switched from https://go.isptutor.org to window.location.origin
         // so that it will work both from production website and dev environment
@@ -1215,13 +1322,22 @@ function brmPage() {
         open(window.location.origin + "/brm/home/index.html", "_blank");
         localStorage.setItem("isptutor_brmStartTime", Date.now());
         localStorage.setItem("isptutor_rq", "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?");
+        setTimeout(() => {
+            brmBtnClicked = true;
+        }, 20000); 
     });
     stage.addChild(text, brmButton);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
     let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
-    nextButton.on("click", e => nextHypoTask());
+    nextButton.on("click", e => {
+        if (!brmBtnClicked) {
+            updateErrorField("Please click on the 'Go to Background Research website' button", "bold 22px Arial", "#000");
+        } else {
+            nextHypoTask();
+        }
+    });
     stage.addChild(nextButton);
     stage.update();
 }
@@ -1234,7 +1350,7 @@ function predictionPage2() {
     errorField.y = 10;
     stage.addChild(errorField);
 
-    let title = new createjs.Text("What do you think now?", "bold 22px Arial", "#000");
+    let title = new createjs.Text("What do you think now (that you've finished your research in the Background Research website)?", "bold 22px Arial", "#000");
     title.x = CANVAS_WIDTH / 2;
     title.y = CANVAS_HEIGHT / 8;
     title.textAlign = "center";
@@ -1567,6 +1683,7 @@ function conceptMapPage2(whichHypo) {
     }
     let arrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y, dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y);
 
+
     // add notebook (scrolling textarea)
     let notepad = new createjs.DOMElement("concept_map_notepad_overlay");
     notepad.x = 258 * 2 / PIXEL_RATIO;
@@ -1578,6 +1695,17 @@ function conceptMapPage2(whichHypo) {
     getEleById("notepad_notes").innerHTML = "";
     stage.addChild(notepad);
     
+    let rewatchVideoButton = createExtraLargeButton(502 * 2 / PIXEL_RATIO,
+                                                    64 * 2 / PIXEL_RATIO,
+                                                    "Re-\nwatch\nhow-to\nvideo",
+                                                    "#3769C2",
+                                                    BUTTON_WIDTH * 1.5,
+                                                    BUTTON_HEIGHT * 5,
+                                                    "");
+    rewatchVideoButton.on("click", e => {
+       open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
+    });
+    stage.addChild(rewatchVideoButton);
     // save Warning popup
     let saveWarning = new createjs.DOMElement("save_concept_map_overlay");
     saveWarning.x = 110 * 2 / PIXEL_RATIO;
@@ -1602,7 +1730,7 @@ function conceptMapPage2(whichHypo) {
         }
         stage.removeChild(verifyButton);
         stage.addChild(nextButton);
-        updateErrorField("Please draw your concept map in your booklet before continuing", "bold 22px Arial", "#FFA500");
+        updateErrorField("Please draw your concept map in your notebook before continuing", "bold 22px Arial", "#FFA500");
         stage.update();
     }
 
@@ -2415,6 +2543,32 @@ function createButton(x, y, text, color) {
     let button = new createjs.Container();
     button.x = x - BUTTON_WIDTH / 2;
     button.y = y - BUTTON_HEIGHT / 2;
+    button.addChild(background, label);
+    button.cursor = "pointer";
+    button.mouseChildren = false;
+    button.on("mouseover", handleMouseOver);
+    button.on("mouseout", handleMouseOver);
+
+    return button;
+}
+
+function createExtraLargeButton(x, y, text, color, width, height, fontStyle) {
+    let background = new createjs.Shape();
+    let buttonWidth = width;
+    let buttonHeight = height;
+    background.graphics.beginFill(color).drawRoundRect(0, 0, buttonWidth, buttonHeight, BUTTON_RADIUS);
+    if ("" !== fontStyle) {
+        fontStyle += " ";
+    }
+    let label = new createjs.Text(text, fontStyle + "32px Arial", "#FFFFFF");
+    label.textAlign = "center";
+    label.textBaseline = "bottom";
+    label.x = buttonWidth / 2;
+    label.y = buttonHeight / 2 - 25;
+
+    let button = new createjs.Container();
+    button.x = x - buttonWidth / 2;
+    button.y = y - buttonHeight / 2;
     button.addChild(background, label);
     button.cursor = "pointer";
     button.mouseChildren = false;
