@@ -9,6 +9,7 @@
 5.3 defPage5
 6.1 defPage6
 6.2 cptMapinstructPage
+    backToYourRQ
 6.3 predictPage1
 7.1 graphPage1
 8.1 graphPage2
@@ -26,6 +27,7 @@
 
 cond1              | cond2                      | cond3
 -------------------+----------------------------+-----------------------
+raiseYourHand      |raiseYourHand               |raiseYourHand
 startPage          |startPage                   |startPage
 definitionPage1    |definitionPage1             |definitionPage1
 definitionPage2    |definitionPage2             |definitionPage2
@@ -34,6 +36,7 @@ definitionPage4    |definitionPage4             |definitionPage4
 definitionPage5    |definitionPage5             |definitionPage5
 definitionPage6    |definitionPage6             |definitionPage6 
 instructionPage    |instructionPage             |instructionPage
+backToYourRQ       |backToYourRQ                |backToYourRQ
 predictionPage1    |predictionPage1             |predictionPage1
 graphPage1         |graphPage1                  |graphPage1
 graphPage2         |graphPage2                  |graphPage2
@@ -52,6 +55,7 @@ completePage       |completePage                |completePage
 
 const conditionHypoTasks = {
     "cond1": [
+      "raiseYourHand",
       "startPage",
       "definitionPage1",
       "definitionPage2",
@@ -60,6 +64,7 @@ const conditionHypoTasks = {
       "definitionPage5",
       "definitionPage6",
       "instructionPage",
+      "backToYourRQ",
       "predictionPage1",
       "graphPage1",
       "graphPage2",
@@ -70,6 +75,7 @@ const conditionHypoTasks = {
       "completePage"
     ],
     "cond2": [
+      "raiseYourHand",
       "startPage",
       "definitionPage1",
       "definitionPage2",
@@ -78,6 +84,7 @@ const conditionHypoTasks = {
       "definitionPage5",
       "definitionPage6",
       "instructionPage",
+      "backToYourRQ",
       "predictionPage1",
       "graphPage1",
       "graphPage2",
@@ -92,6 +99,7 @@ const conditionHypoTasks = {
       "completePage"
     ],
     "cond3": [
+      "raiseYourHand",
       "startPage",
       "definitionPage1",
       "definitionPage2",
@@ -100,6 +108,7 @@ const conditionHypoTasks = {
       "definitionPage5",
       "definitionPage6",
       "instructionPage",
+      "backToYourRQ",
       "predictionPage1",
       "graphPage1",
       "graphPage2",
