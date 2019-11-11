@@ -272,7 +272,7 @@ function logPrediction(fldName, fldValue) {
         [fldName]: boolPredictionToString(fldValue)
     })
     .then(() => {
-        logBrmData();
+        // logBrmData();
         return true;
     })
     .catch(function (error) {
@@ -326,31 +326,30 @@ function logData2(ivBubble, whichHypo) {
     .then(() => {
         console.log("Successfully logged hypothesis data");
         showSnackbar("Successfully logged hypothesis data.");
+        console.log(log);
+        // logBrmData():
     })
     .catch((error) => {
         console.error("Error writing document: ", error);
         showSnackbar("Error: Failed to log hypothesis data.");
     });
-    logBrmData();
-    console.log("Logged Data:");
-    console.log(log);
 }
 
 
-function logBrmData() {
-    showSnackbar("Saving data...");
-    db.collection(collectionID).doc(userID).update({
-        brm: localStorage.getItem("isptutor_brmHistory")
-    })
-    .then(() => {
-        localStorage.removeItem("isptutor_brmStartTime");
-        // return true;
-    })
-    .catch((error) => {
-        console.error("Error writing BRM data: ", error);
-        // return false;
-    });
-}
+// function logBrmData() {
+//     showSnackbar("Saving data...");
+//     db.collection(collectionID).doc(userID).update({
+//         brm: localStorage.getItem("isptutor_brmHistory")
+//     })
+//     .then(() => {
+//         localStorage.removeItem("isptutor_brmStartTime");
+//         // return true;
+//     })
+//     .catch((error) => {
+//         console.error("Error writing BRM data: ", error);
+//         // return false;
+//     });
+// }
 
 // ==========================================================================================================
 // ================================================ Pages ==================================================
@@ -2040,121 +2039,6 @@ function handleCauseClick(x, y, target) {
     stage.update();
 }
 
-// verify to see if the concept map is okay
-// function verify(ivBubble) {
-//     let isGood = true;
-//     // checking everything is labeled
-//     for (let i = 0; i < stage.numChildren; i++) {
-//         let child = stage.getChildAt(i);
-//         // checking that a bubble has a direction if it is connected
-//         if (child.name === "bubble") {
-//             let dirButton = child.getChildByName("dirButton");
-//             let connected = false;
-//             for (let bubbleChild of child.children) {
-//                 if ((bubbleChild.name === "inConnector" || bubbleChild.name === "outConnector") && bubbleChild.arrow != null) {
-//                     connected = true;
-//                     break;
-//                 }
-//             }
-//             if (dirButton.children.length === 1 && connected) {
-//                 drawDirButton(dirButton, dirButton.x, dirButton.y, dirButton.direction, "red");
-//                 isGood = false;
-//             }
-//         }
-//         // checking that arrows are properly labeled
-//         else if (child.name === "arrow") {
-//             child.label.color = "#000";
-//             if (child.label.text === "Add label") {
-//                 child.label.color = "red";
-//                 isGood = false;
-//             }
-//         }
-//     }
-//     if (!isGood) {
-//         updateErrorField("Please make sure that everything is labeled properly.", "16px Arial", "red");
-//         return isGood;
-//     }
-//     // checking connectivity
-//     let connector = ivBubble.outConnector;
-//     while (connector != null) {
-//         if (connector.arrow == null) {
-//             updateErrorField("Please make sure that all of the bubbles are connected.", "16px Arial", "red");
-//             isGood = false;
-//             return isGood;
-//         }
-//         let nextBubble = connector.arrow.connectorOver.parent;
-//         connector = nextBubble.outConnector;
-//     }
-//     // checking at least one intermediate bubble
-//     if (ivBubble.outConnector.arrow.connectorOver.parent.outConnector == null) {
-//         updateErrorField("Please add at least one intermediate bubble.", "16px Arial", "red");
-//         isGood = false;
-//         return isGood;
-//     }
-//     // updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct. Please ask your instructor to come check your work.", "16px Arial", "#000");
-
-//     logData(ivBubble);
-//     logBrmData();
-//     localStorage.removeItem("isptutor_brmStartTime");
-//     return isGood;
-// }
-
-// function verify2(ivBubble, whichHypo) {
-//     let isGood = true;
-//     // checking everything is labeled
-//     for (let i = 0; i < stage.numChildren; i++) {
-//         let child = stage.getChildAt(i);
-//         // checking that a bubble has a direction if it is connected
-//         if (child.name === "bubble") {
-//             let dirButton = child.getChildByName("dirButton");
-//             let connected = false;
-//             for (let bubbleChild of child.children) {
-//                 if ((bubbleChild.name === "inConnector" || bubbleChild.name === "outConnector") && bubbleChild.arrow != null) {
-//                     connected = true;
-//                     break;
-//                 }
-//             }
-//             if (dirButton.children.length === 1 && connected) {
-//                 drawDirButton(dirButton, dirButton.x, dirButton.y, dirButton.direction, "red");
-//                 isGood = false;
-//             }
-//         }
-//         // checking that arrows are properly labeled
-//         else if (child.name === "arrow") {
-//             child.label.color = "#000";
-//             if (child.label.text === "Add label") {
-//                 child.label.color = "red";
-//                 isGood = false;
-//             }
-//         }
-//     }
-//     if (!isGood) {
-//         updateErrorField("Please make sure that everything is labeled properly.", "16px Arial", "red");
-//         return isGood;
-//     }
-//     // checking connectivity
-//     let connector = ivBubble.outConnector;
-//     while (connector != null) {
-//         if (connector.arrow == null) {
-//             updateErrorField("Please make sure that all of the bubbles are connected.", "16px Arial", "red");
-//             isGood = false;
-//             return isGood;
-//         }
-//         let nextBubble = connector.arrow.connectorOver.parent;
-//         connector = nextBubble.outConnector;
-//     }
-//     // checking at least one intermediate bubble
-//     if (ivBubble.outConnector.arrow.connectorOver.parent.outConnector == null) {
-//         updateErrorField("Please add at least one intermediate bubble.", "16px Arial", "red");
-//         isGood = false;
-//         return isGood;
-//     }
-//     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
-//     logData2(ivBubble, whichHypo);
-//     logBrmData();
-//     localStorage.removeItem("isptutor_brmStartTime");
-//     return isGood;
-// }
 
 function verifyConceptMap(ivBubble) {
     let isGood = true;
@@ -2916,15 +2800,5 @@ function removeArrowAndLabel(arrow) {
 window.addEventListener("beforeunload", (e) => {
     e.preventDefault();
     localStorage.clear();
-    delete e['returnValue'];
-
-    // let done = false;
-    // logBrmData().finally(() => {
-    //     // remove all localstorage variables
-    //     done = true;
-    // });
-    // while (!done) {
-    //     continue;
-    // }
-    
+    delete e['returnValue'];    
 });
