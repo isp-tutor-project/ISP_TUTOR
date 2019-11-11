@@ -150,10 +150,11 @@ function initHomePage() {
                 former.classList.add("disabled");
                 former.disabled = true;
             }
-            if (!brm) {
-                brm = "[]";
-            }
-            localStorage.setItem("isptutor_brmHistory", brm);
+            // brm data is now saved to firebase directly from brm pages
+            // if (!brm) {
+            //     brm = "[]";
+            // }
+            // localStorage.setItem("isptutor_brmHistory", brm);
         }
     });
 
