@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ISP Tutor Pre-Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="assessment.css">
+    <!-- Google Material Icons (Home Icon) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
+    <!-- firebase initialization-->
+    <script src="../firebase_init.js"></script>
+    <script src="preTestQuestions.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <span class="navbar-text"><b>ISP Tutor Pre-Test</b></span>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li>
+            <span id="user_name_region" class="navbar-text"></span>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="main" class="container">
+    
+      <div id="row1" class="row">
+        <div class="col-md-12">
+            <b>Jump To Question:</b>
+            <span class="inline-btn-container" id="question-btns-container"></span>
+        </div>
+      </div>
+      
+      <div id="row2" class="row">
+        <div class="col-md-12">
+          <div id="question_region"></div>
+          <div id="notification_region"></div>
+        </div>
+      </div>
+
+      <!-- next/prev question btns -->
+      <div id="row3" class="row">
+        <div class="col-md-2">
+          <img src="../brm/_assets/buttonorange.png" id="prev_question" class="back-button" />
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-4">
+          <button id="submit_answer" class="btn btn-primary">Submit Answer</button>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2">
+          <img src="../brm/_assets/buttonorange.png" id="next_question" class="next-button" />
+        </div>
+      </div> <!-- ./ btns-->
+    </div> <!-- ./container -->
+
+    <script src="assessment.js"></script>
+  </body>
+
+</html>

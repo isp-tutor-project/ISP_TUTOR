@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+/* gets rid of blue border around button after you've clicked it */
+button:focus {
+    outline: none !important;
+}
+
+#main {
+    height: calc(100% - 48px);
+}
+
+.navbar {
+    height: 48px;
+    margin-bottom: 0;
+}
+
+#row1 {
+    background-color: white;
+    height: 7%;
+}
+
+#row2 {
+    background-color: white;
+    height: 73%;
+}
+
+#row3 {
+    background-color: white;
+    height: 10%;
+}
+.question-text {
+    font-weight: bold;
+}
+
+/* .question {
+    display: none;
+} */
+
+.question.current-question {
+    display: block;
+}
+
+.question-btn {
+    /* background-color: lightblue; */
+    border: 1px solid lightgray;
+    padding-left: 4px;
+    padding-right: 4px;
+    /* color: white; */
+}
+
+.question-btn.current-question {
+    border: 3px solid black;
+}
+
+.question-btn.answered {
+    /* background-color: teal; */
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+}
+
+/* use as a small empty horizontal spacer */
+hr {
+    margin-top: 10px;
+    border-top: 0;
+    margin-bottom: 10px;
+}
+
+.error-msg {
+    color: red;
+}
+
+p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.navigation-button {
+    background-color: white;
+    color: white;
+}
+
+.next-button {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
