@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ISP Tutor Signin Page</title>
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+              crossorigin="anonymous">
+        <!-- Google Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
+        <!-- Loads our Firebase initializer -->
+        <!-- <script src="../firebase.js"></script> -->
+        <!-- Use Scotts firebase instead - remember to switch back -->
+        <script src="../firebase_init.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <span class="navbar-text">ISP Tutor Signin Page</span>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-6">
+                    <h1>Signin Form</h1>
+                    <form class="form-horizontal" id="login_form">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email"
+                                   class="form-control"
+                                   name="email"
+                                   id="email"
+                                   placeholder="you@example.com"
+                                   required />
+                        </div>
+                        <div class="form-group">
+                            <label for="password"> Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   placeholder="your password"
+                                   required />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input id="toggle_password_visibility" type="checkbox" />
+                                Show Password
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" id="login" />
+                        </div> 
+                    </form>
+                    <div id="notification_region"></div>
+                </div>
+                <div class="col-md-3">&nbsp;</div>
+            </div>
+        </div>
+
+        <script src="authenticate.js"></script>
+    </body>
+</html>
