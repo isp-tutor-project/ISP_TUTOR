@@ -62,7 +62,6 @@ const SCALE_RATIO = (function () {
 // for keeping track of scaling ratio in makeResponsive;
 let scalingRatio = 1;
 
-
 // constants regarding bubble customization
 const BUBBLE_WIDTH = 120;
 const BUBBLE_HEIGHT = 100;
@@ -82,49 +81,6 @@ const OPTION_HEIGHT = 40;
 const OPTION_COLOR = "#f4d041";
 
 const CONNECTOR_RADIUS = 5;
-
-// answers for quiz questions on definitionPage6
-const QUIZ_ANSWERS = ["Causation", "Correlation", "Definition", "Causation", "Definition"];
-
-
-// placeholder constants regarding values of nodes
-const IV = "Water temperature"
-const DV = "Amount crystal growth on string"
-// there can be 1 - 8 nodes (or else it will look strange)
-const NODES = ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"];
-const CAUSES = ["Electric force", "Conservation of matter", "Energy to escape electric forces"];
-
-// true corresponds to "increasing" and false corresponds to "decreasing"
-let firstPrediction = true;
-// if true, will highlight the current value, but still let you change it
-let firstPredictionSaved = false;
-// if this gets set to true, you will not be able to change the first prediction
-let firstPredictionLocked = false;
-let firstPredictionLockedReason;
-// ditto for the second prediction
-let secondPrediction = true;
-let secondPredictionSaved = false;
-let secondPredictionLocked = false;
-let secondPredictionLockedReason;
-
-/*
-    // constants regarding values of nodes
-    const IV = "Listening to songs while studying"
-    const DV = "Grades in the class"
-    // there can be 1 - 8 nodes (or else it will look strange)
-    const nodes = ["Knowledge of lyrics", "Reading comprehension of material", "Learning of material"];
-    const causes = ["Concentration", "Familiarity", "Mood"];
-*/
-// variable versions of iv and dv
-let iv = IV;
-let dv = DV;
-// abbreviated dv
-let dvabb = DV;
-let nodes = NODES;
-// these two negative indices are just using while logging steps
-nodes[-2] = IV;
-nodes[-1] = DV;
-let causes = CAUSES;
 
 // constants regarding position of nodes,
 // nodes/bubbles are centered upon the x and y positions selected
@@ -340,7 +296,6 @@ function logPrediction(fldName, fldValue) {
         [fldName]: boolPredictionToString(fldValue)
     })
     .then(() => {
-        // logBrmData();
         return true;
     })
     .catch(function (error) {
@@ -367,10 +322,6 @@ function logData2(ivBubble, whichHypo) {
         currentPrediction = "second";
         currentPredictionValue = boolPredictionToString(secondPrediction);
     }
-    // if (firstPrediction) log.firstPrediction = "increase";
-    // else log.firstPrediction = "decrease";
-    // if (secondPrediction) log.secondPrediction = "increase";
-    // else log.secondPrediction = "decrease";
     log.currentPrediction = currentPrediction;
     log.currentPredictionValue = currentPredictionValue;
     let notes = getEleById("notepad_notes");
@@ -399,7 +350,6 @@ function logData2(ivBubble, whichHypo) {
         console.log("Successfully logged hypothesis data");
         showSnackbar("Successfully logged hypothesis data.");
         console.log(log);
-        // logBrmData():
     })
     .catch((error) => {
         console.error("Error writing document: ", error);
@@ -440,10 +390,8 @@ const pageNamesToFunctions = {
 
 // init is the first function to be called
 function initHypoPage() {
-
     // load IV and DV from firebase, if available
     loadData();
-
     // used to create a higher resolution canvas
     let createHiPPICanvas = function (w, h, ratio) {
         let can = document.getElementById("hypo-canvas");
@@ -510,7 +458,6 @@ function initHypoPage() {
 
     // to display loading
     loadingPage();
-
     // this is for preloader
     queue = new createjs.LoadQueue();
     queue.on("progress", handleFileProgress);
@@ -535,7 +482,6 @@ function initHypoPage() {
 
     // required to enable mouse hover events
     stage.enableMouseOver(10);
-
     // Ticker is primarily for mouse hover event
     createjs.Ticker.addEventListener("tick", stage);
 }
@@ -1025,15 +971,6 @@ function instructionPage() {
             vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
             nextHypoTask();
         }
-        // // 20 second delay for next button to move on
-        // setTimeout(() => {
-        //     nextButton.on("click", e => {
-        //         let vid = document.getElementById("instruction_video_overlay");
-        //         vid.style.display = "none";
-        //         vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*')
-        //         nextHypoTask();
-        //     });
-        // }, 20000);
     });
 
     let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nIt is recommended to watch the video in full screen.", "16px Arial", "#000");
@@ -1533,87 +1470,7 @@ function completePage() {
         console.error(error);
     });
 }
-// function conceptMapPage() {
-//     stage.removeAllChildren();
-//     // add error field
-//     errorField = new createjs.Container();
-//     errorField.y = 10;
-//     stage.addChild(errorField);
-//     // add text field
-//     textField = new createjs.Container();
-//     textField.x = CANVAS_WIDTH / 8;
-//     textField.y = CANVAS_HEIGHT / 16;
-//     let title = new createjs.Text("Concepts", "bold 16px Arial", "#000");
-//     title.x = CANVAS_WIDTH / 2 - textField.x;
-//     title.y = 20;
-//     title.textAlign = "center";
-//     let fieldBackground = new createjs.Shape();
-//     fieldBackground.graphics.setStrokeStyle(1).beginStroke("#000").drawRect(0, 0, CANVAS_WIDTH - 2 * textField.x, CANVAS_HEIGHT / 4 + 25);
-//     textField.addChild(title, fieldBackground);
 
-//     // increment for staggered bubbles
-//     let increment = 0;
-//     let buttonSize = 25;
-//     // this is to make the concepts panel
-//     let leftMargin = 30;
-//     let topMargin = 60;
-//     let rightMargin = 20 + buttonSize;
-//     let spacing = 35;
-//     for (let i = 0; i < nodes.length; i++) {
-//         let nodeText = new createjs.Text(nodes[i], "16px Arial", "#000");
-//         let plusButton;
-//         let xButton;
-//         if (i < 4) {
-//             nodeText.x = leftMargin;
-//             nodeText.y = topMargin + i * spacing;
-//             plusButton = createPlusButton(CANVAS_WIDTH * (3 / 8) - rightMargin - buttonSize - 1, nodeText.y - 5, buttonSize);
-//             xButton = createXButton(CANVAS_WIDTH * (3 / 8) - rightMargin, nodeText.y - 5, buttonSize);
-//         }
-//         else {
-//             nodeText.x = CANVAS_WIDTH / 2 - CANVAS_WIDTH / 8 + leftMargin;
-//             nodeText.y = topMargin + (i - 4) * spacing;
-//             plusButton = createPlusButton(CANVAS_WIDTH * (6 / 8) - rightMargin - buttonSize - 1, nodeText.y - 5, buttonSize);
-//             xButton = createXButton(CANVAS_WIDTH * (6 / 8) - rightMargin, nodeText.y - 5, buttonSize);
-//         }
-//         // fancy function closure trick below
-//         let storedBubble = null;
-//         plusButton.on("click", e => {
-//             if (storedBubble == null) {
-//                 let bubble = createBubble(CANVAS_WIDTH / 2 + increment, CANVAS_HEIGHT / 2 + increment, nodes[i], "#4286f4", "none");
-//                 bubble.idx = i;
-//                 steps.push({
-//                     action: "NODE_CREATE",
-//                     object: nodes[bubble.idx],
-//                     index: bubble.idx,
-//                     info: "N/A",
-//                     timestamp: (new Date()).toLocaleString()
-//                 });
-//                 storedBubble = bubble;
-//                 stage.addChild(bubble);
-//                 increment += 5;
-//             }
-//         });
-//         xButton.on("click", e => {
-//             if (storedBubble != null) {
-//                 for (let child of storedBubble.children) {
-//                     if (child.name == "inConnector" || child.name == "outConnector") {
-//                         removeArrowAndLabel(child.arrow);
-//                     }
-//                 }
-//                 stage.removeChild(storedBubble);
-//                 steps.push({
-//                     action: "NODE_DELETE",
-//                     object: nodes[storedBubble.idx],
-//                     index: storedBubble.idx,
-//                     info: "N/A",
-//                     timestamp: (new Date()).toLocaleString()
-//                 });
-//                 storedBubble = null;
-//             }
-//         });
-//         textField.addChild(nodeText, plusButton, xButton);
-//     }
-//     stage.addChild(textField);
 
 function conceptMapPage(whichHypo) {
     // reset steps to empty list so:
@@ -2136,60 +1993,6 @@ function handleCauseClick(x, y, target) {
     stage.update();
 }
 
-
-function verifyConceptMap(ivBubble) {
-    let isGood = true;
-    // checking everything is labeled
-    for (let i = 0; i < stage.numChildren; i++) {
-        let child = stage.getChildAt(i);
-        // checking that a bubble has a direction if it is connected
-        if (child.name === "bubble") {
-            let dirButton = child.getChildByName("dirButton");
-            let connected = false;
-            for (let bubbleChild of child.children) {
-                if ((bubbleChild.name === "inConnector" || bubbleChild.name === "outConnector") && bubbleChild.arrow != null) {
-                    connected = true;
-                    break;
-                }
-            }
-            if (dirButton.children.length === 1 && connected) {
-                drawDirButton(dirButton, dirButton.x, dirButton.y, dirButton.direction, "red");
-                isGood = false;
-            }
-        }
-        // checking that arrows are properly labeled
-        else if (child.name === "arrow") {
-            child.label.color = "#000";
-            if (child.label.text === "Add label") {
-                child.label.color = "red";
-                isGood = false;
-            }
-        }
-    }
-    if (!isGood) {
-        updateErrorField("Please make sure that everything is labeled properly.", "16px Arial", "red");
-        return isGood;
-    }
-    // checking connectivity
-    let connector = ivBubble.outConnector;
-    while (connector != null) {
-        if (connector.arrow == null) {
-            updateErrorField("Please make sure that all of the bubbles are connected.", "16px Arial", "red");
-            isGood = false;
-            return isGood;
-        }
-        let nextBubble = connector.arrow.connectorOver.parent;
-        connector = nextBubble.outConnector;
-    }
-    // checking at least one intermediate bubble
-    if (ivBubble.outConnector.arrow.connectorOver.parent.outConnector == null) {
-        updateErrorField("Please add at least one intermediate bubble.", "16px Arial", "red");
-        isGood = false;
-        return isGood;
-    }
-    updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
-    return isGood;
-}
 
 function updateErrorField(text, font, color) {
     errorField.removeAllChildren();
