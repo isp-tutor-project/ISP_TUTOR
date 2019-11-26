@@ -587,12 +587,12 @@ function definitionPage1() {
     text1.textAlign = "center";
     text1.lineWidth = 1000;
     text1.lineHeight = 30;
-    let text2 = new createjs.Text('(1) Definition\n\n(2) Causal\n\n(3) Correlational', "24px Arial", "#000");
+    let text2 = new createjs.Text('(1) Definition\n\n(2) Cause\n\n(3) Correlational', "24px Arial", "#000");
     text2.x = CANVAS_WIDTH / 2;
     text2.y = 280;
     text2.textAlign = "center";
     text2.lineHeight = 30;
-    let text3 = new createjs.Text('(This is pronounced "CAUSE all")', 'italic 14px Arial', "#000");
+    let text3 = new createjs.Text('', 'italic 14px Arial', "#000");
     text3.x = CANVAS_WIDTH / 2;
     text3.y = 370;
     text3.textAlign = "center";
@@ -687,7 +687,7 @@ function definitionPage3() {
     text2.y = 180;
     text2.lineHeight = 25;
     text2.lineWidth = 450;
-    let text3 = new createjs.Text("Or, the amount of caffeine someone drinks causes alertness (because caffeine increases brain activity).", "18px Arial", "#000");
+    let text3 = new createjs.Text("Or, the amount of caffeine someone drinks causes different amounts of alertness (because caffeine increases brain activity).", "18px Arial", "#000");
     text3.x = 650;
     text3.y = 180;
     text3.lineHeight = 25;
