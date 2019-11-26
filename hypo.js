@@ -969,7 +969,7 @@ function instructionPage() {
         // }, 20000);
     });
 
-    let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nIt is recommended to watch the video in full screen.", "16px Arial", "#000");
+    let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nWe recommend you watch the video in full screen.", "16px Arial", "#000");
     advice.x = CANVAS_WIDTH / 2;
     advice.y = CANVAS_HEIGHT * .8;
     advice.textAlign = "center";
