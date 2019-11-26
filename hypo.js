@@ -677,7 +677,7 @@ function definitionPage2() {
 
 function definitionPage3() {
     stage.removeAllChildren();
-    let text1 = new createjs.Text("(2) Cause: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
+    let text1 = new createjs.Text("(2) Causes: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 80;
     text1.textAlign = "center";
