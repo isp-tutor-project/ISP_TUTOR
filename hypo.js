@@ -69,7 +69,7 @@ const OPTION_COLOR = "#f4d041";
 const CONNECTOR_RADIUS = 5;
 
 // answers for quiz questions on definitionPage6
-const QUIZ_ANSWERS = ["Causation", "Correlation", "Definition", "Causation", "Definition"];
+const QUIZ_ANSWERS = ["Causes", "Correlation", "Definition", "Causes", "Definition"];
 
 
 // placeholder constants regarding values of nodes
@@ -677,7 +677,7 @@ function definitionPage2() {
 
 function definitionPage3() {
     stage.removeAllChildren();
-    let text1 = new createjs.Text("(2) Causation: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
+    let text1 = new createjs.Text("(2) Cause: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 80;
     text1.textAlign = "center";
@@ -687,7 +687,7 @@ function definitionPage3() {
     text2.y = 180;
     text2.lineHeight = 25;
     text2.lineWidth = 450;
-    let text3 = new createjs.Text("Or, the amount of caffeine someone drinks is causally related to how alert they are (because caffeine increases brain activity).", "18px Arial", "#000");
+    let text3 = new createjs.Text("Or, the amount of caffeine someone drinks causes alertness (because caffeine increases brain activity).", "18px Arial", "#000");
     text3.x = 650;
     text3.y = 180;
     text3.lineHeight = 25;
@@ -852,7 +852,7 @@ function definitionPage6() {
     text2.y = 200;
     text2.lineHeight = 20;
     text2.lineWidth = 600;*/
-    let text3 = new createjs.Text("Reminder: Correlation does not equal causation:", "18px Arial", "#000");
+    let text3 = new createjs.Text("Reminder: Correlations and causes are different types of relationships:", "18px Arial", "#000");
     text3.x = 150;
     text3.y = 470;
     text3.lineHeight = 25;
