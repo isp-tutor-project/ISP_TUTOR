@@ -805,13 +805,13 @@ function definitionPage5() {
     let image1 = new createjs.Bitmap(queue.getResult("causation_correlation"));
     image1.x = 110;
     image1.y = 370;
-    image1.scaleX = .5;
-    image1.scaleY = .5;
+    image1.scaleX = .8;
+    image1.scaleY = .8;
     let image2 = new createjs.Bitmap(queue.getResult("Picture_SunTempIcecream"));
     image2.x = 660;
     image2.y = 350;
-    image2.scaleX = .5;
-    image2.scaleY = .5;
+    image2.scaleX = .8;
+    image2.scaleY = .8;
     stage.addChild(text1);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
