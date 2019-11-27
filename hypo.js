@@ -587,7 +587,7 @@ function definitionPage1() {
     text1.textAlign = "center";
     text1.lineWidth = 1000;
     text1.lineHeight = 30;
-    let text2 = new createjs.Text('(1) Definition\n\n(2) Cause\n\n(3) Correlational', "24px Arial", "#000");
+    let text2 = new createjs.Text('(1) Definition\n\n(2) Cause\n\n(3) Correlation', "24px Arial", "#000");
     text2.x = CANVAS_WIDTH / 2;
     text2.y = 280;
     text2.textAlign = "center";
