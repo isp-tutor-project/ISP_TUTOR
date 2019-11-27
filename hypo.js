@@ -841,7 +841,7 @@ function definitionPage6() {
     errorField.y = 10;
     stage.addChild(errorField);
 
-    let text1 = new createjs.Text("For each example below, as one increases, the other increases or decreases. What best describes the relationship for the following pairs of concepts (each concept is underlined):", "24px Arial", "#000");
+    let text1 = new createjs.Text("For each example below, as one concept (underlined) increases, the other (underlined concept) may increase or decrease. What best describes the relationship for the following pairs of concepts (each concept is underlined):", "24px Arial", "#000");
     text1.x = 150;
     text1.y = 100;
     text1.lineWidth = 900;
