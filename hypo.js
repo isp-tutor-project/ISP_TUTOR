@@ -1599,7 +1599,7 @@ function conceptMapPage2(whichHypo) {
     textField = new createjs.Container();
     textField.x = CANVAS_WIDTH / 8;
     textField.y = CANVAS_HEIGHT / 16;
-    let title = new createjs.Text("Concepts", "bold 16px Arial", "#000");
+    let title = new createjs.Text("Concepts (Note: Na+ is sodium and Cl- is chlorine, which make up salt (NaCl))", "bold 16px Arial", "#000");
     title.x = CANVAS_WIDTH / 2 - textField.x;
     title.y = 20;
     title.textAlign = "center";
