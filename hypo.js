@@ -786,7 +786,7 @@ function definitionPage4() {
 
 function definitionPage5() {
     stage.removeAllChildren();
-    let text1 = new createjs.Text("Just because two things are correlated does not mean that one caused the other! There may be other reasons for two variables to change together. For example, both variables may be caused by a third variable.", "24px Arial", "#000");
+    let text1 = new createjs.Text("Just because two things are correlated does not mean that one caused the other. There may be other reasons for two variables to change together. For example, both variables may be caused by a third variable.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 80;
     text1.textAlign = "center";
