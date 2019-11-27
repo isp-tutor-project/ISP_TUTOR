@@ -464,8 +464,8 @@ function initHypoPage() {
         { id: "IceCreamSwimming", src: "HypoGraphics/slide4/IceCreamSwimming.png" },
         { id: "graph1", src: "HypoGraphics/slide4/graph1.png" },
         { id: "graph2", src: "HypoGraphics/slide4/graph2.png" },
-        { id: "causation_correlation", src: "HypoGraphics/slide5/causation_correlation2.jpg" },
-        { id: "Picture_SunTempIcecream", src: "HypoGraphics/slide5/Picture_SunTempIcecream2.jpg" },
+        { id: "causation_correlation", src: "HypoGraphics/slide5/causation_correlation.jpg" },
+        { id: "Picture_SunTempIcecream", src: "HypoGraphics/slide5/Picture_SunTempIcecream.jpg" },
         { id: "Crys_increases", src: "HypoGraphics/graphSlides/Crys_increases.png" },
         { id: "Crys_decreases", src: "HypoGraphics/graphSlides/Crys_decreases.png" },
     ]);
