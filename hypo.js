@@ -852,11 +852,11 @@ function definitionPage6() {
     text2.y = 200;
     text2.lineHeight = 20;
     text2.lineWidth = 600;*/
-    let text3 = new createjs.Text("Reminder: Correlations and causes are different types of relationships:", "18px Arial", "#000");
-    text3.x = 250;
+    let text3 = new createjs.Text("Reminder: Correlations and causes are different types of relationships.", "18px Arial", "#000");
+    text3.x = 150;
     text3.y = 470;
     text3.lineHeight = 25;
-    text3.lineWidth = 460;
+    text3.lineWidth = 800;
     let text4 = new createjs.Text("Just because two things are strongly related does not mean that one caused the other. There may be other reasons for this correlation. Both things may be caused by something else.", "18px Arial", "#000");
     text4.x = 230;
     text4.y = 520;
