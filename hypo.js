@@ -853,7 +853,7 @@ function definitionPage6() {
     text2.lineHeight = 20;
     text2.lineWidth = 600;*/
     let text3 = new createjs.Text("Reminder: Correlations and causes are different types of relationships:", "18px Arial", "#000");
-    text3.x = 150;
+    text3.x = 250;
     text3.y = 470;
     text3.lineHeight = 25;
     text3.lineWidth = 460;
