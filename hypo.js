@@ -1301,9 +1301,9 @@ function brmPage() {
     stage.addChild(errorField);
 
     let brmBtnClicked = false;
-    let text = new createjs.Text('Click the "Go to Background Research website" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
+    let text = new createjs.Text('Click the "Go to Background Research website" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, **come back to this page (the "ISP Tutor" tab)**. Then click "Next" below to move on to the next page, where you will make your final hypothesis.', "24px Arial", "#000");
     text.x = CANVAS_WIDTH / 2;
-    text.y = 150;
+    text.y = 100;
     text.textAlign = "center";
     text.lineWidth = 800;
     text.lineHeight = 30;
