@@ -804,7 +804,7 @@ function definitionPage5() {
     text3.lineWidth = 460;
     let image1 = new createjs.Bitmap(queue.getResult("causation_correlation"));
     image1.x = 110;
-    image1.y = 370;
+    image1.y = 330;
     image1.scaleX = .25;
     image1.scaleY = .25;
     let image2 = new createjs.Bitmap(queue.getResult("Picture_SunTempIcecream"));
