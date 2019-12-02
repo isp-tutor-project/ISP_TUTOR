@@ -1126,12 +1126,12 @@ function getImageForPrediction(prediction) {
     let image;
     if ("increase" === prediction) {
         image = new createjs.Bitmap(queue.getResult("Crys_increases"));
-        image.scaleX = 0.5;
-        image.scaleY = 0.5;
+        image.scaleX = 0.4;
+        image.scaleY = 0.4;
     } else {
         image = new createjs.Bitmap(queue.getResult("Crys_decreases"));
-        image.scaleX = 0.7;
-        image.scaleY = 0.7;
+        image.scaleX = 0.5;
+        image.scaleY = 0.5;
     }
     return image;
 }
