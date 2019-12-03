@@ -2796,9 +2796,8 @@ function removeArrowAndLabel(arrow) {
     }
 }
 
-
-window.addEventListener("beforeunload", (e) => {
-    e.preventDefault();
+// convert from a listener which logs user out on main tab close
+// to a function we can call instead
+function logout() {
     localStorage.clear();
-    delete e['returnValue'];    
-});
+}
