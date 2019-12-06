@@ -369,6 +369,7 @@ const pageNamesToFunctions = {
     "graphPage1": graphPage1,
     "graphPage2": graphPage2,
     "initialConceptMap": initialConceptMap,
+    "initialConceptMapPlaceholder": initialConceptMapPlaceholder,
     "biDirInstructionPage1": biDirInstructionPage1,
     "biDirInstructionPage2": biDirInstructionPage2,
     "biDirInstructionPage3": biDirInstructionPage3,
@@ -468,6 +469,7 @@ function initHypoPage() {
         { id: "Picture_SunTempIcecream", src: "HypoGraphics/slide5/SunTempIcecream.png" },
         { id: "Crys_increases", src: "HypoGraphics/graphSlides/Crys_increases.png" },
         { id: "Crys_decreases", src: "HypoGraphics/graphSlides/Crys_decreases.png" },
+        { id: "cptMapPlaceholder", src: "HypoGraphics/cptMapPlaceholder/cptMapPlaceholder.jpg" },
     ]);
 
     // required to enable mouse hover events
@@ -1571,6 +1573,20 @@ function completePage() {
 //     stage.on("stagemouseup", removePanel);
 //     stage.on("stagemouseup", removeErrorField);
 // }
+
+function initialConceptMapPlaceholder() {
+    stage.removeAllChildren();
+    let image1 = new createjs.Bitmap(queue.getResult("cptMapPlaceholder"));
+    image1.x = 50;
+    image1.y = 20;
+    image1.scaleX = 0.2;
+    image1.scaleY = 0.2;
+    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR)
+    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR)
+    backButton.on("click", e => prevHypoTask());
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(image1, backButton, nextButton);
+}
 
 function conceptMapPage2(whichHypo) {
     // reset steps to empty list so:
