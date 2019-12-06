@@ -1,10 +1,25 @@
-// this is the hypo.js file, responsible for the functionality of the hypo module
-/* global db, collectionID, userID, ontology, hypoOntology, showSnackbar, createjs, openPage, initHomePage,     getEleById */
-/* global getStudentCondition, initHypoTasks, currHypoTask, prevHypoTask, nextHypoTask */
+// this is hypo.js, responsible for the functionality of the hypo module
+
+/*
+ * This is some serious code smell if I need to tell the linter to not
+ * complain about all of these variables from other <script> tags
+ * FIXME: We need a build system
+ */
+
+/*global db, collectionID, userID, ontology, hypoOntology, showSnackbar */
+/*global createjs, openPage, initHomePage, getEleById */
+/*global getStudentCondition, initHypoTasks */
+/*global currHypoTask, prevHypoTask, nextHypoTask */
 
 // to launch the first page after done loading. Other pages can be launched for convenient development.
 function handleFileComplete(event) {
+    // determines the student's next page and launches it
     initHypoTasks();
+    /*
+    * alternatively, when in development, you can comment that out
+    * and jump directly to a particular page,
+    * such as:
+    */
     //conceptMapPage();
     // startPage();
     //definitionPage1();
@@ -47,7 +62,6 @@ const SCALE_RATIO = (function () {
 // for keeping track of scaling ratio in makeResponsive;
 let scalingRatio = 1;
 
-
 // constants regarding bubble customization
 const BUBBLE_WIDTH = 120;
 const BUBBLE_HEIGHT = 100;
@@ -67,49 +81,6 @@ const OPTION_HEIGHT = 40;
 const OPTION_COLOR = "#f4d041";
 
 const CONNECTOR_RADIUS = 5;
-
-// answers for quiz questions on definitionPage6
-const QUIZ_ANSWERS = ["Causes", "Correlation", "Definition", "Causes", "Definition"];
-
-
-// placeholder constants regarding values of nodes
-const IV = "Water temperature"
-const DV = "Amount crystal growth on string"
-// there can be 1 - 8 nodes (or else it will look strange)
-const NODES = ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"];
-const CAUSES = ["Electric force", "Conservation of matter", "Energy to escape electric forces"];
-
-// true corresponds to "increasing" and false corresponds to "decreasing"
-let firstPrediction = true;
-// if true, will highlight the current value, but still let you change it
-let firstPredictionSaved = false;
-// if this gets set to true, you will not be able to change the first prediction
-let firstPredictionLocked = false;
-let firstPredictionLockedReason;
-// ditto for the second prediction
-let secondPrediction = true;
-let secondPredictionSaved = false;
-let secondPredictionLocked = false;
-let secondPredictionLockedReason;
-
-/*
-    // constants regarding values of nodes
-    const IV = "Listening to songs while studying"
-    const DV = "Grades in the class"
-    // there can be 1 - 8 nodes (or else it will look strange)
-    const nodes = ["Knowledge of lyrics", "Reading comprehension of material", "Learning of material"];
-    const causes = ["Concentration", "Familiarity", "Mood"];
-*/
-// variable versions of iv and dv
-let iv = IV;
-let dv = DV;
-// abbreviated dv
-let dvabb = DV;
-let nodes = NODES;
-// these two negative indices are just using while logging steps
-nodes[-2] = IV;
-nodes[-1] = DV;
-let causes = CAUSES;
 
 // constants regarding position of nodes,
 // nodes/bubbles are centered upon the x and y positions selected
@@ -137,21 +108,104 @@ let errorField;
 let optionWidth;
 
 // for storing steps taken by user
-// steps include an action, an object, an index, a timestamp, and possibly additional text
+//    steps include an action, an object, an index, a timestamp, and possibly
+//    additional text
 let steps = [];
 
-// this queue is for the preloader to contain all the image files that have been preloaded
+// this queue is for the preloader to contain all the image files that have
+// been preloaded
 let queue;
 // for the loading text at start
 let loadingText;
 
+// answers for quiz questions on definitionPage6
+// FIXME: couldn't I define this in defPage6???
+const QUIZ_ANSWERS = [
+    "Causation", "Correlation", "Definition", "Causation", "Definition"
+];
+
+// placeholder (Crystal) constants regarding values of nodes
+// FIXME: we need a better way to have default values without resorting to 
+// globals
+const IV = "Water temperature"
+const DV = "Amount crystal growth on string"
+// there can be 1 - 8 nodes (or else it will look strange)
+const NODES = [
+    "Kinetic energy of water molecules",
+    "Evaporation rate of water",
+    "Amount of water in jar",
+    "Concentration of Na+ and Cl- in water",
+    "Amount of water string absorbs"
+];
+const CAUSES = [
+    "Electric force",
+    "Conservation of matter",
+    "Energy to escape electric forces"
+];
+
+/*
+ * Alternative placeholder values for Stefani's Concept Map Video
+ */
+// const IV = "Listening to songs while studying"
+// const DV = "Grades in the class"
+// // there can be 1 - 8 nodes (or else it will look strange)
+// const NODES = [
+//     "Knowledge of lyrics",
+//     "Reading comprehension of material",
+//     "Learning of material"
+// ];
+// const CAUSES = [
+//     "Concentration",
+//     "Familiarity",
+//     "Mood"
+// ];
+
+
+// variable versions of iv and dv. setting them to the defaults above, and
+// later if loadData() is successfull, the defaults will be overriden by what's
+// in firebase
+let iv = IV;
+let dv = DV;
+// abbreviated dv
+let dvabb = DV;
+let nodes = NODES;
+// these two negative indices are just using while logging steps
+nodes[-2] = IV;
+nodes[-1] = DV;
+let causes = CAUSES;
+
+// true corresponds to "increasing" and false corresponds to "decreasing"
+// FIXME: Scott's not sure this makes sense.  Basically both predictions
+// have a value of "increasing" prior to the student doing anything
+let firstPrediction = true;
+let secondPrediction = true;
+
+// The following vars were added by Scott as we wanted to both display what
+// the user previously selected when they return to the page via a back button
+// and if the user had saved a subsequent concept map, no longer allow them
+// to change the prediction they made beforehand.answered
+
+// if true, will highlight the current value, but still let you change it
+let firstPredictionSaved = false;
+// if this gets set to true, you will not be able to change the first prediction
+let firstPredictionLocked = false;
+let firstPredictionLockedReason;
+// ditto for the second prediction
+let secondPredictionSaved = false;
+let secondPredictionLocked = false;
+let secondPredictionLockedReason;
 
 // ==========================================================================================================
 // ================================================ Firebase ==================================================
 // ==========================================================================================================
 
-// this is old function to load rq data, uses hypoOntology.js, might not work anymore
-
+// this is old function to load rq data, uses hypoOntology.js, might not work
+// anymore
+//
+// Scott - this is definitely working, as it's in use and the rqted
+// data is indeed fetched.  My question is, does this really need to be an 
+// async function?  all of the other firebase promise stuff isn't and works
+// just fine
 async function getTutorState() {
     let jsonData = null;
     if (userID == null) {
@@ -212,44 +266,12 @@ function loadData() {
     })
 }
 
-// function logData(ivBubble) {
-//     let log = {};
-//     if (firstPrediction) log.firstPrediction = "increase";
-//     else log.firstPrediction = "decrease";
-//     if (secondPrediction) log.secondPrediction = "increase";
-//     else log.secondPrediction = "decrease";
-//     let nodes = [];
-//     let arrowLabels = [];
-//     let directions = [];
-//     let connector = ivBubble.outConnector;
-//     while (connector != null) {
-//         let arrow = connector.arrow;
-//         arrowLabels.push(arrow.label.text.replace("\n", " "));
-//         let nextBubble = arrow.connectorOver.parent;
-//         nodes.push(nextBubble.text);
-//         directions.push(nextBubble.getChildByName("dirButton").direction);
-//         connector = nextBubble.outConnector;
-//     }
-//     log.nodes = nodes;
-//     log.arrowLabels = arrowLabels;
-//     log.directions = directions;
-//     log.steps = steps;
-
-//     db.collection(collectionID).doc(userID).update({
-//         hypo: JSON.stringify(log)
-//     })
-//     .then(() => {
-//         console.log("Successfully logged hypothesis data");
-//         showSnackbar("Successfully logged hypothesis data.");
-//     })
-//     .catch((error) => {
-//         console.error("Error writing document: ", error);
-//         showSnackbar("Error: Failed to log hypothesis data.");
-//     });
-//     console.log("Logged Data:");
-//     console.log(log);
-// }
-
+// because firstPrediction and secondPrediction are bools where
+// true == "increase" and false == "decrease", I need the following 2 functions
+// to convert between bool <=> str.  Also, because some old firebase records
+// may have saved the values as bools instead of the more descriptive string
+// values, I've added backward compatability, where if it's already of that
+// type, simply return the current value
 function boolPredictionToString(prediction) {
     if (typeof(prediction) === "string") {
         // for backward compat
@@ -266,13 +288,14 @@ function strPredictionToBool(prediction) {
     return ("increase" === prediction) ? true : false;
 }
 
-
+/*
+ * saves the first/secondPrediction to firebase
+ */
 function logPrediction(fldName, fldValue) {
     return db.collection(collectionID).doc(userID).update({
         [fldName]: boolPredictionToString(fldValue)
     })
     .then(() => {
-        // logBrmData();
         return true;
     })
     .catch(function (error) {
@@ -281,6 +304,10 @@ function logPrediction(fldName, fldValue) {
     });
 }
 
+/*
+ * saves a hypothesis (concept map) to firebase.  based on ones condition, there
+ * may be more than one hypothesis, so there is a 'whichHypo' param
+ */
 function logData2(ivBubble, whichHypo) {
     let log = {};
     let currentPrediction;
@@ -295,10 +322,6 @@ function logData2(ivBubble, whichHypo) {
         currentPrediction = "second";
         currentPredictionValue = boolPredictionToString(secondPrediction);
     }
-    // if (firstPrediction) log.firstPrediction = "increase";
-    // else log.firstPrediction = "decrease";
-    // if (secondPrediction) log.secondPrediction = "increase";
-    // else log.secondPrediction = "decrease";
     log.currentPrediction = currentPrediction;
     log.currentPredictionValue = currentPredictionValue;
     let notes = getEleById("notepad_notes");
@@ -327,7 +350,6 @@ function logData2(ivBubble, whichHypo) {
         console.log("Successfully logged hypothesis data");
         showSnackbar("Successfully logged hypothesis data.");
         console.log(log);
-        // logBrmData():
     })
     .catch((error) => {
         console.error("Error writing document: ", error);
@@ -336,24 +358,11 @@ function logData2(ivBubble, whichHypo) {
 }
 
 
-// function logBrmData() {
-//     showSnackbar("Saving data...");
-//     db.collection(collectionID).doc(userID).update({
-//         brm: localStorage.getItem("isptutor_brmHistory")
-//     })
-//     .then(() => {
-//         localStorage.removeItem("isptutor_brmStartTime");
-//         // return true;
-//     })
-//     .catch((error) => {
-//         console.error("Error writing BRM data: ", error);
-//         // return false;
-//     });
-// }
-
 // ==========================================================================================================
 // ================================================ Pages ==================================================
 // ==========================================================================================================
+
+/* simple map of page names to functions which implement them */
 const pageNamesToFunctions = {
     "raiseYourHand": raiseYourHand,
     "startPage": startPage,
@@ -382,10 +391,8 @@ const pageNamesToFunctions = {
 
 // init is the first function to be called
 function initHypoPage() {
-
     // load IV and DV from firebase, if available
     loadData();
-
     // used to create a higher resolution canvas
     let createHiPPICanvas = function (w, h, ratio) {
         let can = document.getElementById("hypo-canvas");
@@ -474,7 +481,6 @@ function initHypoPage() {
 
     // required to enable mouse hover events
     stage.enableMouseOver(10);
-
     // Ticker is primarily for mouse hover event
     createjs.Ticker.addEventListener("tick", stage);
 }
@@ -495,6 +501,10 @@ function loadingPage() {
     stage.update();
 }
 
+/*
+ * simple convenience function, as I'm needed to generate the student's
+ * Research Question in multiple places
+ */
 function getRQ() {
     // "Does the initial water temperature affect the weight of the crystal growth on a string";
     return "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?"
@@ -2450,6 +2460,20 @@ function createButton(x, y, text, color) {
     button.on("mouseout", handleMouseOver);
 
     return button;
+}
+
+function createLeftButton(text) {
+    return createButton(CANVAS_WIDTH * (1 / 8),
+        CANVAS_HEIGHT * (7 / 8),
+        text,
+        BUTTON_COLOR);
+}
+
+function createRightButton(text) {
+    return createButton(CANVAS_WIDTH * (7 / 8),
+        CANVAS_HEIGHT * (7 / 8),
+        text,
+        BUTTON_COLOR);
 }
 
 function createExtraLargeButton(x, y, text, color, width, height, fontStyle) {
