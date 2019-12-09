@@ -632,7 +632,7 @@ let ontology = {
                 "rqselected":"Our research question is",
                 "rqselectedText":"Our research question is:",
                 "okselected":"OK! We have chosen the following Research Question",
-                "okselectedText":"OK! We have chosen the following Research Question:",
+                "okselectedText":"OK! We have chosen the Research Question below. Write this down in your notebook!",
                 "cantest":"We can test one of these variables in the experiment.",
                 "track2":"But first we will select a general area for the experiment.",
                 "track3":"For example, we might select the general area of psychology.",
