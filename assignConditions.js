@@ -13,6 +13,8 @@ const condChoices = choices;
 
 let collectionID;
 
+const userNameRE = new RegExp(/^[A-Z]{4}_[A-Z]{3}_\d{1,2}$/);
+
 function getEleById(eleID) {
   return document.getElementById(eleID);
 }
@@ -37,16 +39,25 @@ function downloadStudentData() {
         let data = doc.data();
         let studData = {
           id: doc.id
-        };        
-        let preTestScore = data.preTestScore;
-        let condition = data.condition;
-        if (undefined !== preTestScore) {
-          studData.preTestScore = preTestScore;
+        };
+        // filter out usernames which don't match regexp
+        // (mainly to filter out the randomly created document when the
+        //  firestore collection was created)
+        if (userNameRE.exec(studData.id)) {        
+          let preTestScore = data.preTestScore;
+          let condition = data.condition;
+          studData.currTutorNdx = data.currTutorNdx;
+          if (studData.currTutorNdx === undefined) {
+            studData.currTutorNdx = -1;
+          }
+          if (undefined !== preTestScore) {
+            studData.preTestScore = preTestScore;
+          }
+          if (undefined !== condition) {
+            studData.condition = condition;
+          }
+          students.push(studData);
         }
-        if (undefined !== condition) {
-          studData.condition = condition;
-        }
-        students.push(studData);
       });
       return true;
     })
@@ -149,6 +160,9 @@ function addRow(idx, studData) {
             // <option value="cond3" ${selectIfValue(cond, "cond3")}>cond3</option>
     newRowText += `
         </select>
+    </td>
+    <td>
+    ${studData.currTutorNdx}
     </td>
     <td>
       <input type="checkbox" id="saveCondition_${idx}"/>
