@@ -518,10 +518,10 @@ function raiseYourHand() {
     image1.scaleX = 1.0;
     image1.scaleY = 1.0;
     stage.addChild(image1);
-    let txt1 = "Please raise your hand to get a notebook for doing Background Research";
-    let txt2 = "Then write your research question ..."
+    let txt1 = "In your notebook for this experiment";
+    let txt2 = "Make sure you have written your research question ..."
     let txt3 = getRQ();
-    let txt4 = "on the first page of your notebook ";
+    let txt4 = "on the cover page of your notebook ";
     let text1 = new createjs.Text(txt1, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 100;
