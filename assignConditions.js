@@ -109,6 +109,7 @@ function clearErrors() {
 
 function dispStudents() {
   console.log("dispStudents() called");
+  clearErrors();
   tbody.innerHTML = '';
   students.forEach((studData, idx) => {
     addRow(idx, studData);
@@ -139,6 +140,22 @@ function addRow(idx, studData) {
     }
   }
 
+  function tutorIndexToString(idx) {
+    switch(idx) {
+      case 0:
+        return "Registration complete";
+        break;
+      case 1:
+        return "RQ complete";
+        break;
+      case 2:
+        return "Hypo complete";
+        break;
+      default:
+        return "Unknown";
+    }
+  }
+
   let newRowText = `
     <td>
         ${studData.id} <input type="hidden" id="studentID_${idx}" value="${studData.id}"/>
@@ -162,7 +179,7 @@ function addRow(idx, studData) {
         </select>
     </td>
     <td>
-    ${studData.currTutorNdx}
+    ${tutorIndexToString(studData.currTutorNdx)}
     </td>
     <td>
       <input type="checkbox" id="saveCondition_${idx}"/>
