@@ -121,7 +121,7 @@ let loadingText;
 // answers for quiz questions on definitionPage6
 // FIXME: couldn't I define this in defPage6???
 const QUIZ_ANSWERS = [
-    "Causation", "Correlation", "Definition", "Causation", "Definition"
+    "Causes", "Correlation", "Definition", "Causes", "Definition"
 ];
 
 // placeholder (Crystal) constants regarding values of nodes
