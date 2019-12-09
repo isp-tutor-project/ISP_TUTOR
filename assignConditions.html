@@ -23,6 +23,12 @@
     <!-- <script src="firebase_init.js"></script> -->
 
     <style>
+      #load_students_form {
+        display: inline;
+      }
+      #myTable {
+        font-size: smaller;
+      }
       input {
         text-transform: uppercase;
       }
@@ -41,23 +47,19 @@
 
           <div class="row" id="header_row">
             <div class="col-lg-12">
-              <h3> Assign Conditions Page</h3>
-              <br/>
-            </div>
-          </div>
-          <div class="row" id="fetch_students_row">
-            <div class="col-lg-12">
-
+              <span class="h3"> Assign Conditions Page</span>
               <form id="load_students_form" class="form-inline">
-                <div class="form-group">
-                  <label for="class_code">Class Code</label>
+                <span class="form-group">
+                  <label for="class_code"> &nbsp; &nbsp; Class Code</label>
                   <input type="text" id="class_code" class="form-control" required>
-                </div> <!-- ./form-group-->
-                <button type="button" class="btn btn-primary" id="fetch_students">Fetch Student Data</button>
+                </span> <!-- ./form-group-->
+                <button type="button" class="btn btn-primary"
+                        id="fetch_students">
+                    Fetch Student Data
+                </button>
               </form>
-              <br/>
             </div>
-          </div> <!-- ./fetch student data form row-->
+          </div> <!-- ./header row-->
   
           <div class="row" id="students_form_row">
             <div class="col-lg-12">
@@ -69,8 +71,8 @@
                       <th>Student ID</th>
                       <th>Pre-Test Score</th>
                       <th>Condition</th>
-                      <th>Current Tutor Index</th>
-                      <td>Save Row <input type="checkbox" id="select_all" data-toggle="tooltip" data-placement="top" title="select/deselect all rows"/></td>
+                      <th>Student Progress</th>
+                      <th>Save Row <input type="checkbox" id="select_all" data-toggle="tooltip" data-placement="top" title="select/deselect all rows"/></th>
                     </tr>
                   </thead>
                   <tbody></tbody>
