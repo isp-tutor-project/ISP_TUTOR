@@ -127,7 +127,7 @@ const QUIZ_ANSWERS = [
 // placeholder (Crystal) constants regarding values of nodes
 // FIXME: we need a better way to have default values without resorting to 
 // globals
-const IV = "Water temperature"
+const IV = "Initial water temperature"
 const DV = "Amount crystal growth on string"
 // there can be 1 - 8 nodes (or else it will look strange)
 const NODES = [
