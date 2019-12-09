@@ -13,7 +13,7 @@
 6.3 predictPage1
 7.1 graphPage1
 8.1 graphPage2
-9.1 initCptMapPage
+9.1 initCptMapPage | initcptMapPlaceholder
 10.1 biDirInstructPage1
 10.2 biDirInstructPage2
 11.1 biDirIntructPage3
@@ -41,7 +41,7 @@ predictionPage1    |predictionPage1             |predictionPage1
 graphPage1         |graphPage1                  |graphPage1
 graphPage2         |graphPage2                  |graphPage2
 ===================+== SAME FOR ALL ============+===================
-initialConceptMap  |initialConceptMap           |
+initialConceptMap  |initialConceptMap           | cptMapPlaceHolder
                    |biDirInstructionPage1       |
                    |biDirInstructionPage2       |
                    |biDirInstructionPage3       |
@@ -112,6 +112,7 @@ const conditionHypoTasks = {
       "predictionPage1",
       "graphPage1",
       "graphPage2",
+      "initialConceptMapPlaceholder",
       "brmPage",
       "predictionPage2",
       "finalConceptMap",

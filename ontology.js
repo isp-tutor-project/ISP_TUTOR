@@ -75,7 +75,7 @@ let ontology = {
                     "DVg":"amount of crystal growth on a string in water",
                     "DVst":"The weight of the crystal growth on the string after two weeks",
 					"DVs":"weight of the crystal growth on the string after two weeks",
-                    "DVabb":"crystal weight",
+                    "DVabb":"weight of crystal on string",
 
                     "buttVarName1":"The Water Temperature",
                     "buttVarName2":"The Type of Crystal",

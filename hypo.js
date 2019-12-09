@@ -1,10 +1,25 @@
-// this is the hypo.js file, responsible for the functionality of the hypo module
-/* global db, collectionID, userID, ontology, hypoOntology, showSnackbar, createjs, openPage, initHomePage,     getEleById */
-/* global getStudentCondition, initHypoTasks, currHypoTask, prevHypoTask, nextHypoTask */
+// this is hypo.js, responsible for the functionality of the hypo module
+
+/*
+ * This is some serious code smell if I need to tell the linter to not
+ * complain about all of these variables from other <script> tags
+ * FIXME: We need a build system
+ */
+
+/*global db, collectionID, userID, ontology, hypoOntology, showSnackbar */
+/*global createjs, openPage, initHomePage, getEleById */
+/*global getStudentCondition, initHypoTasks */
+/*global currHypoTask, prevHypoTask, nextHypoTask */
 
 // to launch the first page after done loading. Other pages can be launched for convenient development.
 function handleFileComplete(event) {
+    // determines the student's next page and launches it
     initHypoTasks();
+    /*
+    * alternatively, when in development, you can comment that out
+    * and jump directly to a particular page,
+    * such as:
+    */
     //conceptMapPage();
     // startPage();
     //definitionPage1();
@@ -47,7 +62,6 @@ const SCALE_RATIO = (function () {
 // for keeping track of scaling ratio in makeResponsive;
 let scalingRatio = 1;
 
-
 // constants regarding bubble customization
 const BUBBLE_WIDTH = 120;
 const BUBBLE_HEIGHT = 100;
@@ -67,49 +81,6 @@ const OPTION_HEIGHT = 40;
 const OPTION_COLOR = "#f4d041";
 
 const CONNECTOR_RADIUS = 5;
-
-// answers for quiz questions on definitionPage6
-const QUIZ_ANSWERS = ["Causation", "Correlation", "Definition", "Causation", "Definition"];
-
-
-// placeholder constants regarding values of nodes
-const IV = "Water temperature"
-const DV = "Amount crystal growth on string"
-// there can be 1 - 8 nodes (or else it will look strange)
-const NODES = ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs"];
-const CAUSES = ["Electric force", "Conservation of matter", "Energy to escape electric forces"];
-
-// true corresponds to "increasing" and false corresponds to "decreasing"
-let firstPrediction = true;
-// if true, will highlight the current value, but still let you change it
-let firstPredictionSaved = false;
-// if this gets set to true, you will not be able to change the first prediction
-let firstPredictionLocked = false;
-let firstPredictionLockedReason;
-// ditto for the second prediction
-let secondPrediction = true;
-let secondPredictionSaved = false;
-let secondPredictionLocked = false;
-let secondPredictionLockedReason;
-
-/*
-    // constants regarding values of nodes
-    const IV = "Listening to songs while studying"
-    const DV = "Grades in the class"
-    // there can be 1 - 8 nodes (or else it will look strange)
-    const nodes = ["Knowledge of lyrics", "Reading comprehension of material", "Learning of material"];
-    const causes = ["Concentration", "Familiarity", "Mood"];
-*/
-// variable versions of iv and dv
-let iv = IV;
-let dv = DV;
-// abbreviated dv
-let dvabb = DV;
-let nodes = NODES;
-// these two negative indices are just using while logging steps
-nodes[-2] = IV;
-nodes[-1] = DV;
-let causes = CAUSES;
 
 // constants regarding position of nodes,
 // nodes/bubbles are centered upon the x and y positions selected
@@ -137,21 +108,104 @@ let errorField;
 let optionWidth;
 
 // for storing steps taken by user
-// steps include an action, an object, an index, a timestamp, and possibly additional text
+//    steps include an action, an object, an index, a timestamp, and possibly
+//    additional text
 let steps = [];
 
-// this queue is for the preloader to contain all the image files that have been preloaded
+// this queue is for the preloader to contain all the image files that have
+// been preloaded
 let queue;
 // for the loading text at start
 let loadingText;
 
+// answers for quiz questions on definitionPage6
+// FIXME: couldn't I define this in defPage6???
+const QUIZ_ANSWERS = [
+    "Causation", "Correlation", "Definition", "Causation", "Definition"
+];
+
+// placeholder (Crystal) constants regarding values of nodes
+// FIXME: we need a better way to have default values without resorting to 
+// globals
+const IV = "Water temperature"
+const DV = "Amount crystal growth on string"
+// there can be 1 - 8 nodes (or else it will look strange)
+const NODES = [
+    "Kinetic energy of water molecules",
+    "Evaporation rate of water",
+    "Amount of water in jar",
+    "Concentration of Na+ and Cl- in water",
+    "Amount of water string absorbs"
+];
+const CAUSES = [
+    "Electric force",
+    "Conservation of matter",
+    "Energy to escape electric forces"
+];
+
+/*
+ * Alternative placeholder values for Stefani's Concept Map Video
+ */
+// const IV = "Listening to songs while studying"
+// const DV = "Grades in the class"
+// // there can be 1 - 8 nodes (or else it will look strange)
+// const NODES = [
+//     "Knowledge of lyrics",
+//     "Reading comprehension of material",
+//     "Learning of material"
+// ];
+// const CAUSES = [
+//     "Concentration",
+//     "Familiarity",
+//     "Mood"
+// ];
+
+
+// variable versions of iv and dv. setting them to the defaults above, and
+// later if loadData() is successfull, the defaults will be overriden by what's
+// in firebase
+let iv = IV;
+let dv = DV;
+// abbreviated dv
+let dvabb = DV;
+let nodes = NODES;
+// these two negative indices are just using while logging steps
+nodes[-2] = IV;
+nodes[-1] = DV;
+let causes = CAUSES;
+
+// true corresponds to "increasing" and false corresponds to "decreasing"
+// FIXME: Scott's not sure this makes sense.  Basically both predictions
+// have a value of "increasing" prior to the student doing anything
+let firstPrediction = true;
+let secondPrediction = true;
+
+// The following vars were added by Scott as we wanted to both display what
+// the user previously selected when they return to the page via a back button
+// and if the user had saved a subsequent concept map, no longer allow them
+// to change the prediction they made beforehand.answered
+
+// if true, will highlight the current value, but still let you change it
+let firstPredictionSaved = false;
+// if this gets set to true, you will not be able to change the first prediction
+let firstPredictionLocked = false;
+let firstPredictionLockedReason;
+// ditto for the second prediction
+let secondPredictionSaved = false;
+let secondPredictionLocked = false;
+let secondPredictionLockedReason;
 
 // ==========================================================================================================
 // ================================================ Firebase ==================================================
 // ==========================================================================================================
 
-// this is old function to load rq data, uses hypoOntology.js, might not work anymore
-
+// this is old function to load rq data, uses hypoOntology.js, might not work
+// anymore
+//
+// Scott - this is definitely working, as it's in use and the rqted
+// data is indeed fetched.  My question is, does this really need to be an 
+// async function?  all of the other firebase promise stuff isn't and works
+// just fine
 async function getTutorState() {
     let jsonData = null;
     if (userID == null) {
@@ -212,44 +266,12 @@ function loadData() {
     })
 }
 
-// function logData(ivBubble) {
-//     let log = {};
-//     if (firstPrediction) log.firstPrediction = "increase";
-//     else log.firstPrediction = "decrease";
-//     if (secondPrediction) log.secondPrediction = "increase";
-//     else log.secondPrediction = "decrease";
-//     let nodes = [];
-//     let arrowLabels = [];
-//     let directions = [];
-//     let connector = ivBubble.outConnector;
-//     while (connector != null) {
-//         let arrow = connector.arrow;
-//         arrowLabels.push(arrow.label.text.replace("\n", " "));
-//         let nextBubble = arrow.connectorOver.parent;
-//         nodes.push(nextBubble.text);
-//         directions.push(nextBubble.getChildByName("dirButton").direction);
-//         connector = nextBubble.outConnector;
-//     }
-//     log.nodes = nodes;
-//     log.arrowLabels = arrowLabels;
-//     log.directions = directions;
-//     log.steps = steps;
-
-//     db.collection(collectionID).doc(userID).update({
-//         hypo: JSON.stringify(log)
-//     })
-//     .then(() => {
-//         console.log("Successfully logged hypothesis data");
-//         showSnackbar("Successfully logged hypothesis data.");
-//     })
-//     .catch((error) => {
-//         console.error("Error writing document: ", error);
-//         showSnackbar("Error: Failed to log hypothesis data.");
-//     });
-//     console.log("Logged Data:");
-//     console.log(log);
-// }
-
+// because firstPrediction and secondPrediction are bools where
+// true == "increase" and false == "decrease", I need the following 2 functions
+// to convert between bool <=> str.  Also, because some old firebase records
+// may have saved the values as bools instead of the more descriptive string
+// values, I've added backward compatability, where if it's already of that
+// type, simply return the current value
 function boolPredictionToString(prediction) {
     if (typeof(prediction) === "string") {
         // for backward compat
@@ -266,13 +288,14 @@ function strPredictionToBool(prediction) {
     return ("increase" === prediction) ? true : false;
 }
 
-
+/*
+ * saves the first/secondPrediction to firebase
+ */
 function logPrediction(fldName, fldValue) {
     return db.collection(collectionID).doc(userID).update({
         [fldName]: boolPredictionToString(fldValue)
     })
     .then(() => {
-        // logBrmData();
         return true;
     })
     .catch(function (error) {
@@ -281,6 +304,10 @@ function logPrediction(fldName, fldValue) {
     });
 }
 
+/*
+ * saves a hypothesis (concept map) to firebase.  based on ones condition, there
+ * may be more than one hypothesis, so there is a 'whichHypo' param
+ */
 function logData2(ivBubble, whichHypo) {
     let log = {};
     let currentPrediction;
@@ -295,10 +322,6 @@ function logData2(ivBubble, whichHypo) {
         currentPrediction = "second";
         currentPredictionValue = boolPredictionToString(secondPrediction);
     }
-    // if (firstPrediction) log.firstPrediction = "increase";
-    // else log.firstPrediction = "decrease";
-    // if (secondPrediction) log.secondPrediction = "increase";
-    // else log.secondPrediction = "decrease";
     log.currentPrediction = currentPrediction;
     log.currentPredictionValue = currentPredictionValue;
     let notes = getEleById("notepad_notes");
@@ -327,7 +350,6 @@ function logData2(ivBubble, whichHypo) {
         console.log("Successfully logged hypothesis data");
         showSnackbar("Successfully logged hypothesis data.");
         console.log(log);
-        // logBrmData():
     })
     .catch((error) => {
         console.error("Error writing document: ", error);
@@ -336,24 +358,11 @@ function logData2(ivBubble, whichHypo) {
 }
 
 
-// function logBrmData() {
-//     showSnackbar("Saving data...");
-//     db.collection(collectionID).doc(userID).update({
-//         brm: localStorage.getItem("isptutor_brmHistory")
-//     })
-//     .then(() => {
-//         localStorage.removeItem("isptutor_brmStartTime");
-//         // return true;
-//     })
-//     .catch((error) => {
-//         console.error("Error writing BRM data: ", error);
-//         // return false;
-//     });
-// }
-
 // ==========================================================================================================
 // ================================================ Pages ==================================================
 // ==========================================================================================================
+
+/* simple map of page names to functions which implement them */
 const pageNamesToFunctions = {
     "raiseYourHand": raiseYourHand,
     "startPage": startPage,
@@ -369,6 +378,7 @@ const pageNamesToFunctions = {
     "graphPage1": graphPage1,
     "graphPage2": graphPage2,
     "initialConceptMap": initialConceptMap,
+    "initialConceptMapPlaceholder": initialConceptMapPlaceholder,
     "biDirInstructionPage1": biDirInstructionPage1,
     "biDirInstructionPage2": biDirInstructionPage2,
     "biDirInstructionPage3": biDirInstructionPage3,
@@ -381,10 +391,8 @@ const pageNamesToFunctions = {
 
 // init is the first function to be called
 function initHypoPage() {
-
     // load IV and DV from firebase, if available
     loadData();
-
     // used to create a higher resolution canvas
     let createHiPPICanvas = function (w, h, ratio) {
         let can = document.getElementById("hypo-canvas");
@@ -464,15 +472,15 @@ function initHypoPage() {
         { id: "IceCreamSwimming", src: "HypoGraphics/slide4/IceCreamSwimming.png" },
         { id: "graph1", src: "HypoGraphics/slide4/graph1.png" },
         { id: "graph2", src: "HypoGraphics/slide4/graph2.png" },
-        { id: "causation_correlation", src: "HypoGraphics/slide5/causation_correlation.png" },
-        { id: "Picture_SunTempIcecream", src: "HypoGraphics/slide5/Picture_SunTempIcecream.png" },
+        { id: "causation_correlation", src: "HypoGraphics/slide5/PizzaGradesStudy.png" },
+        { id: "Picture_SunTempIcecream", src: "HypoGraphics/slide5/SunTempIcecream.png" },
         { id: "Crys_increases", src: "HypoGraphics/graphSlides/Crys_increases.png" },
         { id: "Crys_decreases", src: "HypoGraphics/graphSlides/Crys_decreases.png" },
+        { id: "cptMapPlaceholder", src: "HypoGraphics/cptMapPlaceholder/cptMapPlaceholder.jpg" },
     ]);
 
     // required to enable mouse hover events
     stage.enableMouseOver(10);
-
     // Ticker is primarily for mouse hover event
     createjs.Ticker.addEventListener("tick", stage);
 }
@@ -493,6 +501,10 @@ function loadingPage() {
     stage.update();
 }
 
+/*
+ * simple convenience function, as I'm needed to generate the student's
+ * Research Question in multiple places
+ */
 function getRQ() {
     // "Does the initial water temperature affect the weight of the crystal growth on a string";
     return "Does " + iv.toLowerCase() + " affect the " + dv.toLowerCase() + "?"
@@ -587,12 +599,12 @@ function definitionPage1() {
     text1.textAlign = "center";
     text1.lineWidth = 1000;
     text1.lineHeight = 30;
-    let text2 = new createjs.Text('(1) Definition\n\n(2) Causal\n\n(3) Correlational', "24px Arial", "#000");
+    let text2 = new createjs.Text('(1) Definition\n\n(2) Cause\n\n(3) Correlation', "24px Arial", "#000");
     text2.x = CANVAS_WIDTH / 2;
     text2.y = 280;
     text2.textAlign = "center";
     text2.lineHeight = 30;
-    let text3 = new createjs.Text('(This is pronounced "CAUSE all")', 'italic 14px Arial', "#000");
+    let text3 = new createjs.Text('', 'italic 14px Arial', "#000");
     text3.x = CANVAS_WIDTH / 2;
     text3.y = 370;
     text3.textAlign = "center";
@@ -677,7 +689,7 @@ function definitionPage2() {
 
 function definitionPage3() {
     stage.removeAllChildren();
-    let text1 = new createjs.Text("(2) Causation: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
+    let text1 = new createjs.Text("(2) Causes: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 80;
     text1.textAlign = "center";
@@ -687,7 +699,7 @@ function definitionPage3() {
     text2.y = 180;
     text2.lineHeight = 25;
     text2.lineWidth = 450;
-    let text3 = new createjs.Text("Or, the amount of caffeine someone drinks is causally related to how alert they are (because caffeine increases brain activity).", "18px Arial", "#000");
+    let text3 = new createjs.Text("Or, the amount of caffeine someone drinks causes different amounts of alertness (because caffeine increases brain activity).", "18px Arial", "#000");
     text3.x = 650;
     text3.y = 180;
     text3.lineHeight = 25;
@@ -749,19 +761,19 @@ function definitionPage4() {
     image1.scaleY = .4;
     let image2 = new createjs.Bitmap(queue.getResult("IceCreamSwimming"));
     image2.x = 680;
-    image2.y = 300;
+    image2.y = 320;
     image2.scaleX = .5;
     image2.scaleY = .5;
     let graph1 = new createjs.Bitmap(queue.getResult("graph1"));
     graph1.x = 220;
     graph1.y = 450;
-    graph1.scaleX = .5;
-    graph1.scaleY = .5;
+    graph1.scaleX = .4;
+    graph1.scaleY = .4;
     let graph2 = new createjs.Bitmap(queue.getResult("graph2"));
     graph2.x = 710;
     graph2.y = 450;
-    graph2.scaleX = .5;
-    graph2.scaleY = .5;
+    graph2.scaleX = .4;
+    graph2.scaleY = .4;
     stage.addChild(text1);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
@@ -786,7 +798,7 @@ function definitionPage4() {
 
 function definitionPage5() {
     stage.removeAllChildren();
-    let text1 = new createjs.Text("Just because two things are correlated, that does not mean that one caused the other! There may be other reasons for two variables to change together. For example, both variables may be caused by a third variable.", "24px Arial", "#000");
+    let text1 = new createjs.Text("Just because two things are correlated does not mean that one caused the other. There may be other reasons for two variables to change together. For example, both variables may be caused by a third variable.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 80;
     text1.textAlign = "center";
@@ -804,14 +816,14 @@ function definitionPage5() {
     text3.lineWidth = 460;
     let image1 = new createjs.Bitmap(queue.getResult("causation_correlation"));
     image1.x = 110;
-    image1.y = 370;
-    image1.scaleX = .5;
-    image1.scaleY = .5;
+    image1.y = 330;
+    image1.scaleX = .25;
+    image1.scaleY = .25;
     let image2 = new createjs.Bitmap(queue.getResult("Picture_SunTempIcecream"));
     image2.x = 660;
     image2.y = 350;
-    image2.scaleX = .5;
-    image2.scaleY = .5;
+    image2.scaleX = .25;
+    image2.scaleY = .25;
     stage.addChild(text1);
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => prevHypoTask());
@@ -841,7 +853,7 @@ function definitionPage6() {
     errorField.y = 10;
     stage.addChild(errorField);
 
-    let text1 = new createjs.Text("For each example below, as one increases, the other increases or decreases. What kind of relationship do YOU think there is for each of the following pairs of concepts (each concept is underlined):", "24px Arial", "#000");
+    let text1 = new createjs.Text("For each phrase below, as one concept (underlined) increases, the other (underlined) concept may increase or decrease. Select the type of relationship that best describes the following pairs of concepts:", "24px Arial", "#000");
     text1.x = 150;
     text1.y = 100;
     text1.lineWidth = 900;
@@ -852,12 +864,12 @@ function definitionPage6() {
     text2.y = 200;
     text2.lineHeight = 20;
     text2.lineWidth = 600;*/
-    let text3 = new createjs.Text("Reminder: Correlation does not equal causation:", "18px Arial", "#000");
+    let text3 = new createjs.Text("Reminder: Correlations and causes are different types of relationships.", "18px Arial", "#000");
     text3.x = 150;
     text3.y = 470;
     text3.lineHeight = 25;
-    text3.lineWidth = 460;
-    let text4 = new createjs.Text("Just because two things are strongly related, that does not mean that one caused the other! There may be other reasons for this correlation. Both things may be caused by something else.", "18px Arial", "#000");
+    text3.lineWidth = 800;
+    let text4 = new createjs.Text("Just because two things are strongly related does not mean that one caused the other. There may be other reasons for this correlation. Both things may be caused by something else.", "18px Arial", "#000");
     text4.x = 230;
     text4.y = 520;
     text4.lineHeight = 25;
@@ -969,7 +981,7 @@ function instructionPage() {
         // }, 20000);
     });
 
-    let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nIt is recommended to watch the video in full screen.", "16px Arial", "#000");
+    let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nWe recommend you watch the video in full screen.", "16px Arial", "#000");
     advice.x = CANVAS_WIDTH / 2;
     advice.y = CANVAS_HEIGHT * .8;
     advice.textAlign = "center";
@@ -1126,12 +1138,12 @@ function getImageForPrediction(prediction) {
     let image;
     if ("increase" === prediction) {
         image = new createjs.Bitmap(queue.getResult("Crys_increases"));
-        image.scaleX = 0.5;
-        image.scaleY = 0.5;
+        image.scaleX = 0.4;
+        image.scaleY = 0.4;
     } else {
         image = new createjs.Bitmap(queue.getResult("Crys_decreases"));
-        image.scaleX = 0.7;
-        image.scaleY = 0.7;
+        image.scaleX = 0.5;
+        image.scaleY = 0.5;
     }
     return image;
 }
@@ -1301,9 +1313,9 @@ function brmPage() {
     stage.addChild(errorField);
 
     let brmBtnClicked = false;
-    let text = new createjs.Text('Click the "Go to Background Research website" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, click "Next" to move on to the next page.', "24px Arial", "#000");
+    let text = new createjs.Text('Click the "Go to Background Research website" button to go to the Background Research Module. The Background Research Module is where you will be conducting your research. There is no time limit to this task. When you are finished with your research, **come back to this page (the "ISP Tutor" tab)**. Then click "Next" below to move on to the next page, where you will make your final hypothesis.', "24px Arial", "#000");
     text.x = CANVAS_WIDTH / 2;
-    text.y = 150;
+    text.y = 100;
     text.textAlign = "center";
     text.lineWidth = 800;
     text.lineHeight = 30;
@@ -1572,6 +1584,20 @@ function completePage() {
 //     stage.on("stagemouseup", removeErrorField);
 // }
 
+function initialConceptMapPlaceholder() {
+    stage.removeAllChildren();
+    let image1 = new createjs.Bitmap(queue.getResult("cptMapPlaceholder"));
+    image1.x = 50;
+    image1.y = 20;
+    image1.scaleX = 0.2;
+    image1.scaleY = 0.2;
+    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR)
+    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR)
+    backButton.on("click", e => prevHypoTask());
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(image1, backButton, nextButton);
+}
+
 function conceptMapPage2(whichHypo) {
     // reset steps to empty list so:
     // 1) steps are kept in sync with nodes/arrows if the student returns from prev page
@@ -1599,7 +1625,7 @@ function conceptMapPage2(whichHypo) {
     textField = new createjs.Container();
     textField.x = CANVAS_WIDTH / 8;
     textField.y = CANVAS_HEIGHT / 16;
-    let title = new createjs.Text("Concepts", "bold 16px Arial", "#000");
+    let title = new createjs.Text("Concepts (Note: Na+ is sodium and Cl- is chlorine, which make up salt (NaCl))", "bold 16px Arial", "#000");
     title.x = CANVAS_WIDTH / 2 - textField.x;
     title.y = 20;
     title.textAlign = "center";
@@ -2436,6 +2462,20 @@ function createButton(x, y, text, color) {
     return button;
 }
 
+function createLeftButton(text) {
+    return createButton(CANVAS_WIDTH * (1 / 8),
+        CANVAS_HEIGHT * (7 / 8),
+        text,
+        BUTTON_COLOR);
+}
+
+function createRightButton(text) {
+    return createButton(CANVAS_WIDTH * (7 / 8),
+        CANVAS_HEIGHT * (7 / 8),
+        text,
+        BUTTON_COLOR);
+}
+
 function createExtraLargeButton(x, y, text, color, width, height, fontStyle) {
     let background = new createjs.Shape();
     let buttonWidth = width;
@@ -2796,9 +2836,8 @@ function removeArrowAndLabel(arrow) {
     }
 }
 
-
-window.addEventListener("beforeunload", (e) => {
-    e.preventDefault();
+// convert from a listener which logs user out on main tab close
+// to a function we can call instead
+function logout() {
     localStorage.clear();
-    delete e['returnValue'];    
-});
+}
