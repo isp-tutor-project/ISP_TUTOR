@@ -1151,7 +1151,7 @@ function getImageForPrediction(prediction) {
 function graphPage1() {
     stage.removeAllChildren();
     let prediction = (firstPrediction) ? "increase" : "decrease";
-    let text1 = new createjs.Text(`You predicted that as the water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
+    let text1 = new createjs.Text(`You predicted that as the initial water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 75;
     text1.textAlign = "center";
@@ -1242,7 +1242,7 @@ function biDirInstructionPage2() {
     image1.scaleX = 1.0;
     image1.scaleY = 1.0;
     stage.addChild(image1);
-    const txt = `They predicted that as water temperature increases, the amount of crystal growth would ${oppositePrediction}.`;
+    const txt = `They predicted that as initial water temperature increases, the amount of crystal growth would ${oppositePrediction}.`;
     let text1 = new createjs.Text(txt, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 150;
