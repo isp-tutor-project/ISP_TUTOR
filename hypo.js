@@ -121,13 +121,13 @@ let loadingText;
 // answers for quiz questions on definitionPage6
 // FIXME: couldn't I define this in defPage6???
 const QUIZ_ANSWERS = [
-    "Causation", "Correlation", "Definition", "Causation", "Definition"
+    "Causes", "Correlation", "Definition", "Causes", "Definition"
 ];
 
 // placeholder (Crystal) constants regarding values of nodes
 // FIXME: we need a better way to have default values without resorting to 
 // globals
-const IV = "Water temperature"
+const IV = "Initial water temperature"
 const DV = "Amount crystal growth on string"
 // there can be 1 - 8 nodes (or else it will look strange)
 const NODES = [
@@ -1151,7 +1151,7 @@ function getImageForPrediction(prediction) {
 function graphPage1() {
     stage.removeAllChildren();
     let prediction = (firstPrediction) ? "increase" : "decrease";
-    let text1 = new createjs.Text(`You predicted that as the water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
+    let text1 = new createjs.Text(`You predicted that as the initial water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 75;
     text1.textAlign = "center";
@@ -1242,7 +1242,7 @@ function biDirInstructionPage2() {
     image1.scaleX = 1.0;
     image1.scaleY = 1.0;
     stage.addChild(image1);
-    const txt = `They predicted that as water temperature increases, the amount of crystal growth would ${oppositePrediction}.`;
+    const txt = `They predicted that as initial water temperature increases, the amount of crystal growth would ${oppositePrediction}.`;
     let text1 = new createjs.Text(txt, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 150;
