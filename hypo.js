@@ -372,6 +372,10 @@ const pageNamesToFunctions = {
     "definitionPage4": definitionPage4,
     "definitionPage5": definitionPage5,
     "definitionPage6": definitionPage6,
+    "definitionPage7": definitionPage7,
+    "definitionPage8": definitionPage8,
+    "definitionPage9": definitionPage9,
+    "definitionPage10": definitionPage10,
     "instructionPage": instructionPage,
     "backToYourRQ": backToYourRQ,
     "predictionPage1": predictionPage1,
@@ -462,6 +466,7 @@ function initHypoPage() {
     queue.on("complete", handleFileComplete);
     queue.loadManifest([
         { id: "TeacherPointing", src: "HypoGraphics/slide_intro/TeacherPointing.jpg" },
+        { id: "TeacherPointing2", src: "HypoGraphics/slide_intro/TeacherPointing2.jpg" },
         { id: "defGraph", src: "HypoGraphics/slide1/defGraph.png" },
         { id: "causeGraph", src: "HypoGraphics/slide1/causeGraph.png" },
         { id: "corrGraph", src: "HypoGraphics/slide1/corrGraph.png" },
@@ -555,24 +560,196 @@ function raiseYourHand() {
 
 function startPage() {
     stage.removeAllChildren();
-    let text = new createjs.Text("Welcome to the ISP Tutor's Hypothesis module.\n\nBefore you start working on your hypothesis for your research question, we will first define some important terms. Click “Next” to begin.", "28px Arial", "#000");
-    text.x = CANVAS_WIDTH / 2 + 120;
-    text.y = 180;
+    let text = new createjs.Text(
+        "Welcome to the ISP Tutor's Hypothesis module." +
+        "\n\n" +
+        "Before you start working on your hypothesis for your research " +
+        "question, we will first define some important terms.",
+        "28px Arial ", 
+        "#000"
+    );
+    text.x = CANVAS_WIDTH / 2 + 20;
+    text.y = 80;
     text.textAlign = "center";
     text.lineWidth = 700;
     text.lineHeight = 35;
     let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing"));
-    image1.x = 170;
+    image1.x = 40;
     image1.y = 80;
     image1.scaleX = 1;
     image1.scaleY = 1;
-    let nextButton = createLargeButton(CANVAS_WIDTH / 2 + 100, 450, "Next", "#3769C2");
+    let nextButton = createLargeButton(CANVAS_WIDTH / 2, 350, "Next", "#3769C2");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(text, image1, nextButton);
     stage.update();
 }
 
 function definitionPage1() {
+    stage.removeAllChildren();
+    let text = new createjs.DOMElement("start_page_overlay");
+    text.x = 50;
+    text.y = 20;
+    let backButton = createLeftButton("Back");
+    backButton.on("click", e => {
+        text.htmlElement.style.display = "none";
+        prevHypoTask();
+    });
+    let nextButton = createRightButton("Next");
+    nextButton.on("click", e => {
+        text.htmlElement.style.display = "none";
+        nextHypoTask();
+    }); 
+    stage.addChild(text, backButton, nextButton);
+    text.htmlElement.style.display = "block";
+
+    stage.update();
+}
+
+function definitionPage2() {
+    stage.removeAllChildren();
+    let text = new createjs.Text(
+        "Many middle school students have difficulty developing a good " +
+        "hypothesis for their prediction. For example, most middle school " +
+        "students have difficulty explaining how hot/room temperature water " +
+        "would lead to more crystal growth.",
+        "24px Arial",
+        "#000"
+    )
+    text.x = 80;
+    text.y = 50; 
+    text.lineHeight = 35;
+    text.lineWidth = CANVAS_WIDTH - 100;
+    let ivBubble = createFixedBubble(IV_X, IV_Y, "The water temperature", "#99bbff", "increase", false);
+    let dvBubble = createFixedBubble(DV_X, DV_Y, "Weight of crystal on string", "#99bbff", "none", true);
+    let ivToDvArrow = createUnlabeledArrow(
+        ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y,
+        dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y
+    );
+
+    let text2 = new createjs.Text("???", "bold 24px Arial", "#000");
+    text2.x = CANVAS_WIDTH / 2;
+    text2.y = ivToDvArrow.y - 50;
+
+    let backButton = createLeftButton("Back");
+    backButton.on("click", e => prevHypoTask());
+    let nextButton = createRightButton("Next");
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(
+        text, ivBubble, dvBubble, ivToDvArrow, text2, backButton, nextButton
+    );
+    stage.update();
+}
+
+function definitionPage3() {
+    stage.removeAllChildren();
+    let text1 = new createjs.Text(
+        "To help you make a hypothesis for your prediction, we will ask you" +
+        "to make a concept map (an example is shown below). The final " +
+        "concept map should show step-by-step how the independent variable " +
+        "(water temperature) affects the dependent variable (amount of " +
+        "crystal growth).",
+        "24px Arial",
+        "#000"
+    );
+    text1.x = 40;
+    text1.y = 20;
+    text1.lineHeight = 35;
+    text1.lineWidth = CANVAS_WIDTH - 20;
+    let text2 = new createjs.Text(
+        "You will do this by linking concepts that are closely or directly " +
+        "related. For example, as shown below, Water temperature is closely " +
+        "related to 'Concept 1'. 'Concept 1' is closely related to 'Concept 2', " +
+        "and 'Concept 2' is directly related to 'Weight of crystal'.",
+        "22px Arial",
+        "#000"
+    );
+    text2.x = 100;
+    text2.y = 150;
+    text2.lineHeight = 35;
+    text2.lineWidth = CANVAS_WIDTH - 170;
+
+    let ivBubble = createFixedBubble(IV_X, IV_Y, "The water temperature", "#99bbff", "increase", false);
+    let dvBubble = createFixedBubble(DV_X, DV_Y, "Weight of crystal on string", "#99bbff", "none", true);
+
+    let [cpt1, cpt2] = createEvenlySpacedBubbles2(IV_X + 50,
+        DV_X - 50,
+        IV_Y - 200,
+        ["Concept 1", "Concept 2"],
+        ["none", "none"]);
+    let ivToDvArrow = createUnlabeledArrow(
+        ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y,
+        dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y
+    );
+    let ivToCpt1Arrow = createUnlabeledArrow(
+        ivBubble.x, ivBubble.y - (BUBBLE_HEIGHT / 2),
+        cpt1.x - BUBBLE_WIDTH / 2, cpt1.y
+    );
+    let cpt1ToCpt2Arrow = createUnlabeledArrow(
+        cpt1.x + (BUBBLE_WIDTH / 2), cpt1.y,
+        cpt2.x - (BUBBLE_WIDTH / 2), cpt2.y
+    );
+    let cpt2ToDvArrow = createUnlabeledArrow(
+        cpt2.x + (BUBBLE_WIDTH / 2), cpt2.y,
+        dvBubble.x, dvBubble.y - (BUBBLE_HEIGHT / 2)
+    )
+
+    let backButton = createLeftButton("Back");
+    let nextButton = createRightButton("Next");
+    backButton.on("click", e => prevHypoTask());
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(text1, text2, ivBubble, dvBubble, cpt1, cpt2);
+    stage.addChild(ivToDvArrow, ivToCpt1Arrow, cpt1ToCpt2Arrow, cpt2ToDvArrow);
+    stage.addChild(backButton, nextButton);
+    stage.update();
+}
+
+function definitionPage4() {
+    stage.removeAllChildren();
+    let text = new createjs.Text(
+        "For each connected pair of concepts (e.g. water temperature and " +
+        "Concept 1), you will be asked to indicate how the concepts are related.",
+        "24px Arial",
+        "#000"
+    );
+    text.x = 40;
+    text.y = 40;
+    text.lineHeight = 35;
+    text.lineWidth = CANVAS_WIDTH - 80;
+    let ivBubble = createFixedBubble(IV_X, IV_Y, "The water temperature", "#99bbff", "increase", false);
+    let dvBubble = createFixedBubble(DV_X, DV_Y, "Weight of crystal on string", "#99bbff", "none", true);
+    let [cpt1, cpt2] = createEvenlySpacedBubbles2(IV_X + 50,
+        DV_X - 50,
+        IV_Y - 200,
+        ["Concept 1", "Concept 2"],
+        ["none", "none"]);
+    let ivToDvArrow = createUnlabeledArrow(
+        ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y,
+        dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y
+    );
+    let ivToCpt1Arrow = createUnlabeledArrow(
+        ivBubble.x, ivBubble.y - (BUBBLE_HEIGHT / 2),
+        cpt1.x - BUBBLE_WIDTH / 2, cpt1.y
+    );
+    let cpt1ToCpt2Arrow = createUnlabeledArrow(
+        cpt1.x + (BUBBLE_WIDTH / 2), cpt1.y,
+        cpt2.x - (BUBBLE_WIDTH / 2), cpt2.y
+    );
+    let cpt2ToDvArrow = createUnlabeledArrow(
+        cpt2.x + (BUBBLE_WIDTH / 2), cpt2.y,
+        dvBubble.x, dvBubble.y - (BUBBLE_HEIGHT / 2)
+    )
+    let backButton = createLeftButton("Back");
+    let nextButton = createRightButton("Next");
+    backButton.on("click", e => prevHypoTask());
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(text, ivBubble, dvBubble, cpt1, cpt2);
+    stage.addChild(ivToDvArrow, ivToCpt1Arrow, cpt1ToCpt2Arrow, cpt2ToDvArrow);
+    stage.addChild(backButton, nextButton);
+    stage.update();
+
+}
+
+function definitionPage5() {
     stage.removeAllChildren();
     let image1 = new createjs.Bitmap(queue.getResult("defGraph"));
     image1.x = 60;
@@ -630,7 +807,7 @@ function definitionPage1() {
     stage.update();
 }
 
-function definitionPage2() {
+function definitionPage6() {
     stage.removeAllChildren();
     let title = new createjs.Text("Types of Relationships for Hypotheses", "bold 24px Arial", "#000");
     title.x = CANVAS_WIDTH / 2;
@@ -687,7 +864,7 @@ function definitionPage2() {
     stage.update();
 }
 
-function definitionPage3() {
+function definitionPage7() {
     stage.removeAllChildren();
     let text1 = new createjs.Text("(2) Causes: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
@@ -736,7 +913,7 @@ function definitionPage3() {
     stage.update();
 }
 
-function definitionPage4() {
+function definitionPage8() {
     stage.removeAllChildren();
     let text1 = new createjs.Text("(3) Correlation: A relationship between two variables where both variables increase together, decrease together, or one increases as the other decreases. However, these variables may not directly affect each other.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
@@ -796,7 +973,7 @@ function definitionPage4() {
     stage.update();
 }
 
-function definitionPage5() {
+function definitionPage9() {
     stage.removeAllChildren();
     let text1 = new createjs.Text("Just because two things are correlated does not mean that one caused the other. There may be other reasons for two variables to change together. For example, both variables may be caused by a third variable.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
@@ -846,7 +1023,7 @@ function definitionPage5() {
     stage.update();
 }
 
-function definitionPage6() {
+function definitionPage10() {
     stage.removeAllChildren();
     // add error field
     errorField = new createjs.Container();
