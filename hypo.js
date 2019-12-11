@@ -482,6 +482,8 @@ function initHypoPage() {
         { id: "Crys_increases", src: "HypoGraphics/graphSlides/Crys_increases.png" },
         { id: "Crys_decreases", src: "HypoGraphics/graphSlides/Crys_decreases.png" },
         { id: "cptMapPlaceholder", src: "HypoGraphics/cptMapPlaceholder/cptMapPlaceholder.jpg" },
+        { id: "defPagesCptMap", src: "HypoGraphics/defPagesCptMap.jpg" },
+        { id: "ivToDvWithArrow", src: "HypoGraphics/iv2dvWithArrow.png" },
     ]);
 
     // required to enable mouse hover events
@@ -586,9 +588,10 @@ function startPage() {
 
 function definitionPage1() {
     stage.removeAllChildren();
-    let text = new createjs.DOMElement("start_page_overlay");
-    text.x = 50;
-    text.y = 20;
+    let text = new createjs.DOMElement("start_page_overlay").set({
+        x: 50, y: 20
+    });
+    text.htmlElement.style.display = "block";
     let backButton = createLeftButton("Back");
     backButton.on("click", e => {
         text.htmlElement.style.display = "none";
@@ -600,8 +603,6 @@ function definitionPage1() {
         nextHypoTask();
     }); 
     stage.addChild(text, backButton, nextButton);
-    text.htmlElement.style.display = "block";
-
     stage.update();
 }
 
@@ -609,97 +610,65 @@ function definitionPage2() {
     stage.removeAllChildren();
     let text = new createjs.Text(
         "Many middle school students have difficulty developing a good " +
-        "hypothesis for their prediction. For example, most middle school " +
+        "hypothesis for their prediction.\n\nFor example, most middle school " +
         "students have difficulty explaining how hot/room temperature water " +
         "would lead to more crystal growth.",
         "24px Arial",
         "#000"
-    )
-    text.x = 80;
-    text.y = 50; 
-    text.lineHeight = 35;
-    text.lineWidth = CANVAS_WIDTH - 100;
-    let ivBubble = createFixedBubble(IV_X, IV_Y, "The water temperature", "#99bbff", "increase", false);
-    let dvBubble = createFixedBubble(DV_X, DV_Y, "Weight of crystal on string", "#99bbff", "none", true);
-    let ivToDvArrow = createUnlabeledArrow(
-        ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y,
-        dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y
-    );
+    ).set({
+        x: 80, y: 50, lineHeight: 35, lineWidth: CANVAS_WIDTH - 160
+    });
 
-    let text2 = new createjs.Text("???", "bold 24px Arial", "#000");
-    text2.x = CANVAS_WIDTH / 2;
-    text2.y = ivToDvArrow.y - 50;
+    let image = new createjs.Bitmap(queue.getResult("ivToDvWithArrow")).set({
+        x: 215, y: 485, scaleX: 0.55, scaleY: 0.55
+    });
+
+    let text2 = new createjs.Text("???", "bold 24px Arial", "#000").set({
+        x: (CANVAS_WIDTH / 2) - 40, y: image.y - 20
+    });
 
     let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
-    stage.addChild(
-        text, ivBubble, dvBubble, ivToDvArrow, text2, backButton, nextButton
-    );
+    stage.addChild(text, image, text2, backButton, nextButton);
     stage.update();
 }
 
 function definitionPage3() {
     stage.removeAllChildren();
     let text1 = new createjs.Text(
-        "To help you make a hypothesis for your prediction, we will ask you" +
+        "To help you make a hypothesis for your prediction, we will ask you " +
         "to make a concept map (an example is shown below). The final " +
         "concept map should show step-by-step how the independent variable " +
         "(water temperature) affects the dependent variable (amount of " +
         "crystal growth).",
         "24px Arial",
         "#000"
-    );
-    text1.x = 40;
-    text1.y = 20;
-    text1.lineHeight = 35;
-    text1.lineWidth = CANVAS_WIDTH - 20;
+    ).set({
+        x: 60, y: 40, lineHeight: 35, lineWidth: CANVAS_WIDTH - 120
+    });
+
     let text2 = new createjs.Text(
         "You will do this by linking concepts that are closely or directly " +
         "related. For example, as shown below, Water temperature is closely " +
         "related to 'Concept 1'. 'Concept 1' is closely related to 'Concept 2', " +
         "and 'Concept 2' is directly related to 'Weight of crystal'.",
-        "22px Arial",
+        "24px Arial",
         "#000"
-    );
-    text2.x = 100;
-    text2.y = 150;
-    text2.lineHeight = 35;
-    text2.lineWidth = CANVAS_WIDTH - 170;
+    ).set({
+        x: 100, y: 175, lineHeight: 35, lineWidth: CANVAS_WIDTH - 170
+    });
 
-    let ivBubble = createFixedBubble(IV_X, IV_Y, "The water temperature", "#99bbff", "increase", false);
-    let dvBubble = createFixedBubble(DV_X, DV_Y, "Weight of crystal on string", "#99bbff", "none", true);
-
-    let [cpt1, cpt2] = createEvenlySpacedBubbles2(IV_X + 50,
-        DV_X - 50,
-        IV_Y - 200,
-        ["Concept 1", "Concept 2"],
-        ["none", "none"]);
-    let ivToDvArrow = createUnlabeledArrow(
-        ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y,
-        dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y
-    );
-    let ivToCpt1Arrow = createUnlabeledArrow(
-        ivBubble.x, ivBubble.y - (BUBBLE_HEIGHT / 2),
-        cpt1.x - BUBBLE_WIDTH / 2, cpt1.y
-    );
-    let cpt1ToCpt2Arrow = createUnlabeledArrow(
-        cpt1.x + (BUBBLE_WIDTH / 2), cpt1.y,
-        cpt2.x - (BUBBLE_WIDTH / 2), cpt2.y
-    );
-    let cpt2ToDvArrow = createUnlabeledArrow(
-        cpt2.x + (BUBBLE_WIDTH / 2), cpt2.y,
-        dvBubble.x, dvBubble.y - (BUBBLE_HEIGHT / 2)
-    )
-
+    let image = new createjs.Bitmap(queue.getResult("defPagesCptMap")).set({
+        x: 200, y: 350
+    });
+    
     let backButton = createLeftButton("Back");
     let nextButton = createRightButton("Next");
     backButton.on("click", e => prevHypoTask());
     nextButton.on("click", e => nextHypoTask());
-    stage.addChild(text1, text2, ivBubble, dvBubble, cpt1, cpt2);
-    stage.addChild(ivToDvArrow, ivToCpt1Arrow, cpt1ToCpt2Arrow, cpt2ToDvArrow);
-    stage.addChild(backButton, nextButton);
+    stage.addChild(text1, text2, image, backButton, nextButton);
     stage.update();
 }
 
@@ -710,43 +679,19 @@ function definitionPage4() {
         "Concept 1), you will be asked to indicate how the concepts are related.",
         "24px Arial",
         "#000"
-    );
-    text.x = 40;
-    text.y = 40;
-    text.lineHeight = 35;
-    text.lineWidth = CANVAS_WIDTH - 80;
-    let ivBubble = createFixedBubble(IV_X, IV_Y, "The water temperature", "#99bbff", "increase", false);
-    let dvBubble = createFixedBubble(DV_X, DV_Y, "Weight of crystal on string", "#99bbff", "none", true);
-    let [cpt1, cpt2] = createEvenlySpacedBubbles2(IV_X + 50,
-        DV_X - 50,
-        IV_Y - 200,
-        ["Concept 1", "Concept 2"],
-        ["none", "none"]);
-    let ivToDvArrow = createUnlabeledArrow(
-        ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y,
-        dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y
-    );
-    let ivToCpt1Arrow = createUnlabeledArrow(
-        ivBubble.x, ivBubble.y - (BUBBLE_HEIGHT / 2),
-        cpt1.x - BUBBLE_WIDTH / 2, cpt1.y
-    );
-    let cpt1ToCpt2Arrow = createUnlabeledArrow(
-        cpt1.x + (BUBBLE_WIDTH / 2), cpt1.y,
-        cpt2.x - (BUBBLE_WIDTH / 2), cpt2.y
-    );
-    let cpt2ToDvArrow = createUnlabeledArrow(
-        cpt2.x + (BUBBLE_WIDTH / 2), cpt2.y,
-        dvBubble.x, dvBubble.y - (BUBBLE_HEIGHT / 2)
-    )
+    ).set({
+        x: 60, y: 60, lineHeight: 35, lineWidth: CANVAS_WIDTH - 120
+    });
+    
+    let image = new createjs.Bitmap(queue.getResult("defPagesCptMap")).set({
+        x: 200, y: 350
+    });
     let backButton = createLeftButton("Back");
     let nextButton = createRightButton("Next");
     backButton.on("click", e => prevHypoTask());
     nextButton.on("click", e => nextHypoTask());
-    stage.addChild(text, ivBubble, dvBubble, cpt1, cpt2);
-    stage.addChild(ivToDvArrow, ivToCpt1Arrow, cpt1ToCpt2Arrow, cpt2ToDvArrow);
-    stage.addChild(backButton, nextButton);
+    stage.addChild(text, image, backButton, nextButton);
     stage.update();
-
 }
 
 function definitionPage5() {
@@ -1109,21 +1054,20 @@ function definitionPage10() {
 
 function instructionPage() {
     stage.removeAllChildren();
+    let delayStarted = false;
     let delayAchieved = false;
     // add error field
     errorField = new createjs.Container();
     errorField.y = 10;
     stage.addChild(errorField);
 
-    let text = new createjs.Text("Instructions", "bold 22px Arial", "#000");
-    text.x = CANVAS_WIDTH / 2;
-    text.y = CANVAS_HEIGHT / 8 - 15;
-    text.textAlign = "center";
-    let video = new createjs.DOMElement("instruction_video_overlay");
-    video.x = 50 * 2 / PIXEL_RATIO;
-    video.y = 30 * 2 / PIXEL_RATIO;
-    video.scaleX = .25 * 2 / PIXEL_RATIO;
-    video.scaleY = .25 * 2 / PIXEL_RATIO;
+    let text = new createjs.Text("Instructions", "bold 22px Arial", "#000").set({
+        x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 8 - 15, textAlign:  "center"
+    });
+    let video = new createjs.DOMElement("instruction_video_overlay").set({
+        x: 50 * 2 / PIXEL_RATIO, y: 30 * 2 / PIXEL_RATIO,
+        scaleX: 0.25 * 2 / PIXEL_RATIO, scaleY: 0.25 * 2 / PIXEL_RATIO
+    });
 
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => {
@@ -1134,28 +1078,32 @@ function instructionPage() {
     });
     stage.addChild(backButton);
 
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
-        if (!delayAchieved) {
-            updateErrorField("Please watch the tutorial video.", "16px Arial", "#000");
+        if (!delayStarted) {
+            updateErrorField(
+                "Please watch the tutorial video.", "24px Arial", "#000"
+            );
+            nextButton.children[0].graphics
+            .beginFill("pink")
+            .drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_RADIUS);
+            delayStarted = true;
             setTimeout(() => {
                 delayAchieved = true;
+                nextButton.children[0].graphics
+                .beginFill("red")
+                .drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_RADIUS);
             }, 20000);
+        } else if (!delayAchieved) {
+            console.log("still delaying");
         } else {
             let vid = document.getElementById("instruction_video_overlay");
             vid.style.display = "none";
-            vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+            vid.contentWindow.postMessage(
+                '{"event": "command", "func": "stopVideo", "args": ""}', '*'
+            );
             nextHypoTask();
         }
-        // // 20 second delay for next button to move on
-        // setTimeout(() => {
-        //     nextButton.on("click", e => {
-        //         let vid = document.getElementById("instruction_video_overlay");
-        //         vid.style.display = "none";
-        //         vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*')
-        //         nextHypoTask();
-        //     });
-        // }, 20000);
     });
 
     let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nWe recommend you watch the video in full screen.", "16px Arial", "#000");
