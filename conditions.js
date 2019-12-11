@@ -1,6 +1,7 @@
 /*global db, collectionID, userID, showSnackbar, pageNamesToFunctions */
 
 /*
+    raiseYourHand
 4.1 startPage
 4.2 defPage1
 4.3 defPage2
@@ -8,6 +9,8 @@
 5.2 defPage4
 5.3 defPage5
 6.1 defPage6
+    defPage7
+    defPage8
 6.2 cptMapinstructPage
     backToYourRQ
 6.3 predictPage1
@@ -34,13 +37,17 @@ definitionPage2    |definitionPage2             |definitionPage2
 definitionPage3    |definitionPage3             |definitionPage3
 definitionPage4    |definitionPage4             |definitionPage4
 definitionPage5    |definitionPage5             |definitionPage5
-definitionPage6    |definitionPage6             |definitionPage6 
+definitionPage6    |definitionPage6             |definitionPage6
+definitionPage7    |definitionPage7             |definitionPage7
+definitionPage8    |definitionPage8             |definitionPage8
+definitionPage9    |definitionPage9             |definitionPage9
+definitionPage10   |definitionPage10            |definitionPage10
 instructionPage    |instructionPage             |instructionPage
 backToYourRQ       |backToYourRQ                |backToYourRQ
 predictionPage1    |predictionPage1             |predictionPage1
 graphPage1         |graphPage1                  |graphPage1
 graphPage2         |graphPage2                  |graphPage2
-===================+== SAME FOR ALL ============+===================
+===================+== (above) SAME FOR ALL ====+===================
 initialConceptMap  |initialConceptMap           | cptMapPlaceHolder
                    |biDirInstructionPage1       |
                    |biDirInstructionPage2       |
@@ -63,6 +70,10 @@ const conditionHypoTasks = {
       "definitionPage4",
       "definitionPage5",
       "definitionPage6",
+      "definitionPage7",
+      "definitionPage8",
+      "definitionPage9",
+      "definitionPage10",     
       "instructionPage",
       "backToYourRQ",
       "predictionPage1",
@@ -83,6 +94,10 @@ const conditionHypoTasks = {
       "definitionPage4",
       "definitionPage5",
       "definitionPage6",
+      "definitionPage7",
+      "definitionPage8",
+      "definitionPage9",
+      "definitionPage10",
       "instructionPage",
       "backToYourRQ",
       "predictionPage1",
@@ -107,6 +122,10 @@ const conditionHypoTasks = {
       "definitionPage4",
       "definitionPage5",
       "definitionPage6",
+      "definitionPage7",
+      "definitionPage8",
+      "definitionPage9",
+      "definitionPage10",
       "instructionPage",
       "backToYourRQ",
       "predictionPage1",

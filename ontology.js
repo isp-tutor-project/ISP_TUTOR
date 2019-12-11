@@ -11,7 +11,7 @@ let ontology = {
                     "features":"FTR_CRYSTAL",
                     "wewillselect":"we will select the topic crystal growth",
                     "belowarevariables":"Below are some variables that might affect the amount of crystal growth on a string in water.",
-                    "enumVar1":"Water temperature",
+                    "enumVar1":"Initial water temperature",
                     "enumVar2":"The type of crystals",
                     "enumVar3":"The initial amount of crystals on the string",
                     "enumVar4":"The type of string",
@@ -31,7 +31,7 @@ let ontology = {
                     "enumProcess6":"We can measure the weight of the crystal growth after two weeks.",
                     "fourcanchange":"In this experiment, there are only four things we can change. Any of these might make a difference in the amount of crystal growth on a string in water. These are the four variables you can test in this experiment",
 
-                    "enumValue1":"The Water Temperature",
+                    "enumValue1":"The initial Water Temperature",
                     "enumValue1a":"Cool (16°C)",
                     "enumValue1b":"Hot (50°C)",
                     "enumValue2":"The Type of Crystal",
@@ -44,7 +44,7 @@ let ontology = {
                     "enumValue4a":"Twine",
                     "enumValue4b":"Yarn",
                                 
-                    "enumValueUtt1a":"The water temperature which can be cool.",
+                    "enumValueUtt1a":"The initial water temperature which can be cool.",
                     "enumValueUtt1b":"Or hot, might make a difference.",
                     "enumValueUtt2a":"The type of crystal which can be salt",
                     "enumValueUtt2b":"Or brown sugar, might make a difference.",
@@ -54,8 +54,8 @@ let ontology = {
                     "enumValueUtt4b":"Or yarn. This might also make a difference.",
 
                     "RQ1":{
-                        "rqselected":"Does the water temperature",
-                        "ExpSelected":"water temperature"
+                        "rqselected":"Does the initial water temperature",
+                        "ExpSelected":"initial water temperature"
                     },
                     "RQ2":{
                         "rqselected":"Does the type of crystal",
@@ -77,7 +77,7 @@ let ontology = {
 					"DVs":"weight of the crystal growth on the string after two weeks",
                     "DVabb":"weight of crystal on string",
 
-                    "buttVarName1":"The Water Temperature",
+                    "buttVarName1":"The initial Water Temperature",
                     "buttVarName2":"The Type of Crystal",
                     "buttVarName3":"The initial amount of crystals on the string",
                     "buttVarName4":"The type of string"

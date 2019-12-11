@@ -121,13 +121,13 @@ let loadingText;
 // answers for quiz questions on definitionPage6
 // FIXME: couldn't I define this in defPage6???
 const QUIZ_ANSWERS = [
-    "Causation", "Correlation", "Definition", "Causation", "Definition"
+    "Causes", "Correlation", "Definition", "Causes", "Definition"
 ];
 
 // placeholder (Crystal) constants regarding values of nodes
 // FIXME: we need a better way to have default values without resorting to 
 // globals
-const IV = "Water temperature"
+const IV = "Initial water temperature"
 const DV = "Amount crystal growth on string"
 // there can be 1 - 8 nodes (or else it will look strange)
 const NODES = [
@@ -372,6 +372,10 @@ const pageNamesToFunctions = {
     "definitionPage4": definitionPage4,
     "definitionPage5": definitionPage5,
     "definitionPage6": definitionPage6,
+    "definitionPage7": definitionPage7,
+    "definitionPage8": definitionPage8,
+    "definitionPage9": definitionPage9,
+    "definitionPage10": definitionPage10,
     "instructionPage": instructionPage,
     "backToYourRQ": backToYourRQ,
     "predictionPage1": predictionPage1,
@@ -462,6 +466,7 @@ function initHypoPage() {
     queue.on("complete", handleFileComplete);
     queue.loadManifest([
         { id: "TeacherPointing", src: "HypoGraphics/slide_intro/TeacherPointing.jpg" },
+        { id: "TeacherPointing2", src: "HypoGraphics/slide_intro/TeacherPointing2.jpg" },
         { id: "defGraph", src: "HypoGraphics/slide1/defGraph.png" },
         { id: "causeGraph", src: "HypoGraphics/slide1/causeGraph.png" },
         { id: "corrGraph", src: "HypoGraphics/slide1/corrGraph.png" },
@@ -477,6 +482,8 @@ function initHypoPage() {
         { id: "Crys_increases", src: "HypoGraphics/graphSlides/Crys_increases.png" },
         { id: "Crys_decreases", src: "HypoGraphics/graphSlides/Crys_decreases.png" },
         { id: "cptMapPlaceholder", src: "HypoGraphics/cptMapPlaceholder/cptMapPlaceholder.jpg" },
+        { id: "defPagesCptMap", src: "HypoGraphics/defPagesCptMap.jpg" },
+        { id: "ivToDvWithArrow", src: "HypoGraphics/iv2dvWithArrow.png" },
     ]);
 
     // required to enable mouse hover events
@@ -555,24 +562,139 @@ function raiseYourHand() {
 
 function startPage() {
     stage.removeAllChildren();
-    let text = new createjs.Text("Welcome to the ISP Tutor's Hypothesis module.\n\nBefore you start working on your hypothesis for your research question, we will first define some important terms. Click “Next” to begin.", "28px Arial", "#000");
-    text.x = CANVAS_WIDTH / 2 + 120;
-    text.y = 180;
+    let text = new createjs.Text(
+        "Welcome to the ISP Tutor's Hypothesis module." +
+        "\n\n" +
+        "Before you start working on your hypothesis for your research " +
+        "question, we will first define some important terms.",
+        "28px Arial ", 
+        "#000"
+    );
+    text.x = CANVAS_WIDTH / 2 + 20;
+    text.y = 80;
     text.textAlign = "center";
     text.lineWidth = 700;
     text.lineHeight = 35;
     let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing"));
-    image1.x = 170;
+    image1.x = 40;
     image1.y = 80;
     image1.scaleX = 1;
     image1.scaleY = 1;
-    let nextButton = createLargeButton(CANVAS_WIDTH / 2 + 100, 450, "Next", "#3769C2");
+    let nextButton = createLargeButton(CANVAS_WIDTH / 2, 350, "Next", "#3769C2");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(text, image1, nextButton);
     stage.update();
 }
 
 function definitionPage1() {
+    stage.removeAllChildren();
+    let text = new createjs.DOMElement("start_page_overlay").set({
+        x: 50, y: 20
+    });
+    text.htmlElement.style.display = "block";
+    let backButton = createLeftButton("Back");
+    backButton.on("click", e => {
+        text.htmlElement.style.display = "none";
+        prevHypoTask();
+    });
+    let nextButton = createRightButton("Next");
+    nextButton.on("click", e => {
+        text.htmlElement.style.display = "none";
+        nextHypoTask();
+    }); 
+    stage.addChild(text, backButton, nextButton);
+    stage.update();
+}
+
+function definitionPage2() {
+    stage.removeAllChildren();
+    let text = new createjs.Text(
+        "Many middle school students have difficulty developing a good " +
+        "hypothesis for their prediction.\n\nFor example, most middle school " +
+        "students have difficulty explaining how hot/room temperature water " +
+        "would lead to more crystal growth.",
+        "24px Arial",
+        "#000"
+    ).set({
+        x: 80, y: 50, lineHeight: 35, lineWidth: CANVAS_WIDTH - 160
+    });
+
+    let image = new createjs.Bitmap(queue.getResult("ivToDvWithArrow")).set({
+        x: 215, y: 485, scaleX: 0.55, scaleY: 0.55
+    });
+
+    let text2 = new createjs.Text("???", "bold 24px Arial", "#000").set({
+        x: (CANVAS_WIDTH / 2) - 40, y: image.y - 20
+    });
+
+    let backButton = createLeftButton("Back");
+    backButton.on("click", e => prevHypoTask());
+    let nextButton = createRightButton("Next");
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(text, image, text2, backButton, nextButton);
+    stage.update();
+}
+
+function definitionPage3() {
+    stage.removeAllChildren();
+    let text1 = new createjs.Text(
+        "To help you make a hypothesis for your prediction, we will ask you " +
+        "to make a concept map (an example is shown below). The final " +
+        "concept map should show step-by-step how the independent variable " +
+        "(water temperature) affects the dependent variable (amount of " +
+        "crystal growth).",
+        "24px Arial",
+        "#000"
+    ).set({
+        x: 60, y: 40, lineHeight: 35, lineWidth: CANVAS_WIDTH - 120
+    });
+
+    let text2 = new createjs.Text(
+        "You will do this by linking concepts that are closely or directly " +
+        "related. For example, as shown below, Water temperature is closely " +
+        "related to 'Concept 1'. 'Concept 1' is closely related to 'Concept 2', " +
+        "and 'Concept 2' is directly related to 'Weight of crystal'.",
+        "24px Arial",
+        "#000"
+    ).set({
+        x: 100, y: 175, lineHeight: 35, lineWidth: CANVAS_WIDTH - 170
+    });
+
+    let image = new createjs.Bitmap(queue.getResult("defPagesCptMap")).set({
+        x: 200, y: 350
+    });
+    
+    let backButton = createLeftButton("Back");
+    let nextButton = createRightButton("Next");
+    backButton.on("click", e => prevHypoTask());
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(text1, text2, image, backButton, nextButton);
+    stage.update();
+}
+
+function definitionPage4() {
+    stage.removeAllChildren();
+    let text = new createjs.Text(
+        "For each connected pair of concepts (e.g. water temperature and " +
+        "Concept 1), you will be asked to indicate how the concepts are related.",
+        "24px Arial",
+        "#000"
+    ).set({
+        x: 60, y: 60, lineHeight: 35, lineWidth: CANVAS_WIDTH - 120
+    });
+    
+    let image = new createjs.Bitmap(queue.getResult("defPagesCptMap")).set({
+        x: 200, y: 350
+    });
+    let backButton = createLeftButton("Back");
+    let nextButton = createRightButton("Next");
+    backButton.on("click", e => prevHypoTask());
+    nextButton.on("click", e => nextHypoTask());
+    stage.addChild(text, image, backButton, nextButton);
+    stage.update();
+}
+
+function definitionPage5() {
     stage.removeAllChildren();
     let image1 = new createjs.Bitmap(queue.getResult("defGraph"));
     image1.x = 60;
@@ -630,7 +752,7 @@ function definitionPage1() {
     stage.update();
 }
 
-function definitionPage2() {
+function definitionPage6() {
     stage.removeAllChildren();
     let title = new createjs.Text("Types of Relationships for Hypotheses", "bold 24px Arial", "#000");
     title.x = CANVAS_WIDTH / 2;
@@ -687,7 +809,7 @@ function definitionPage2() {
     stage.update();
 }
 
-function definitionPage3() {
+function definitionPage7() {
     stage.removeAllChildren();
     let text1 = new createjs.Text("(2) Causes: One variable influences another variable or something directly affects something else.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
@@ -736,7 +858,7 @@ function definitionPage3() {
     stage.update();
 }
 
-function definitionPage4() {
+function definitionPage8() {
     stage.removeAllChildren();
     let text1 = new createjs.Text("(3) Correlation: A relationship between two variables where both variables increase together, decrease together, or one increases as the other decreases. However, these variables may not directly affect each other.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
@@ -796,7 +918,7 @@ function definitionPage4() {
     stage.update();
 }
 
-function definitionPage5() {
+function definitionPage9() {
     stage.removeAllChildren();
     let text1 = new createjs.Text("Just because two things are correlated does not mean that one caused the other. There may be other reasons for two variables to change together. For example, both variables may be caused by a third variable.", "24px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
@@ -846,7 +968,7 @@ function definitionPage5() {
     stage.update();
 }
 
-function definitionPage6() {
+function definitionPage10() {
     stage.removeAllChildren();
     // add error field
     errorField = new createjs.Container();
@@ -932,21 +1054,20 @@ function definitionPage6() {
 
 function instructionPage() {
     stage.removeAllChildren();
+    let delayStarted = false;
     let delayAchieved = false;
     // add error field
     errorField = new createjs.Container();
     errorField.y = 10;
     stage.addChild(errorField);
 
-    let text = new createjs.Text("Instructions", "bold 22px Arial", "#000");
-    text.x = CANVAS_WIDTH / 2;
-    text.y = CANVAS_HEIGHT / 8 - 15;
-    text.textAlign = "center";
-    let video = new createjs.DOMElement("instruction_video_overlay");
-    video.x = 50 * 2 / PIXEL_RATIO;
-    video.y = 30 * 2 / PIXEL_RATIO;
-    video.scaleX = .25 * 2 / PIXEL_RATIO;
-    video.scaleY = .25 * 2 / PIXEL_RATIO;
+    let text = new createjs.Text("Instructions", "bold 22px Arial", "#000").set({
+        x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 8 - 15, textAlign:  "center"
+    });
+    let video = new createjs.DOMElement("instruction_video_overlay").set({
+        x: 50 * 2 / PIXEL_RATIO, y: 30 * 2 / PIXEL_RATIO,
+        scaleX: 0.25 * 2 / PIXEL_RATIO, scaleY: 0.25 * 2 / PIXEL_RATIO
+    });
 
     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
     backButton.on("click", e => {
@@ -957,28 +1078,32 @@ function instructionPage() {
     });
     stage.addChild(backButton);
 
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
-        if (!delayAchieved) {
-            updateErrorField("Please watch the tutorial video.", "16px Arial", "#000");
+        if (!delayStarted) {
+            updateErrorField(
+                "Please watch the tutorial video.", "24px Arial", "#000"
+            );
+            nextButton.children[0].graphics
+            .beginFill("pink")
+            .drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_RADIUS);
+            delayStarted = true;
             setTimeout(() => {
                 delayAchieved = true;
+                nextButton.children[0].graphics
+                .beginFill("red")
+                .drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_RADIUS);
             }, 20000);
+        } else if (!delayAchieved) {
+            console.log("still delaying");
         } else {
             let vid = document.getElementById("instruction_video_overlay");
             vid.style.display = "none";
-            vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+            vid.contentWindow.postMessage(
+                '{"event": "command", "func": "stopVideo", "args": ""}', '*'
+            );
             nextHypoTask();
         }
-        // // 20 second delay for next button to move on
-        // setTimeout(() => {
-        //     nextButton.on("click", e => {
-        //         let vid = document.getElementById("instruction_video_overlay");
-        //         vid.style.display = "none";
-        //         vid.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*')
-        //         nextHypoTask();
-        //     });
-        // }, 20000);
     });
 
     let advice = new createjs.Text("Please watch the video above for a brief tutorial.\nWe recommend you watch the video in full screen.", "16px Arial", "#000");
@@ -1151,7 +1276,7 @@ function getImageForPrediction(prediction) {
 function graphPage1() {
     stage.removeAllChildren();
     let prediction = (firstPrediction) ? "increase" : "decrease";
-    let text1 = new createjs.Text(`You predicted that as the water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
+    let text1 = new createjs.Text(`You predicted that as the initial water temperature increases, the amount of crystal growth on the string will ${prediction}.`, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 75;
     text1.textAlign = "center";
@@ -1242,7 +1367,7 @@ function biDirInstructionPage2() {
     image1.scaleX = 1.0;
     image1.scaleY = 1.0;
     stage.addChild(image1);
-    const txt = `They predicted that as water temperature increases, the amount of crystal growth would ${oppositePrediction}.`;
+    const txt = `They predicted that as initial water temperature increases, the amount of crystal growth would ${oppositePrediction}.`;
     let text1 = new createjs.Text(txt, "22px Arial", "#000");
     text1.x = CANVAS_WIDTH / 2;
     text1.y = 150;
