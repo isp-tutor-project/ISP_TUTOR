@@ -8,8 +8,10 @@ function getEleById(eleID) {
 }
 
 let currentPage = "index-page";
-let collectionID;
-let userID; 
+// commented out as I don't, as yet have a visually pleasing
+// sign-out button
+let collectionID; //= localStorage.getItem("collectionID");
+let userID; // = localStorage.getItem("userID");
 let currModulePage = document.getElementById("module-page");
 let newModulePage = document.getElementById("module-page").cloneNode(true);
 
@@ -116,7 +118,6 @@ function parseUserForm(formID) {
 
 function initHomePage() {
     //let tutors = ["rq", "hypo", "ted"];
-    //let tutors = ["rq", "ted"];
     // the list of tutors that will be displayed on the home page
     let tutors = ["rq", "hypo"];
     db.collection(collectionID).doc(userID).get().then((doc) => {
@@ -150,16 +151,19 @@ function initHomePage() {
                 former.classList.add("disabled");
                 former.disabled = true;
             }
-            // brm data is now saved to firebase directly from brm pages
-            // if (!brm) {
-            //     brm = "[]";
-            // }
-            // localStorage.setItem("isptutor_brmHistory", brm);
         }
     });
 
     if (userID != null) {
         document.getElementById("sign-in-text").innerHTML = "Signed in as " + userID;
+        // the following is commented out, as it looks like crap
+        // document.getElementById("sign-out-region").innerHTML = `
+        //     <a href="#" id="sign-out">Sign out</a>
+        // `;
+        // document.getElementById("sign-out").addEventListener("click", e => {
+        //     logout();
+        //     openPage('index-page');
+        // });
     }
 }
 
@@ -352,9 +356,13 @@ function initTEDPage() {
 
 document.getElementById("signin-button").addEventListener("click", e => {
     openPage("signin-page");
+    // forces the form to clear
+    document.getElementById("signin-form").reset();
 });
 document.getElementById("register-button").addEventListener("click", e => {
     openPage("registration-page");
+    // forces the form to clear
+    document.getElementById("registration-form").reset();
 });
 document.getElementById("s-back-button").addEventListener("click", e => {
     openPage("index-page");
@@ -456,12 +464,10 @@ document.getElementById("cancel-btn").addEventListener("click", e => {
     document.getElementById("home-overlay").style.display = "none";
 });
 
-// this is how you control the first page that opens
-let editMode = false;
-if (editMode) {
-    initHypoPage();
-    openPage("hypo-page");
-}
-else {
+if (collectionID && userID) {
+    openPage("home-page");
+    initHomePage()
+} else {
     openPage("index-page");
 }
+   
