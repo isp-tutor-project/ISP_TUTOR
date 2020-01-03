@@ -20,6 +20,8 @@ function handleFileComplete(event) {
     * and jump directly to a particular page,
     * such as:
     */
+    // conceptMapPage3();
+
     //conceptMapPage();
     // startPage();
     //definitionPage1();
@@ -86,10 +88,15 @@ const CONNECTOR_RADIUS = 5;
 // nodes/bubbles are centered upon the x and y positions selected
 const BUBBLE_X = CANVAS_WIDTH / 4;
 const BUBBLE_Y = CANVAS_HEIGHT * .75 - 1.5 * BUBBLE_HEIGHT;
-const IV_X = CANVAS_WIDTH / 4;
-const IV_Y = CANVAS_HEIGHT * .75;
-const DV_X = CANVAS_WIDTH * .75;
-const DV_Y = CANVAS_HEIGHT * .75;
+// const IV_X = CANVAS_WIDTH / 4;
+const IV_X = CANVAS_WIDTH * 0.1;
+// const IV_Y = CANVAS_HEIGHT * 0.75;
+const IV_Y = CANVAS_HEIGHT * 0.8;
+
+// const DV_X = CANVAS_WIDTH * .75;
+const DV_X = CANVAS_WIDTH * 0.9;
+// const DV_Y = CANVAS_HEIGHT * .75;
+const DV_Y = CANVAS_HEIGHT * 0.8;
 
 // these are for displaying information
 let stage;
@@ -484,6 +491,8 @@ function initHypoPage() {
         { id: "cptMapPlaceholder", src: "HypoGraphics/cptMapPlaceholder/cptMapPlaceholder.jpg" },
         { id: "defPagesCptMap", src: "HypoGraphics/defPagesCptMap.jpg" },
         { id: "ivToDvWithArrow", src: "HypoGraphics/iv2dvWithArrow.png" },
+        { id: "yellowBtn", src: "HypoGraphics/buttonyellow.png" },
+        { id: "orangeBtn", src: "HypoGraphics/buttonorange.png" },
     ]);
 
     // required to enable mouse hover events
@@ -551,10 +560,10 @@ function raiseYourHand() {
     text4.y = 350;
     text4.textAlign = "center";
     stage.addChild(text4);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -732,10 +741,10 @@ function definitionPage5() {
     text3.textAlign = "center";
     //stage.addChild(image1, image2, image3);
     stage.addChild(title, text1, text2, text3);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     let images = [image1, image2, image3];
     let iteration = 0;
     nextButton.on("click", e => {
@@ -783,13 +792,13 @@ function definitionPage6() {
     image2.scaleX = .5;
     image2.scaleY = .5;
     stage.addChild(title, text1);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => {
         image1.htmlElement.style.display = "none";
         prevHypoTask();
     });
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -837,10 +846,10 @@ function definitionPage7() {
     image2.scaleX = .7;
     image2.scaleY = .7;
     stage.addChild(text1);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -897,10 +906,10 @@ function definitionPage8() {
     graph2.scaleX = .4;
     graph2.scaleY = .4;
     stage.addChild(text1);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -947,10 +956,10 @@ function definitionPage9() {
     image2.scaleX = .25;
     image2.scaleY = .25;
     stage.addChild(text1);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -1010,14 +1019,14 @@ function definitionPage10() {
     quizQuestions.scaleY = .2 * 2 / PIXEL_RATIO;
     quizQuestions.htmlElement.style.display = "block";
     stage.addChild(quiz, quizQuestions);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => {
         quiz.htmlElement.style.display = "none";
         quizQuestions.htmlElement.style.display = "none";
         prevHypoTask();
     });
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     let readyToMoveOn = false;
     nextButton.on("click", e => {
         // checking validity info for quiz questions
@@ -1069,7 +1078,7 @@ function instructionPage() {
         scaleX: 0.25 * 2 / PIXEL_RATIO, scaleY: 0.25 * 2 / PIXEL_RATIO
     });
 
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => {
         let vid = document.getElementById("instruction_video_overlay");
         vid.style.display = "none";
@@ -1140,10 +1149,10 @@ function backToYourRQ() {
     text2.lineHeight = 35;
     text2.lineWidth = 700;
     stage.addChild(text2);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -1208,10 +1217,10 @@ function predictionPage1() {
             choice2.color = "#5588EE";
         }
     }
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
         if (chosenDVDirection === undefined) {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
@@ -1244,13 +1253,13 @@ function brmInstructionPage() {
     vid.scaleX = .2 * 2 / PIXEL_RATIO;
     vid.scaleY = .2 * 2 / PIXEL_RATIO;
     stage.addChild(text, vid);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => {
         vid.htmlElement.style.display = "none";
         predictionPage1();
     });
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
         vid.htmlElement.style.display = "none";
         brmPage();
@@ -1287,10 +1296,10 @@ function graphPage1() {
     image.x = 400;
     image.y = 150;
     stage.addChild(image);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -1319,10 +1328,10 @@ function graphPage2() {
     }
     let arrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y, dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y);
     stage.addChild(ivBubble, dvBubble, arrow);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -1349,10 +1358,10 @@ function biDirInstructionPage1() {
     image2.x = 400;
     image2.y = 250;
     stage.addChild(image2);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -1379,10 +1388,10 @@ function biDirInstructionPage2() {
     image2.x = 400;
     image2.y = 250;
     stage.addChild(image2);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -1417,10 +1426,10 @@ function biDirInstructionPage3() {
     image2.x = 400;
     image2.y = 250;
     stage.addChild(image2);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(nextButton);
     stage.update();
@@ -1463,10 +1472,10 @@ function brmPage() {
         }, 20000); 
     });
     stage.addChild(text, brmButton);
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
         if (!brmBtnClicked) {
             updateErrorField("Please click on the 'Go to Background Research website' button", "bold 22px Arial", "#000");
@@ -1536,10 +1545,10 @@ function predictionPage2() {
             choice2.color = "#5588EE";
         }
     }
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => prevHypoTask());
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
         if (chosenDVDirection === undefined) {
             updateErrorField('Please select either "Increase" or "Decrease".', "16px Arial", "#000");
@@ -1716,8 +1725,8 @@ function initialConceptMapPlaceholder() {
     image1.y = 20;
     image1.scaleX = 0.2;
     image1.scaleY = 0.2;
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR)
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR)
+    let backButton = createLeftButton("Back")
+    let nextButton = createRightButton("Next")
     backButton.on("click", e => prevHypoTask());
     nextButton.on("click", e => nextHypoTask());
     stage.addChild(image1, backButton, nextButton);
@@ -1918,7 +1927,7 @@ function conceptMapPage2(whichHypo) {
     }
 
 
-    let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
+    let backButton = createLeftButton("Back");
     backButton.on("click", e => {
         notepad.htmlElement.style.display = "none";
         if (hypoSaved) {
@@ -1930,14 +1939,14 @@ function conceptMapPage2(whichHypo) {
         // prevHypoTask();
     });
     stage.addChild(backButton);
-    let nextButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Next", BUTTON_COLOR);
+    let nextButton = createRightButton("Next");
     nextButton.on("click", e => {
         notepad.htmlElement.style.display = "none";
         clearDOMEventListeners();
         nextHypoTask();
     });
     // verify button
-    let verifyButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Check", BUTTON_COLOR);
+    let verifyButton = createRightButton("Check");
     verifyButton.on("click", e => {
         if (verifyConceptMap(ivBubble)) {
             // if everything is ok, show the save warning popup
@@ -1965,6 +1974,309 @@ function conceptMapPage2(whichHypo) {
         console.error(error);
     });
 }
+
+function calcBounds(ctr) {
+    return {
+        left: ctr.x - (CONNECTOR_RADIUS / 2) - 2,
+        right: ctr.x + (CONNECTOR_RADIUS / 2) + 2,
+        top: ctr.y - (CONNECTOR_RADIUS / 2) - 2,
+        bottom: ctr.y + (CONNECTOR_RADIUS / 2) + 2
+    };
+}
+
+function withinBounds(bounds, x, y) {
+    let retVal = false;
+    // console.log(`testing if ${x},${y} is within ${JSON.stringify(bounds)} `);
+    if (x >= bounds.left) {
+        console.log('x >= bounds.left');
+        if (x <= bounds.right) {
+            console.log(' x <= bounds.right');
+            if (y >= bounds.top) {
+                console.log('y >= bounds.top');
+                if (y <= bounds.bottom) {
+                    console.log('y <= bounds.bottom');
+                    retVal = true;
+                }
+            }
+        }
+    }
+    // return ( x >= ctr.left && x <= ctr.right && y >= ctr.top && y <= ctr.bottom);
+    return retVal;
+}
+
+function dumpState(stge, stepz, nodez, bubblez) {
+    // arrows: $ {
+    //     JSON.stringify(arrowz, null, 4)
+    // }
+    let names = stge.children.map((child) => child.name);
+    // console.log(names);
+    let allBubbles = [];
+    stge.children.forEach((child) => {
+        if (child.name === "bubble" || child.name === "fixed bubble") {
+            let tmp = {
+                type: child.name,
+                label: child.text,
+                x: child.x,
+                y: child.y
+            };
+            if (child.topConnector) {
+                let connectorY = tmp.y - (BUBBLE_HEIGHT / 2);                
+                if (child.inConnector) {
+                    tmp.inConnector = {
+                        x: tmp.x,
+                        y: connectorY,
+                    };
+                    tmp.inConnector.bounds = calcBounds(tmp.inConnector);
+                    // if (child.inConnector.arrow) {
+                    //     tmp.inConnector.arrow = child.inConnector.arrow;
+                    // }
+                }
+                if (child.outConnector) {
+                    tmp.outConnector = {
+                        x: tmp.x,
+                        y: connectorY                    };
+                    tmp.outConnector.bounds = calcBounds(tmp.outConnector);
+                    // if (child.outConnector.arrow) {
+                    //     tmp.outConnector.arrow = child.outConnector.arrow;
+                    // }
+                }
+            } else {
+                let inX = tmp.x - (BUBBLE_WIDTH / 2);
+                let outX = tmp.x + (BUBBLE_HEIGHT/ 2);
+                tmp.inConnector = {
+                    x: inX,
+                    y: tmp.y
+                };
+                tmp.inConnector.bounds = calcBounds(tmp.inConnector);
+                // if (child.inConnector.arrow) {
+                //     tmp.inConnector.arrow = child.inConnector.arrow;
+                // }
+                tmp.outConnector = {
+                    x: outX,
+                    y: tmp.y
+                };
+                tmp.outConnector.bounds = calcBounds(tmp.outConnector);
+                // if (child.outConnector.arrow) {
+                //     tmp.outConnector.arrow = child.outConnector.arrow;
+                // }
+            }
+            allBubbles.push(tmp);
+        }
+    });
+    // console.log(allBubbles);
+    let arrows = [];
+    stge.children.forEach((child) => {
+        if (child.name === "arrow") {
+            let arrow = {
+                name: "arrow",
+                label: child.label.text,
+                start: {
+                    x: child.x,
+                    y: child.y
+                },
+                end: {
+                    x: child.endX,
+                    y: child.endY
+                }
+            };
+            
+            for (let i=0; i<allBubbles.length; i++) {
+                let bub = allBubbles[i];
+                if (bub.outConnector) {
+                    if (withinBounds(bub.outConnector.bounds,
+                                    arrow.start.x,
+                                    arrow.start.y)) {
+                        console.log(`within bounds of ${bub.label} outConnector`);                 
+                        arrow["from"] = bub.label;
+                    }
+                }
+                if (bub.inConnector) {
+                    if (withinBounds(bub.inConnector.bounds,
+                                    arrow.end.x,
+                                    arrow.end.y)) {
+                        console.log(`within bounds of ${bub.label} inConnector`);
+                        arrow["to"] = bub.label;
+                    }
+                }
+            }
+            arrows.push(arrow);
+        }
+    });
+    let bubs = bubblez.map((bub) => bub.text);
+    console.log(`
+    bubbles: ${JSON.stringify(allBubbles, null, 4)}
+    arrows: ${JSON.stringify(arrows, null, 4)}
+    `);
+    // bubbles: $ {
+    //     JSON.stringify(bubs, null, 0)
+    // }
+
+    // nodes: $ {
+    //     JSON.stringify(nodez, null, 0)
+    // }
+
+    // steps: $ {
+    //     JSON.stringify(stepz, null, 4)
+    // }
+
+    // console.log(arrows);
+}
+
+function conceptMapPage3(whichHypo)
+{
+    // reset steps to empty list so:
+    // 1) steps are kept in sync with nodes/arrows if the student returns from prev page
+    // 2) steps for subsequent concept maps aren't merely appended
+    steps = [];
+    let hypoSaved = false;
+    let prediction;
+    if ("initial" === whichHypo) {
+        prediction = firstPrediction;
+    } else if ("opposite" === whichHypo) {
+        prediction = !firstPrediction;
+    } else if ("final" === whichHypo) {
+        prediction = secondPrediction;
+    } else {
+        console.error("invalid concept map version: ", whichHypo);
+        return;
+    }
+    stage.removeAllChildren();
+    errorField = createErrorField();
+    errorField.y = 10;
+    stage.addChild(errorField);
+    let currentBubbles = [];
+    let remindersTxt = new createjs.Text(
+        "NOTE: ONLY include the concepts which you think are MOST closely related " +
+        "to each other in your concept map.\n" +
+        "You may only need to add one or two concepts to explain the " +
+        "relationship between the independent and dependent variables.",
+        "16px Arial",
+        "#000"
+    ).set({
+        x: 10, y: 75, textAlign: "left", lineHeight: 25 
+    });
+    let cptsButton = createTextWidthButton(CANVAS_WIDTH / 2,
+                                           50,
+                                           " Select a Concept to Add ",
+                                           "#2858a9");
+    function selectConceptHandler(value) {
+        let bubble = createDeletableBubble(CANVAS_WIDTH / 2,
+                                           CANVAS_HEIGHT / 2,
+                                           value,
+                                           "#4286f4",
+                                           "none");
+        bubble.idx = nodes.indexOf(value);
+        steps.push({
+            action: "NODE_CREATE",
+            object: nodes[bubble.idx],
+            index: bubble.idx,
+            info: "N/A",
+            timestamp: (new Date()).toLocaleDateString()
+        });
+        stage.removeChild(nextButton);
+        stage.addChild(verifyButton);
+        bubble.closeButton.on("click", e => {
+            for (let child of bubble.children) {
+                if ((child.name == "inConnector") || 
+                    (child.name == "outConnector")) {
+                    removeArrowAndLabel(child.arrow);
+                }
+            }
+            stage.removeChild(bubble);
+            steps.push({
+                action: "NODE_DELETE",
+                object: nodes[bubble.idx],
+                index: bubble.idx,
+                info: "N/A",
+                timestamp: (new Date()).toLocaleString()
+            });
+            let tmp = currentBubbles.find((ele) => ele === bubble);
+            if (tmp) {
+                currentBubbles = currentBubbles.filter((ele) => ele !== tmp);
+            }
+            dumpState(stage, steps, nodes, currentBubbles);
+        });
+        currentBubbles.push(bubble);
+        stage.addChild(bubble);
+        dumpState(stage, steps, nodes, currentBubbles);
+    }
+    
+    cptsButton.on("click", e => {
+        panel = createConceptsPanel(cptsButton.x,
+                                    cptsButton.y,
+                                    nodes,
+                                    currentBubbles,
+                                    selectConceptHandler);
+        stage.addChild(panel);
+    });
+
+     let rewatchVideoButton = createTextWidthButton(CANVAS_WIDTH - 200,
+                                                    50,
+                                                   "Re-watch how-to video",
+                                                   "#2858a9");
+     rewatchVideoButton.on("click", e => {
+        open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
+     });
+
+    // add notebook (scrolling textarea)
+    let notepad = new createjs.DOMElement("concept_map_notepad_overlay").set({
+        x: 230 * (2 / PIXEL_RATIO),
+        y: 20 * (2 / PIXEL_RATIO),
+        scaleX: .2 * (2 / PIXEL_RATIO),
+        scaleY: .2 * (2 / PIXEL_RATIO),
+        name: "notepad"
+    });
+    notepad.htmlElement.style.display = "block";
+    // clear any notes any previous arrivals on this page
+    getEleById("notepad_notes").innerHTML = "";
+
+    let ivBubble = createFixedBubble(
+        IV_X, IV_Y, capitalizeFirstLetter(iv), "#99bbff", "increase", false
+    );
+    let dvDirection = true ? "increase" : "decrease";
+    let dvBubble = createFixedBubble(
+        DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", dvDirection, true
+    );
+    let iv2dvArrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2,
+                                          ivBubble.y,
+                                          dvBubble.x - BUBBLE_WIDTH / 2,
+                                          dvBubble.y)
+    let backButton = createBackButton();
+    // verify button
+    let verifyButton = createRightButton("Check", "#2858a9");
+    verifyButton.on("click", e => {
+        if (verifyConceptMap(ivBubble)) {
+            // if everything is ok, show the save warning popup
+            // saveWarning.htmlElement.style.display = "block";
+            console.log("verified");
+            stage.removeChild(verifyButton);
+            stage.addChild(nextButton);
+        } else {
+            console.log("verification failed");
+        }
+    });
+    let nextButton = createNextButton();
+    // let ellipse = new createjs.Shape();
+    // let ellipseX = IV_X - BUBBLE_WIDTH + 50;
+    // let width = DV_X - IV_X + (BUBBLE_WIDTH / 2);
+    // let height = width * 0.6;
+    // let ellipseY = IV_Y - BUBBLE_HEIGHT - (height / 2);
+    // ellipse.graphics.beginStroke("#000").drawEllipse(ellipseX, ellipseY, width, height);
+    // console.log(ellipse.getMeasuredHeight());
+    // stage.add(ellipse);
+    stage.addChild(
+        cptsButton,
+        rewatchVideoButton,
+        remindersTxt,
+        notepad,
+        ivBubble, dvBubble, iv2dvArrow,
+        backButton, verifyButton
+    );
+    stage.on("stagemouseup", removePanel);
+    stage.on("stagemouseup", removeErrorField);
+    stage.update();
+}
+
 
 // rebuilds the concept map'a nodes, directions, arrows, and labels from what is 
 // stored in firebase (hypoData).  requires ivBubble and dvBubble as these nodes aren't
@@ -2207,7 +2519,9 @@ function verifyConceptMap(ivBubble) {
                 }
             }
             if (dirButton.children.length === 1 && connected) {
+                // console.log(`dirButton.direction: ${dirButton.direction}`);
                 drawDirButton(dirButton, dirButton.x, dirButton.y, dirButton.direction, "red");
+                // console.log('dirbutton redrawn');
                 isGood = false;
             }
         }
@@ -2243,6 +2557,13 @@ function verifyConceptMap(ivBubble) {
     }
     updateErrorField("Everything is now labeled and connected properly. This does not mean that your work is conceptually correct.", "16px Arial", "#000");
     return isGood;
+}
+
+function  createErrorField() {
+    let errFld = new createjs.Container().set({
+        name: "error field"
+    });
+    return errFld;
 }
 
 function updateErrorField(text, font, color) {
@@ -2376,6 +2697,68 @@ function createOutConnector(x, y) {
 // ================================================ Bubbles =================================================
 // ==========================================================================================================
 
+function createDeletableBubble(x, y, text, color, direction) {
+    let background = new createjs.Shape();
+    background.graphics.setStrokeStyle(1).beginStroke("#000").beginFill(color).drawRoundRect(0, 0, BUBBLE_WIDTH, BUBBLE_HEIGHT, BUBBLE_RADIUS);
+
+    let label = new createjs.Text(text, "16px Arial", "#FFFFFF");
+    label.lineWidth = BUBBLE_WIDTH - 10;
+    label.textAlign = "center";
+    label.textBaseline = "top";
+    label.x = BUBBLE_WIDTH / 2;
+    label.y = BUBBLE_HEIGHT / 2 - label.getMeasuredHeight() / 2;
+    let closeBtnSize = 25;
+    let closeButton = createCloseButton(BUBBLE_WIDTH -5, 0, closeBtnSize);
+
+    let dirButton = createDirButton(BUBBLE_WIDTH / 2, BUBBLE_HEIGHT * .78, direction, "#FFFFFF", false);
+
+    let leftConnector = createInConnector(0, BUBBLE_HEIGHT / 2);
+    let rightConnector = createOutConnector(BUBBLE_WIDTH, BUBBLE_HEIGHT / 2);
+
+    let bubble = new createjs.Container();
+    bubble.x = x;
+    bubble.y = y;
+    bubble.name = "bubble";
+    bubble.text = text;
+    // this sets the registration point
+    bubble.regX = BUBBLE_WIDTH / 2;
+    bubble.regY = BUBBLE_HEIGHT / 2;
+    bubble.inConnector = leftConnector;
+    bubble.outConnector = rightConnector;
+    bubble.closeButton = closeButton;
+    bubble.addChild(background, label, dirButton, leftConnector, rightConnector, closeButton);
+    // so bubble can be dragged
+    bubble.on("pressmove", function (event) {
+        let mouseX = event.stageX / scalingRatio;
+        let mouseY = event.stageY / scalingRatio;
+        // if mouse is touching the very edge of the side, don't drag the bubble
+        if (Math.abs(mouseX - event.currentTarget.x) > BUBBLE_WIDTH / 2 - CONNECTOR_RADIUS)
+            return;
+        if (Math.abs(mouseY - event.currentTarget.y) > BUBBLE_HEIGHT / 2 - CONNECTOR_RADIUS)
+            return;
+        // if there is an arrow being dragged around
+        if (currentArrow != null)
+            return;
+        // check if something highlighted
+        if (somethingHighlighted)
+            return;
+        // currentTarget will be the container that the event listener was added to:
+        event.currentTarget.x = mouseX;
+        event.currentTarget.y = mouseY;
+        // change the arrows
+        let leftArrow = leftConnector.arrow;
+        let rightArrow = rightConnector.arrow;
+        if (leftArrow != null) {
+            drawArrow(leftArrow, leftArrow.x, leftArrow.y, mouseX - BUBBLE_WIDTH / 2, mouseY, leftArrow.label.text)
+        }
+        if (rightArrow != null) {
+            drawArrow(rightArrow, mouseX + BUBBLE_WIDTH / 2, mouseY, rightArrow.endX, rightArrow.endY, rightArrow.label.text);
+        }
+        // make sure to redraw the stage to show the change:
+        stage.update();
+    });
+    return bubble;
+}
 
 function createBubble(x, y, text, color, direction) {
     let background = new createjs.Shape();
@@ -2476,6 +2859,7 @@ function createFixedBubble(x, y, text, color, direction, isDV) {
     // this sets the registration point
     bubble.regX = BUBBLE_WIDTH / 2;
     bubble.regY = BUBBLE_HEIGHT / 2;
+    bubble.topConnector = topConnector;
     bubble.addChild(background, label, dirButton, topConnector);
 
     return bubble;
@@ -2484,6 +2868,7 @@ function createFixedBubble(x, y, text, color, direction, isDV) {
 // for creating the arrow button (the direction button on bottom of bubble)
 function createDirButton(x, y, direction, color, isFixed) {
     let dirButton = new createjs.Container();
+    color = ("none" === direction) ? "yellow" : color;
     drawDirButton(dirButton, x, y, direction, color);
     dirButton.x = x;
     dirButton.y = y;
@@ -2529,7 +2914,7 @@ function drawDirButton(dirButton, x, y, direction, color) {
         tri.rotation = 90;
         dirButton.addChild(rect, tri);
     } else if (direction === "none") {
-        let text = new createjs.Text("--", "16px Arial", color);
+        let text = new createjs.Text("Set Direction", "bold 12px Arial", color);
         generateHitAreaCenterAlignment(text);
         text.textAlign = "center";
         dirButton.addChild(text);
@@ -2587,19 +2972,95 @@ function createButton(x, y, text, color) {
     return button;
 }
 
+function createTextWidthButton(x, y, text, color) {
+    let label = new createjs.Text(text, "bold 16px Arial", "#FFFFFF").set({
+        y: BUTTON_HEIGHT / 2, textAlign: "center", textBaseline: "middle"
+    });
+    let buttonWidth = Math.max(BUTTON_WIDTH, label.getMeasuredWidth() + 10);
+    label.x = buttonWidth / 2;
+    let bg = new createjs.Shape();
+    bg.graphics
+        .beginFill(color)
+        .drawRoundRect(0, 0, buttonWidth, BUTTON_HEIGHT, BUTTON_RADIUS);
+    let button = new createjs.Container();
+    button.x = x - (buttonWidth / 2);
+    button.y = y - (BUTTON_HEIGHT / 2);
+    button.name = 'button';
+    button.addChild(bg, label);
+    button.cursor = 'pointer';
+    button.mouseChildren = false;
+    button.on('mouseover', handleMouseOver);
+    button.on('mouseout', handleMouseOver);
+    return button;
+}
+
 function createLeftButton(text) {
-    return createButton(CANVAS_WIDTH * (1 / 8),
-        CANVAS_HEIGHT * (7 / 8),
+    return createButton(CANVAS_WIDTH * 0.1,
+        CANVAS_HEIGHT - BUTTON_HEIGHT - 10,
         text,
         BUTTON_COLOR);
 }
 
-function createRightButton(text) {
-    return createButton(CANVAS_WIDTH * (7 / 8),
-        CANVAS_HEIGHT * (7 / 8),
+function createRightButton(text, color=BUTTON_COLOR) {
+    return createButton(CANVAS_WIDTH * 0.9 ,
+        CANVAS_HEIGHT - BUTTON_HEIGHT - 10,
         text,
-        BUTTON_COLOR);
+        color);
 }
+
+// perhaps a bad name. a button with an arrow image, not to be confused
+// with actual arrows
+function createArrowButton(x, name, direction) {
+    let scaling = 0.5;
+    let normal = new createjs.Bitmap(queue.getResult("orangeBtn")).set({
+        scaleX: scaling, scaleY: scaling
+    });
+    let imgHeight = normal.image.height * scaling;
+    let hover = new createjs.Bitmap(queue.getResult("yellowBtn")).set({
+        scaleX: scaling, scaleY: scaling    
+    });
+    if ("right" === direction) {
+        normal.rotation = 180;
+        normal.y += imgHeight;
+        hover.rotation = 180;
+        hover.y += imgHeight;
+    }
+    let button = new createjs.Container().set({
+        x: x,
+        y: CANVAS_HEIGHT - imgHeight - 10,
+        name: name
+    });
+    button.addChild(normal);
+    button.cursor = 'pointer';
+    button.mouseChildren = false;
+    button.on('mouseover', e => {
+        button.removeAllChildren();
+        button.addChild(hover);
+    });
+    button.on('mouseout', e => {
+        button.removeAllChildren();
+        button.addChild(normal);
+    });
+    button.disable = () => {
+        button.alpha = 0.5;
+    };
+    button.enable = () => {
+        button.alpha = 1.0;
+    }
+    return button;
+}
+
+function createBackButton() {
+    // return createArrowButton(CANVAS_WIDTH * (1 / 12), "back button", "left");
+    return createArrowButton((CANVAS_WIDTH * 0.1) - BUTTON_WIDTH, "back button", "left");
+}
+
+
+function createNextButton() {
+    // return createArrowButton(CANVAS_WIDTH * (11 / 12), 'next button', "right");
+    return createArrowButton((CANVAS_WIDTH * 0.9) + BUTTON_WIDTH, 'next button', "right");
+}
+
 
 function createExtraLargeButton(x, y, text, color, width, height, fontStyle) {
     let background = new createjs.Shape();
@@ -2674,6 +3135,25 @@ function createPlusButton(x, y, buttonSize) {
     return button;
 }
 
+// a round version of createXButton with a black background
+function createCloseButton(x, y, buttonSize) {
+    let background = new createjs.Shape();
+    background.graphics.beginFill("#000").drawCircle(0, 0, 10);
+    let label = new createjs.Text("x", "12px Arial", "#FFF").set({
+        x: 0, y: 0, textAlign: "center", textBaseline: "middle"
+    });
+    let button = new createjs.Container();
+    button.x = x;
+    button.y = y;
+    button.addChild(background, label);
+    button.cursor = "pointer";
+    button.mouseChildren = false;
+    button.on("mouseover", handleMouseOver);
+    button.on("mouseout", handleMouseOver);
+
+    return button;
+}
+
 function createXButton(x, y, buttonSize) {
     let background = new createjs.Shape();
     background.graphics.beginFill("#4286f4").drawRect(0, 0, buttonSize, buttonSize);
@@ -2738,7 +3218,7 @@ function createDirectionPanel(x, y, target) {
             index: target.parent.idx,
             info: "increase",
             timestamp: (new Date()).toLocaleString()
-        })
+        });
     });
     option2.on("click", e => {
         drawDirButton(target, x, y, "decrease", "#FFFFFF")
@@ -2748,7 +3228,7 @@ function createDirectionPanel(x, y, target) {
             index: target.parent.idx,
             info: "decrease",
             timestamp: (new Date()).toLocaleString()
-        })
+        });
     });
 
     panel.addChild(option1, option2);
@@ -2798,7 +3278,7 @@ function createDeletePanel(x, y, target) {
             index: target.connector.parent.idx + "::" + target.connectorOver.parent.idx,
             info: "N/A",
             timestamp: (new Date()).toLocaleString()
-        })
+        });
     });
     panel.addChild(option1);
     return panel;
@@ -2822,6 +3302,30 @@ function createCausePanel(x, y, target) {
         option.on("click", e => changeExplanation(target, "Cause:\n" + causes[i]));
         panel.addChild(option);
     }
+    return panel;
+}
+
+function createConceptsPanel(x, y, allConcepts, conceptBubbles, clickHdlr) {
+    let panel = new createjs.Container().set({
+        x: x, y: y + OPTION_HEIGHT
+    });
+    let usedNodes = conceptBubbles.map((bub) => bub.text);
+    let options = [];
+    allConcepts.forEach((value) => {
+        if (!usedNodes.includes(value)) {
+            options.push(value);
+        }
+    });
+    let longestOption = options.reduce(function (a, b) {
+        return a.length > b.length ? a : b;
+    });
+    let tmp = new createjs.Text(longestOption, "16px Arial", "#000");
+    let optionWidth = Math.max(OPTION_MIN_WIDTH, tmp.getMeasuredWidth() + 10);
+    options.forEach((opt, i) => {
+        let option = createOption(0, OPTION_HEIGHT * i, opt, optionWidth);
+        option.on("click", e => clickHdlr(opt));
+        panel.addChild(option);
+    });
     return panel;
 }
 
