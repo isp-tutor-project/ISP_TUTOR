@@ -161,6 +161,12 @@ button:hover {
   right: 10px;
   z-index: 1;
 }
+#sign-out-region {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  z-index: 1;
+}
 
 .page {
   display: none;
@@ -278,8 +284,8 @@ button:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  width: 200px;
-  height: 400px;
+  width: 300px;
+  height: 200px;
   background-color: yellow;
   border: 1px solid black;
 }
