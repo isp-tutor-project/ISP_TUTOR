@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Class Data Download</title>
+    <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
+    <!-- Loads our Firebase initializer -->
+    <script src="firebase.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- bootstrap CSS framework-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- bootstrap js. not sure if this is needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    <script src="ontology.js"></script>
+    <style>
+        caption {
+            text-align: center;
+            font-size: large;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>View Student Data Page</h1>
+    
+    <table class="table table-condensed table-striped">
+        <caption>General Data</caption>
+        <thead>
+            <th>Student ID</th>
+            <th>Pre-Test Score</th>
+            <th>Condition</th>
+            <th>Status</th>
+        </thead>
+        <tbody id="general_data"></tbody>
+    </table>
+
+    <table class="table table-condensed table-striped">
+        <caption>RQ Module</caption>
+        <thead>
+            <th>Area of Science</th>
+            <th>Topic</th>
+            <th>Research Question</th>
+        </thead>
+        <tbody id="rq_data"></tbody>
+    </table>
+
+    <table class="table table-condensed table-striped">
+        <caption>BRM</caption>
+        <thead>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Selected</th>
+            <th>Is Correct</th>
+        </thead>
+        <tbody id="brm_data"></tbody>
+    </table>
+
+    <table class="table table-condensed table-striped">
+        <caption>Predictions</caption>
+        <thead>
+            <th>First Prediction</th>
+            <th>Second Prediction</th>
+        </thead>
+        <tbody id="prediction_data"></tbody>
+    </table>
+    
+    <div id="initial_hypo" class="hidden">
+        <table class="table table-condensed table-striped">
+            <caption>Initial Hypothesis</caption>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                </tr>
+            </thead>
+            <tbody id="initial_hypo_data"></tbody>
+        </table>
+    </div>
+
+    <div id="opposite_hypo" class="hidden">
+        <table class="table table-condensed table-striped">
+            <caption>Opposite Hypothesis</caption>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody id="opposite_hypo_data"></tbody>
+        </table>
+    </div>
+
+    <div id="final_hypo" class="hidden">
+        <table class="table table-condensed table-striped">
+            <caption>Final Hypothesis</caption>
+            <tbody>
+                <tr>
+                    <td id="final_hypo_data"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="studentData.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", e => {
+            const eles = {
+                generalData: document.getElementById("general_data"),
+                rqData: document.getElementById("rq_data"),
+                brmData: document.getElementById("brm_data"),
+                predictionData: document.getElementById("prediction_data"),
+                initialHypo: document.getElementById("initial_hypo"),
+                oppositeHypo: document.getElementById("opposite_hypo"),
+                finalHypo: document.getElementById("final_hypo"),
+                initialHypoData: document.getElementById("initial_hypo_data"),
+                oppositeHypoData: document.getElementById("opposite_hypo_data"),
+                finalHypoData: document.getElementById("final_hypo_data")
+            };
+            console.log(eles);
+            let classCode, studentID;
+            let queryString = document.location.search;
+            queryString = queryString.replace('?', '');
+            let parts = queryString.split('&');
+            if (parts && parts.length === 2) {
+                parts.forEach((part) => {
+                    let [key, value] = part.split('=');
+                    if ("classCode" === key) {
+                        classCode = value;
+                    } else if ("studentID" == key) {
+                        studentID = value;
+                    }
+                });
+            }
+            if (classCode && studentID) {
+                fetchStudentData(classCode, studentID)
+                .then((studData) => {
+                    console.log(studData);
+                    displayStudentData(studData, eles);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            } else {
+                // redirect to other page
+                let path = window.location.pathname.split('/');
+                path[path.length - 1] = 'excelDownload.html';
+                window.location.pathname = path.join('/');
+            }
+        });
+    </script>
+</body>
+
+</html>

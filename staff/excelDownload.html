@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Class Data Download</title>
+        <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
+        <!-- Loads our Firebase initializer -->
+        <script src="firebase.js"></script>
+         
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+         <!-- bootstrap CSS framework-->
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+             integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+             crossorigin="anonymous">
+        <!-- bootstrap js. not sure if this is needed -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+             crossorigin="anonymous"></script>
+        <!-- excel file library -->
+        <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.min.js"></script>
+        <!-- provides saveAs() to make file download easy-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"
+            integrity="sha256-FPJJt8nA+xL4RU6/gsriA8p8xAeLGatoyTjldvQKGdE=" crossorigin="anonymous"></script>
+        <script src="ontology.js"></script>
+    </head>
+    <body>
+        <h1>Class Data Download Page</h1>
+        <form>
+            <label>Class Code: <input type="input" id="class_code"></label>
+            <button id="display" type="button">Display Data</button>
+            <button id="download" type="button">Download Data as Excel File</button>
+        </form>
+        <table class="table table-condensed table-striped">
+            <thead>
+                <th>Student ID</th>
+                <th>Pre-Test Score</th>
+                <th>Condition</th>
+                <th>Status</th>
+            </thead>
+            <tbody id="table_body">
+
+            </tbody>
+        </table>
+        <script src="studentData.js"></script>
+        <script>
+            let displayButton = document.getElementById("display");
+            let downloadButton = document.getElementById("download");
+            let classCode = document.getElementById("class_code");
+            let tableBody = document.getElementById("table_body");
+
+            // event handlers
+            displayButton.addEventListener("click", e => {
+            e.preventDefault();
+            fetchClassData(classCode.value)
+            .then((allStudents) => {
+                // console.log(JSON.stringify(allStudents, null, 4));
+                console.log(allStudents);
+                displayStudents(allStudents);
+                // console.log('success');
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+
+            });
+        </script>
+    </body>
+</html>
