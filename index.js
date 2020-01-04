@@ -1,6 +1,10 @@
 // this is the index.js file, responsible for controlling the account registration system and launching the different modules
 /* global db, AdobeAn, createjs, stage, initHypoPage, getStudentCondition */
 
+
+// set to true for for hypo development
+const HYPO_DEV = false;
+
 // convenience function so I don't have to constantly
 // type document.getElementById()
 function getEleById(eleID) {
@@ -10,14 +14,19 @@ function getEleById(eleID) {
 let currentPage = "index-page";
 // commented out as I don't, as yet have a visually pleasing
 // sign-out button
-let collectionID; //= localStorage.getItem("collectionID");
-let userID; // = localStorage.getItem("userID");
+let collectionID; 
+let userID; 
+if (HYPO_DEV) {
+    collectionID = localStorage.getItem("collectionID");
+    userID = localStorage.getItem("userID");
+}
+
 let currModulePage = document.getElementById("module-page");
 let newModulePage = document.getElementById("module-page").cloneNode(true);
 
-// ==========================================================================================================
-// ========================================== Useful functions ==============================================
-// ==========================================================================================================
+// =============================================================================
+// ========================= Useful functions ==================================
+// =============================================================================
 
 function openPage(page) {
     document.getElementById(currentPage).style.display = "none";
@@ -346,13 +355,28 @@ function initTEDPage() {
         AdobeAn.compositionLoaded(lib.properties.id);
         fnStartAnimation();
     }
-
-
 }
 
-// ==========================================================================================================
-// ========================================== Event Listeners ===============================================
-// ==========================================================================================================
+function gotoHypoPage() {
+    getStudentCondition()
+    .then((condition) => {
+        if (condition) {
+            initHypoPage();
+            openPage("hypo-page");
+        } else {
+            openPage("home-page");
+            initHomePage();
+            showSnackbar('Sorry, you cannot proceed any further until your pre-test has been scored.');
+        }
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+}
+
+// =============================================================================
+// ================================= Event Listeners ===========================
+// =============================================================================
 
 document.getElementById("signin-button").addEventListener("click", e => {
     openPage("signin-page");
@@ -423,22 +447,7 @@ document.getElementById("rq-button").addEventListener("click", e => {
   init();
 });
 
-document.getElementById("hypo-button").addEventListener("click", e => {
-    getStudentCondition()
-    .then((condition) => {
-        if (condition) {
-            initHypoPage();
-            openPage("hypo-page");
-        } else {
-            openPage("home-page");
-            initHomePage();
-            showSnackbar('Sorry, you cannot proceed any further until your pre-test has been scored.');
-        }
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
-});
+document.getElementById("hypo-button").addEventListener("click", gotoHypoPage);
 
 document.getElementById("ted-button").addEventListener("click", e => {
   openPage("module-page");
@@ -465,8 +474,12 @@ document.getElementById("cancel-btn").addEventListener("click", e => {
 });
 
 if (collectionID && userID) {
-    openPage("home-page");
-    initHomePage()
+    if (HYPO_DEV) {
+        gotoHypoPage();
+    } else {
+        openPage("home-page");
+        initHomePage()
+    }
 } else {
     openPage("index-page");
 }
