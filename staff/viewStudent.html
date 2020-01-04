@@ -6,7 +6,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.1/firebase-firestore.js"></script>
     <!-- Loads our Firebase initializer -->
-    <script src="firebase.js"></script>
+    <script src="../firebase.js"></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -17,7 +17,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
     </script>
-    <script src="ontology.js"></script>
+    <script src="../ontology.js"></script>
+    <script src="../conditions.js"></script>
     <style>
         caption {
             text-align: center;
@@ -116,6 +117,132 @@
 
     <script src="studentData.js"></script>
     <script>
+
+        function displayStudentData(student, eles) {
+            eles.generalData.innerHTML = `
+            <tr>
+                <td>${student.studentID}</td>
+                <td>${student.preTestScore}</td>
+                <td>${student.condition}</td>
+                <td>${student.status}</td>
+            <tr>`;
+
+                eles.rqData.innerHTML = `
+            <tr>
+                <td>${student.areaOfScience}</td>
+                <td>${student.topic}</td>
+                <td>${student.researchQuestion}</td>
+            </tr>`;
+
+            eles.brmData.innerHTML = '';
+
+            for (let step of student.brm) {
+                let tr = document.createElement("tr");
+                let type = step.type.toLowerCase();
+                let selected = (step.selected !== undefined) ? step.selected : "";
+                let isCorrect = (step.isCorrect !== undefined) ? step.isCorrect : "";                
+                let title = ("LINK" === step.type) ? step.link : step.title;
+
+                tr.innerHTML = `
+                <td>${type}</td>
+                <td>${title}</td>
+                <td>${selected}</td>
+                <td>${isCorrect}</td>
+                `;
+                eles.brmData.appendChild(tr);
+            }
+
+            eles.predictionData.innerHTML = `
+            <tr>
+                <td>${student.firstPrediction}</td>
+                <td>${student.secondPrediction}</td>
+            </tr>`;
+
+            if (student.initialHypo) {
+                eles.initialHypo.classList.remove("hidden");
+                dispHypoTable(eles.initialHypoData, student.initialHypo);
+            }
+
+            if (student.oppositeHypo) {
+                eles.oppositeHypo.classList.remove("hidden");
+                dispHypoTable2(eles.oppositeHypoData, student.oppositeHypo);
+            }
+
+            if (student.finalHypo) {
+                eles.finalHypo.classList.remove("hidden");
+                dispHypoTable3(eles.finalHypoData, student.finalHypo);
+            }
+        }
+
+        function dispHypoTable(ele, hypoData) {
+            let nodesRow = document.createElement("tr");
+            let nodesRowHdr = document.createElement("th");
+            nodesRowHdr.innerHTML = "Node";
+            nodesRow.appendChild(nodesRowHdr);
+            hypoData.nodes.forEach((label, idx) => {
+            let el = document.createElement("td");
+                el.innerHTML = label; //+ "::" + hypoData.directions[idx];
+                nodesRow.appendChild(el);
+            });
+
+            let dirsRow = document.createElement("tr");
+            let dirsRowHdr = document.createElement("th");
+            dirsRowHdr.innerHTML = "Direction"
+            dirsRow.appendChild(dirsRowHdr);
+            hypoData.directions.forEach((dir) => {
+            let el = document.createElement("td");
+                el.innerHTML = dir;
+                dirsRow.appendChild(el);
+            });
+            let arrowsRow = document.createElement("tr");
+            let arrowsRowHdr = document.createElement("th");
+            arrowsRowHdr.innerHTML = "Arrow"
+            arrowsRow.appendChild(arrowsRowHdr);
+            hypoData.arrowLabels.forEach((lbl) => {
+            let el = document.createElement("td");
+                el.innerHTML = lbl;
+                arrowsRow.appendChild(el);
+            });
+            ele.appendChild(nodesRow);
+            ele.appendChild(dirsRow);
+            ele.appendChild(arrowsRow);
+        }
+
+        function dispHypoTable2(ele, hypoData) {
+            //nodes, directions, and arrowLabel arrays are the same length
+            hypoData.nodes.forEach((node, idx) => {
+                let arrow = hypoData.arrowLabels[idx];
+                let direction = hypoData.directions[idx];
+                let arrowRow = document.createElement("tr");
+                arrowRow.innerHTML = `
+                <td>Arrow</td>
+                <td>${arrow}</td>
+                `;
+                ele.appendChild(arrowRow);
+                let nodeRow = document.createElement("tr");
+                if (idx === hypoData.nodes.length - 1) {
+                    direction = `<b>Prediction: ${direction}</b>`;
+                }
+                nodeRow.innerHTML = `
+                <td>Node</td>
+                <td>${node} :: ${direction} </td>
+                `;
+                ele.appendChild(nodeRow);
+            });
+        }
+
+        function dispHypoTable3(ele, hypoData) {
+            let str = "";
+            //nodes, directions, and arrowLabel arrays are the same length
+            hypoData.nodes.forEach((node, idx) => {
+                let txt = ` &nbsp; -> ${hypoData.arrowLabels[idx]} -> &nbsp;`;
+                let direction = hypoData.directions[idx];
+                txt += `${node} :: ${direction}`
+                str += txt;
+            });
+            ele.innerHTML = str;
+        }
+
         document.addEventListener("DOMContentLoaded", e => {
             const eles = {
                 generalData: document.getElementById("general_data"),
@@ -129,7 +256,7 @@
                 oppositeHypoData: document.getElementById("opposite_hypo_data"),
                 finalHypoData: document.getElementById("final_hypo_data")
             };
-            console.log(eles);
+            // console.log(eles);
             let classCode, studentID;
             let queryString = document.location.search;
             queryString = queryString.replace('?', '');
@@ -156,7 +283,7 @@
             } else {
                 // redirect to other page
                 let path = window.location.pathname.split('/');
-                path[path.length - 1] = 'excelDownload.html';
+                path[path.length - 1] = 'viewClass.html';
                 window.location.pathname = path.join('/');
             }
         });
