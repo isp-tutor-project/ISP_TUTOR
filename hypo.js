@@ -989,12 +989,6 @@ function definitionPage10() {
     text1.y = 100;
     text1.lineWidth = 900;
     text1.lineHeight = 30;
-    // btw this text below is now in index.html
-    /*let text2 = new createjs.Text("• How often a city is hit by a hurricane and how often it floods\n\n• Margarine (butter) sales and divorce rate\n\n• Humidity and the amount of water in the air\n\n• How hard you push on an object and how much the object moves\n\n• Friction and how much resistance there is to motion on a surface", "18px Arial", "#000");
-    text2.x = 230;
-    text2.y = 200;
-    text2.lineHeight = 20;
-    text2.lineWidth = 600;*/
     let text3 = new createjs.Text("Reminder: Correlations and causes are different types of relationships.", "18px Arial", "#000");
     text3.x = 150;
     text3.y = 470;
@@ -1435,10 +1429,6 @@ function biDirInstructionPage3() {
     stage.update();
 }
 
-// function biDirInstructionPage4() {
-
-// }
-
 function brmPage() {
     stage.removeAllChildren();
     // add error field
@@ -1612,111 +1602,6 @@ function completePage() {
         console.error(error);
     });
 }
-// function conceptMapPage() {
-//     stage.removeAllChildren();
-//     // add error field
-//     errorField = new createjs.Container();
-//     errorField.y = 10;
-//     stage.addChild(errorField);
-//     // add text field
-//     textField = new createjs.Container();
-//     textField.x = CANVAS_WIDTH / 8;
-//     textField.y = CANVAS_HEIGHT / 16;
-//     let title = new createjs.Text("Concepts", "bold 16px Arial", "#000");
-//     title.x = CANVAS_WIDTH / 2 - textField.x;
-//     title.y = 20;
-//     title.textAlign = "center";
-//     let fieldBackground = new createjs.Shape();
-//     fieldBackground.graphics.setStrokeStyle(1).beginStroke("#000").drawRect(0, 0, CANVAS_WIDTH - 2 * textField.x, CANVAS_HEIGHT / 4 + 25);
-//     textField.addChild(title, fieldBackground);
-
-//     // increment for staggered bubbles
-//     let increment = 0;
-//     let buttonSize = 25;
-//     // this is to make the concepts panel
-//     let leftMargin = 30;
-//     let topMargin = 60;
-//     let rightMargin = 20 + buttonSize;
-//     let spacing = 35;
-//     for (let i = 0; i < nodes.length; i++) {
-//         let nodeText = new createjs.Text(nodes[i], "16px Arial", "#000");
-//         let plusButton;
-//         let xButton;
-//         if (i < 4) {
-//             nodeText.x = leftMargin;
-//             nodeText.y = topMargin + i * spacing;
-//             plusButton = createPlusButton(CANVAS_WIDTH * (3 / 8) - rightMargin - buttonSize - 1, nodeText.y - 5, buttonSize);
-//             xButton = createXButton(CANVAS_WIDTH * (3 / 8) - rightMargin, nodeText.y - 5, buttonSize);
-//         }
-//         else {
-//             nodeText.x = CANVAS_WIDTH / 2 - CANVAS_WIDTH / 8 + leftMargin;
-//             nodeText.y = topMargin + (i - 4) * spacing;
-//             plusButton = createPlusButton(CANVAS_WIDTH * (6 / 8) - rightMargin - buttonSize - 1, nodeText.y - 5, buttonSize);
-//             xButton = createXButton(CANVAS_WIDTH * (6 / 8) - rightMargin, nodeText.y - 5, buttonSize);
-//         }
-//         // fancy function closure trick below
-//         let storedBubble = null;
-//         plusButton.on("click", e => {
-//             if (storedBubble == null) {
-//                 let bubble = createBubble(CANVAS_WIDTH / 2 + increment, CANVAS_HEIGHT / 2 + increment, nodes[i], "#4286f4", "none");
-//                 bubble.idx = i;
-//                 steps.push({
-//                     action: "NODE_CREATE",
-//                     object: nodes[bubble.idx],
-//                     index: bubble.idx,
-//                     info: "N/A",
-//                     timestamp: (new Date()).toLocaleString()
-//                 });
-//                 storedBubble = bubble;
-//                 stage.addChild(bubble);
-//                 increment += 5;
-//             }
-//         });
-//         xButton.on("click", e => {
-//             if (storedBubble != null) {
-//                 for (let child of storedBubble.children) {
-//                     if (child.name == "inConnector" || child.name == "outConnector") {
-//                         removeArrowAndLabel(child.arrow);
-//                     }
-//                 }
-//                 stage.removeChild(storedBubble);
-//                 steps.push({
-//                     action: "NODE_DELETE",
-//                     object: nodes[storedBubble.idx],
-//                     index: storedBubble.idx,
-//                     info: "N/A",
-//                     timestamp: (new Date()).toLocaleString()
-//                 });
-//                 storedBubble = null;
-//             }
-//         });
-//         textField.addChild(nodeText, plusButton, xButton);
-//     }
-//     stage.addChild(textField);
-
-//     // adding IV bubble, DV bubble, and arrow
-//     let ivBubble = createFixedBubble(IV_X, IV_Y, capitalizeFirstLetter(iv), "#99bbff", "increase", false);
-//     let dvBubble;
-//     if (secondPrediction) {
-//         dvBubble = createFixedBubble(DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", "increase", true);
-//     }
-//     else {
-//         dvBubble = createFixedBubble(DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", "decrease", true);
-//     }
-//     let arrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2, ivBubble.y, dvBubble.x - BUBBLE_WIDTH / 2, dvBubble.y);
-
-//     let backButton = createButton(CANVAS_WIDTH * (1 / 8), CANVAS_HEIGHT * (7 / 8), "Back", BUTTON_COLOR);
-//     backButton.on("click", e => predictionPage2());
-//     stage.addChild(backButton);
-//     // verify button
-//     let verifyButton = createButton(CANVAS_WIDTH * (7 / 8), CANVAS_HEIGHT * (7 / 8), "Check", BUTTON_COLOR);
-//     verifyButton.on("click", e => verify(ivBubble));
-//     stage.addChild(ivBubble, dvBubble, arrow, verifyButton);
-//     stage.update();
-//     // stage handlers
-//     stage.on("stagemouseup", removePanel);
-//     stage.on("stagemouseup", removeErrorField);
-// }
 
 function initialConceptMapPlaceholder() {
     stage.removeAllChildren();
@@ -1738,7 +1623,6 @@ function conceptMapPage2(whichHypo) {
     // 2) steps for subsequent concept maps aren't merely appended
     steps = [];
     let hypoSaved = false;
-    let pageVersion = whichHypo;
     let prediction;
     if ("initial" === whichHypo) {
         prediction = firstPrediction;
@@ -2854,7 +2738,8 @@ function createFixedBubble(x, y, text, color, direction, isDV) {
 
     bubble.x = x;
     bubble.y = y;
-    bubble.name = "bubble";
+    bubble.name = "bubble"
+    // bubble.name = "fixed bubble";
     bubble.text = text;
     // this sets the registration point
     bubble.regX = BUBBLE_WIDTH / 2;
@@ -2963,6 +2848,7 @@ function createButton(x, y, text, color) {
     let button = new createjs.Container();
     button.x = x - BUTTON_WIDTH / 2;
     button.y = y - BUTTON_HEIGHT / 2;
+    button.name = `${label.text} button`;
     button.addChild(background, label);
     button.cursor = "pointer";
     button.mouseChildren = false;
