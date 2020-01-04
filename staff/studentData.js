@@ -1,6 +1,31 @@
 /*global db */
 let studIdRE = new RegExp(/^[A-Z]{4}_[A-Z]{3}_\d+$/);
 
+const ONTOLOGY = ontology._ONTOLOGY;
+
+const CONDITION_HYPOS = {
+    cond1: ["initialHypo", "finalHypo"],
+    cond2: ['initialHypo', "oppositeHypo", 'finalHypo'],
+    cond3: ['finalHypo']
+};
+
+function normalizeOntologyKey(key) {
+    key = key.replace(/_/g, '.');
+    key = key.replace('|', '.');
+    return key;
+}
+
+function lookupOntologyKey(path) {
+    path = normalizeOntologyKey(path);
+    var parts = path.split('.'),
+        rv,
+        index;
+    for (rv = ONTOLOGY, index = 0; rv && index < parts.length; ++index) {
+        rv = rv[parts[index]];
+    }
+    return rv;
+}
+
 const noCapitalizeWords = ['of', 'at', 'the']
 function titleCase(text) {
     text = text.toLowerCase();
@@ -38,32 +63,34 @@ function mungeStudentData(studentID, classCode, data) {
         researchQuestion: "Does the initial water temperature" + " " +
             "affect the weight of the crystal growth on a string in water after two weeks?"
     };
+    let areaOfScience = defaultRQ.areaOfScience;
+    let topic = defaultRQ.topic;
+    let researchQuestion = defaultRQ.researchQuestion;
     if (tmpRQ) {
         let tmp = JSON.parse(tmpRQ);
-        let keyStr = tmp.moduleState.selectedVariable.ontologyKey;
-        keyStr = keyStr.replace('|name', '');
-        let [_S, Akey, Tkey, Vkey] = keyStr.split('_');
-        Vkey = Vkey.replace('V', 'RQ');
-        // console.log(`A: ${Akey} T: ${Tkey} V: ${Vkey}`);
-        let ont = ontology["_ONTOLOGY"]["S"];
-        let areaOfScience = ont[Akey].nochoicearea;
-        let topic = titleCase(
-            ont[Akey][Tkey].wewillselect.replace("we will select the topic ", "")
-        );
-        let researchQuestion = ont[Akey][Tkey][Vkey].rqselected +
-            " " +  ont[Akey][Tkey].rqselectedall;
-        data.rqted = tmp;
-        data.areaOfScience = areaOfScience;
-        data.topic = topic;
-        data.researchQuestion = researchQuestion;
+        if (tmp.hasOwnProperty('moduleState')) {
+            let ms = tmp.moduleState;
+            let aosKey = ms.selectedArea.ontologyKey.replace('|name', '.nochoicearea');
+            let topicKey = ms.selectedTopic.ontologyKey.replace('|name', '.wewillselect');
+            let rqKey = ms.selectedRQ.ontologyKey + '.rqselected'
+            let rqKey2 = ms.selectedTopic.ontologyKey.replace('|name', '.rqselectedall');
+            areaOfScience = lookupOntologyKey(aosKey);
+            topic = titleCase(
+                lookupOntologyKey(topicKey)
+                .replace("we will select the topic ", "")
+            );
+            researchQuestion = lookupOntologyKey(rqKey) + ' ' + lookupOntologyKey(rqKey2);
+        }
+        data.rqted = tmp; // replace the jsonified rqted data with object
     } else {
         // FIXME. we want to set these default values for excel sheet, but
         // not when simply viewing user data, say for monitoring users
         data.rqted = {};
-        data.areaOfScience = defaultRQ.areaOfScience;
-        data.topic = defaultRQ.topic;
-        data.researchQuestion = defaultRQ.researchQuestion;
     }
+    data.areaOfScience = areaOfScience;
+    data.topic = topic;
+    data.researchQuestion = researchQuestion;
+
     if (tmpBrm) {
         data.brm = JSON.parse(tmpBrm);
     } else {
@@ -80,151 +107,7 @@ function mungeStudentData(studentID, classCode, data) {
     return data;
 }
 
-function dispHypoTable(ele, hypoData) {
-    let nodesRow = document.createElement("tr");
-    let nodesRowHdr = document.createElement("th");
-    nodesRowHdr.innerHTML = "Node";
-    nodesRow.appendChild(nodesRowHdr);
-    hypoData.nodes.forEach((label, idx) => {
-        let el = document.createElement("td");
-        el.innerHTML = label; //+ "::" + hypoData.directions[idx];
-        nodesRow.appendChild(el);
-    });
 
-    let dirsRow = document.createElement("tr");
-    let dirsRowHdr = document.createElement("th");
-    dirsRowHdr.innerHTML = "Direction"
-    dirsRow.appendChild(dirsRowHdr);
-    hypoData.directions.forEach((dir) => {
-        let el = document.createElement("td");
-        el.innerHTML = dir;
-        dirsRow.appendChild(el);
-    });
-    let arrowsRow = document.createElement("tr");
-    let arrowsRowHdr = document.createElement("th");
-    arrowsRowHdr.innerHTML = "Arrow"
-    arrowsRow.appendChild(arrowsRowHdr);
-    hypoData.arrowLabels.forEach((lbl) => {
-        let el = document.createElement("td");
-        el.innerHTML = lbl;
-        arrowsRow.appendChild(el);
-    });
-    ele.appendChild(nodesRow);
-    ele.appendChild(dirsRow);
-    ele.appendChild(arrowsRow);
-}
-
-function dispHypoTable2(ele, hypoData) {
-    //nodes, directions, and arrowLabel arrays are the same length
-    hypoData.nodes.forEach((node, idx) => {
-        let arrow = hypoData.arrowLabels[idx];
-        let direction = hypoData.directions[idx];
-        let arrowRow = document.createElement("tr");
-        arrowRow.innerHTML = `
-            <td>Arrow</td><td>${arrow}</td>
-        `;
-        ele.appendChild(arrowRow);
-        let nodeRow = document.createElement("tr");
-        if (idx === hypoData.nodes.length - 1) {
-            direction = `<b>Prediction: ${direction}</b>`;
-        }
-        nodeRow.innerHTML = `
-            <td>Node</td><td>${node} :: ${direction} </td>
-        `;
-        ele.appendChild(nodeRow);
-    });
-}
-
-function dispHypoTable3(ele, hypoData) {
-    let str = "";
-    //nodes, directions, and arrowLabel arrays are the same length
-    hypoData.nodes.forEach((node, idx) => {
-        let txt = ` &nbsp; -> ${hypoData.arrowLabels[idx]} -> &nbsp;`;
-        let direction = hypoData.directions[idx];
-        txt += `${node} :: ${direction}`
-        str += txt;
-    });
-    ele.innerHTML = str;
-    
-}
-function displayStudentData(student, eles) {
-    eles.generalData.innerHTML = `
-    <tr>
-        <td>${student.studentID}</td>
-        <td>${student.preTestScore}</td>
-        <td>${student.condition}</td>
-        <td>${student.status}</td>
-    <tr>`;
-
-    eles.rqData.innerHTML = `
-    <tr>
-        <td>${student.areaOfScience}</td>
-        <td>${student.topic}</td>
-        <td>${student.researchQuestion}</td>
-    </tr>`;
-
-    eles.brmData.innerHTML = '';
-
-    for (let step of student.brm) {
-        let tr = document.createElement("tr");
-        let type = step.type.toLowerCase();
-        let title;
-        let selected = (step.selected !== undefined) ? step.selected : "";
-        let isCorrect = (step.isCorrect !== undefined) ? step.isCorrect : "";
-        if ("LINK" === step.type) {
-            title = step.link;
-        } else {
-            title = step.title
-        }
-        tr.innerHTML = `
-        <td>${type}</td>
-        <td>${title}</td>
-        <td>${selected}</td>
-        <td>${isCorrect}</td>
-        `;
-        eles.brmData.appendChild(tr);
-    }
-
-    eles.predictionData.innerHTML = `
-    <tr>
-        <td>${student.firstPrediction}</td>
-        <td>${student.secondPrediction}</td>
-    </tr>`;
-
-    if (student.initialHypo) {
-        eles.initialHypo.classList.remove("hidden");
-        dispHypoTable(eles.initialHypoData, student.initialHypo);
-    }
-
-    if (student.oppositeHypo) {
-        eles.oppositeHypo.classList.remove("hidden");
-        dispHypoTable2(eles.oppositeHypoData, student.oppositeHypo);
-    }
-
-    if (student.finalHypo) {
-        eles.finalHypo.classList.remove("hidden");
-        dispHypoTable3(eles.finalHypoData, student.finalHypo);
-    }
-
-}
-
-function displayStudents(allStudents) {
-    tableBody.innerHTML = "";
-    allStudents.forEach((stud) => {
-        let tr = document.createElement('tr');
-        tr.innerHTML = `
-        <td>
-            <a href="viewStudentData.html?classCode=${stud.classCode}&studentID=${stud.studentID}">
-                ${stud.studentID}
-            </a>
-        </td>
-        <td>${stud.preTestScore}</td>
-        <td>${stud.condition}</td>
-        <td>${stud.status}</td>
-        `;
-        tableBody.appendChild(tr);
-    });
-}
 function fetchStudentData(classCode, studentID) {
     return db.collection(classCode).doc(studentID).get()
     .then((doc) => {
@@ -234,16 +117,179 @@ function fetchStudentData(classCode, studentID) {
 
 function fetchClassData(classCode) {
     return db.collection(classCode).get()
-        .then((snapshot) => {
-            let studentData = [];
-            snapshot.forEach((doc) => {
-                let studID = doc.id;
-                if (studIdRE.exec(studID)) {
-                    studentData.push(mungeStudentData(studID, classCode, doc.data()));
-                }
-            });
-            // console.log(studentData);
-            return studentData;
-    })
+    .then((snapshot) => {
+        let studentData = [];
+        snapshot.forEach((doc) => {
+            let studID = doc.id;
+            if (studIdRE.exec(studID)) {
+                studentData.push(mungeStudentData(studID, classCode, doc.data()));
+            }
+        });
+        // console.log(studentData);
+        return studentData;
+    });
 }
 
+function createStudentsWorkSheet(wb, allStudents) {
+    wb.SheetNames.push("Students")
+    let studentsSheetData = [];
+    let studentSheetHeader = [
+        'StudentID',
+        'Pre-Test Score',
+        'Condition',
+        'First Prediction',
+        'Second Prediction',
+        'Area Of Science',
+        'Topic',
+        'Research Question'
+    ];
+    studentsSheetData.push(studentSheetHeader);
+    allStudents.forEach((stud) => {
+        studentsSheetData.push([
+            stud.studentID,
+            stud.preTestScore,
+            stud.condition,
+            stud.firstPrediction,
+            stud.secondPrediction,
+            stud.areaOfScience,
+            stud.topic,
+            stud.researchQuestion
+        ]);
+    });
+    // console.log(studentsSheetData);
+    let ws = XLSX.utils.aoa_to_sheet(studentsSheetData);
+    wb.Sheets['Students'] = ws;
+}
+
+function createHypothesisWorkSheet(wb, sheetName, whichHypo, allStudents) {
+    const MAX_NUM_HYPO_NODES = 7;
+    wb.SheetNames.push(sheetName);
+    let hypoSheetData = [];
+    let hypoHeader = ['StudentID', 'prediction', 'predictionValue'];
+    let flds = ['nodes', 'arrowLabel', 'direction'];
+    flds.forEach((fld) => {
+        for (let i = 0; i < MAX_NUM_HYPO_NODES; i++) {
+            hypoHeader.push(`${fld}_${i+1}`);
+        }
+    });
+    hypoSheetData.push(hypoHeader);
+    allStudents.forEach((stud) => {
+        let nodes = new Array(7).fill("N/A", 0, 7);
+        let arrowLabels = new Array(7).fill("N/A", 0, 7);
+        let directions = new Array(7).fill("N/A", 0, 7);
+        let prediction = "N/A";
+        let predictionValue = "N/A";
+        if (stud.condition && CONDITION_HYPOS[stud.condition].includes(whichHypo)) {
+            if (stud[whichHypo]) {
+                let data = stud[whichHypo];
+                prediction = data.currentPrediction;
+                predictionValue = data.currentPredictionValue;
+                data.nodes.forEach((node, i) => {
+                    nodes[i] = node;
+                });
+                data.arrowLabels.forEach((arrow, i) => {
+                    arrowLabels[i] = arrow;
+                });
+                data.directions.forEach((dir, i) => {
+                    directions[i] = dir;
+                });
+            }
+            let studentRow = [
+                stud.studentID, prediction, predictionValue, ...nodes, ...arrowLabels, ...directions
+            ];
+            hypoSheetData.push(studentRow);
+        }
+    });
+    let ws = XLSX.utils.aoa_to_sheet(hypoSheetData);
+    wb.Sheets[sheetName] = ws;
+}
+
+function createHypothesisStepsWorkSheet(wb, sheetName, whichHypo, allStudents) {
+    wb.SheetNames.push(sheetName);
+    let sheetData = [];
+    let hypoStepsHeader = [
+        'StudentID',
+        'Action',
+        'Object',
+        'Index',
+        'Info',
+        'Timestamp'
+    ];
+    sheetData.push(hypoStepsHeader);
+    allStudents.forEach((stud) => {
+        if (stud.condition && CONDITION_HYPOS[stud.condition].includes(whichHypo)) {
+            let data = stud[whichHypo];
+            if (data) {
+                data.steps.forEach((step) => {
+                    sheetData.push([
+                        stud.studentID,
+                        step.action,
+                        step.object,
+                        step.index,
+                        step.info,
+                        step.timestamp
+                    ]);
+                });
+                // add a blank line between students
+                sheetData.push(new Array(6).fill("", 0, 6));
+            }
+        }
+    });
+
+    let ws = XLSX.utils.aoa_to_sheet(sheetData);
+    wb.Sheets[sheetName] = ws;
+}
+
+function createBRMWorkSheet(wb, allStudents) {
+    wb.SheetNames.push("BRM");
+    let brmSheetData = [];
+    brmHeader = ['StudentID', 'Type', 'Title', 'Selected', 'isCorrect'];
+    brmSheetData.push(brmHeader);
+    allStudents.forEach((stud) => {
+        if (stud.brm.length > 0) {
+            stud.brm.forEach((rec) => {
+                let recType = rec.type;
+                let rowData = new Array(5).fill("", 0, 5);
+                rowData[0] = stud.studentID;
+                rowData[1] = recType;
+                if ("LINK" === recType) {
+                    rowData[2] = rec.link;
+                } else if ("QUIZ" === recType) {
+                    rowData[2] = rec.title.replace(/\s+/g, " ").trimEnd();
+                    rowData[3] = rec.selected;
+                    rowData[4] = `${rec.isCorrect}`;
+                }
+                brmSheetData.push(rowData);
+            });
+            // put a blank row between students
+            brmSheetData.push(["", "", "", "", ""]);
+        }
+    });
+    let ws = XLSX.utils.aoa_to_sheet(brmSheetData);
+    wb.Sheets["BRM"] = ws;
+}
+
+function createExcelFile(allStudents) {
+    let wb = XLSX.utils.book_new();
+    createStudentsWorkSheet(wb, allStudents);
+    createBRMWorkSheet(wb, allStudents);
+    createHypothesisWorkSheet(wb, "Initial Hypothesis", "initialHypo", allStudents);
+    createHypothesisStepsWorkSheet(wb, "Initial Hypothesis Steps", "initialHypo", allStudents);
+    createHypothesisWorkSheet(wb, "Opposite Hypothesis", "oppositeHypo", allStudents);
+    createHypothesisStepsWorkSheet(wb, "Opposite Hypothesis Steps", "oppositeHypo", allStudents);
+    createHypothesisWorkSheet(wb, "Final Hypothesis", "finalHypo", allStudents);
+    createHypothesisStepsWorkSheet(wb, "Final Hypothesis Steps", "finalHypo", allStudents);
+    let wb_out = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+    return new Blob([s2ab(wb_out)],
+                    {type: 'application/octet-stream'});
+}
+
+// converts binary data to octet-stream
+function s2ab(s) {
+    var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    var view = new Uint8Array(buf); //create uint8array as viewer
+    for (var i = 0; i < s.length; i++) {
+        view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    }
+    return buf;
+}
