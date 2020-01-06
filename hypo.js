@@ -5,12 +5,25 @@
  * complain about all of these variables from other <script> tags
  * FIXME: We need a build system
  */
-
 /*global db, collectionID, userID, ontology, hypoOntology, showSnackbar */
 /*global createjs, openPage, initHomePage, getEleById */
 /*global getStudentCondition, initHypoTasks */
 /*global currHypoTask, prevHypoTask, nextHypoTask */
 
+// xxs, xs, sm, med, lg, xl, xxl
+// FONTS_arial = [ 12px, 14px_italic, 16px, 16px_bold, 18px, 20px, 22px, 22px_bold, 24px, 24px_bold, 28px, 32px,]
+// COLORS = [
+//     "#f4d041",
+//     "#000",
+//     "#FFFFFF",
+//     "#3769C2",
+//     "#5588EE",
+//     "#99bbff",
+//     "#2858a9",
+//     "#FFa500",
+//     "#4286f4",
+//     "#FFFFE0"
+// ];
 // to launch the first page after done loading. Other pages can 
 // be launched for convenient development.
 function handleFileComplete(event) {
@@ -312,6 +325,28 @@ function logPrediction(fldName, fldValue) {
     });
 }
 
+function getBubbleInfo(bub) {
+    return {
+        name: bub.name,
+        label: bub.text,
+        direction: bub.getChildByName("dirButton").direction,
+        x: bub.x,
+        y: bub.y
+    };
+}
+
+function getArrowInfo(arr, fromBubble, toBubble) {
+    return {
+        startX: arr.x,
+        startY: arr.y,
+        endX: arr.endX,
+        endY: arr.endY,
+        from: fromBubble.text,
+        to: toBubble.text,
+        labelText: arr.label.text
+    };
+}
+
 /*
  * saves a hypothesis (concept map) to firebase.  based on ones condition, there
  * may be more than one hypothesis, so there is a 'whichHypo' param
@@ -333,14 +368,19 @@ function logData2(ivBubble, whichHypo) {
     log.currentPrediction = currentPrediction;
     log.currentPredictionValue = currentPredictionValue;
     let notes = getEleById("notepad_notes");
+    // let bubbles = [];
+    // let arrows = [];
     let nodes = [];
     let arrowLabels = [];
     let directions = [];
+    bubbles.push(getBubbleInfo(ivBubble));
     let connector = ivBubble.outConnector;
     while (connector != null) {
         let arrow = connector.arrow;
         arrowLabels.push(arrow.label.text.replace("\n", " "));
         let nextBubble = arrow.connectorOver.parent;
+        // bubbles.push(getBubbleInfo(nextBubble));
+        // arrows.push(getArrowInfo(arrow, connector.parent, nextBubble));
         nodes.push(nextBubble.text);
         directions.push(nextBubble.getChildByName("dirButton").direction);
         connector = nextBubble.outConnector;
@@ -350,7 +390,10 @@ function logData2(ivBubble, whichHypo) {
     log.directions = directions;
     log.steps = steps;
     log.notes = notes.innerText;
-
+    // console.log('bubbles:');
+    // console.log(bubbles);
+    // console.log('arrows:')
+    // console.log(arrows);
     db.collection(collectionID).doc(userID).update({
         [`${whichHypo}Hypo`]: JSON.stringify(log)
     })
@@ -560,10 +603,10 @@ function raiseYourHand() {
         x: CANVAS_WIDTH / 2, y: 350, textAlign: "center"
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(image1, text1, text2, text3, text4, backButton, nextButton);
@@ -602,13 +645,13 @@ function definitionPage1() {
     });
     text.htmlElement.style.display = "block";
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => {
         text.htmlElement.style.display = "none";
         prevHypoTask();
     });
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         text.htmlElement.style.display = "none";
         nextHypoTask();
@@ -640,10 +683,10 @@ function definitionPage2() {
         x: (CANVAS_WIDTH / 2) - 40, y: image.y - 20
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(text, image, text2, backButton, nextButton);
@@ -680,10 +723,10 @@ function definitionPage3() {
         x: 200, y: 350
     });
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(text1, text2, image, backButton, nextButton);
@@ -706,10 +749,10 @@ function definitionPage4() {
         x: 200, y: 350
     });
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(text, image, backButton, nextButton);
@@ -759,10 +802,10 @@ function definitionPage5() {
         x: CANVAS_WIDTH / 2, y: 370, textAlign: "center"
     });
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     let images = [image1, image2, image3];
     let iteration = 0;
     nextButton.on("click", e => {
@@ -828,13 +871,13 @@ function definitionPage6() {
         x: 600, y: 440, scaleX: 0.5, scaleY: 0.5
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => {
         image1.htmlElement.style.display = "none";
         prevHypoTask();
     });
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -893,10 +936,10 @@ function definitionPage7() {
         x: 650, y: 300, scaleX: 0.7, scaleY: 0.7
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -966,10 +1009,10 @@ function definitionPage8() {
         x: 710, y: 450, scaleX: 0.4, scaleY: 0.4
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -1029,10 +1072,10 @@ function definitionPage9() {
         x: 660, y: 350, scaleX: 0.25, scaleY: 0.25
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     let iteration = 0;
     nextButton.on("click", e => {
         if (iteration == 0) {
@@ -1101,7 +1144,7 @@ function definitionPage10() {
         quiz.htmlElement.style.display = "none";
         quizQuestions.htmlElement.style.display = "none";
     }
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => {
         hideDOMOverlays();
         prevHypoTask();
@@ -1134,7 +1177,7 @@ function definitionPage10() {
         }
     });
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         hideDOMOverlays();
         nextHypoTask();
@@ -1166,9 +1209,8 @@ function instructionPage() {
         scaleX: 0.25 * 2 / PIXEL_RATIO, scaleY: 0.25 * 2 / PIXEL_RATIO
     });
     video.htmlElement.style.display = "block";
-    // document.getElementById("instruction_video_overlay").style.display = "block";
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => {
         let vid = document.getElementById("instruction_video_overlay");
         vid.style.display = "none";
@@ -1176,21 +1218,17 @@ function instructionPage() {
         prevHypoTask();
     });
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (!delayStarted) {
             updateErrorField(
                 "Please watch the tutorial video.", "24px Arial", "#000"
             );
-            nextButton.children[0].graphics
-            .beginFill("pink")
-            .drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_RADIUS);
+            nextButton.disable();
             delayStarted = true;
             setTimeout(() => {
                 delayAchieved = true;
-                nextButton.children[0].graphics
-                .beginFill("red")
-                .drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_RADIUS);
+                nextButton.enable();
             }, 20000);
         } else if (!delayAchieved) {
             console.log("still delaying");
@@ -1238,10 +1276,10 @@ function backToYourRQ() {
         textAlign: "center", lineHeight: 35, lineWidth: 700
     });
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
 
     stage.addChild(image1, text1, text2, backButton, nextButton);
@@ -1319,10 +1357,10 @@ function predictionPage1() {
         }
     }
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (chosenDVDirection === undefined) {
             updateErrorField(
@@ -1363,13 +1401,13 @@ function brmInstructionPage() {
     });
     vid.htmlElement.style.display = "block";
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => {
         vid.htmlElement.style.display = "none";
         predictionPage1();
     });
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         vid.htmlElement.style.display = "none";
         brmPage();
@@ -1411,10 +1449,10 @@ function graphPage1() {
     let image = getImageForPrediction(prediction);
     image.set({x: 400, y: 150});
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
 
     stage.addChild(text1, image, backButton, nextButton);
@@ -1450,10 +1488,10 @@ function graphPage2() {
         dvBubble.y
     );
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(
@@ -1483,10 +1521,10 @@ function biDirInstructionPage1() {
     let image2 = getImageForPrediction(oppositePrediction);
     image2.set({x: 400, y: 250});
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
 
     stage.addChild(image1, text1, image2, backButton, nextButton);
@@ -1514,10 +1552,10 @@ function biDirInstructionPage2() {
     let image2 = getImageForPrediction(oppositePrediction);
     image2.set({x: 400, y: 250});
     
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(image1, text1, image2, backButton, nextButton);
@@ -1554,10 +1592,10 @@ function biDirInstructionPage3() {
     let image2 = getImageForPrediction(oppositePrediction);
     image2.set({x: 400, y: 250});
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
 
     stage.addChild(image1, text1, text2, image2, backButton, nextButton);
@@ -1601,13 +1639,14 @@ function brmPage() {
         localStorage.setItem("isptutor_rq", getRQ());
         setTimeout(() => {
             brmBtnClicked = true;
+            nextButton.enable();
         }, 20000); 
     });
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (!brmBtnClicked) {
             updateErrorField(
@@ -1615,6 +1654,7 @@ function brmPage() {
                 "bold 22px Arial",
                 "#000"
             );
+            nextButton.disable();
         } else {
             nextHypoTask();
         }
@@ -1693,10 +1733,10 @@ function predictionPage2() {
             choice2.color = "#5588EE";
         }
     }
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (chosenDVDirection === undefined) {
             updateErrorField(
@@ -1774,10 +1814,10 @@ function initialConceptMapPlaceholder() {
         x: 50, y: 20, scaleX: 0.2, scaleY: 0.2
     });
 
-    let backButton = createLeftButton("Back")
+    let backButton = createBackButton();
     backButton.on("click", e => prevHypoTask());
     
-    let nextButton = createRightButton("Next")
+    let nextButton = createNextButton();
     nextButton.on("click", e => nextHypoTask());
     
     stage.addChild(image1, backButton, nextButton);
@@ -1809,7 +1849,7 @@ function conceptMapPage2(whichHypo) {
 
     // add text field
     textField = new createjs.Container();
-    textField.x = CANVAS_WIDTH / 8;
+    textField.x = CANVAS_WIDTH / 8 - 100;
     textField.y = CANVAS_HEIGHT / 16;
 
     let title = new createjs.Text(
@@ -1817,7 +1857,7 @@ function conceptMapPage2(whichHypo) {
         "bold 16px Arial",
         "#000"
     ).set({
-        x: (CANVAS_WIDTH / 2) - textField.x, y: 20, textAlign: "center"
+        x: (CANVAS_WIDTH / 2) - textField.x - 100, y: 20, textAlign: "center"
     });
 
     let fieldBackground = new createjs.Shape();
@@ -1825,7 +1865,7 @@ function conceptMapPage2(whichHypo) {
         .graphics
         .setStrokeStyle(1)
         .beginStroke("#000")
-        .drawRect(0, 0, CANVAS_WIDTH - 2 * textField.x, CANVAS_HEIGHT / 4 + 25);
+        .drawRect(0, 0, CANVAS_WIDTH - (2 * textField.x) - 200, CANVAS_HEIGHT / 4 + 25);
     textField.addChild(title, fieldBackground);
 
     // increment for staggered bubbles
@@ -1920,23 +1960,19 @@ function conceptMapPage2(whichHypo) {
 
     // add notebook (scrolling textarea)
     let notepad = new createjs.DOMElement("concept_map_notepad_overlay").set({
-        x: 258 * 2 / PIXEL_RATIO, y: 73 * 2 / PIXEL_RATIO,
+        x: (CANVAS_WIDTH /5) * 2 / PIXEL_RATIO, y: 25 * 2 / PIXEL_RATIO,
         scaleX: 0.2 * 2 / PIXEL_RATIO, scaleY: 0.2 * 2 / PIXEL_RATIO
     });
     notepad.htmlElement.style.display = "block";
     // clear any notes any previous arrivals on this page
     getEleById("notepad_notes").innerHTML = "";
     
-    // let rewatchVideoButton = createExtraLargeButton(502 * 2 / PIXEL_RATIO,
-    //                                                 64 * 2 / PIXEL_RATIO,
-    //                                                 "Re-\nwatch\nhow-to\nvideo",
-    //                                                 "#3769C2",
-    //                                                 BUTTON_WIDTH * 1.5,
-    //                                                 BUTTON_HEIGHT * 5,
-    //                                                 "");
-    // rewatchVideoButton.on("click", e => {
-    //    open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
-    // });
+    let rewatchVideoButton = createTextWidthButton(
+        CANVAS_WIDTH - 150, CANVAS_HEIGHT / 11, "Re-watch how-to video", "#2858a9"
+    );
+    rewatchVideoButton.on("click", e => {
+       open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
+    });
     
     // save Warning popup
     let saveWarning = new createjs.DOMElement("save_concept_map_overlay").set({
@@ -2002,7 +2038,7 @@ function conceptMapPage2(whichHypo) {
         cancelLeavePageBtn.removeEventListener("click", cancelLeavePageHandler);
     }
 
-    let backButton = createLeftButton("Back");
+    let backButton = createBackButton();
     backButton.on("click", e => {
         notepad.htmlElement.style.display = "none";
         if (hypoSaved) {
@@ -2013,7 +2049,7 @@ function conceptMapPage2(whichHypo) {
         }
     });
 
-    let nextButton = createRightButton("Next");
+    let nextButton = createNextButton();
     nextButton.on("click", e => {
         notepad.htmlElement.style.display = "none";
         clearDOMEventListeners();
@@ -2028,9 +2064,8 @@ function conceptMapPage2(whichHypo) {
         }
     });
 
-    // stage.addChild(rewatchVideoButton);
     stage.addChild(
-        errorField, textField, notepad,
+        errorField, textField, rewatchVideoButton, notepad,
         ivBubble, dvBubble, arrow,
         backButton, verifyButton,
         saveWarning, leavePageWarning
@@ -3217,6 +3252,8 @@ function createArrowButton(x, name, direction) {
     button.addChild(normal);
     button.cursor = 'pointer';
     button.mouseChildren = false;
+    button.mouseEnabled = true;
+
     button.on('mouseover', e => {
         button.removeAllChildren();
         button.addChild(hover);
@@ -3227,9 +3264,11 @@ function createArrowButton(x, name, direction) {
     });
     button.disable = () => {
         button.alpha = 0.5;
+        button.mouseEnabled = false;
     };
     button.enable = () => {
         button.alpha = 1.0;
+        button.mouseEnabled = true;
     }
     return button;
 }
@@ -3380,7 +3419,7 @@ function createCloseButton(x, y, buttonSize) {
     let label = new createjs.Text("x", "12px Arial", "#FFF").set({
         x: 0, y: 0, textAlign: "center", textBaseline: "middle"
     });
-    
+
     let button = new createjs.Container();
     button.x = x;
     button.y = y;
