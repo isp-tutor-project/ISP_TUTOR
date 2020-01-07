@@ -373,7 +373,7 @@ function logData2(ivBubble, whichHypo) {
     let nodes = [];
     let arrowLabels = [];
     let directions = [];
-    bubbles.push(getBubbleInfo(ivBubble));
+    // bubbles.push(getBubbleInfo(ivBubble));
     let connector = ivBubble.outConnector;
     while (connector != null) {
         let arrow = connector.arrow;
@@ -1946,6 +1946,24 @@ function conceptMapPage2(whichHypo) {
         textField.addChild(nodeText, plusButton, xButton);
     }
 
+    let rewatchVideoButton = createTextWidthButton(
+        CANVAS_WIDTH - 150, CANVAS_HEIGHT / 11, "Re-watch how-to video", "#2858a9"
+    );
+    rewatchVideoButton.on("click", e => {
+        open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
+    });
+
+    // add notebook (scrolling textarea)
+    let notepad = new createjs.DOMElement("concept_map_notepad_overlay").set({
+        x: (CANVAS_WIDTH / 5) * 2 / PIXEL_RATIO,
+        y: 25 * 2 / PIXEL_RATIO,
+        scaleX: 0.2 * 2 / PIXEL_RATIO,
+        scaleY: 0.2 * 2 / PIXEL_RATIO
+    });
+    notepad.htmlElement.style.display = "block";
+    // clear any notes any previous arrivals on this page
+    getEleById("notepad_notes").innerHTML = "";
+
     // adding IV bubble, DV bubble, and arrow
     let ivBubble = createFixedBubble(
         IV_X, IV_Y, capitalizeFirstLetter(iv), "#99bbff", "increase", false
@@ -1958,22 +1976,6 @@ function conceptMapPage2(whichHypo) {
                                      dvBubble.x - BUBBLE_WIDTH / 2,
                                      dvBubble.y);
 
-    // add notebook (scrolling textarea)
-    let notepad = new createjs.DOMElement("concept_map_notepad_overlay").set({
-        x: (CANVAS_WIDTH /5) * 2 / PIXEL_RATIO, y: 25 * 2 / PIXEL_RATIO,
-        scaleX: 0.2 * 2 / PIXEL_RATIO, scaleY: 0.2 * 2 / PIXEL_RATIO
-    });
-    notepad.htmlElement.style.display = "block";
-    // clear any notes any previous arrivals on this page
-    getEleById("notepad_notes").innerHTML = "";
-    
-    let rewatchVideoButton = createTextWidthButton(
-        CANVAS_WIDTH - 150, CANVAS_HEIGHT / 11, "Re-watch how-to video", "#2858a9"
-    );
-    rewatchVideoButton.on("click", e => {
-       open(window.location.origin + "/cptMapInstructionalVideo.html", "_blank");
-    });
-    
     // save Warning popup
     let saveWarning = new createjs.DOMElement("save_concept_map_overlay").set({
         x: 110 * 2 / PIXEL_RATIO, y: 70 * 2 / PIXEL_RATIO,
@@ -2049,12 +2051,6 @@ function conceptMapPage2(whichHypo) {
         }
     });
 
-    let nextButton = createNextButton();
-    nextButton.on("click", e => {
-        notepad.htmlElement.style.display = "none";
-        clearDOMEventListeners();
-        nextHypoTask();
-    });
     // verify button
     let verifyButton = createRightButton("Check");
     verifyButton.on("click", e => {
@@ -2064,16 +2060,25 @@ function conceptMapPage2(whichHypo) {
         }
     });
 
+    let nextButton = createNextButton();
+    nextButton.on("click", e => {
+        notepad.htmlElement.style.display = "none";
+        clearDOMEventListeners();
+        nextHypoTask();
+    });
+
     stage.addChild(
         errorField, textField, rewatchVideoButton, notepad,
         ivBubble, dvBubble, arrow,
         backButton, verifyButton,
         saveWarning, leavePageWarning
     );
-    stage.update();
+
     // stage handlers
     stage.on("stagemouseup", removePanel);
     stage.on("stagemouseup", removeErrorField);
+    stage.update();
+
     fetchPrevSavedHypo(whichHypo)
     .then((hypoData) => {
         if (null !== hypoData) {
@@ -2260,10 +2265,12 @@ function conceptMapPage3(whichHypo)
         console.error("invalid concept map version: ", whichHypo);
         return;
     }
+    let predictionStr = boolPredictionToString(prediction);
+
     stage.removeAllChildren();
     errorField = createErrorField();
     errorField.y = 10;
-    stage.addChild(errorField);
+
     let currentBubbles = [];
     let remindersTxt = new createjs.Text(
         "NOTE: ONLY include the concepts which you think are MOST closely related " +
@@ -2352,41 +2359,143 @@ function conceptMapPage3(whichHypo)
     let ivBubble = createFixedBubble(
         IV_X, IV_Y, capitalizeFirstLetter(iv), "#99bbff", "increase", false
     );
-    let dvDirection = true ? "increase" : "decrease";
     let dvBubble = createFixedBubble(
-        DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", dvDirection, true
+        DV_X, DV_Y, capitalizeFirstLetter(dvabb), "#99bbff", predictionStr, true
     );
-    let iv2dvArrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2,
-                                          ivBubble.y,
-                                          dvBubble.x - BUBBLE_WIDTH / 2,
-                                          dvBubble.y)
+    let arrow = createUnlabeledArrow(ivBubble.x + BUBBLE_WIDTH / 2,
+                                     ivBubble.y,
+                                     dvBubble.x - BUBBLE_WIDTH / 2,
+                                     dvBubble.y);
+
+    // save Warning popup
+    let saveWarning = new createjs.DOMElement("save_concept_map_overlay").set({
+        x: 110 * 2 / PIXEL_RATIO,
+        y: 70 * 2 / PIXEL_RATIO,
+        scaleX: 0.2 * 2 / PIXEL_RATIO,
+        scaleY: 0.2 * 2 / PIXEL_RATIO
+    });
+    let cancelSaveBtn = getEleById("cpt_map_cancel_save");
+    let saveBtn = getEleById("cpt_map_save");
+
+    function cancelSaveHandler() {
+        saveWarning.htmlElement.style.display = "none";
+    }
+
+    function saveHandler() {
+        saveWarning.htmlElement.style.display = "none";
+        logData2(ivBubble, whichHypo);
+        hypoSaved = true;
+        if ("initial" === whichHypo) {
+            firstPredictionLocked = true;
+            firstPredictionLockedReason = "You have already saved your hypothesis."
+        } else if ("final" === whichHypo) {
+            secondPredictionLocked = true;
+            secondPredictionLockedReason = "You have already saved your hypothesis."
+        }
+        stage.removeChild(verifyButton);
+        stage.addChild(nextButton);
+        updateErrorField(
+            "Please draw your concept map in your notebook before continuing",
+            "bold 22px Arial",
+            "#FFA500"
+        );
+        stage.update();
+    }
+
+    // back button leave page warning popup
+    let leavePageWarning = new createjs.DOMElement("leave_concept_map_overlay").set({
+        x: 110 * 2 / PIXEL_RATIO,
+        y: 70 * 2 / PIXEL_RATIO,
+        scaleX: 0.2 * 2 / PIXEL_RATIO,
+        scaleY: 0.2 * 2 / PIXEL_RATIO
+    });
+
+    let cancelLeavePageBtn = getEleById("cpt_map_cancel_leave_page");
+    let leavePageBtn = getEleById("cpt_map_leave_page");
+
+    function cancelLeavePageHandler() {
+        leavePageWarning.htmlElement.style.display = "none";
+    }
+
+    function leavePageHandler() {
+        leavePageWarning.htmlElement.style.display = "none";
+        clearDOMEventListeners();
+        prevHypoTask();
+    }
+
+    cancelSaveBtn.addEventListener('click', cancelSaveHandler);
+    saveBtn.addEventListener("click", saveHandler);
+    cancelLeavePageBtn.addEventListener('click', cancelLeavePageHandler);
+    leavePageBtn.addEventListener('click', leavePageHandler);
+
+    function clearDOMEventListeners() {
+        saveBtn.removeEventListener("click", saveHandler);
+        cancelSaveBtn.removeEventListener("click", cancelSaveHandler);
+        leavePageBtn.removeEventListener("click", leavePageHandler);
+        cancelLeavePageBtn.removeEventListener("click", cancelLeavePageHandler);
+    }
+
     let backButton = createBackButton();
-    // verify button
+    backButton.on("click", e => {
+        notepad.htmlElement.style.display = "none";
+        if (hypoSaved) {
+            clearDOMEventListeners();
+            prevHypoTask();
+        } else {
+            leavePageWarning.htmlElement.style.display = "block";
+        }
+    });
+
     let verifyButton = createRightButton("Check", "#2858a9");
     verifyButton.on("click", e => {
         if (verifyConceptMap(ivBubble)) {
             // if everything is ok, show the save warning popup
-            // saveWarning.htmlElement.style.display = "block";
-            console.log("verified");
-            stage.removeChild(verifyButton);
-            stage.addChild(nextButton);
+            saveWarning.htmlElement.style.display = "block";
+            // console.log("verified");
+            // stage.removeChild(verifyButton);
+            // stage.addChild(nextButton);
         } else {
             console.log("verification failed");
         }
     });
+
     let nextButton = createNextButton();
+    nextButton.on("click", e => {
+        notepad.htmlElement.style.display = "none";
+        clearDOMEventListeners();
+        nextHypoTask();
+    });
 
     stage.addChild(
-        cptsButton,
-        rewatchVideoButton,
+        errorField,
         remindersTxt,
-        notepad,
-        ivBubble, dvBubble, iv2dvArrow,
-        backButton, verifyButton
+        cptsButton, rewatchVideoButton, notepad,
+        ivBubble, dvBubble, arrow,
+        backButton, verifyButton,
+        saveWarning, leavePageWarning
     );
     stage.on("stagemouseup", removePanel);
     stage.on("stagemouseup", removeErrorField);
     stage.update();
+
+    fetchPrevSavedHypo(whichHypo)
+    .then((hypoData) => {
+        if (null !== hypoData) {
+            hypoSaved = true;
+            stage.removeChild(verifyButton);
+            stage.addChild(nextButton);
+            stage.update();
+            updateErrorField(
+                "Your hypothesis has already been saved. You can not make any changes.",
+                "22px Arial",
+                "#000"
+            );
+            // rehydrateHypothesis(hypoData, ivBubble, dvBubble);
+        }
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
 }
 
 
