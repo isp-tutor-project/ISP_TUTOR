@@ -641,7 +641,8 @@ function startPage() {
 function definitionPage1() {
     stage.removeAllChildren();
     let text = new createjs.DOMElement("start_page_overlay").set({
-        x: 50, y: 20
+        x: 20 * 2 / PIXEL_RATIO, y: 10 * 2 / PIXEL_RATIO,
+        scaleX: 0.6 * 2 / PIXEL_RATIO, scaleY: 0.6 * 2 / PIXEL_RATIO
     });
     text.htmlElement.style.display = "block";
 
