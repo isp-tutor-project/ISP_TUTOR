@@ -1789,7 +1789,7 @@ function fetchPrevSavedHypo(whichHypo) {
 }
 
 function initialConceptMap() {
-    conceptMapPage2("initial");
+    conceptMapPage3("initial");
 }
 
 function oppositeDirectionConceptMap() {
