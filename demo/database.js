@@ -1,81 +1,154 @@
 
 // NOTE: this API must use promises to be compatible with any db
 // we may be using, which may be either sync or async
-function DB() {
+class Database {
 
-    this.getUserInfo = function() {
-        let data = {
-            condition: "cond1"
-        };
-        this.getJSONValue("rqted")
-        .then((rqted) => {
-            if (rqted) {
-                data.rqted = rqted;
-            } else {
-                data.rqted = {
-                    moduleState: {
-                        selectedArea: {
-                            index: 1
-                        },
-                        selectedTopic: {
-                            index: 1
-                        },
-                        selectedVariable: {
-                            index: 1
-                        },
-                        selectedRQ: {
-                            index: 1
-                        }
-                    }
-                };
+    constructor(classCode, userID) {
+        Promise.all([
+            this.saveValue("classCode", classCode),
+            this.saveValue("userID", userID),
+            this.saveValue("condition", "cond1")
+        ]).then(([result1, result2, result3]) => { });
+    }
+    
+    getUserData() {
+        let data = {};
+        return Promise.all([
+            this.getTextValue("classCode"),
+            this.getTextValue("userID"),
+            this.getTextValue("condition"),
+            this.getRQData(),
+            this.getIntialHypoData(),
+            this.getFinalHypoData()
+        ]).then(([ccRes, uidRes, condRes, rqRes, ihRes, fhRes]) => {
+            data.classCode = ccRes;
+            data.userID = uidRes;
+            data.condition = condRes;
+            data.rqted = rqRes;
+            if (ihRes) {
+                data.firstPrediction = ihRes.firstPrediction;
+                data.initialHypo = ihRes.initialHypo;
             }
-        })
-        this.getTextValue("firstPrediction")
-        .then((pred1) => {
-            data.firstPrediction = pred1;
-        })
-        .catch()
-        .then(() => this.getJSONValue("initialHypo"))
-        .then((initHypo) => {
-            data.initialHypo = initHypo;
-        })
-        .catch()
-        .then(() => this.getTextValue("secondPrediction"))
-        .then((pred2) => {
-            data.secondPrediction = pred2;
-        })
-        .catch()
-        .then(() => this.getJSONValue("finalHypo"))
-        .then((finalHypo) => {
-            data.finalHypo = finalHypo;
-        })
-        .catch();
+            if (fhRes) {
+                data.secondPrediction = fhRes.secondPrediction;
+                data.finalHypo = fhRes.finalHypo;
+            }
+            return data;
+        });
+        // let moduleData = data.rqted.moduleState;
+
+        //     let area = moduleData['selectedArea']['index'];
+        //     let topic = moduleData['selectedTopic']['index'];
+        //     let variable = moduleData['selectedVariable']['index'];
+        //     // ontology stuff
+        //     let ontologyTopic = ontology['_ONTOLOGY']['S']['A' + area]['T' + topic];
+        //     let iv = ontologyTopic['enumValue' + variable];
+        //     let dv = ontologyTopic['DVs'];
+        //     let dvabb = ontologyTopic['DVabb'];
+        //     let hypoOntologyTopic = hypoOntology['A' + area]['T' + topic]['V' + variable];
+        //     if (hypoOntologyTopic['IV'] != "") {
+        //         iv = hypoOntologyTopic['IV'];
+        //     }
+        //     if (hypoOntologyTopic['DV'] != "") {
+        //         dv = hypoOntologyTopic['DV'];
+        //     }
+        //     if (hypoOntologyTopic['DVabb'] != "") {
+        //         dvabb = hypoOntologyTopic['DVabb'];
+        //     }
+        //     nodes = hypoOntologyTopic['NODES'];
+        //     console.log(area + "," + topic + "," + variable);
+        //     console.log(hypoOntologyTopic)
+        //     console.log(nodes);
+        //     nodes[-2] = iv;
+        //     nodes[-1] = dvabb;
+        //     causes = hypoOntologyTopic['CAUSES'];
+        //     data.iv = iv;
+        //     data.dv = dv;
+        //     data.dvabb = dvabb;
+        //     data.nodes = nodes;
+        //     data.causes = causes;        
     }
 
-    this.saveValue = function (varName, value) {
+    getRQData() {
+        let retVal;
+        
+        return this.getJSONValue("rqted")
+            .then((rqted) => {
+                if (rqted) {
+                    retVal = rqted;
+                } else {
+                    retVal = {
+                        moduleState: {
+                            selectedArea: { index: 1 },
+                            selectedTopic: { index: 1 },
+                            selectedVariable: { index: 1 },
+                            selectedRQ: { index: 1 }
+                        }
+                    };
+                }
+                return retVal;
+            })
+            .catch((err) => {
+                console.error(err);
+                return retVal;
+            });
+    }
+
+    getIntialHypoData() {
+        let data = {};
+        this.getTextValue("firstPrediction")
+            .then((pred1) => {
+                data.firstPrediction = pred1;
+                return this.getJSONValue("initialHypo");
+            })
+            .then((initHypo) => {
+                data.initialHypo = initHypo;
+                return data;
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
+
+    getFinalHypoData() {
+        let data = {};
+        return this.getTextValue("secondPrediction")
+            .then((pred2) => {
+                data.secondPrediction = pred2;
+                return this.getJSONValue("finalHypo");
+            })
+            .then((hypo2) => {
+                data.finalHypo = hypo2;
+                return data;
+            })
+            .catch((err) => {
+                console.error(err);
+                return data;
+            });
+    }
+
+    saveValue(varName, value) {
         return new Promise((resolve, reject) => {
             try {
-                localStorage.setItem(varName, value);
-                resolve(value);
+                resolve(localStorage.setItem(varName, value));
             } catch(err) {
                 reject(err);
             }
         })
-    };
+    }
 
-    this.saveJSONValue = function(varName, object) {
+    saveJSONValue(varName, object) {
         return new Promise((resolve, reject) => {
             try {
                 let value = JSON.stringify(object);
-                localStorage.setItem(varName, value);
-                resolve(object);
+                resolve(localStorage.setItem(varName, value));
             } catch(err) {
                 reject(err);
             }
         });
-    };
+    }
 
-    this.getBoolValue = function(varName) {
+    getBoolValue(varName) {
         return new Promise((resolve, reject) => {
             try {
                 let value = localStorage.getItem(varName);
@@ -93,26 +166,43 @@ function DB() {
         });
     }
 
-    this.getIntValue = function(varName) {
+    getIntValue(varName) {
+        let retVal;
         return new Promise((resolve, reject) => {
             try {    
                let value = localStorage.getItem(varName);
                 if (value) {
-                    value = parseInt(value, 10);
+                    retVal = parseInt(value, 10);
                 }
-                resolve(value);
+                resolve(retVal);
             } catch(err) {
                 reject(err);
             }
         });
-    };
+    }
 
-    this.getFloatValue = function(varName) {
+    getFloatValue(varName) {
+        let retVal;
         return new Promise((resolve, reject) => {
             try {    
                 let value = localStorage.getItem(varName);
                 if (value) {
-                    value = parseFloat(value);
+                    retVal = parseFloat(value);
+                }
+                resolve(retVal);
+            } catch(err) {
+                reject(err);
+            }
+        });
+    }
+
+    getTextValue(varName) {
+        let retVal;
+        return new Promise((resolve, reject) => {
+            try {    
+                let value = localStorage.getItem(varName);
+                if (value) {
+                    retVal = value;
                 }
                 resolve(value);
             } catch(err) {
@@ -121,18 +211,7 @@ function DB() {
         });
     };
 
-    this.getTextValue = function(varName) {
-        return new Promise((resolve, reject) => {
-            try {    
-                let value = localStorage.getItem(varName);
-                resolve(value);
-            } catch(err) {
-                reject(err);
-            }
-        });
-    };
-
-    this.getJSONValue = function(varName) {
+    getJSONValue(varName) {
         return new Promise((resolve, reject) => {
             try {    
                 let value = localStorage.getItem(varName);
@@ -144,7 +223,8 @@ function DB() {
                 reject(err);
             }
         });
-    };
-}
+    }
+};
 
-let db = DB();
+let db = new Database("BOGUS_CLASS", "BOGUS_STUDENT");
+
