@@ -6,8 +6,8 @@
  * FIXME: We need a build system
  */
 /*global db, collectionID, userID, ontology, hypoOntology, showSnackbar */
-/*global createjs, openPage, initHomePage, getEleById */
-/*global getStudentCondition, initHypoTasks */
+/*global createjs */
+/*global initHypoTasks */
 /*global currHypoTask, prevHypoTask, nextHypoTask */
 
 // xxs, xs, sm, med, lg, xl, xxl
@@ -28,7 +28,9 @@
 // be launched for convenient development.
 function handleFileComplete(event) {
     // determines the student's next page and launches it
-    initHypoTasks();
+    // calls initHypoTasks
+    loadData();
+    // initHypoTasks();
     /*
     * alternatively, when in development, you can comment that out
     * and jump directly to a particular page,
@@ -195,25 +197,22 @@ let causes = CAUSES;
 
 // true corresponds to "increasing" and false corresponds to "decreasing"
 // FIXME: Scott's not sure this makes sense.  Basically both predictions
-// have a value of "increasing" prior to the student doing anything
-let firstPrediction = true;
-let secondPrediction = true;
+// end up with a value of "increasing" prior to the student doing anything
+let firstPrediction; //= true;
+let secondPrediction; //= true;
 
-// The following vars were added by Scott as we wanted to both display what
+// The following state vars were added by Scott as we wanted to both display what
 // the user previously selected when they return to the page via a back button
 // and if the user had saved a subsequent concept map, no longer allow them
 // to change the prediction they made beforehand.answered
 
 // if true, will highlight the current value, but still let you change it
-let firstPredictionSaved = false;
 // if this gets set to true, you will not be able to change the first prediction
-let firstPredictionLocked = false;
-let firstPredictionLockedReason;
+let initialHypoLocked;
+let initialHypoLockedReason = "";
 // ditto for the second prediction
-let secondPredictionSaved = false;
-let secondPredictionLocked = false;
-let secondPredictionLockedReason;
-
+let finalHypoLocked;
+let finalHypoLockedReason = "";
 // ============================================================================
 // ================================= Firebase =================================
 // ============================================================================
@@ -250,6 +249,12 @@ let secondPredictionLockedReason;
 function loadData() {
     db.getUserData()
     .then((userData) => {
+        // console.log("loadData", userData);
+        firstPrediction = userData.firstPrediction;
+        initialHypoLocked = userData.initialHypo !== null;
+        secondPrediction = userData.secondPrediction;
+        finalHypoLocked = userData.finalHypo !== null;
+        
         let moduleData = userData.rqted.moduleState;
         let area = moduleData['selectedArea']['index'];
         let topic = moduleData['selectedTopic']['index'];
@@ -270,14 +275,27 @@ function loadData() {
         if (hypoOntologyTopic['DVabb'] != "") {
             dvabb = hypoOntologyTopic['DVabb'];
         }
+        causes = hypoOntologyTopic['CAUSES'];
         nodes = hypoOntologyTopic['NODES'];
-        console.log(area + "," + topic + "," + variable);
-        console.log(hypoOntologyTopic)
-        console.log(nodes);
         nodes[-2] = iv;
         nodes[-1] = dvabb;
-        causes = hypoOntologyTopic['CAUSES'];
-    });
+
+        console.log(`
+        firstPrediction: ${firstPrediction}
+        initialHypoLocked: ${initialHypoLocked}
+        secondPrediction: ${secondPrediction}
+        finalHypoLocked: ${finalHypoLocked}
+        iv: ${iv}
+        dv: ${dv}
+        dvabb: ${dvabb}
+        nodes: ${nodes}
+        causes: ${causes}
+        `);
+        // console.log(area + "," + topic + "," + variable);
+        // console.log(hypoOntologyTopic)
+        
+        return initHypoTasks(userData);
+    })
 }
 
 // because firstPrediction and secondPrediction are bools where
@@ -442,7 +460,7 @@ const pageNamesToFunctions = {
 // init is the first function to be called
 function initHypoPage() {
     // load IV and DV from firebase, if available
-    loadData();
+    // loadData();
     // used to create a higher resolution canvas
     let createHiPPICanvas = function (w, h, ratio) {
         let can = document.getElementById("hypo-canvas");
@@ -611,16 +629,17 @@ function raiseYourHand() {
 function startPage() {
     stage.removeAllChildren();
     let text = new createjs.Text(
-        "Welcome to the ISP Tutor's Hypothesis module." +
-        "\n\n" +
-        "Before you start working on your hypothesis for your research " +
-        "question, we will first define some important terms.",
+        "Welcome to the ISP Tutor's Hypothesis module.",
         "28px Arial ", 
         "#000"
     ).set({
         x: (CANVAS_WIDTH / 2) + 20, y: 80,
         textAlign: "center", lineWidth: 700, lineHeight: 35
     });
+    // "\n\n" +
+    //     "Before you start working on your hypothesis for your research " +
+    //     "question, we will first define some important terms.",
+
 
     let image1 = new createjs.Bitmap(queue.getResult("TeacherPointing")).set({
         x: 40, y: 80
@@ -1165,9 +1184,10 @@ function definitionPage10() {
         }
         // testing if all answers are correct
         if (quizQuestions.htmlElement.reportValidity()) {
-            updateErrorField("Your answers are all correct. Click Next to move on.",
-                "16px Arial",
-                "green");
+            showSnackbar("Your answers are all correct. Click Next to move on.");
+            // updateErrorField ("Your answers are all correct. Click Next to move on.",
+            //     "16px Arial",
+            //     "green");
             stage.removeChild(verifyButton);
             stage.addChild(nextButton);
         }
@@ -1217,9 +1237,10 @@ function instructionPage() {
     let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (!delayStarted) {
-            updateErrorField(
-                "Please watch the tutorial video.", "24px Arial", "#000"
-            );
+            showSnackbar("Please watch the tutorial video.");
+            // updateErrorField(
+            //     "Please watch the tutorial video.", "24px Arial", "#000"
+            // );
             nextButton.disable();
             delayStarted = true;
             setTimeout(() => {
@@ -1319,11 +1340,12 @@ function predictionPage1() {
     if (firstPredictionLocked) {
         // display message that they cannot change the value and
         // don't setup the click handlers
-        updateErrorField(
-            firstPredictionLockedReason + " You cannot change your prediction.",
-            "22px Arial",
-            '#000'
-        );
+        showSnackbar(firstPredictionLockedReason + " You cannot change your prediction.");
+        // updateErrorField(
+        //     firstPredictionLockedReason + " You cannot change your prediction.",
+        //     "22px Arial",
+        //     '#000'
+        // );
     } else {
         generateHitAreaCenterAlignment(choice1);
         choice1.on("click", e => {
@@ -1359,11 +1381,12 @@ function predictionPage1() {
     let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (chosenDVDirection === undefined) {
-            updateErrorField(
-                'Please select either "Increase" or "Decrease".',
-                "16px Arial",
-                "#000"
-            );
+            showSnackbar('Please select either "Increase" or "Decrease".');
+            // updateErrorField(
+            //     'Please select either "Increase" or "Decrease".',
+            //     "16px Arial",
+            //     "#000"
+            // );
         } else {
             firstPrediction = chosenDVDirection;
             logPrediction("firstPrediction", firstPrediction)
@@ -1645,11 +1668,12 @@ function brmPage() {
     let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (!brmBtnClicked) {
-            updateErrorField(
-                "Please click on the 'Go to Background Research website' button",
-                "bold 22px Arial",
-                "#000"
-            );
+            showSnackbar("Please click on the 'Go to Background Research website' button");
+            // updateErrorField(
+            //     "Please click on the 'Go to Background Research website' button",
+            //     "bold 22px Arial",
+            //     "#000"
+            // );
             nextButton.disable();
         } else {
             nextHypoTask();
@@ -1662,7 +1686,13 @@ function brmPage() {
 
 function predictionPage2() {
     stage.removeAllChildren();
-
+    let secondPredictionSet = secondPrediction !== null;
+    // console.log(`predictionPage2:
+    // secondPrediction: ${secondPrediction}
+    // secondPredictionSet: ${secondPredictionSet}
+    // finalHypoLocked: ${finalHypoLocked}
+    // `);
+    
     // add error field
     errorField = new createjs.Container();
     errorField.y = 10;
@@ -1695,38 +1725,44 @@ function predictionPage2() {
         x: CANVAS_WIDTH / 2, y: choice1.y + 30, textAlign: "center"
     });
 
-    if (secondPredictionLocked) {
+    function setIncreaseColors() {
+        choice1.color = "#5588EE";
+        choice2.color = "#000";
+    }
+
+    function setDecreaseColors() {
+        choice1.color = "#000";
+        choice2.color = "#5588EE";
+    }
+
+    if (finalHypoLocked) {
         // display message and don't add event listeners
-        updateErrorField(
-            secondPredictionLockedReason + " You cannot change your prediction.",
-            "22px Arial",
-            "#000"
-        );
+        showSnackbar("You have already saved your hypothesis and cannot change your prediction.");
+        // updateErrorField(
+        //     "You have already saved your hypothesis and cannot change your prediction.",
+        //     "22px Arial",
+        //     "#000"
+        // );
     } else {
         generateHitAreaCenterAlignment(choice1);
         choice1.on("click", e => {
-            choice1.color = "#5588EE";
-            choice2.color = "#000";
-            chosenDVDirection = true;
-            console.log(choice1);
+            setIncreaseColors();
+            chosenDVDirection = "increase";
         });
         generateHitAreaCenterAlignment(choice2);
         choice2.on("click", e => {
-            choice1.color = "#000";
-            choice2.color = "#5588EE";
-            chosenDVDirection = false;
+            setDecreaseColors();
+            chosenDVDirection = "decrease";
         });
     }
-    if (secondPredictionSaved) {
+    if (secondPredictionSet) {
         // set chosenDVDirection to the value of secondPrediction and
         chosenDVDirection = secondPrediction;
         // set the choices to the appropriate colors based on the saved value  
-        if (secondPrediction) {
-            choice1.color = "#5588EE";
-            choice2.color = "#000";
+        if ("increase" === secondPrediction) {
+            setIncreaseColors();
         } else {
-            choice1.color = "#000";
-            choice2.color = "#5588EE";
+            setDecreaseColors();
         }
     }
     let backButton = createBackButton();
@@ -1735,22 +1771,19 @@ function predictionPage2() {
     let nextButton = createNextButton();
     nextButton.on("click", e => {
         if (chosenDVDirection === undefined) {
-            updateErrorField(
-                'Please select either "Increase" or "Decrease".',
-                "16px Arial",
-                "#000"
-            );
+            showSnackbar('Please select either "Increase" or "Decrease".');
+            // updateErrorField(
+            //     'Please select either "Increase" or "Decrease".',
+            //     "16px Arial",
+            //     "#000"
+            // );
         } else {
             secondPrediction = chosenDVDirection;
-            // db.collection(collectionID).doc(userID).update({
-            //     secondPrediction: boolPredictionToString(secondPrediction)
-            // })
             logPrediction("secondPrediction", secondPrediction)
             .then(() => {
-                secondPredictionSaved = true;
-                if (!firstPredictionLocked) {
-                    firstPredictionLocked = true;
-                    firstPredictionLockedReason = "You have already saved your second prediction.";
+                if (!initialHypoLocked) {
+                    initialHypoLocked = true;
+                    initialHypoLockedReason = "You have already saved your second prediction.";
                 }
                 nextHypoTask();
             })
@@ -1768,14 +1801,9 @@ function predictionPage2() {
 
 function fetchPrevSavedHypo(whichHypo) {
     let hypoData = null;
-    // return db.collection(collectionID).doc(userID).get()
     return db.getUserData()
     .then((data) => {
-        // let data = doc.data();
         let hypoData = data[`${whichHypo}Hypo`];
-        // if (undefined !== hypoDataStr) {
-        //     hypoData = JSON.parse(hypoDataStr);
-        // }
         return hypoData;
     })
     .catch(function (error) {
@@ -1789,19 +1817,15 @@ function initialConceptMap() {
 }
 
 function oppositeDirectionConceptMap() {
-    conceptMapPage2("opposite");
+    conceptMapPage3("opposite");
 }
 
 function finalConceptMap() {
-    conceptMapPage2("final");
+    conceptMapPage3("final");
 }
 
 function completePage() {
     getEleById('completion-overlay').style.display = "block";
-    
-    // db.collection(collectionID).doc(userID).update({
-    //     currTutorNdx: 2
-    // })
     db.saveValue("currTutorNdx", 2)
     .catch(function(error) {
         console.error(error);
@@ -2001,11 +2025,12 @@ function conceptMapPage2(whichHypo) {
         }
         stage.removeChild(verifyButton);
         stage.addChild(nextButton);
-        updateErrorField(
-            "Please draw your concept map in your notebook before continuing",
-            "bold 22px Arial",
-            "#FFA500"
-        );
+        showSnackbar("Please draw your concept map in your notebook before continuing");
+        // updateErrorField(
+        //     "Please draw your concept map in your notebook before continuing",
+        //     "bold 22px Arial",
+        //     "#FFA500"
+        // );
         stage.update();
     }
     
@@ -2086,11 +2111,12 @@ function conceptMapPage2(whichHypo) {
             stage.removeChild(verifyButton);
             stage.addChild(nextButton);
             stage.update();
-            updateErrorField(
-                "Your hypothesis has already been saved. You can not make any changes.",
-                "22px Arial",
-                "#000"
-            );
+            showSnackbar("Your hypothesis has already been saved. You can not make any changes.");
+            // updateErrorField(
+            //     "Your hypothesis has already been saved. You can not make any changes.",
+            //     "22px Arial",
+            //     "#000"
+            // );
             // rehydrateHypothesis(hypoData, ivBubble, dvBubble);
         }
     })
@@ -2394,11 +2420,12 @@ function conceptMapPage3(whichHypo)
         }
         stage.removeChild(verifyButton);
         stage.addChild(nextButton);
-        updateErrorField(
-            "Please draw your concept map in your notebook before continuing",
-            "bold 22px Arial",
-            "#FFA500"
-        );
+        showSnackbar("Please draw your concept map in your notebook before continuing");
+        // updateErrorField(
+        //     "Please draw your concept map in your notebook before continuing",
+        //     "bold 22px Arial",
+        //     "#FFA500"
+        // );
         stage.update();
     }
 
@@ -2485,11 +2512,12 @@ function conceptMapPage3(whichHypo)
             stage.removeChild(verifyButton);
             stage.addChild(nextButton);
             stage.update();
-            updateErrorField(
-                "Your hypothesis has already been saved. You can not make any changes.",
-                "22px Arial",
-                "#000"
-            );
+            showSnackbar("Your hypothesis has already been saved. You can not make any changes.");
+            // updateErrorField(
+            //     "Your hypothesis has already been saved. You can not make any changes.",
+            //     "22px Arial",
+            //     "#000"
+            // );
             // rehydrateHypothesis(hypoData, ivBubble, dvBubble);
         }
     })

@@ -23,6 +23,29 @@
   <body>
 
 
+    <!-- Home Page -->
+    <div class="page" id="home-page">
+      <img id="title-logo" src="isptutorlogo_narrow.png" alt="ISP Tutor">
+      <div>
+        <span id="sign-in-text"></span>
+        <!-- <span id="sign-out-region"></span> -->
+      </div>
+      <div class="border-container">
+        <div class="container">
+          <!--
+          <button type="button" id="rq-button" class="module-button disabled" disabled>Research Question</button>
+          <button type="button" id="hypo-button" class="module-button disabled" disabled>Hypothesis</button>
+          <button type="button" id="ted-button" class="module-button disabled" disabled hidden>TED Tutor</button>
+          -->
+          <span> What should we do from here?</span>
+          <ol>
+            <li>redirect back to demo index.html page?</li>
+            <li>implement demo index.html page here?</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
     <!-- Hypo Page -->
     <div class="page" id="hypo-page">
       <canvas id="hypo-canvas" width="1200" height="750">
@@ -32,7 +55,9 @@
       <iframe id="instruction_video_overlay" width="800" height="450" enablejsapi="1"
         src="https://www.youtube.com/embed/ATlmZHaw8ys?rel=0" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
       <img id="temperature_gif_overlay" class="overlay" src="HypoGraphics/slide2/temperaturegif.gif">
+    
       <div id="quiz_overlay" class="overlay">
         <ul>
           <li><u>How often a city is hit by a hurricane</u> and <u>how often it floods</u></li>
@@ -42,6 +67,7 @@
           <li><u>Friction</u> and <u>force of resistance to motion on a surface</u></li>
         </ul>
       </div>
+    
       <form id="quiz_questions_overlay" class="overlay">
         <select id="quiz_q1" class="quiz_questions">
           <option value="" disabled selected hidden>Choose one...</option>
@@ -78,6 +104,7 @@
           <option>Correlation</option>
         </select>
       </form>
+    
       <div id="start_page_overlay" class="overlay">
         <h3>Definitions</h3>
         <p>
@@ -103,6 +130,7 @@
           scientific <i>explanation</i> of your prediction.
         </p>
       </div>
+
       <div id="concept_map_notepad_overlay" class="overlay notepad">
         <div class="notepad-heading">
           <b>Note Pad</b>
@@ -112,6 +140,7 @@
         </div>
         <div id="notepad_notes" class="notepad-body" contenteditable="true"></div>
       </div>
+
       <div id="save_concept_map_overlay" class="overlay save-cpt-map">
         <div class="save-cpt-map-heading">
           If you wish to continue, please draw your concept map in your background research notebook now.
@@ -122,6 +151,7 @@
           <button type="button" class="inline-btn" id="cpt_map_save">OK</button>
         </div>
       </div>
+
       <div id="leave_concept_map_overlay" class="overlay leave-cpt-map">
         <div class="leave-cpt-map-heading">You will lose your work if you leave this page.</div>
         <div class="inline-btn-container">
@@ -164,5 +194,4 @@
     <script src="hypothesisPage.js"></script>
 
   </body>
-
 </html>

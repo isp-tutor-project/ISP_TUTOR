@@ -11,7 +11,7 @@ function getEleById(eleID) {
     return document.getElementById(eleID);
 }
 
-let currentPage = "module-page";
+let currentPage = "home-page";
 // commented out as I don't, as yet have a visually pleasing
 // sign-out button
 // let collectionID; 
@@ -126,56 +126,60 @@ function showSnackbar(text) {
 // ========================================== Page Initiations ==============================================
 // ==========================================================================================================
 
-// function initHomePage() {
-//     //let tutors = ["rq", "hypo", "ted"];
-//     // the list of tutors that will be displayed on the home page
-//     let tutors = ["rq", "hypo"];
-//     db.collection(collectionID).doc(userID).get().then((doc) => {
-//         if (doc.exists) {
-//             console.log("Document exists");
-//             return doc.data();
-//         } else {
-//             // doc.data() will be undefined in this case
-//             console.log("No such document!");
-//         }
-//     }).catch(function (error) {
-//         console.log("Error getting document:", error);
-//     })
-//     .then((data) => {
-//         let currTutorNdx = data.currTutorNdx;
-//         let brm = data.brm;
-//         if (tutors.length === currTutorNdx) {
-//             // student is done, disable all module buttons and display message
-//             tutors.forEach((tut, idx) => {
-//                 let enbld = document.getElementById(tutors[idx] + "-button");
-//                 enbld.classList.add("disabled");
-//             });
-//             showSnackbar("You have finished your work with the tutor.");
-//         } else {
-//             // student still working, enable/disable the appropriate module buttons
-//             let enabled = document.getElementById(tutors[currTutorNdx] + "-button");
-//             enabled.classList.remove("disabled");
-//             enabled.disabled = false;
-//             if (currTutorNdx != 0) {
-//                 let former = document.getElementById(tutors[currTutorNdx - 1] + "-button");
-//                 former.classList.add("disabled");
-//                 former.disabled = true;
-//             }
-//         }
-//     });
+function initHomePage() {
+    //let tutors = ["rq", "hypo", "ted"];
+    // the list of tutors that will be displayed on the home page
+    let tutors = ["rq", "hypo"];
+    // db.collection(collectionID).doc(userID).get()
+    // .then((doc) => {
+    //     if (doc.exists) {
+    //         console.log("Document exists");
+    //         return doc.data();
+    //     } else {
+    //         // doc.data() will be undefined in this case
+    //         console.log("No such document!");
+    //     }
+    db.getUserData()
+    .then((data) => {
+        return data;
+    }).catch(function (error) {
+        console.log("Error getting document:", error);
+    })
+    .then((data) => {
+        let currTutorNdx = data.currTutorNdx;
+        let brm = data.brm;
+        // if (tutors.length === currTutorNdx) {
+        //     // student is done, disable all module buttons and display message
+        //     tutors.forEach((tut, idx) => {
+        //         let enbld = document.getElementById(tutors[idx] + "-button");
+        //         enbld.classList.add("disabled");
+        //     });
+        //     showSnackbar("You have finished your work with the tutor.");
+        // } else {
+        //     // student still working, enable/disable the appropriate module buttons
+        //     let enabled = document.getElementById(tutors[currTutorNdx] + "-button");
+        //     enabled.classList.remove("disabled");
+        //     enabled.disabled = false;
+        //     if (currTutorNdx != 0) {
+        //         let former = document.getElementById(tutors[currTutorNdx - 1] + "-button");
+        //         former.classList.add("disabled");
+        //         former.disabled = true;
+        //     }
+        // }
+    });
 
-//     if (userID != null) {
-//         document.getElementById("sign-in-text").innerHTML = "Signed in as " + userID;
-//         // the following is commented out, as it looks like crap
-//         // document.getElementById("sign-out-region").innerHTML = `
-//         //     <a href="#" id="sign-out">Sign out</a>
-//         // `;
-//         // document.getElementById("sign-out").addEventListener("click", e => {
-//         //     logout();
-//         //     openPage('index-page');
-//         // });
-//     }
-// }
+    // if (userID != null) {
+    //     document.getElementById("sign-in-text").innerHTML = "Signed in as " + userID;
+    //     // the following is commented out, as it looks like crap
+    //     // document.getElementById("sign-out-region").innerHTML = `
+    //     //     <a href="#" id="sign-out">Sign out</a>
+    //     // `;
+    //     // document.getElementById("sign-out").addEventListener("click", e => {
+    //     //     logout();
+    //     //     openPage('index-page');
+    //     // });
+    // }
+}
 
 let init;
 let handleComplete;
@@ -189,7 +193,7 @@ function initRQPage() {
 
     // change this to enable rq choice
     // EFtutorFeatures = "FTR_CHOICE";
-    EFtutorFeatures = "FTR_NOCHOICE:FTR_NCCRYSTAL";
+    EFtutorFeatures = "FTR_WEB:FTR_NOCHOICE:FTR_NCCRYSTAL";
 
     init = () => {
         // NOTE: Some chrome extensions may introduce secondary calls to the onload listener
@@ -387,10 +391,11 @@ function initRQPage() {
 // });
 
 document.getElementById("completion-home-btn").addEventListener("click", e => {
-    cleanModulePage();
+    // cleanModulePage();
     document.getElementById("completion-overlay").style.display = "none";
-    openPage("home-page");
-    initHomePage();
+    window.location.href = "https://www.isptutor.org/science-inquiry-lesson";
+    // openPage("home-page");
+    // initHomePage();
 });
 document.getElementById("home-icon").addEventListener("click", e => {
     document.getElementById("home-overlay").style.display = "block";

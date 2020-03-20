@@ -7,11 +7,12 @@ class Database {
         Promise.all([
             this.saveValue("classCode", classCode),
             this.saveValue("userID", userID),
-            this.saveValue("condition", "cond1")
+            this.saveValue("condition", "demo")
         ]).then(([result1, result2, result3]) => { });
     }
     
     getUserData() {
+        console.count("getUserData() called");
         let data = {};
         return Promise.all([
             this.getTextValue("classCode"),
@@ -35,38 +36,6 @@ class Database {
             }
             return data;
         });
-        // let moduleData = data.rqted.moduleState;
-
-        //     let area = moduleData['selectedArea']['index'];
-        //     let topic = moduleData['selectedTopic']['index'];
-        //     let variable = moduleData['selectedVariable']['index'];
-        //     // ontology stuff
-        //     let ontologyTopic = ontology['_ONTOLOGY']['S']['A' + area]['T' + topic];
-        //     let iv = ontologyTopic['enumValue' + variable];
-        //     let dv = ontologyTopic['DVs'];
-        //     let dvabb = ontologyTopic['DVabb'];
-        //     let hypoOntologyTopic = hypoOntology['A' + area]['T' + topic]['V' + variable];
-        //     if (hypoOntologyTopic['IV'] != "") {
-        //         iv = hypoOntologyTopic['IV'];
-        //     }
-        //     if (hypoOntologyTopic['DV'] != "") {
-        //         dv = hypoOntologyTopic['DV'];
-        //     }
-        //     if (hypoOntologyTopic['DVabb'] != "") {
-        //         dvabb = hypoOntologyTopic['DVabb'];
-        //     }
-        //     nodes = hypoOntologyTopic['NODES'];
-        //     console.log(area + "," + topic + "," + variable);
-        //     console.log(hypoOntologyTopic)
-        //     console.log(nodes);
-        //     nodes[-2] = iv;
-        //     nodes[-1] = dvabb;
-        //     causes = hypoOntologyTopic['CAUSES'];
-        //     data.iv = iv;
-        //     data.dv = dv;
-        //     data.dvabb = dvabb;
-        //     data.nodes = nodes;
-        //     data.causes = causes;        
     }
 
     getRQData() {
@@ -96,17 +65,25 @@ class Database {
 
     getIntialHypoData() {
         let data = {};
-        this.getTextValue("firstPrediction")
+        return this.getTextValue("firstPrediction")
             .then((pred1) => {
-                data.firstPrediction = pred1;
-                return this.getJSONValue("initialHypo");
+                // console.log(`getInitialHypoData():firstPrediction ${pred1}`);
+                if (null !== pred1) {
+                    data.firstPrediction = pred1;
+                    return this.getJSONValue("initialHypo");
+                } else {
+                    data.firstPrediction = null;
+                    return null;
+                }
             })
             .then((initHypo) => {
+                // console.log(`getInitialHypoData():initHypo ${initHypo}`);
                 data.initialHypo = initHypo;
                 return data;
             })
             .catch((err) => {
                 console.error(err);
+                return data;
             });
     }
 
@@ -114,11 +91,18 @@ class Database {
         let data = {};
         return this.getTextValue("secondPrediction")
             .then((pred2) => {
-                data.secondPrediction = pred2;
-                return this.getJSONValue("finalHypo");
+                // console.log(`getFinalHypoData():secondPrediction ${pred2}`)
+                if (null !== pred2) {
+                    data.secondPrediction = pred2;
+                    return this.getJSONValue("finalHypo");
+                } else {
+                    data.secondPrediction = null;
+                    return null
+                }
             })
-            .then((hypo2) => {
-                data.finalHypo = hypo2;
+            .then((finalHypo) => {
+                // console.log(`getFinalHypoData():finalHypo ${finalHypo}`);
+                data.finalHypo = finalHypo;
                 return data;
             })
             .catch((err) => {
