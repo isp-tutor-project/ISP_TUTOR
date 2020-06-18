@@ -11,28 +11,28 @@ let hypoOntology = {
                 "DV": "",
                 "DVabb": "",
                 "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs", "Kinetic energy of Na+ and Cl- atoms", "Chance of Na+ and Cl- bonding"],
-                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions"]
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions", "Force of gravity"]
             },
             "V2": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
                 "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs", "Kinetic energy of Na+ and Cl- atoms", "Chance of Na+ and Cl- bonding"],
-                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions"]
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions", "Force of gravity"]
             },
             "V3": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
                 "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs", "Kinetic energy of Na+ and Cl- atoms", "Chance of Na+ and Cl- bonding"],
-                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions"]
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions", "Force of gravity"]
             },
             "V4": {
                 "IV": "",
                 "DV": "",
                 "DVabb": "",
                 "NODES": ["Kinetic energy of water molecules", "Evaporation rate of water", "Amount of water in jar", "Concentration of Na+ and Cl- in water", "Amount of water string absorbs", "Kinetic energy of Na+ and Cl- atoms", "Chance of Na+ and Cl- bonding"],
-                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions"]
+                "CAUSES": ["Electric force", "Conservation of matter", "Energy to escape electric forces", "motion transfer from collisions", "Force of gravity"]
             }
         },
         "T2": {
