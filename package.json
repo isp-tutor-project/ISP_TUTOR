@@ -13,6 +13,6 @@
     "systemjs": "^0.21.2"
   },
   "dependencies": {
-    "json5": "^1.0.1"
+    "json5": "^2.2.2"
   }
 }
